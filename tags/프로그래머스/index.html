@@ -1,0 +1,1719 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>태그: 프로그래머스 - 저장하고 까먹자</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="저장하고 까먹자"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="저장하고 까먹자"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="저장하고 까먹자"><meta property="og:url" content="https://jungguji.github.io/"><meta property="og:site_name" content="저장하고 까먹자"><meta property="og:locale" content="ko_KR"><meta property="og:image" content="https://jungguji.github.io/img/og_image.png"><meta property="article:author" content="Junggu Ji"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io"},"headline":"저장하고 까먹자","image":["https://jungguji.github.io/img/og_image.png"],"author":{"@type":"Person","name":"Junggu Ji"},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'UA-162527815-1');</script><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><script data-ad-client="pub-6264654331856753" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="저장하고 까먹자" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="저장하고 까먹자" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="검색" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">태그</a></li><li class="is-active"><a href="#" aria-current="page">프로그래머스</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-11-12T10:05:46.000Z" title="2020. 11. 12. 오후 7:05:46">2020-11-12</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-11-12T10:05:46.000Z" title="2020. 11. 12. 오후 7:05:46">2020-11-12</time>&nbsp;업데이트 됨</span><span class="level-item">5분안에 읽기 (약 739 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%B0%A9%EA%B8%88-%EA%B7%B8-%EA%B3%A1/">프로그래머스: 방금 그 곡</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17683">https://programmers.co.kr/learn/courses/30/lessons/17683</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">solution</span><span class="params">(String m, String[] musicinfos)</span> </span>&#123;</span><br><span class="line">    String answer = <span class="string">&quot;(None)&quot;</span>;</span><br><span class="line"></span><br><span class="line">    m = getSharpReplace(m);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> maxPlayTime = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String music : musicinfos) &#123;</span><br><span class="line">        String[] info = music.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> playTimeToMinute = getPlayTime(info[<span class="number">0</span>], info[<span class="number">1</span>]);</span><br><span class="line">        String melody = getMelody(playTimeToMinute, info[<span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (melody.contains(m)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (maxPlayTime &lt; playTimeToMinute) &#123;</span><br><span class="line">                answer = info[<span class="number">2</span>];</span><br><span class="line">                maxPlayTime = playTimeToMinute;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getSharpReplace</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arg.replace(<span class="string">&quot;C#&quot;</span>, <span class="string">&quot;1&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;D#&quot;</span>, <span class="string">&quot;2&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;E#&quot;</span>, <span class="string">&quot;3&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;F#&quot;</span>, <span class="string">&quot;4&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;G#&quot;</span>, <span class="string">&quot;5&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;A#&quot;</span>, <span class="string">&quot;6&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getPlayTime</span><span class="params">(String start, String end)</span> </span>&#123;</span><br><span class="line">    LocalTime startTime = convertLocalTime(start);</span><br><span class="line">    LocalTime endTime = convertLocalTime(end);</span><br><span class="line"></span><br><span class="line">    LocalTime playTime = endTime.minusHours(startTime.getHour()).minusMinutes(startTime.getMinute());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> playTime.getHour() * <span class="number">60</span> + playTime.getMinute();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> LocalTime <span class="title">convertLocalTime</span><span class="params">(String time)</span> </span>&#123;</span><br><span class="line">    String[] hourAndMinute = time.split(<span class="string">&quot;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> LocalTime.of(Integer.parseInt(hourAndMinute[<span class="number">0</span>]), Integer.parseInt(hourAndMinute[<span class="number">1</span>]), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getMelody</span><span class="params">(<span class="keyword">int</span> playtime, String melody)</span> </span>&#123;</span><br><span class="line">    String sharpReplaceMelody = getSharpReplace(melody);</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] array = sharpReplaceMelody.toCharArray();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; playtime; i++) &#123;</span><br><span class="line">        sb.append(array[i % sharpReplaceMelody.length()]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>“#”이 붙은 음계들을 유일한 값으로 치환한다.</li>
+<li>곡 정보를 담은 musicinfos의 개수만큼 반복한다.</li>
+<li>돌면서 “,”로 잘라 시작시간, 끝난시간, 곡 이름, 멜로디 순으로 구분하여 String array에 저장한다.</li>
+<li>시작 시간과 끝난 시간을 LocalTime type으로 만들어서 끝난 시간에서 시작 시간을 빼서 얼마나 오래 방송 됐는지 playTime을 구한다.</li>
+<li>곡 정보에 있는 멜로디에서도 “#”이 붙은 음계들을 1번에서 한 것과 같은 값으로 치환한다.</li>
+<li>playtime에 따라 멜로디에 음계를 추가하기 위해 멜로디를 char array로 변경한다.</li>
+<li>playtime 만큼 반복하면서 멜로디를 만든다.<ol>
+<li>playtime보다 멜로디가 짧은 경우엔 지금 멜로디에 음계를 이어 붙여 playtime 길이 만큼 만든다.</li>
+<li>멜로디가 더 긴 경우엔 playtime 만큼 자른다.</li>
+</ol>
+</li>
+<li>이렇게 구한 멜로디에 기억 중인 멜로디 m이 포함된다면 playtime이 가장 긴지 확인하고 곡 정보를 저장한다.</li>
+<li>끝.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.31ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.38ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (3.19ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.33ms, 51.7MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (1.44ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.42ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (2.26ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (2.27ms, 53.3MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (2.38ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (2.31ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (2.24ms, 53.4MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (2.03ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (2.27ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (2.23ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (2.19ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (2.22ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (1.78ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (2.22ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (2.66ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (2.42ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (2.41ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (3.55ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (3.94ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (2.15ms, 51.9MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (1.24ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (1.30ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 27</td>
+<td>통과 (1.41ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 28</td>
+<td>통과 (1.12ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 29</td>
+<td>통과 (12.67ms, 53.4MB)</td>
+</tr>
+<tr>
+<td>테스트 30</td>
+<td>통과 (13.24ms, 53.1MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;HELLO&quot;</span>, test.solution(<span class="string">&quot;ABCDEFG&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;12:00,12:14,HELLO,CDEFGAB&quot;</span>, <span class="string">&quot;13:00,13:05,WORLD,ABCDEF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;FOO&quot;</span>, test.solution(<span class="string">&quot;CC#BCC#BCC#BCC#B&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;03:00,03:30,FOO,CC#B&quot;</span>, <span class="string">&quot;04:00,04:08,BAR,CC#BCC#BCC#B&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;WORLD&quot;</span>, test.solution(<span class="string">&quot;ABC&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;12:00,12:14,HELLO,C#DEFGAB&quot;</span>, <span class="string">&quot;13:00,13:05,WORLD,ABCDEF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;(None)&quot;</span>, test.solution(<span class="string">&quot;CDEFGAC&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;12:00,12:06,HELLO,CDEFGA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;FOO&quot;</span>, test.solution(<span class="string">&quot;CCB&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;03:00,03:10,FOO,CCB#CCB&quot;</span>, <span class="string">&quot;04:00,04:08,BAR,ABC&quot;</span>&#125;));</span><br></pre></td></tr></table></figure></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-11-12T09:44:54.000Z" title="2020. 11. 12. 오후 6:44:54">2020-11-12</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-11-12T09:44:54.000Z" title="2020. 11. 12. 오후 6:44:54">2020-11-12</time>&nbsp;업데이트 됨</span><span class="level-item">7분안에 읽기 (약 987 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8C%8C%EC%9D%BC%EB%AA%85-%EC%A0%95%EB%A0%AC/">프로그래머스: 파일명 정렬</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17686">https://programmers.co.kr/learn/courses/30/lessons/17686</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String[] solution(String[] files) &#123;</span><br><span class="line"></span><br><span class="line">    List&lt;File&gt; fileList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; files.length; i++) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] array = files[i].toCharArray();</span><br><span class="line"></span><br><span class="line">        String originName = files[i];</span><br><span class="line">        String head = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        Integer number = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span> isString = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">int</span> numberStartIndex = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; array.length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (isString &amp;&amp; isNumber(array[j])) &#123;</span><br><span class="line">                head = <span class="keyword">new</span> String(array, <span class="number">0</span>, j).toUpperCase();</span><br><span class="line">                numberStartIndex = j;</span><br><span class="line">                isString = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!isString &amp;&amp; !isNumber(array[j])) &#123;</span><br><span class="line">                number = Integer.parseInt(<span class="keyword">new</span> String(array, numberStartIndex, j - numberStartIndex));</span><br><span class="line">                isString = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!isString) &#123;</span><br><span class="line">            number = Integer.parseInt(<span class="keyword">new</span> String(array, numberStartIndex, array.length - numberStartIndex));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        fileList.add(<span class="keyword">new</span> File(originName, head, number, i));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sort(fileList);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fileList.stream()</span><br><span class="line">            .map(File::getOriginName)</span><br><span class="line">            .toArray(String[]::<span class="keyword">new</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(List&lt;File&gt; fileList)</span> </span>&#123;</span><br><span class="line">    fileList.sort((f1, f2) -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (f1.head.compareTo(f2.head) != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> f1.head.compareTo(f2.head);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f1.number.compareTo(f2.number) != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> f1.number.compareTo(f2.number);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> f1.index.compareTo(f2.index);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isNumber</span><span class="params">(<span class="keyword">char</span> ch)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="number">48</span> &lt;= ch &amp;&amp; ch &lt;= <span class="number">57</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">File</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String originName;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String head;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer number;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer index;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">File</span><span class="params">(String originName, String head, Integer number, Integer index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.originName = originName;</span><br><span class="line">        <span class="keyword">this</span>.head = head;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">        <span class="keyword">this</span>.index = index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getOriginName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.originName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHead</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getIndex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.index;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>file 개수만큼 반복하면서 파일명을 char array로 만든다.</li>
+<li>char array를 숫자가 나올 때 까지 반복한다.</li>
+<li>숫자가 나오면 0부터 숫자가 나온 index까지 짤라서 head 변수에 저장시키고 숫자가 시작된 index와 다음에 숫자인지 체크 할 flag 변수를 false로 변경한다.</li>
+<li>head를 만들고 난 후엔 숫자만 뽑아서 number로 저장해야 하므로</li>
+<li>돌면서 현재 문자가 아니고 지금 값도 숫자가 아니면 지금 index까지 잘라서 number에 저장한다.</li>
+<li>만약 tail이 없어서 이번 조건문에 걸리지 않았다면, 숫자가 시직된 index부터 array 길이에서 숫자가 시작된 index를 뺀 크기 만큼 잘라서 number에 저장한다.</li>
+<li>구한 head, number를 가지고 원래 파일명, head, number, 원래 순서를 갖는 File Object를 생성하고 List에 추가한다.</li>
+<li>리스트를 문제의 제약조건 처럼 정렬한다.<ol>
+<li>head로 비교해서 정렬</li>
+<li>head가 같으면 number로 비교해서 정렬</li>
+<li>둘 다 같으면 원래 순서대로 정렬</li>
+</ol>
+</li>
+<li>정렬한 List를 String[]로 만들어서 return 한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (2.80ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (2.92ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (15.41ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (17.89ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (16.74ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (15.07ms, 53.3MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (21.21ms, 54.5MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (21.20ms, 53.8MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (17.57ms, 53.6MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (20.00ms, 53.5MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (15.30ms, 53.8MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (14.44ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (10.24ms, 53.8MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (12.50ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (18.61ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (20.40ms, 53.9MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (10.36ms, 53.8MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (13.84ms, 54.6MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (16.07ms, 54.4MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (14.91ms, 53.8MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<hr>
+<h2 id="정렬을-stream에-추가-할-경우"><a href="#정렬을-stream에-추가-할-경우" class="headerlink" title="정렬을 stream에 추가 할 경우"></a>정렬을 stream에 추가 할 경우</h2><h3 id="stream-sorted"><a href="#stream-sorted" class="headerlink" title="stream sorted"></a>stream sorted</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> fileList.stream()</span><br><span class="line">        .sorted(Comparator.comparing(File::getHead)</span><br><span class="line">        .thenComparing(Comparator.comparing(File::getNumber)</span><br><span class="line">        .thenComparing(File::getIndex)))</span><br><span class="line">        .map(File::getOriginName)</span><br><span class="line">        .toArray(String[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="결과-1"><a href="#결과-1" class="headerlink" title="결과"></a>결과</h3><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (10.64ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (18.65ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (25.96ms, 54.7MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (24.73ms, 54.8MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (20.97ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (29.57ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (30.45ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (24.91ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (26.40ms, 54.8MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (28.88ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (22.73ms, 54.7MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (25.60ms, 54.4MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (22.06ms, 54.2MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (19.49ms, 54.9MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (17.53ms, 54.2MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (20.05ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (18.01ms, 54.7MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (18.53ms, 53.7MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (26.25ms, 54.2MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (20.81ms, 55.2MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;img1.png&quot;</span>, <span class="string">&quot;IMG01.GIF&quot;</span>, <span class="string">&quot;img02.png&quot;</span>, <span class="string">&quot;img2.JPG&quot;</span>, <span class="string">&quot;img10.png&quot;</span>, <span class="string">&quot;img12.png&quot;</span>&#125;, test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;img12.png&quot;</span>, <span class="string">&quot;img10.png&quot;</span>, <span class="string">&quot;img02.png&quot;</span>, <span class="string">&quot;img1.png&quot;</span>, <span class="string">&quot;IMG01.GIF&quot;</span>, <span class="string">&quot;img2.JPG&quot;</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;A-10 Thunderbolt II&quot;</span>, <span class="string">&quot;B-50 Superfortress&quot;</span>, <span class="string">&quot;F-5 Freedom Fighter&quot;</span>, <span class="string">&quot;F-14 Tomcat&quot;</span>&#125;, test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;F-5 Freedom Fighter&quot;</span>, <span class="string">&quot;B-50 Superfortress&quot;</span>, <span class="string">&quot;A-10 Thunderbolt II&quot;</span>, <span class="string">&quot;F-14 Tomcat&quot;</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;img100.p2ng&quot;</span>, <span class="string">&quot;img202.png123&quot;</span>&#125;, test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;img202.png123&quot;</span>, <span class="string">&quot;img100.p2ng&quot;</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;foo010bar020.zip&quot;</span>, <span class="string">&quot;foo010bar030.zip&quot;</span>&#125;, test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;foo010bar020.zip&quot;</span>, <span class="string">&quot;foo010bar030.zip&quot;</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;F-15&quot;</span>, <span class="string">&quot;F-17&quot;</span>, <span class="string">&quot;F-22&quot;</span>&#125;, test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;F-22&quot;</span>, <span class="string">&quot;F-17&quot;</span>, <span class="string">&quot;F-15&quot;</span>&#125;));</span><br></pre></td></tr></table></figure></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-11-12T09:38:01.000Z" title="2020. 11. 12. 오후 6:38:01">2020-11-12</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-11-12T09:38:01.000Z" title="2020. 11. 12. 오후 6:38:01">2020-11-12</time>&nbsp;업데이트 됨</span><span class="level-item">6분안에 읽기 (약 877 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A0%8C%EC%A6%884%EB%B8%94%EB%A1%9D/">프로그래머스: 프렌즈4블록</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17679">https://programmers.co.kr/learn/courses/30/lessons/17679</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ASCII = <span class="number">32</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> EMPTY = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n, String[] board)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span>[][] charBoard = convertStringArrayToCharArray(m, n, board);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">boolean</span> isEnd = box(charBoard);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isEnd) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        answer += delete(charBoard);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">char</span>[][] convertStringArrayToCharArray(<span class="keyword">int</span> m, <span class="keyword">int</span> n, String[] board) &#123;</span><br><span class="line">    <span class="keyword">char</span>[][] charBoard = <span class="keyword">new</span> <span class="keyword">char</span>[m][n];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String str : board) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] toChar = str.toCharArray();</span><br><span class="line">        charBoard[i] = toChar;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> charBoard;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">toLowerCase</span><span class="params">(<span class="keyword">char</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">char</span>) ((value &gt;= <span class="number">65</span> &amp;&amp; value &lt;= <span class="number">90</span>) ? (value + ASCII) : value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">box</span><span class="params">(<span class="keyword">char</span>[][] charBoard)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isEnd = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; charBoard.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; charBoard[i].length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (validation(i, j, charBoard)) &#123;</span><br><span class="line">                <span class="keyword">char</span> value = toLowerCase(charBoard[i][j]);</span><br><span class="line">                charBoard[i][j] = value;</span><br><span class="line">                charBoard[i][j+<span class="number">1</span>] = value;</span><br><span class="line">                charBoard[i+<span class="number">1</span>][j] = value;</span><br><span class="line">                charBoard[i+<span class="number">1</span>][j+<span class="number">1</span>] = value;</span><br><span class="line"></span><br><span class="line">                isEnd = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isEnd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">validation</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">char</span>[][] charBoard)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((i + <span class="number">1</span>) == charBoard.length || (j + <span class="number">1</span>) == charBoard[<span class="number">0</span>].length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">char</span> position = toLowerCase(charBoard[i][j]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position == EMPTY) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> moveX = toLowerCase(charBoard[i][j+<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">char</span> moveY = toLowerCase(charBoard[i+<span class="number">1</span>][j]);</span><br><span class="line">    <span class="keyword">char</span> moveXY = toLowerCase(charBoard[i+<span class="number">1</span>][j+<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position != moveX) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position != moveY) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position != moveXY) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(<span class="keyword">char</span>[][] charBoard)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; charBoard.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; charBoard[i].length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (charBoard[i][j] == EMPTY) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (charBoard[i][j] &gt;= <span class="number">97</span> &amp;&amp; charBoard[i][j] &lt;= <span class="number">122</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &gt; <span class="number">0</span>; k--) &#123;</span><br><span class="line">                        charBoard[k][j] = charBoard[k-<span class="number">1</span>][j];</span><br><span class="line">                        charBoard[k-<span class="number">1</span>][j] = EMPTY;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    charBoard[i][j] = EMPTY;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                ++answer;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>String array로 넘어온 board를 2차원 array로 만든다.</li>
+<li>무한루프를 돌면서 char로 만든 board array의 element들을 모두 꺼내면서</li>
+<li>제약조건을 확인하여 모두 통과할 때만 true를 return 한다.<ol>
+<li>현재 element가 있는 위치가 맨 끝인지</li>
+<li>현재 element가 빈 값인지</li>
+<li>현재 element의 오른쪽 element와 값이 같지 않은지</li>
+<li>현재 element의 아래쪽 element와 값이 같지 않은지</li>
+<li>현재 element의 우하(右下)쪽 element와 값이 같지 않은지</li>
+</ol>
+</li>
+<li>제약조건을 통과하면 현재 위치에서 오른쪽, 아래쪽, 우하(右下)쪽 element들을 소문자로 만들고 삭제 할 블록이 남았으므로, false를 return 한다.</li>
+<li>다시 board array를 반복하면서 element가 소문자인 경우</li>
+<li>현재 높이가 0이라면 위에서 내려올 블록이 없으므로 바로 빈 값을 저장하고</li>
+<li>0이 아니라면 현재 위치부터 값을 1씩 빼면서 위에 블록을 현재 위치에 저장 시키고 위 블록은 빈 값으로 저장한다.</li>
+<li>블록을 제거 할 때 마다 제거시킨 블록 개수를 저장하는 변수를 증가시킨다.</li>
+<li>삭제 할 블록이 없을 때 까지 2번부터 8번까지 반복하고 삭제 할 블록이 없으면 루프를 빠져 나오고 삭제한 블록의 개수를 return 한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (0.07ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (0.09ms, 51.7MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (0.04ms, 51.9MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.08ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (14.40ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (3.08ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (0.81ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (1.81ms, 53.7MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (0.07ms, 53.4MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (0.59ms, 51.7MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.38ms, 52.7MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">14</span>, test.solution(<span class="number">4</span>,<span class="number">5</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;CCBDE&quot;</span>, <span class="string">&quot;AAADE&quot;</span>, <span class="string">&quot;AAABF&quot;</span>, <span class="string">&quot;CCBBF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">15</span>, test.solution(<span class="number">6</span>,<span class="number">6</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;TTTANT&quot;</span>, <span class="string">&quot;RRFACC&quot;</span>, <span class="string">&quot;RRRFCC&quot;</span>, <span class="string">&quot;TRRRAA&quot;</span>, <span class="string">&quot;TTMMMF&quot;</span>, <span class="string">&quot;TMMTTJ&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">14</span>, test.solution(<span class="number">4</span>,<span class="number">5</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AAAAA&quot;</span>,<span class="string">&quot;AUUUA&quot;</span>,<span class="string">&quot;AUUAA&quot;</span>,<span class="string">&quot;AAAAA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="number">2</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>,<span class="string">&quot;AA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">0</span>, test.solution(<span class="number">2</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>,<span class="string">&quot;AB&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="number">3</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>,<span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AB&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">4</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;CC&quot;</span>,<span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">12</span>, test.solution(<span class="number">6</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;DD&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;DD&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">8</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;FF&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;DD&quot;</span>, <span class="string">&quot;FF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">6</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;DD&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">4</span>,<span class="number">4</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;ABCD&quot;</span>, <span class="string">&quot;BACE&quot;</span>, <span class="string">&quot;BCDD&quot;</span>, <span class="string">&quot;BCDD&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">27</span>, test.solution(<span class="number">8</span>,<span class="number">9</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;ABCDADFDA&quot;</span>, <span class="string">&quot;ABDFQWERF&quot;</span>, <span class="string">&quot;WKDNFNRIT&quot;</span>, <span class="string">&quot;AKAKWODCJ&quot;</span>, <span class="string">&quot;AKAKWODCJ&quot;</span>, <span class="string">&quot;KKKKKKKKK&quot;</span>, <span class="string">&quot;KKKKKKKKK&quot;</span>, <span class="string">&quot;KKKKKKKKK&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">15</span>, test.solution(<span class="number">4</span>,<span class="number">5</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AAAAA&quot;</span>, <span class="string">&quot;AAAAU&quot;</span>, <span class="string">&quot;AAAUU&quot;</span>, <span class="string">&quot;UUUUU&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">24</span>, test.solution(<span class="number">5</span>,<span class="number">6</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AAAAAA&quot;</span>, <span class="string">&quot;BBAATB&quot;</span>, <span class="string">&quot;BBAATB&quot;</span>, <span class="string">&quot;JJJTAA&quot;</span>, <span class="string">&quot;JJJTAA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">32</span>, test.solution(<span class="number">6</span>,<span class="number">6</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AABBEE&quot;</span>, <span class="string">&quot;AAAEEE&quot;</span>, <span class="string">&quot;VAAEEV&quot;</span>, <span class="string">&quot;AABBEE&quot;</span>, <span class="string">&quot;AACCEE&quot;</span>, <span class="string">&quot;VVCCEE&quot;</span>&#125;));</span><br></pre></td></tr></table></figure></div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-08-06T09:11:42.000Z" title="2020. 8. 6. 오후 6:11:42">2020-08-06</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-08-06T09:11:42.000Z" title="2020. 8. 6. 오후 6:11:42">2020-08-06</time>&nbsp;업데이트 됨</span><span class="level-item">5분안에 읽기 (약 777 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/08/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%95%95%EC%B6%95/">프로그래머스: 압축</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17684">https://programmers.co.kr/learn/courses/30/lessons/17684</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CAPITAL_A = <span class="number">65</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Character LAST_INIT_ALPHABET = <span class="string">&#x27;Z&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(String msg) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] answer = getDictionaryIndex(msg.toCharArray(), initIndexMap());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Map&lt;String, Integer&gt; <span class="title">initIndexMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Integer&gt; indexMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    Character start = CAPITAL_A;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (start &lt;= LAST_INIT_ALPHABET) &#123;</span><br><span class="line"></span><br><span class="line">        indexMap.put(String.valueOf(start), i);</span><br><span class="line"></span><br><span class="line">        ++start;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> indexMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] getDictionaryIndex(<span class="keyword">char</span>[] charArray, Map&lt;String, Integer&gt; indexMap) &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> arrayLength = charArray.length;</span><br><span class="line">    <span class="keyword">int</span> lastIndex = indexMap.get(String.valueOf(LAST_INIT_ALPHABET));</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; answer = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i &lt; arrayLength) &#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> jump = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; arrayLength; j++) &#123;</span><br><span class="line">            sb.append(charArray[j]);</span><br><span class="line"></span><br><span class="line">            String key = sb.toString();</span><br><span class="line">            <span class="keyword">if</span> (indexMap.containsKey(key)) &#123;</span><br><span class="line">                value = indexMap.get(key);</span><br><span class="line">                jump++;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (j +<span class="number">1</span> == arrayLength) &#123;</span><br><span class="line">                    answer.add(value);</span><br><span class="line">                    i += jump;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            answer.add(value);</span><br><span class="line">            i += jump;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!indexMap.containsKey(sb.toString())) &#123;</span><br><span class="line">            indexMap.put(sb.toString(), ++lastIndex);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sb.setLength(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer.stream().mapToInt(index -&gt; index).toArray();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>A부터 Z를 Key로 하는 Map을 만든다.</li>
+<li>압축 할 문자열의 길이만큼 반복한다.</li>
+<li>돌면서 현재 문자가 Map에 key에 포함되는지 확인한다.</li>
+<li>이미 포함되어 있으면(처음엔 A~Z) 해당 문자의 index를 뽑아내기 위해 value를 꺼내서 저장한다.</li>
+<li>이번 문자는 포함되어 있으므로 그 다음 문자열의 index까지 점프하기 위해 jump 변수를 증가시킨다.</li>
+<li>현재 문자가 문자열의 마지막 문자라면 더 이상 사전에서 검색 할 수 없으므로,</li>
+<li>문자열의 index 즉, value를 List에 저장하고 i를 jump 만큼 더해서 문자열의 index를 증가시킨다.</li>
+<li>이미 사전에 있는 문자이므로 continue해서 끝내지 않고 반복문을 올라가서 문자를 더한다.<ol>
+<li>A가 포함되어 있으면 A 뒤문자인 B를 더해서 AB가 존재하는지 찾기 위해</li>
+</ol>
+</li>
+<li>사전에 포함되어 있지 않는다면(Map에 key로 존재하지 않는다면)</li>
+<li>이전에 검색했던 문자의 index를 저장하고 i를 jump 시킨 후 반복문을 벗어난다.</li>
+<li>그 후 사전에 존재 하지 않았던 문자를 사전에 등록, Map에 key, lastIndex에서 + 1해서 Map에 추가하고, 문자를 저장했던 StringBuilder를 초기화 시킨다.</li>
+<li>문자열 모두 검색 할 때까지 반복한다.</li>
+<li>사전에서 검색한 index를 저장한 List를 array로 변경한 후 return 한다.</li>
+<li>끝.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (6.64ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (6.30ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (5.29ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (9.62ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (5.94ms, 51.1MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (10.26ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (7.65ms, 51MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (8.38ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (6.01ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (11.33ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (8.25ms, 51.6MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (8.79ms, 51.3MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (9.26ms, 53.6MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (9.22ms, 51.5MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (10.26ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (8.91ms, 53.5MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (10.89ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (7.93ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (8.32ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (8.10ms, 50.8MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">11</span>, <span class="number">1</span>, <span class="number">27</span>, <span class="number">15</span>&#125;, test.solution(<span class="string">&quot;KAKAO&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">20</span>, <span class="number">15</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">27</span>, <span class="number">29</span>, <span class="number">31</span>, <span class="number">36</span>, <span class="number">30</span>, <span class="number">32</span>, <span class="number">34</span>&#125;, test.solution(<span class="string">&quot;TOBEORNOTTOBEORTOBEORNOT&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">27</span>, <span class="number">29</span>, <span class="number">28</span>, <span class="number">31</span>, <span class="number">30</span>&#125;, test.solution(<span class="string">&quot;ABABABABABABABAB&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">20</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">20</span>, <span class="number">27</span>, <span class="number">29</span>, <span class="number">9</span>, <span class="number">19</span>, <span class="number">33</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">28</span>, <span class="number">20</span>, <span class="number">33</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">39</span>, <span class="number">19</span>, <span class="number">41</span>, <span class="number">43</span>, <span class="number">36</span>, <span class="number">9</span>, <span class="number">39</span>, <span class="number">46</span>, <span class="number">38</span>, <span class="number">47</span>, <span class="number">34</span>, <span class="number">19</span>, <span class="number">36</span>, <span class="number">52</span>, <span class="number">45</span>, <span class="number">40</span>, <span class="number">42</span>, <span class="number">35</span>, <span class="number">38</span>, <span class="number">48</span>, <span class="number">62</span>, <span class="number">54</span>, <span class="number">51</span>, <span class="number">61</span>, <span class="number">53</span>, <span class="number">55</span>, <span class="number">66</span>, <span class="number">57</span>, <span class="number">44</span>, <span class="number">59</span>, <span class="number">64</span>, <span class="number">32</span>, <span class="number">49</span>, <span class="number">60</span>, <span class="number">29</span>, <span class="number">52</span>, <span class="number">76</span>, <span class="number">37</span>, <span class="number">32</span>, <span class="number">71</span>, <span class="number">43</span>, <span class="number">70</span>, <span class="number">47</span>, <span class="number">75</span>, <span class="number">73</span>, <span class="number">80</span>, <span class="number">43</span>, <span class="number">79</span>, <span class="number">56</span>, <span class="number">72</span>, <span class="number">84</span>, <span class="number">61</span>, <span class="number">86</span>, <span class="number">68</span>, <span class="number">81</span>, <span class="number">90</span>, <span class="number">69</span>, <span class="number">92</span>, <span class="number">72</span>, <span class="number">85</span>, <span class="number">63</span>, <span class="number">96</span>, <span class="number">89</span>, <span class="number">87</span>, <span class="number">91</span>, <span class="number">83</span>, <span class="number">101</span>, <span class="number">94</span>, <span class="number">103</span>, <span class="number">65</span>, <span class="number">97</span>, <span class="number">106</span>, <span class="number">99</span>, <span class="number">108</span>, <span class="number">50</span>, <span class="number">74</span>, <span class="number">111</span>, <span class="number">77</span>, <span class="number">66</span>, <span class="number">98</span>, <span class="number">81</span>, <span class="number">70</span>, <span class="number">93</span>, <span class="number">118</span>, <span class="number">117</span>, <span class="number">88</span>, <span class="number">33</span>, <span class="number">122</span>, <span class="number">116</span>, <span class="number">58</span>, <span class="number">127</span>, <span class="number">62</span>, <span class="number">127</span>, <span class="number">78</span>, <span class="number">114</span>, <span class="number">123</span>, <span class="number">100</span>, <span class="number">133</span>, <span class="number">95</span>, <span class="number">112</span>, <span class="number">105</span>, <span class="number">104</span>, <span class="number">132</span>, <span class="number">145</span>, <span class="number">87</span>, <span class="number">134</span>, <span class="number">130</span>, <span class="number">129</span>, <span class="number">137</span>, <span class="number">131</span>, <span class="number">82</span>, <span class="number">79</span>, <span class="number">148</span>, <span class="number">151</span>, <span class="number">150</span>, <span class="number">144</span>, <span class="number">153</span>, <span class="number">159</span>, <span class="number">102</span>, <span class="number">135</span>, <span class="number">121</span>, <span class="number">156</span>, <span class="number">159</span>, <span class="number">125</span>, <span class="number">75</span>, <span class="number">162</span>, <span class="number">113</span>, <span class="number">158</span>, <span class="number">124</span>, <span class="number">109</span>, <span class="number">126</span>, <span class="number">149</span>, <span class="number">67</span>, <span class="number">142</span>, <span class="number">146</span>, <span class="number">166</span>, <span class="number">155</span>, <span class="number">158</span>, <span class="number">174</span>, <span class="number">171</span>, <span class="number">140</span>, <span class="number">119</span>, <span class="number">128</span>, <span class="number">175</span>, <span class="number">120</span>, <span class="number">138</span>, <span class="number">152</span>, <span class="number">161</span>, <span class="number">174</span>, <span class="number">181</span>, <span class="number">139</span>, <span class="number">154</span>, <span class="number">141</span>, <span class="number">187</span>, <span class="number">143</span>, <span class="number">176</span>, <span class="number">165</span>, <span class="number">172</span>, <span class="number">167</span>, <span class="number">191</span>, <span class="number">164</span>, <span class="number">182</span>, <span class="number">194</span>, <span class="number">184</span>, <span class="number">136</span>, <span class="number">170</span>, <span class="number">193</span>, <span class="number">147</span>, <span class="number">86</span>&#125;, test.solution(<span class="string">&quot;THATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITIS&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><ul>
+<li>코드의 퀄리티가 썩 마음에 들지 않는다.</li>
+<li>시간 날 때 리팩토링을 꼭 해야 할 듯 싶다.</li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-08-03T08:03:33.000Z" title="2020. 8. 3. 오후 5:03:33">2020-08-03</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-08-03T08:03:33.000Z" title="2020. 8. 3. 오후 5:03:33">2020-08-03</time>&nbsp;업데이트 됨</span><span class="level-item">4분안에 읽기 (약 569 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/08/03/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-n%EC%A7%84%EC%88%98-%EA%B2%8C%EC%9E%84/">프로그래머스: n진수 게임</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17687">https://programmers.co.kr/learn/courses/30/lessons/17687</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] ABCDEF = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;A&quot;</span>,<span class="string">&quot;B&quot;</span>,<span class="string">&quot;C&quot;</span>,<span class="string">&quot;D&quot;</span>,<span class="string">&quot;E&quot;</span>,<span class="string">&quot;F&quot;</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">solution</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> t, <span class="keyword">int</span> m, <span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> limit = t * m;</span><br><span class="line">    String speakString = make(n, limit);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] toChar = speakString.toCharArray();</span><br><span class="line"></span><br><span class="line">    StringBuilder answer = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> index = p - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t; i++) &#123;</span><br><span class="line">        answer.append(toChar[index]);</span><br><span class="line">        index += m;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">make</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> limit)</span> </span>&#123;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder().append(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; limit; i++) &#123;</span><br><span class="line">        sb.append(changeDecimal(i, n));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">char</span>[] changeDecimal(<span class="keyword">int</span> currentNumber, <span class="keyword">int</span> n) &#123;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">while</span>(currentNumber &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> remain = currentNumber % n;</span><br><span class="line">        sb.append(remain &gt;= <span class="number">10</span> ? ABCDEF[remain-<span class="number">10</span>] : remain);</span><br><span class="line">        currentNumber /= n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sb.reverse().toString().toCharArray();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ul>
+<li>진법 n, 미리 구할 숫자의 갯수 t, 게임에 참가하는 인원 m, 튜브의 순서 p</li>
+</ul>
+<ol>
+<li>미리 구할 숫자의 갯수와 참가 인원 수를 곱해서 구해야 할 수의 갯수를 구한다.</li>
+<li>1부터 구해야 될 수까지 반복한다.</li>
+<li>반복하면서 숫자를 진법으로 나눈 나머지를 구한다.</li>
+<li>나머지가 10 이상이면 A, B, C … 으로 치환한다.</li>
+<li>현재 수를 n 진법의 값만큼 나눈다.</li>
+<li>작은 수부터 역순으로 저장되어야 하므로 reverse() 메서드로 역순으로 돌린다.</li>
+<li>0부터 미리 구할 숫자 갯수만큼 반복하면서</li>
+<li>n진법으로 치환한 문자열에서 참가인원 숫자만큼 더하면서 숫자를 뽑아 저장한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (0.87ms, 50.6MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.15ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.02ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.07ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (4.60ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (4.40ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (4.55ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (2.62ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (2.45ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (2.57ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (2.49ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (2.45ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (5.32ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (69.61ms, 77.9MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (75.19ms, 75.8MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (70.55ms, 78.1MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (17.09ms, 53.3MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (15.42ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (6.46ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (13.17ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (29.51ms, 58.7MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (21.20ms, 56.5MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (41.04ms, 64.1MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (59.00ms, 77.4MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (74.66ms, 80MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (24.89ms, 54.3MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;0111&quot;</span>, test.solution(<span class="number">2</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;02468ACE11111111&quot;</span>, test.solution(<span class="number">16</span>,<span class="number">16</span>,<span class="number">2</span>,<span class="number">1</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;13579BDF01234567&quot;</span>, test.solution(<span class="number">16</span>,<span class="number">16</span>,<span class="number">2</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="참고사이트"><a href="#참고사이트" class="headerlink" title="참고사이트"></a>참고사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tech.kakao.com/2017/11/14/kakao-blind-recruitment-round-3/">https://tech.kakao.com/2017/11/14/kakao-blind-recruitment-round-3/</a></li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-07-24T07:34:42.000Z" title="2020. 7. 24. 오후 4:34:42">2020-07-24</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-07-24T07:34:42.000Z" title="2020. 7. 24. 오후 4:34:42">2020-07-24</time>&nbsp;업데이트 됨</span><span class="level-item">5분안에 읽기 (약 679 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/07/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%BA%90%EC%8B%9C/">프로그래머스: 캐시</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17680">https://programmers.co.kr/learn/courses/30/lessons/17680</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MISS_RUN_TIME = <span class="number">5</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> cacheSize, String[] cities)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cacheSize == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> cities.length * MISS_RUN_TIME;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Integer&gt; lru = <span class="keyword">new</span> LinkedHashMap&lt;String, Integer&gt;(cacheSize, <span class="number">1</span>, <span class="keyword">true</span>)&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;String, Integer&gt; eldest)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> size() &gt; cacheSize;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(String key : cities) &#123;</span><br><span class="line">        key = key.toLowerCase();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(lru.containsKey(key)) &#123;</span><br><span class="line">            lru.get(key);</span><br><span class="line">            answer += <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            lru.put(key, <span class="number">0</span>);</span><br><span class="line">            answer += MISS_RUN_TIME;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>캐시가 0인 경우엔 캐시에 저장 할 수 없으니 항상 miss 이므로 배열의 크기 만큼 5를 곱해서 return 한다.</li>
+<li>LinkedHashMap의 경우 accessOrder parameter를 통해 Map의 순서를 access 기준으로 변경 할 수 있는데 우리는 LRU, 즉 가장 오래 사용되지 않은 데이터를 삭제 해야하므로 accessOrder를 true로 갖는 생성자로 LinkedHashMap 인스턴스를 생성한다.</li>
+<li>그 후 removeEldestEntry()를 override해서 캐시의 크기보다 Map의 사이즈가 커질 경우 가장 오래 사용되지 않은 데이터를 삭제하도록 수정한다.</li>
+<li>배열에서 문자열을 가져오면서 Map에 저장되어 있는지 비교한다.</li>
+<li>Map에 저장되어 있다면, get()을 통해 access하고 1초를 더한다.</li>
+<li>저장되어 있지 않다면, put 하는데 이 때 Map의 크기가 캐시보다 크다면 아까 Override 한 removeEldestEntry()에 의해 가장 오래 사용되지 않은 값이 삭제되면서 지금 put한 데이터가 추가한다.</li>
+<li>캐시에 없는 데이터를 추가했으니 5초를 더한다.</li>
+<li>모든 초를 더한 값을 return 한다.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.11ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.20ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.08ms, 50.9MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.23ms, 51.7MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (0.94ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (0.78ms, 50.2MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (0.78ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (1.12ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (1.15ms, 50.8MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (1.34ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (45.53ms, 89.6MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (1.45ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (1.43ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (1.69ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (2.42ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (2.85ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (0.78ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (4.34ms, 53.5MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (4.28ms, 53.3MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (4.15ms, 50.9MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">42</span>, test.solution(<span class="number">3</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;LA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">50</span>, test.solution(<span class="number">3</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;LA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">21</span>, test.solution(<span class="number">3</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">60</span>, test.solution(<span class="number">2</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;SanFrancisco&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;Rome&quot;</span>, <span class="string">&quot;Paris&quot;</span>, <span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;Rome&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">52</span>, test.solution(<span class="number">5</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;SanFrancisco&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;Rome&quot;</span>, <span class="string">&quot;Paris&quot;</span>, <span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;Rome&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">16</span>, test.solution(<span class="number">2</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;newyork&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">25</span>, test.solution(<span class="number">0</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Jeju&quot;</span>, <span class="string">&quot;Pangyo&quot;</span>, <span class="string">&quot;Seoul&quot;</span>, <span class="string">&quot;NewYork&quot;</span>, <span class="string">&quot;LA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">18</span>, test.solution(<span class="number">1</span>, <span class="keyword">new</span> String[]&#123;<span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>, <span class="string">&quot;LA&quot;</span>&#125;));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html">https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html</a></li>
+</ul>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-07-20T05:25:22.000Z" title="2020. 7. 20. 오후 2:25:22">2020-07-20</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-07-20T05:25:22.000Z" title="2020. 7. 20. 오후 2:25:22">2020-07-20</time>&nbsp;업데이트 됨</span><span class="level-item">2분안에 읽기 (약 357 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/07/20/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B9%B4%ED%8E%AB/">프로그래머스: 카펫</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42842">https://programmers.co.kr/learn/courses/30/lessons/42842</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(<span class="keyword">int</span> brown, <span class="keyword">int</span> yellow) &#123;</span><br><span class="line">    <span class="keyword">int</span> sum = brown + yellow;</span><br><span class="line">    <span class="keyword">int</span>[] answer = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; sum; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum % i == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> x = ((sum / i) * <span class="number">2</span>) + ((i * <span class="number">2</span>) - <span class="number">4</span>);</span><br><span class="line">            <span class="keyword">int</span> y = sum - x;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (brown == x &amp;&amp; yellow == y) &#123;</span><br><span class="line">                answer = <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;sum / i, i&#125;;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>갈색과 노란색을 더해 전체 크기를 구한다.</li>
+<li>전체 크기를 2부터 반복한다. (1인 경우는 없으므로)</li>
+<li>i로 sum을 나눠서 떨어진다면, 즉 약수라면</li>
+<li>sum에서 i를 나눈 값에 2를 곱해서 위 아래 가로의 길이를 구하고</li>
+<li>i에 마찬가지로 2를 곱해서 좌 우 세로의 길이를 구하고</li>
+<li>꼭지점들은 가로 세로가 겹치므로 -4를 한다.</li>
+<li>이렇게 구한 갈색을 sum에서 빼서 노란색의 값을 구한다.</li>
+<li>구한 갈색과 노란색 값이 넘겨받은 brown과 yellow와 같으면 끝</li>
+<li>아니라면 반복한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.57ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.76ms, 51.1MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.88ms, 50.1MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.44ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (1.52ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.48ms, 49.8MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (1.62ms, 50.8MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (1.52ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (1.58ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (1.58ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.53ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (1.56ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (1.48ms, 53.3MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">4</span>, <span class="number">3</span>&#125;, test.solution(<span class="number">10</span>, <span class="number">2</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>, <span class="number">3</span>&#125;, test.solution(<span class="number">8</span>, <span class="number">1</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">8</span>, <span class="number">6</span>&#125;, test.solution(<span class="number">24</span>, <span class="number">24</span>));</span><br></pre></td></tr></table></figure>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-07-19T07:59:19.000Z" title="2020. 7. 19. 오후 4:59:19">2020-07-19</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-07-19T07:59:19.000Z" title="2020. 7. 19. 오후 4:59:19">2020-07-19</time>&nbsp;업데이트 됨</span><span class="level-item">4분안에 읽기 (약 600 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/07/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/">프로그래머스: 오픈채팅방</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42888">https://programmers.co.kr/learn/courses/30/lessons/42888</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ENTER = <span class="string">&quot;Enter&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String LEAVE = <span class="string">&quot;Leave&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String CHANGE = <span class="string">&quot;Change&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_ENTER = <span class="string">&quot;님이 들어왔습니다.&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_LEAVE = <span class="string">&quot;님이 나갔습니다.&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String[] solution(String[] record) &#123;</span><br><span class="line">    List&lt;String[]&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    Map&lt;String, String&gt; nickName = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> returnArraySize = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String s : record) &#123;</span><br><span class="line">        String[] split = s.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        String[] actionAndUid = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">        actionAndUid[<span class="number">0</span>] = split[<span class="number">0</span>];</span><br><span class="line">        actionAndUid[<span class="number">1</span>] = split[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!CHANGE.equals(split[<span class="number">0</span>])) &#123;</span><br><span class="line">            list.add(actionAndUid);</span><br><span class="line">            returnArraySize++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!LEAVE.equals(split[<span class="number">0</span>])) &#123;</span><br><span class="line">            nickName.put(split[<span class="number">1</span>], split[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String[] answer = <span class="keyword">new</span> String[returnArraySize];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String[] array : list) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (array[<span class="number">0</span>]) &#123;</span><br><span class="line">            <span class="keyword">case</span> ENTER :</span><br><span class="line">                answer[i] = nickName.get(array[<span class="number">1</span>]) + MESSAGE_ENTER;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> LEAVE :</span><br><span class="line">                answer[i] = nickName.get(array[<span class="number">1</span>]) + MESSAGE_LEAVE;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>문자열을 공백으로 나눠서 행동과 유저의 아이디를 저장하는 배열에 담는다.</li>
+<li>행동이 Change가 아닌 경우엔 채팅방에 입장했거나 나갓다는 문구룰 출력해야 하기 때문에 List에 담는다.</li>
+<li>행동이 Leave가 아닌 경우엔 닉네임이 변경되었거나, 새로 방에 들어온 것이므로 유저 아이디를 key로하는 map에 value로 닉네임을 저장한다.</li>
+<li>모두 저장했으면 List만큼 돌면서 해당 행동에 맞는 문자열을 만들어 저장한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (18.70ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (17.35ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (17.84ms, 54.4MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (19.81ms, 54MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (27.75ms, 56.1MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (30.38ms, 56.1MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (35.26ms, 54.4MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (27.59ms, 55.2MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (30.72ms, 56.5MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (28.67ms, 56.1MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (25.16ms, 56.2MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (26.04ms, 56.6MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (26.07ms, 55MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (43.84ms, 57.2MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (20.35ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (18.03ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (19.77ms, 54.2MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (18.86ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (35.94ms, 56.7MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (26.22ms, 55.5MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (30.18ms, 56.5MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (28.53ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (29.40ms, 57.5MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (37.73ms, 57.3MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (262.95ms, 158MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (292.57ms, 158MB)</td>
+</tr>
+<tr>
+<td>테스트 27</td>
+<td>통과 (333.29ms, 169MB)</td>
+</tr>
+<tr>
+<td>테스트 28</td>
+<td>통과 (324.94ms, 163MB)</td>
+</tr>
+<tr>
+<td>테스트 29</td>
+<td>통과 (282.87ms, 157MB)</td>
+</tr>
+<tr>
+<td>테스트 30</td>
+<td>통과 (286.21ms, 153MB)</td>
+</tr>
+<tr>
+<td>테스트 31</td>
+<td>통과 (225.37ms, 147MB)</td>
+</tr>
+<tr>
+<td>테스트 32</td>
+<td>통과 (255.96ms, 137MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] actual = &#123;<span class="string">&quot;Enter uid1234 Muzi&quot;</span>, <span class="string">&quot;Enter uid4567 Prodo&quot;</span>,<span class="string">&quot;Leave uid1234&quot;</span>,<span class="string">&quot;Enter uid1234 Prodo&quot;</span>,<span class="string">&quot;Change uid4567 Ryan&quot;</span>&#125;;</span><br><span class="line">String[] expected =&#123;<span class="string">&quot;Prodo님이 들어왔습니다.&quot;</span>, <span class="string">&quot;Ryan님이 들어왔습니다.&quot;</span>, <span class="string">&quot;Prodo님이 나갔습니다.&quot;</span>, <span class="string">&quot;Prodo님이 들어왔습니다.&quot;</span>&#125;;</span><br><span class="line">assertArrayEquals(expected, test.solution(actual));</span><br></pre></td></tr></table></figure>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-07-07T07:31:13.000Z" title="2020. 7. 7. 오후 4:31:13">2020-07-07</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-07-07T07:31:13.000Z" title="2020. 7. 7. 오후 4:31:13">2020-07-07</time>&nbsp;업데이트 됨</span><span class="level-item">3분안에 읽기 (약 419 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/07/07/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%95%85%EB%94%B0%EB%A8%B9%EA%B8%B0/">프로그래머스: 땅따먹기</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/12913">https://programmers.co.kr/learn/courses/30/lessons/12913</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[][] land)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = land.length - <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">int</span> rowIndex = i + <span class="number">1</span>;</span><br><span class="line">        land[i][<span class="number">0</span>] += max(land[rowIndex][<span class="number">1</span>], max(land[rowIndex][<span class="number">2</span>], land[rowIndex][<span class="number">3</span>]));</span><br><span class="line">        land[i][<span class="number">1</span>] += max(land[rowIndex][<span class="number">0</span>], max(land[rowIndex][<span class="number">2</span>], land[rowIndex][<span class="number">3</span>]));</span><br><span class="line">        land[i][<span class="number">2</span>] += max(land[rowIndex][<span class="number">0</span>], max(land[rowIndex][<span class="number">1</span>], land[rowIndex][<span class="number">3</span>]));</span><br><span class="line">        land[i][<span class="number">3</span>] += max(land[rowIndex][<span class="number">0</span>], max(land[rowIndex][<span class="number">1</span>], land[rowIndex][<span class="number">2</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = max(land[<span class="number">0</span>][<span class="number">0</span>], max(land[<span class="number">0</span>][<span class="number">1</span>], max(land[<span class="number">0</span>][<span class="number">2</span>], land[<span class="number">0</span>][<span class="number">3</span>])));</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>마지막 행 전행 부터 반복문을 시작해서 i가 0이 될 때까지 반복한다.</li>
+<li>i행의 각 인덱스에는 자기 자신의 열을 제외한 이전 행의 값 중 가장 큰 값과 자기 자신의 값을 더한 값을 저장한다.</li>
+<li>위 과정을 반복하면 0번째 행들의 index에 계산된 값들이 할당되어 있을 테니</li>
+<li>0 번째 행 중에서 가장 큰 값을 return한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><h3 id="정확성"><a href="#정확성" class="headerlink" title="정확성"></a>정확성</h3><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.05ms, 51.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.16ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.16ms, 50.8MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.18ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (1.18ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.14ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (1.18ms, 51.4MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (1.13ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (1.25ms, 53.3MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (1.21ms, 50.7MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.18ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (4.25ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (1.19ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (1.16ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (1.19ms, 51MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (1.16ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (1.14ms, 55.3MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (1.16ms, 52.2MB)</td>
+</tr>
+</tbody></table>
+<h3 id="효율성"><a href="#효율성" class="headerlink" title="효율성"></a>효율성</h3><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (28.10ms, 94.3MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (28.01ms, 95.7MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (25.28ms, 97.6MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (25.93ms, 101MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">16</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>&#125;,&#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;,&#123;<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">20</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">6</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">4</span>&#125;, &#123;<span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">115</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;, &#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">100</span>, <span class="number">0</span>, <span class="number">9</span>, <span class="number">8</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">33</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>&#125;, &#123;<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">11</span>&#125;, &#123;<span class="number">16</span>, <span class="number">15</span>, <span class="number">13</span>, <span class="number">13</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">409</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">100</span>, <span class="number">15</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">100</span>, <span class="number">99</span>, <span class="number">98</span>, <span class="number">97</span>&#125;, &#123;<span class="number">97</span>, <span class="number">98</span>, <span class="number">99</span>, <span class="number">100</span>&#125;, &#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">16</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">9</span>&#125;, &#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">125</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">9</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">9</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">7</span>&#125;, &#123;<span class="number">8</span>, <span class="number">9</span>, <span class="number">7</span>, <span class="number">1</span>&#125;, &#123;<span class="number">100</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">1</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">20</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>&#125;, &#123;<span class="number">6</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">4</span>&#125;, &#123;<span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>&#125;&#125;));</span><br></pre></td></tr></table></figure>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time datetime="2020-07-06T09:38:51.000Z" title="2020. 7. 6. 오후 6:38:51">2020-07-06</time>&nbsp;게시 됨</span><span class="level-item"><time datetime="2020-07-06T09:38:51.000Z" title="2020. 7. 6. 오후 6:38:51">2020-07-06</time>&nbsp;업데이트 됨</span><span class="level-item">10분안에 읽기 (약 1482 단어)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2020/07/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%98%EC%8B%9D-%EC%B5%9C%EB%8C%80%ED%99%94/">프로그래머스: 수식 최대화</a></h1><div class="content"><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/67257">https://programmers.co.kr/learn/courses/30/lessons/67257</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> PLUS = <span class="string">&#x27;+&#x27;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> MINUS = <span class="string">&#x27;-&#x27;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> MULTIPLICATION = <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">solution</span><span class="params">(String expression)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] chars = expression.toCharArray();</span><br><span class="line"></span><br><span class="line">    Object[] numberAndOperator = getNumbersAndOperatorSet(chars);</span><br><span class="line">    List&lt;Long&gt; numberList = (List&lt;Long&gt;) numberAndOperator[<span class="number">0</span>];</span><br><span class="line">    List&lt;Character&gt; operatorList = (List&lt;Character&gt;) numberAndOperator[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] operators = getExpressionIncludeOperators(operatorList);</span><br><span class="line">    List&lt;String&gt; operatorSetList = getOperatorSetList(operators);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> getMax(numberList, operatorList, operatorSetList);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Object[] getNumbersAndOperatorSet(<span class="keyword">char</span>[] expression) &#123;</span><br><span class="line">    List&lt;Long&gt; numberList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;Character&gt; operatorList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : expression) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (c) &#123;</span><br><span class="line">            <span class="keyword">case</span> PLUS:</span><br><span class="line">            <span class="keyword">case</span> MINUS:</span><br><span class="line">            <span class="keyword">case</span> MULTIPLICATION:</span><br><span class="line">                numberList.add(Long.valueOf(sb.toString()));</span><br><span class="line">                operatorList.add(c);</span><br><span class="line"></span><br><span class="line">                sb.setLength(<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                sb.append(c);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    numberList.add(Long.valueOf(sb.toString()));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Object[] &#123;numberList, operatorList&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">char</span>[] getExpressionIncludeOperators(List&lt;Character&gt; operatorList) &#123;</span><br><span class="line">    Set&lt;Character&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    List&lt;Character&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : operatorList) &#123;</span><br><span class="line">        <span class="keyword">if</span> (set.add(c)) &#123;</span><br><span class="line">            list.add(c);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] operators = <span class="keyword">new</span> <span class="keyword">char</span>[list.size()];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : list) &#123;</span><br><span class="line">        operators[i++] = c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> operators;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">getOperatorSetList</span><span class="params">(<span class="keyword">char</span>[] chars)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; operatorSetList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= chars.length; i++) &#123;</span><br><span class="line">        perm(chars, <span class="number">0</span>, i, operatorSetList, set);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> operatorSetList;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">perm</span><span class="params">(<span class="keyword">char</span>[] array, <span class="keyword">int</span> depth, <span class="keyword">int</span> length, List&lt;String&gt; operatorList, Set&lt;String&gt; set)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (depth == length) &#123;</span><br><span class="line"></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : array) &#123;</span><br><span class="line">            sb.append(c);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (set.add(sb.toString())) &#123;</span><br><span class="line">            operatorList.add(sb.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = depth; i &lt; array.length; i++) &#123;</span><br><span class="line">        swap(array, i, depth);</span><br><span class="line">        perm(array, depth + <span class="number">1</span>, length, operatorList, set);</span><br><span class="line">        swap(array, i, depth);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">char</span>[] arrary, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp = arrary[i];</span><br><span class="line">    arrary[i] = arrary[j];</span><br><span class="line">    arrary[j] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Long <span class="title">getMax</span><span class="params">(List&lt;Long&gt; numberList, List&lt;Character&gt; operatorList, List&lt;String&gt; operatorSetList)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> max = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String operatorSet : operatorSetList) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] operators = operatorSet.toCharArray();</span><br><span class="line"></span><br><span class="line">        LinkedList&lt;Long&gt; numberQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(numberList);</span><br><span class="line">        LinkedList&lt;Character&gt; operatorQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(operatorList);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> operatorToCalculate : operators) &#123;</span><br><span class="line">            Stack&lt;Long&gt; numberStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">            Stack&lt;Character&gt; operatorStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">long</span> first = numberQueue.poll();</span><br><span class="line">            numberStack.push(first);</span><br><span class="line">            numberQueue.offer(first);</span><br><span class="line"></span><br><span class="line">            Stack[] stacks = <span class="keyword">new</span> Stack[] &#123;numberStack, operatorStack&#125;;</span><br><span class="line">            LinkedList[] queues = <span class="keyword">new</span> LinkedList[] &#123;numberQueue, operatorQueue&#125;;</span><br><span class="line"></span><br><span class="line">            calculatePriority(stacks, queues, operatorToCalculate);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        max = (max &gt; Math.abs(numberQueue.peek())) ? max : Math.abs(numberQueue.poll());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">calculatePriority</span><span class="params">(Stack[] staks, LinkedList[] queues, <span class="keyword">char</span> operatorToCalculate)</span> </span>&#123;</span><br><span class="line">    Stack&lt;Long&gt; numberStack = staks[<span class="number">0</span>];</span><br><span class="line">    Stack&lt;Character&gt; operatorStack = staks[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    LinkedList&lt;Long&gt; numberQueue = queues[<span class="number">0</span>];</span><br><span class="line">    LinkedList&lt;Character&gt; operatorQueue = queues[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> limit = operatorQueue.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit; i++) &#123;</span><br><span class="line">        <span class="keyword">long</span> currentNumber = numberQueue.poll();</span><br><span class="line">        numberStack.push(currentNumber);</span><br><span class="line"></span><br><span class="line">        Character currentOperator = operatorQueue.poll();</span><br><span class="line">        operatorStack.push(currentOperator);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (operatorStack.peek() == operatorToCalculate) &#123;</span><br><span class="line">            <span class="keyword">long</span> n1 = numberStack.pop();</span><br><span class="line">            <span class="keyword">long</span> n2 = numberStack.pop();</span><br><span class="line">            <span class="keyword">char</span> op = operatorStack.pop();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">long</span> sum = sum(n2, n1, op);</span><br><span class="line">            numberStack.push(sum);</span><br><span class="line"></span><br><span class="line">            numberQueue.pollLast();</span><br><span class="line">            numberQueue.offer(sum);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            numberQueue.offer(currentNumber);</span><br><span class="line">            operatorQueue.offer(currentOperator);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Long <span class="title">sum</span><span class="params">(<span class="keyword">long</span> n2, <span class="keyword">long</span> n1, <span class="keyword">char</span> op)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (op) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span> :</span><br><span class="line">            sum = n2 * n1;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span> :</span><br><span class="line">            sum = n2 + n1;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span> :</span><br><span class="line">            sum = n2 - n1;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>수식으로 넘어온 문자열을 숫자와 연산자로 나눈다.</li>
+<li>연산자들을 중복되지 않게 저장한다.</li>
+<li>문자열에 포함되어 있는 연산자들을 재귀로 반복하면서 모든 순열을 구한다.<ol>
+<li>0번째와 1번째를 교환하고 0번째와 2번째를 교환하고 하는 식으로 모든 순열을 구한다.</li>
+<li>연산자의 개수만큼 순열로 만들어서 경우의 수를 구하기 위해 연산자가 2개인 경우엔 2! = 2개, 3개인 경우엔 3! = 6개가 된다.</li>
+</ol>
+</li>
+<li>모든 경우의 수를 구했으면 우선 순열의 수 만큼 반복해서 모든 경우의 수의 값을 구해야 하므로 순열의 수 만큼 반복한다.</li>
+<li>돌면서 숫자를 담은 리스트와 연산자를 담은 리스트의 사이즈와 같은 큐를 만들고 각각 값들을 저장해서 초기화한다.</li>
+<li>이번에 계산 할 순열(ex) * + -)을 char[]로 나눠서 그 갯수만큼 loop 돈다.</li>
+<li>돌면서 숫자와 연산자를 저장 할 Stack를 각각 만든다.</li>
+<li>숫자를 저장한 큐에서 하나를 꺼내서 stack에 저장하고 꺼낸 놈을 다시 큐의 맨 마지막에 저장한다.</li>
+<li>그 후 큐의 개수만큼 loop 돌면서 큐들에서 하나씩 꺼내고 마찬가지로 스택에 저장한다.</li>
+<li>그리고 꺼낸 연산자가 지금 계산 해야할 연산자라면 stack들에서 숫자 2개와 연산자를 pop하고 연산자에 맞게 계산해준다.</li>
+<li>계산 한 값은 뒤에 또 그 값을 다른 값과 계산해야하므로 stack와 queue에 저장한다.</li>
+<li>그리고 8번에서 큐에 초기값을 먼저 저장해서 큐의 맨 앞값과 큐의 맨 마지막 값이 계산된 것이므로 큐의 맨 마지막 값을 꺼낸다.</li>
+<li>이번에 계산 할 연산자가 아니라면 지금 꺼낸 값과 연산자는 다시 큐에 저장한다.</li>
+<li>4번부터 13번 까지를 모두 반복하면 끝</li>
+</ol>
+<br>
+
+<h3 id="일-경우-Queue와-Stack의-변화"><a href="#일-경우-Queue와-Stack의-변화" class="headerlink" title="* + - 일 경우 Queue와 Stack의 변화"></a>* + - 일 경우 Queue와 Stack의 변화</h3><ol>
+<li>초기화</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LinkedList&lt;Long&gt; numberQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(numberList);</span><br><span class="line">LinkedList&lt;Character&gt; operatorQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(operatorList);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>100</td>
+<td>200</td>
+<td>300</td>
+<td>500</td>
+<td>20</td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>*</td>
+<td>-</td>
+<td>+</td>
+<td></td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>숫자 초기값 저장</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> first = numberQueue.poll();</span><br><span class="line">numberStack.push(first);</span><br><span class="line">numberQueue.offer(first);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>200</td>
+<td>300</td>
+<td>500</td>
+<td>20</td>
+<td>100</td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>*</td>
+<td>-</td>
+<td>+</td>
+<td></td>
+</tr>
+</tbody></table>
+<br>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td></td>
+</tr>
+</tbody></table>
+<ol start="3">
+<li>이후 반복</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit; i++) &#123;</span><br><span class="line">    <span class="keyword">long</span> currentNumber = numberQueue.poll();</span><br><span class="line">    numberStack.push(currentNumber);</span><br><span class="line"></span><br><span class="line">    Character currentOperator = operatorQueue.poll();</span><br><span class="line">    operatorStack.push(currentOperator);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (operatorStack.peek() == operatorToCalculate) &#123;</span><br><span class="line">        <span class="keyword">long</span> n1 = numberStack.pop();</span><br><span class="line">        <span class="keyword">long</span> n2 = numberStack.pop();</span><br><span class="line">        <span class="keyword">char</span> op = operatorStack.pop();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> sum = sum(n2, n1, op);</span><br><span class="line">        numberStack.push(sum);</span><br><span class="line"></span><br><span class="line">        numberQueue.pollLast();</span><br><span class="line">        numberQueue.offer(sum);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        numberQueue.offer(currentNumber);</span><br><span class="line">        operatorQueue.offer(currentOperator);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1회-반복"><a href="#1회-반복" class="headerlink" title="1회 반복"></a>1회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>300</td>
+<td>500</td>
+<td>20</td>
+<td>100</td>
+<td>200</td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>*</td>
+<td>-</td>
+<td>+</td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>200</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="2회-반복"><a href="#2회-반복" class="headerlink" title="2회 반복"></a>2회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>500</td>
+<td>20</td>
+<td>100</td>
+<td>60000</td>
+<td></td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>+</td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>60000</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="3회-반복"><a href="#3회-반복" class="headerlink" title="3회 반복"></a>3회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>20</td>
+<td>100</td>
+<td>60000</td>
+<td>500</td>
+<td></td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>+</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>500</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>60000</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="4회-반복"><a href="#4회-반복" class="headerlink" title="4회 반복"></a>4회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>100</td>
+<td>60000</td>
+<td>500</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>-</td>
+<td>+</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>500</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>60000</td>
+<td>+</td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<ul>
+<li>이런 식으로 반복되고 queue 크기 만큼 돌았다는건 우선 계산해야 될 연산자를 다 계산 했다는 것이므로 다시 스택을 비우고 처음부터 위 계산을 반복한다.</li>
+<li>다시 계산해도 큐에 계산 된 값이 저장되어 있으므로 정상적으로 계산된다.</li>
+</ul>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.22ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.25ms, 51.9MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.54ms, 51.7MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.62ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (1.70ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.73ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (1.69ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (1.76ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (1.81ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (1.86ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.70ms, 50.6MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (1.90ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (2.62ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (2.17ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (2.15ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (1.36ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (1.57ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (1.28ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (1.30ms, 51.3MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (1.33ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (1.53ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (1.47ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (1.21ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (2.11ms, 50.7MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (2.17ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (1.39ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 27</td>
+<td>통과 (2.70ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 28</td>
+<td>통과 (1.74ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 29</td>
+<td>통과 (1.59ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 30</td>
+<td>통과 (1.58ms, 50.2MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">60420</span>, test.solution(<span class="string">&quot;100-200*300-500+20&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">300</span>, test.solution(<span class="string">&quot;50*6-3*2&quot;</span>));</span><br></pre></td></tr></table></figure>
+</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous is-invisible is-hidden-mobile"><a href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/page/0/">이전</a></div><div class="pagination-next"><a href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/page/2/">다음</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link is-current" href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/">1</a></li><li><a class="pagination-link" href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/page/2/">2</a></li><li><span class="pagination-ellipsis">&hellip;</span></li><li><a class="pagination-link" href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/page/5/">5</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="JG.JI"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">JG.JI</p><p class="is-size-6 is-block">저장하고 잊어버리자</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Seoul, Republic of Korea</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">포스트</p><a href="/archives"><p class="title">84</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">카테고리</p><a href="/categories"><p class="title">1</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">태그</p><a href="/tags"><p class="title">44</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer">팔로우</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="external nofollow noopener noreferrer" title="Github" href="https://github.com/jungguji"><i class="fab fa-github"></i></a></div></div></div><!--!--><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">카테고리</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%EA%B0%9C%EB%B0%9C/"><span class="level-start"><span class="level-item">개발</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">최근 글</h3><article class="media"><div class="media-content"><p class="date"><time datetime="2021-03-25T13:08:42.000Z">2021-03-25</time></p><p class="title"><a href="/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/">백준 4796번: 캠핑</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time datetime="2021-02-05T13:39:20.000Z">2021-02-05</time></p><p class="title"><a href="/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/">Requestbody Annotation 사용 시 기본 생성자 필요</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time datetime="2021-01-28T12:07:20.000Z">2021-01-28</time></p><p class="title"><a href="/2021/01/28/Spring-boot-Heroku%EC%97%90-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0/">Spring boot Heroku에 배포하기</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time datetime="2021-01-22T13:31:53.000Z">2021-01-22</time></p><p class="title"><a href="/2021/01/22/failed-to-lazily-initialize-a-collection-of-role/">failed to lazily initialize a collection of role</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time datetime="2021-01-12T12:45:32.000Z">2021-01-12</time></p><p class="title"><a href="/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/">Junit4 설정 주입 에러</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">아카이브</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2021/03/"><span class="level-start"><span class="level-item">3월 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/02/"><span class="level-start"><span class="level-item">2월 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/01/"><span class="level-start"><span class="level-item">1월 2021</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/12/"><span class="level-start"><span class="level-item">12월 2020</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/11/"><span class="level-start"><span class="level-item">11월 2020</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/09/"><span class="level-start"><span class="level-item">9월 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/08/"><span class="level-start"><span class="level-item">8월 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/07/"><span class="level-start"><span class="level-item">7월 2020</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">6월 2020</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">5월 2020</span></span><span class="level-end"><span class="level-item tag">17</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">4월 2020</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/03/"><span class="level-start"><span class="level-item">3월 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">태그</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Spring-Boot/"><span class="tag">-Spring-Boot -</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/AWS/"><span class="tag">AWS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/BFS/"><span class="tag">BFS</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CodeDeploy/"><span class="tag">CodeDeploy</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Could/"><span class="tag">Could</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DFS/"><span class="tag">DFS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/H2/"><span class="tag">H2</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Heroku/"><span class="tag">Heroku</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JPA/"><span class="tag">JPA</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JPQL/"><span class="tag">JPQL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Junit/"><span class="tag">Junit</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/KMP/"><span class="tag">KMP</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Spring/"><span class="tag">Spring</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Spring-boot/"><span class="tag">Spring boot</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Spring-Boot/"><span class="tag">Spring-Boot</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Test/"><span class="tag">Test</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Travis-CI/"><span class="tag">Travis CI</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vue-js/"><span class="tag">Vue.js</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/ajax/"><span class="tag">ajax</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/json/"><span class="tag">json</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/thymeleaf/"><span class="tag">thymeleaf</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EA%B0%9C%EB%B0%9C/"><span class="tag">개발</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EA%B7%B8%EB%A6%AC%EB%94%94/"><span class="tag">그리디</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%8B%A4%EC%9D%B4%EB%82%98%EB%AF%B9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/"><span class="tag">다이나믹 프로그래밍</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%A9%B4%EC%A0%91-%EC%A7%88%EB%AC%B8/"><span class="tag">면접 질문</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%AC%B8%EC%9E%90%EC%97%B4/"><span class="tag">문자열</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%B0%B1%EC%A4%80/"><span class="tag">백준</span><span class="tag">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%B8%8C%EB%A3%A8%ED%8A%B8-%ED%8F%AC%EC%8A%A4/"><span class="tag">브루트 포스</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%B8%8C%EB%A3%A8%ED%8A%B8%ED%8F%AC%EC%8A%A4/"><span class="tag">브루트포스</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EB%B9%84%ED%8A%B8%EB%A7%88%EC%8A%A4%ED%81%AC/"><span class="tag">비트마스크</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%86%8C%EC%88%98/"><span class="tag">소수</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%88%98%ED%95%99/"><span class="tag">수학</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%88%9C%EC%97%B4/"><span class="tag">순열</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%8A%A4%ED%83%9D-%ED%81%90/"><span class="tag">스택/큐</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/"><span class="tag">알고리즘</span><span class="tag">55</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C/"><span class="tag">연습문제</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%9D%B4%EC%A7%84%ED%83%90%EC%83%89/"><span class="tag">이진탐색</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/"><span class="tag">자료구조</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%A0%95%EB%A0%AC/"><span class="tag">정렬</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%EC%A2%8C%ED%91%9C%EC%95%95%EC%B6%95/"><span class="tag">좌표압축</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%ED%83%90%EC%83%89/"><span class="tag">탐색</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%ED%86%A0%EB%B9%84/"><span class="tag">토비</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/"><span class="tag">프로그래머스</span><span class="tag">43</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%ED%95%B4%EC%89%AC/"><span class="tag">해쉬</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">업데이트 소식 받기</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="구독"></div></div></form></div></div></div><div class="card widget" data-type="adsense"><div class="card-content"><div class="menu"><h3 class="menu-label">광고</h3><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><ins class="adsbygoogle" style="display:block" data-ad-client="pub-6264654331856753" data-ad-slot="6431201073" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="저장하고 까먹자" height="28"></a><p class="is-size-7"><span>&copy; 2021 Junggu Ji</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="external nofollow noopener noreferrer" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("ko");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="맨 위로" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "이 웹 사이트는 귀하의 경험을 향상시키기 위해 Cookie를 사용합니다.",
+          dismiss: "무시",
+          allow: "허용",
+          deny: "거부",
+          link: "더 알아보기",
+          policy: "Cookie 정책",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="입력 하세요..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"입력 하세요...","untitled":"(제목 없음)","posts":"포스트","pages":"페이지","categories":"카테고리","tags":"태그"});
+        });</script></body></html>
