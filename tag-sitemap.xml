@@ -3,6 +3,27 @@
 
 
     <url>
+        <loc>https://jungguji.github.io/tags/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-%ED%81%90/</loc>
+        <lastmod>2021-03-30T12:38:30.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://jungguji.github.io/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/</loc>
+        <lastmod>2021-03-30T12:38:30.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://jungguji.github.io/tags/%EB%B0%B1%EC%A4%80/</loc>
+        <lastmod>2021-03-30T12:38:30.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://jungguji.github.io/tags/CORS/</loc>
         <lastmod>2021-03-28T09:40:28.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -26,13 +47,6 @@
     <url>
         <loc>https://jungguji.github.io/tags/SSH/</loc>
         <lastmod>2021-03-27T14:43:38.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://jungguji.github.io/tags/%EB%B0%B1%EC%A4%80/</loc>
-        <lastmod>2021-03-25T13:08:42.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -117,13 +131,6 @@
     <url>
         <loc>https://jungguji.github.io/tags/%EC%A2%8C%ED%91%9C%EC%95%95%EC%B6%95/</loc>
         <lastmod>2020-12-15T05:43:55.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://jungguji.github.io/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/</loc>
-        <lastmod>2020-12-14T06:12:57.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
