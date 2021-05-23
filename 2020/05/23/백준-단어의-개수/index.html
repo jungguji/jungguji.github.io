@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/1152\n\n코드12345678910111213141516public static long solution(String args) &#123;    char[] tochar = args.trim().toCharArray();    long answer = 0;    if (tochar.length == 0) &#123;        return answer;    &#125;    for (char ch : tochar) &#123;        if (ch == &#x27; &#x27;) &#123;            ++answer;        &#125;    &#125;    return answer + 1;&#125;\n\n\n흐름\n문자열 앞 뒤로 공백이 존재 할 수 있으므로 trim()\n공백만 있는 문자열인 경우 0 return\nchar array로 변환된 문자열을 돌면서 공백인 경우 count 증가\n공백을 기준으로 단어가 만들어졌으니 공백 개수 + 1 return\nex) hello, wolrd! = 공백 1개, 문자 2개\n\n\n끝\n\n\n결과\n\n테스트 케이스12345assertEquals(6, test.solution(&quot;The Curious Case of Benjamin Button&quot;));assertEquals(3, test.solution(&quot; Mazatneunde Wae Teullyeoyo&quot;));assertEquals(2, test.solution(&quot;Teullinika Teullyeotzi &quot;));assertEquals(7, test.solution(&quot; a b c d e f g &quot;));assertEquals(0, test.solution(&quot; &quot;));\n\n\n전체 코드https://github.com/jungguji/algorithm_training/blob/master/src/main/java/algorithm/baekjoon/string/%EB%8B%A8%EC%96%B4%EC%9D%98_%EA%B0%9C%EC%88%98.java\n","dateCreated":"2020-05-23T12:30:22+09:00","dateModified":"2020-05-23T12:30:22+09:00","datePublished":"2020-05-23T12:30:22+09:00","description":"","headline":"백준 1152번: 단어의 개수","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/23/%EB%B0%B1%EC%A4%80-%EB%8B%A8%EC%96%B4%EC%9D%98-%EA%B0%9C%EC%88%98/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/05/23/%EB%B0%B1%EC%A4%80-%EB%8B%A8%EC%96%B4%EC%9D%98-%EA%B0%9C%EC%88%98/","keywords":"알고리즘, 백준, 문자열"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/1152\n\n코드12345678910111213141516public static long solution(String args) &#123;    char[] tochar = args.trim().toCharArray();    long answer = 0;    if (tochar.length == 0) &#123;        return answer;    &#125;    for (char ch : tochar) &#123;        if (ch == &#x27; &#x27;) &#123;            ++answer;        &#125;    &#125;    return answer + 1;&#125;\n\n\n흐름\n문자열 앞 뒤로 공백이 존재 할 수 있으므로 trim()\n공백만 있는 문자열인 경우 0 return\nchar array로 변환된 문자열을 돌면서 공백인 경우 count 증가\n공백을 기준으로 단어가 만들어졌으니 공백 개수 + 1 return\nex) hello, wolrd! = 공백 1개, 문자 2개\n\n\n끝\n\n\n결과\n\n테스트 케이스12345assertEquals(6, test.solution(&quot;The Curious Case of Benjamin Button&quot;));assertEquals(3, test.solution(&quot; Mazatneunde Wae Teullyeoyo&quot;));assertEquals(2, test.solution(&quot;Teullinika Teullyeotzi &quot;));assertEquals(7, test.solution(&quot; a b c d e f g &quot;));assertEquals(0, test.solution(&quot; &quot;));\n\n\n전체 코드https://github.com/jungguji/algorithm_training/blob/master/src/main/java/algorithm/baekjoon/string/%EB%8B%A8%EC%96%B4%EC%9D%98_%EA%B0%9C%EC%88%98.java\n","dateCreated":"2020-05-23T12:30:22+09:00","dateModified":"2020-05-23T12:30:22+09:00","datePublished":"2020-05-23T12:30:22+09:00","description":"","headline":"백준 1152번: 단어의 개수","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/23/%EB%B0%B1%EC%A4%80-%EB%8B%A8%EC%96%B4%EC%9D%98-%EA%B0%9C%EC%88%98/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/05/23/%EB%B0%B1%EC%A4%80-%EB%8B%A8%EC%96%B4%EC%9D%98-%EA%B0%9C%EC%88%98/","keywords":"알고리즘, 백준, 문자열"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;www.acmicpc.net&#x2F;problem&#x2F;1152  코드12345678910111213141516public static long solution(String args) &amp;#123;    char[] tochar &#x3D; args.trim().toCharArray();    long answer &#x3D; 0;    if (tochar.length">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="백준 1152번: 단어의 개수">
@@ -46,6 +46,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -132,7 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

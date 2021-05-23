@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/2751\n\n코드1234567891011121314151617181920public static void main(String[] args) throws IOException &#123;    try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) &#123;        int amount = Integer.parseInt(br.readLine());        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();        for (int i = 0; i &lt; amount; i++) &#123;            list.add(Integer.parseInt(br.readLine()));        &#125;        Collections.sort(list);        StringBuilder sb = new StringBuilder();        for (int i : list) &#123;            sb.append(i).append(&quot;\\n&quot;);        &#125;        System.out.println(sb);    &#125;&#125;\n\nArrays.sort(int[]) vs Arrays.sort(Object[]) and Collections.sort(List)Arrays.sort(int[])\nDualPivotQuicksort라는 피벗을 두 개를 정해 구간을 3개로 하는 퀵소트를 사용한다.\nAPI에 따르면 이 때 평균 O(n log(n)) 성능을 제공하며 일반적으로 기존 (one-pivot) 쿽소트 보다 빠르다고 한다.\n하지만 여전히 최악의 경우 O(n^2)인 것은 여전하다.\n\nArrays.sort(Object[]) and Collections.sort(List)\njava.util.Arrays.useLegacyMergeSort 설정에 따라 true면 legacyMergeSort를 통해 Merge sort로 정렬하고 false면 TimeSort를 통해 Tim sort로 정렬한다.\n이 때 기본적으로 java.util.Arrays.useLegacyMergeSort 설정은 false로 지정되어 있다.\nTim sort는 Insertion sort와 Merge sort를 결합하여 만든 정렬로 최선의 경우 O(n), 평균적으로 O(n log(n)), 최악의 경우 O(n log(n))의 성능을 제공한다.\nTim sort에 대한 자세한 설명\n\njava.util.Arrays.useLegacyMergeSort 확인12345678910...    static final class LegacyMergeSort &#123;        private static final boolean userRequested =            java.security.AccessController.doPrivileged(                new sun.security.action.GetBooleanAction(                    &quot;java.util.Arrays.useLegacyMergeSort&quot;)).booleanValue();    &#125;...\n\n\nnew sun.security.action.GetBooleanAction(“java.util.Arrays.useLegacyMergeSort”)).booleanValue(); 를 sysout으로 출력해보면 false가 return 되는 것을 확인할 수 있다.\n\n\n결과\n\n","dateCreated":"2020-11-12T19:10:20+09:00","dateModified":"2020-11-12T19:10:20+09:00","datePublished":"2020-11-12T19:10:20+09:00","description":"","headline":"백준 2751번: 수 정렬하기 2","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/2751\n\n코드1234567891011121314151617181920public static void main(String[] args) throws IOException &#123;    try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) &#123;        int amount = Integer.parseInt(br.readLine());        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();        for (int i = 0; i &lt; amount; i++) &#123;            list.add(Integer.parseInt(br.readLine()));        &#125;        Collections.sort(list);        StringBuilder sb = new StringBuilder();        for (int i : list) &#123;            sb.append(i).append(&quot;\\n&quot;);        &#125;        System.out.println(sb);    &#125;&#125;\n\nArrays.sort(int[]) vs Arrays.sort(Object[]) and Collections.sort(List)Arrays.sort(int[])\nDualPivotQuicksort라는 피벗을 두 개를 정해 구간을 3개로 하는 퀵소트를 사용한다.\nAPI에 따르면 이 때 평균 O(n log(n)) 성능을 제공하며 일반적으로 기존 (one-pivot) 쿽소트 보다 빠르다고 한다.\n하지만 여전히 최악의 경우 O(n^2)인 것은 여전하다.\n\nArrays.sort(Object[]) and Collections.sort(List)\njava.util.Arrays.useLegacyMergeSort 설정에 따라 true면 legacyMergeSort를 통해 Merge sort로 정렬하고 false면 TimeSort를 통해 Tim sort로 정렬한다.\n이 때 기본적으로 java.util.Arrays.useLegacyMergeSort 설정은 false로 지정되어 있다.\nTim sort는 Insertion sort와 Merge sort를 결합하여 만든 정렬로 최선의 경우 O(n), 평균적으로 O(n log(n)), 최악의 경우 O(n log(n))의 성능을 제공한다.\nTim sort에 대한 자세한 설명\n\njava.util.Arrays.useLegacyMergeSort 확인12345678910...    static final class LegacyMergeSort &#123;        private static final boolean userRequested =            java.security.AccessController.doPrivileged(                new sun.security.action.GetBooleanAction(                    &quot;java.util.Arrays.useLegacyMergeSort&quot;)).booleanValue();    &#125;...\n\n\nnew sun.security.action.GetBooleanAction(“java.util.Arrays.useLegacyMergeSort”)).booleanValue(); 를 sysout으로 출력해보면 false가 return 되는 것을 확인할 수 있다.\n\n\n결과\n\n","dateCreated":"2020-11-12T19:10:20+09:00","dateModified":"2020-11-12T19:10:20+09:00","datePublished":"2020-11-12T19:10:20+09:00","description":"","headline":"백준 2751번: 수 정렬하기 2","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;www.acmicpc.net&#x2F;problem&#x2F;2751  코드1234567891011121314151617181920public static void main(String[] args) throws IOException &amp;#123;    try (BufferedReader br &#x3D; new BufferedReader(new InputStream">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="백준 2751번: 수 정렬하기 2">
@@ -43,6 +43,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -129,7 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

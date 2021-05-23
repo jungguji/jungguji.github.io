@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"서론private method도 테스트 해야되는지에 대해선 의견이 많은 것으로 알고 있지만 현재 프로젝트에서 service에서 있는 메서드 중 주요 로직은 private method에 존재하고 public method에선 호출해서 return만 해주는 method가 존재했는데, 이런 경우에 private 메서드를 테스트하기 위한 방법을 정리해둔다.\n\n본론1234567891011121314151617181920212223@Testvoid getPassAndFailWordList_성공()  throws NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;    //given    String[] answerIds = new String[] &#123;&quot;6_1&quot;, &quot;4_1&quot;, &quot;5_1&quot;, &quot;9_3&quot;&#125;;    WordService w = new WordServiceImpl(repository, userService);    Method method = w.getClass().getDeclaredMethod(&quot;getPassAndFailWordList&quot;, String[].class);    method.setAccessible(true);    List&lt;Integer&gt; passWordList = Arrays.asList(6,4,5);    List&lt;Integer&gt; failWordList = Arrays.asList(9);    Object[] obj = new Object[] &#123;answerIds&#125;;    //when    Map&lt;String, List&lt;Integer&gt;&gt; map = (Map&lt;String, List&lt;Integer&gt;&gt;) method.invoke(w, obj);    //than    assertThat(map).extracting(&quot;pass&quot;, String.class)            .contains(passWordList);    assertThat(map).extracting(&quot;fail&quot;, String.class)            .contains(failWordList);&#125;\n\n\ntest할 private method가 존재하는 class를 직접 생성\ngetDeclaredMethod()를 이용해서 해당 클래스에 존재하는 private method를 가져오고\nsetAccessible()로 private method에 접근을 허용\ninvoke()로 호출하는데 이 때 invoke()의 매개변수가 Object[] 이므로 원래 호출하려던 private method의 매개변수를 Object[]에 담은 후 Object[]을 매개변수로 넘겨줘야함\n\n\n참고 사이트\nhttps://stackoverflow.com/questions/34571/how-do-i-test-a-private-function-or-a-class-that-has-private-methods-fields-or\nhttps://www.crocus.co.kr/1665\nhttps://stackoverflow.com/questions/8189782/wrong-number-of-arguments-error-when-invoking-a-method\n\n","dateCreated":"2020-06-23T18:45:14+09:00","dateModified":"2020-06-23T18:45:14+09:00","datePublished":"2020-06-23T18:45:14+09:00","description":"","headline":"Junit으로 private 메서드 테스트하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/","keywords":"Junit, Test"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론private method도 테스트 해야되는지에 대해선 의견이 많은 것으로 알고 있지만 현재 프로젝트에서 service에서 있는 메서드 중 주요 로직은 private method에 존재하고 public method에선 호출해서 return만 해주는 method가 존재했는데, 이런 경우에 private 메서드를 테스트하기 위한 방법을 정리해둔다.\n\n본론1234567891011121314151617181920212223@Testvoid getPassAndFailWordList_성공()  throws NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;    //given    String[] answerIds = new String[] &#123;&quot;6_1&quot;, &quot;4_1&quot;, &quot;5_1&quot;, &quot;9_3&quot;&#125;;    WordService w = new WordServiceImpl(repository, userService);    Method method = w.getClass().getDeclaredMethod(&quot;getPassAndFailWordList&quot;, String[].class);    method.setAccessible(true);    List&lt;Integer&gt; passWordList = Arrays.asList(6,4,5);    List&lt;Integer&gt; failWordList = Arrays.asList(9);    Object[] obj = new Object[] &#123;answerIds&#125;;    //when    Map&lt;String, List&lt;Integer&gt;&gt; map = (Map&lt;String, List&lt;Integer&gt;&gt;) method.invoke(w, obj);    //than    assertThat(map).extracting(&quot;pass&quot;, String.class)            .contains(passWordList);    assertThat(map).extracting(&quot;fail&quot;, String.class)            .contains(failWordList);&#125;\n\n\ntest할 private method가 존재하는 class를 직접 생성\ngetDeclaredMethod()를 이용해서 해당 클래스에 존재하는 private method를 가져오고\nsetAccessible()로 private method에 접근을 허용\ninvoke()로 호출하는데 이 때 invoke()의 매개변수가 Object[] 이므로 원래 호출하려던 private method의 매개변수를 Object[]에 담은 후 Object[]을 매개변수로 넘겨줘야함\n\n\n참고 사이트\nhttps://stackoverflow.com/questions/34571/how-do-i-test-a-private-function-or-a-class-that-has-private-methods-fields-or\nhttps://www.crocus.co.kr/1665\nhttps://stackoverflow.com/questions/8189782/wrong-number-of-arguments-error-when-invoking-a-method\n\n","dateCreated":"2020-06-23T18:45:14+09:00","dateModified":"2020-06-23T18:45:14+09:00","datePublished":"2020-06-23T18:45:14+09:00","description":"","headline":"Junit으로 private 메서드 테스트하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/","keywords":"Junit, Test"}</script>
     <meta name="description" content="서론private method도 테스트 해야되는지에 대해선 의견이 많은 것으로 알고 있지만 현재 프로젝트에서 service에서 있는 메서드 중 주요 로직은 private method에 존재하고 public method에선 호출해서 return만 해주는 method가 존재했는데, 이런 경우에 private 메서드를 테스트하기 위한 방법을 정리해둔다.  본론1">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Junit으로 private 메서드 테스트하기">
@@ -43,6 +43,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -129,7 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제토이 프로젝트 진행 중 문자열 하나만 서버로 넘겨 받아 처리하면 되는 상황이여서 아래 코드 처럼 dataType을 ‘text’로 설정했다.\n12345678910$.ajax(&#123;\ttype:&quot;GET&quot;\t, url: &quot;/test&quot;\t, data: data\t, dataType : &#x27;text&#x27;\t, cache: false\t, success: function(data) &#123;\t\tdrawGrid(data);\t&#125;&#125;);\n허나 위 처럼 하니, success에서 받는 data가 json object가 아닌 String type으로 받아지는 문제가 발생했다.\n\n해결1234567891011$.ajax(&#123;\ttype:&quot;GET&quot;\t, url: &quot;/test&quot;\t, data: data\t, contentType: &quot;application/json&quot;\t, dataType : &#x27;JSON&#x27;\t, cache: false\t, success: function(data) &#123;\t\tdrawGrid(data);\t&#125;&#125;);\n\n결국 위 처럼 dataType을 ‘JSON’으로,contentType도 ‘JSON’으로 변경하고Controller도 json으로 변경하니\nsuccess에서 받는 dat도 정상적으로 JSON Object로 넘어왔다.\n\n결론받는 데이터가 json이라면 전송 때 json일 필요가 없어도 json으로 맞춰주자.","dateCreated":"2020-04-20T14:33:14+09:00","dateModified":"2020-04-20T14:33:14+09:00","datePublished":"2020-04-20T14:33:14+09:00","description":"","headline":"Ajax에서 SUCCESS가 JSON이면, 전송 할 때도 JSON으로","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/04/20/ajax%EC%97%90%EC%84%9C-json/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/04/20/ajax%EC%97%90%EC%84%9C-json/","keywords":"ajax, json"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제토이 프로젝트 진행 중 문자열 하나만 서버로 넘겨 받아 처리하면 되는 상황이여서 아래 코드 처럼 dataType을 ‘text’로 설정했다.\n12345678910$.ajax(&#123;\ttype:&quot;GET&quot;\t, url: &quot;/test&quot;\t, data: data\t, dataType : &#x27;text&#x27;\t, cache: false\t, success: function(data) &#123;\t\tdrawGrid(data);\t&#125;&#125;);\n허나 위 처럼 하니, success에서 받는 data가 json object가 아닌 String type으로 받아지는 문제가 발생했다.\n\n해결1234567891011$.ajax(&#123;\ttype:&quot;GET&quot;\t, url: &quot;/test&quot;\t, data: data\t, contentType: &quot;application/json&quot;\t, dataType : &#x27;JSON&#x27;\t, cache: false\t, success: function(data) &#123;\t\tdrawGrid(data);\t&#125;&#125;);\n\n결국 위 처럼 dataType을 ‘JSON’으로,contentType도 ‘JSON’으로 변경하고Controller도 json으로 변경하니\nsuccess에서 받는 dat도 정상적으로 JSON Object로 넘어왔다.\n\n결론받는 데이터가 json이라면 전송 때 json일 필요가 없어도 json으로 맞춰주자.","dateCreated":"2020-04-20T14:33:14+09:00","dateModified":"2020-04-20T14:33:14+09:00","datePublished":"2020-04-20T14:33:14+09:00","description":"","headline":"Ajax에서 SUCCESS가 JSON이면, 전송 할 때도 JSON으로","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/04/20/ajax%EC%97%90%EC%84%9C-json/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/04/20/ajax%EC%97%90%EC%84%9C-json/","keywords":"ajax, json"}</script>
     <meta name="description" content="문제토이 프로젝트 진행 중 문자열 하나만 서버로 넘겨 받아 처리하면 되는 상황이여서 아래 코드 처럼 dataType을 ‘text’로 설정했다. 12345678910$.ajax(&amp;#123;	type:&quot;GET&quot;	, url: &quot;&#x2F;test&quot;	, data: data	, dataType : &amp;#x27;text&amp;#x27;	, cach">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Ajax에서 SUCCESS가 JSON이면, 전송 할 때도 JSON으로">
@@ -43,6 +43,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -129,7 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"에러\n1./mvnw: Permission denied\n\nSpring Boot + Maven 프로젝트 Travis CI 연동 중 발생한 에러\n\n해결12before_install:  - chmod +x mvnw\n\n설정으로 권한 부여하여 해결\n전체 코드123456789101112131415161718192021222324language: javajdk:  - openjdk8branches:  only:    - master# Travis CI 서버의 Homecache:  directories:    - $HOME/.m2before_install:  - chmod +x mvnw# MAVEN 프로젝트는 필요 없음#script: &quot;./mvnw package&quot;# CI 실행 완료시 메일로 알람notifications:  email:    recipients:      - your@gmail.com\n\n\n참고 사이트\nhttps://velog.io/@recordsbeat/travis-ci-maven-%EC%97%B0%EB%8F%99\n\n","dateCreated":"2020-06-06T20:17:56+09:00","dateModified":"2020-06-06T20:17:56+09:00","datePublished":"2020-06-06T20:17:56+09:00","description":"","headline":"Spring Boot + Maven Travis CI 연동 에러","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/","keywords":"Spring-Boot, Travis CI"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"에러\n1./mvnw: Permission denied\n\nSpring Boot + Maven 프로젝트 Travis CI 연동 중 발생한 에러\n\n해결12before_install:  - chmod +x mvnw\n\n설정으로 권한 부여하여 해결\n전체 코드123456789101112131415161718192021222324language: javajdk:  - openjdk8branches:  only:    - master# Travis CI 서버의 Homecache:  directories:    - $HOME/.m2before_install:  - chmod +x mvnw# MAVEN 프로젝트는 필요 없음#script: &quot;./mvnw package&quot;# CI 실행 완료시 메일로 알람notifications:  email:    recipients:      - your@gmail.com\n\n\n참고 사이트\nhttps://velog.io/@recordsbeat/travis-ci-maven-%EC%97%B0%EB%8F%99\n\n","dateCreated":"2020-06-06T20:17:56+09:00","dateModified":"2020-06-06T20:17:56+09:00","datePublished":"2020-06-06T20:17:56+09:00","description":"","headline":"Spring Boot + Maven Travis CI 연동 에러","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/","keywords":"Spring-Boot, Travis CI"}</script>
     <meta name="description" content="에러 1.&#x2F;mvnw: Permission denied  Spring Boot + Maven 프로젝트 Travis CI 연동 중 발생한 에러  해결12before_install:  - chmod +x mvnw  설정으로 권한 부여하여 해결 전체 코드123456789101112131415161718192021222324language: javajdk:  - o">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Spring Boot + Maven Travis CI 연동 에러">
@@ -45,6 +45,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -131,7 +140,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

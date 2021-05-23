@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"스프링의 정수는 엔터프라이즈 서비스 기능을 POJO에 제공하는 것\nProfessional SPring FrameworkRod Johnson 외 4명\n\n\n스프링의 주요 기술인 Ioc/DI, AOP와 PSA(Portable Service Abstraction)는 애플리케이션을 POJO로 개발할 수 있게 해주는 가능 기술이라고 불린다\n\nPOJO란\nPlain Old Java Object의 약자\n직역하면 평범한 오래된 자바 객체다\n\nPOJO의 조건\n특정 규약에 종속되지 않는다.\n객체지향 설계의 자유로운 적용이 가능한 오브젝트여야만 POJO라고 불릴 수 있다.\n\n\n특정 환경에 종속되지 않는다\n환경에 독립적이어야 한다.\n특히 비즈니스 로직을 담고 있는  POJO 클래스는 웹이라는 환경정보나 웹 기술을 담고 있는 클래스나 인터페이스를 사용해서는 안된다.\n설령 나중에 웹 컨트롤러와 연결돼서 사용될 것이 뻔하도 할지라도\n\n\n비즈니스 로직을 담은 코드에 HttpServletRequest나 HttpSession, 캐시와 관련된 API가 등장하거나 웹 프레임워ㅏ크의 클래스를 직접 이용하는 부분이 있다면 그것은 진정한 POJO라고 볼 수 없다.\n\n\n\n진정한 POJO란 객체지향적인 원리에 충실하면서, 환경과 기술에 종속되지 않고 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트를 말한다\nPOJO의 장점\n특정한 기술과 환겨엥 종속디지 않는 오브젝트는 그만큼 깔끔한 코드가 될 수 있다.\nPOJO로 개발된 코드는 자동화된 테스트에 매우 유리하다.\n객체지향적인 설계를 자유롭게 적용할 수 있다.\n\nPOJO 프레임워크\nPOJO 프로그래밍이 가능하도록 기술적인 기반을 제공하는 프레임워크\n스프링 프레임워크와 하이버네이트 등\n\n\nPOJO를 가능하게 하는 스프링의 기술\nIoc/DI\nAOP\nPSA\n\n제어의 역전(Ioc) / 의존관계 주입(DI)\n왜 두개의 오브젝트를 분리해서 만들고, 인터페이스를 두고 느슨하게 연결한 뒤, 실제 사용할 대상은 DI를 통해 외부에서 지정하는 걸까?\n이렇게 DI 방식으로 하는 것이 직접 사용할 오브젝트를 new 키워드로 생성해서 사용하는 강한 결합을 쓰는 방법보다 나은 점은 무엇일까?\n\n= 유연한 확장이 가능하게 하기 위해\n\nA-&gt;B라는 의존관계가 있을 떄 확장은 B가 자유롭게 변경될 수 있음을 의미\n이는 B가 변경되어도 A는 아무 영향이 없고 그대로 유지 가능B 관점에선 유연한 확장이고, A 관점에서는 변경 없이 재사용이 가능함\n개방 폐쇄 원칙(OCP)라는 객체지향 설계 원칙으로 설명할 수 있음\n\n애스펙트 지향 프로그래밍(AOP)\n객체지향 기술만으로는 애플리케이션의 요구조건과 기술적인 난해함을 모두 해결하는데 한계가 있음\n이를 도와주는 보조적인 프로그래밍 기술이 AOP\n스프링의 AOP는 스프링이 POJO 프로그래밍을 지원하려는 그 핵심 목적을 위해 중요한 역할을 하고 있음\n\n포터블 서비스 추상화(PSA)\nPOJO로 개발된 코드는 특정 환경이나 구현 방식에 종속적이지 않아야 함\n환경과 세부 기술의 변화에 관계없이 일관된 방식으로 기술에 접근 할 수 있게 해주는게 PSA\n단순히 구체적인 기술에 종속되지 않게 하기 위해서 말고 테스트가 어렵게 만들어진 API나 설정을 통해 주요 기느을 외부에서 제어하게 만들고 싶을 때도 이용할 수 있음\n\n","dateCreated":"2020-05-22T20:13:45+09:00","dateModified":"2020-05-22T20:13:45+09:00","datePublished":"2020-05-22T20:13:45+09:00","description":"","headline":"토비의 스프링 reading (5)","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/","keywords":"Spring, 토비"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"스프링의 정수는 엔터프라이즈 서비스 기능을 POJO에 제공하는 것\nProfessional SPring FrameworkRod Johnson 외 4명\n\n\n스프링의 주요 기술인 Ioc/DI, AOP와 PSA(Portable Service Abstraction)는 애플리케이션을 POJO로 개발할 수 있게 해주는 가능 기술이라고 불린다\n\nPOJO란\nPlain Old Java Object의 약자\n직역하면 평범한 오래된 자바 객체다\n\nPOJO의 조건\n특정 규약에 종속되지 않는다.\n객체지향 설계의 자유로운 적용이 가능한 오브젝트여야만 POJO라고 불릴 수 있다.\n\n\n특정 환경에 종속되지 않는다\n환경에 독립적이어야 한다.\n특히 비즈니스 로직을 담고 있는  POJO 클래스는 웹이라는 환경정보나 웹 기술을 담고 있는 클래스나 인터페이스를 사용해서는 안된다.\n설령 나중에 웹 컨트롤러와 연결돼서 사용될 것이 뻔하도 할지라도\n\n\n비즈니스 로직을 담은 코드에 HttpServletRequest나 HttpSession, 캐시와 관련된 API가 등장하거나 웹 프레임워ㅏ크의 클래스를 직접 이용하는 부분이 있다면 그것은 진정한 POJO라고 볼 수 없다.\n\n\n\n진정한 POJO란 객체지향적인 원리에 충실하면서, 환경과 기술에 종속되지 않고 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트를 말한다\nPOJO의 장점\n특정한 기술과 환겨엥 종속디지 않는 오브젝트는 그만큼 깔끔한 코드가 될 수 있다.\nPOJO로 개발된 코드는 자동화된 테스트에 매우 유리하다.\n객체지향적인 설계를 자유롭게 적용할 수 있다.\n\nPOJO 프레임워크\nPOJO 프로그래밍이 가능하도록 기술적인 기반을 제공하는 프레임워크\n스프링 프레임워크와 하이버네이트 등\n\n\nPOJO를 가능하게 하는 스프링의 기술\nIoc/DI\nAOP\nPSA\n\n제어의 역전(Ioc) / 의존관계 주입(DI)\n왜 두개의 오브젝트를 분리해서 만들고, 인터페이스를 두고 느슨하게 연결한 뒤, 실제 사용할 대상은 DI를 통해 외부에서 지정하는 걸까?\n이렇게 DI 방식으로 하는 것이 직접 사용할 오브젝트를 new 키워드로 생성해서 사용하는 강한 결합을 쓰는 방법보다 나은 점은 무엇일까?\n\n= 유연한 확장이 가능하게 하기 위해\n\nA-&gt;B라는 의존관계가 있을 떄 확장은 B가 자유롭게 변경될 수 있음을 의미\n이는 B가 변경되어도 A는 아무 영향이 없고 그대로 유지 가능B 관점에선 유연한 확장이고, A 관점에서는 변경 없이 재사용이 가능함\n개방 폐쇄 원칙(OCP)라는 객체지향 설계 원칙으로 설명할 수 있음\n\n애스펙트 지향 프로그래밍(AOP)\n객체지향 기술만으로는 애플리케이션의 요구조건과 기술적인 난해함을 모두 해결하는데 한계가 있음\n이를 도와주는 보조적인 프로그래밍 기술이 AOP\n스프링의 AOP는 스프링이 POJO 프로그래밍을 지원하려는 그 핵심 목적을 위해 중요한 역할을 하고 있음\n\n포터블 서비스 추상화(PSA)\nPOJO로 개발된 코드는 특정 환경이나 구현 방식에 종속적이지 않아야 함\n환경과 세부 기술의 변화에 관계없이 일관된 방식으로 기술에 접근 할 수 있게 해주는게 PSA\n단순히 구체적인 기술에 종속되지 않게 하기 위해서 말고 테스트가 어렵게 만들어진 API나 설정을 통해 주요 기느을 외부에서 제어하게 만들고 싶을 때도 이용할 수 있음\n\n","dateCreated":"2020-05-22T20:13:45+09:00","dateModified":"2020-05-22T20:13:45+09:00","datePublished":"2020-05-22T20:13:45+09:00","description":"","headline":"토비의 스프링 reading (5)","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/","keywords":"Spring, 토비"}</script>
     <meta name="description" content="스프링의 정수는 엔터프라이즈 서비스 기능을 POJO에 제공하는 것 Professional SPring FrameworkRod Johnson 외 4명   스프링의 주요 기술인 Ioc&#x2F;DI, AOP와 PSA(Portable Service Abstraction)는 애플리케이션을 POJO로 개발할 수 있게 해주는 가능 기술이라고 불린다  POJO란 Plain Ol">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="토비의 스프링 reading (5)">
@@ -43,6 +43,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -129,7 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

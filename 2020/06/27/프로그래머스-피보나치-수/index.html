@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://programmers.co.kr/learn/courses/30/lessons/12945\n\n코드1234567891011121314private static final int DIVIDE_NUMBER = 1234567;public int solution(int n) &#123;    int[] cache = new int[n+1];    cache[1] = 1;    for (int i = 2; i &lt; n+1; i++) &#123;        cache[i] = ((cache[i-1]) % DIVIDE_NUMBER + (cache[i-2]) % DIVIDE_NUMBER) % DIVIDE_NUMBER;    &#125;    int answer = cache[n];    return answer;&#125;\n\n\n흐름\nn+1 크기 배열을 생성하는데 이 때 이번 문제에서 n은 1 &lt;= n &lt;= 100,000 이하이다.\nn이 1 일땐 1을 return 해야하므로 배열 1 번째엔 1을 할당 해놓아야 한다.\n2부터 n + 1 까지 반복하면서 피보나치 수열 계산하는 것 처럼 i - 1, i - 2 배열에 저장된 값을 더하는데\n문제에서 1234567을 나눈 나머지 값을 return 하라고 하였으므로 % 1234567을 해준다.\ncache 배열에서 n 번째에 있는 값을 return하면 끝\n\n\n결과\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (0.85ms, 52.8MB)\n\n\n테스트 2\n통과 (0.80ms, 52.2MB)\n\n\n테스트 3\n통과 (0.78ms, 51.3MB)\n\n\n테스트 4\n통과 (0.81ms, 53.1MB)\n\n\n테스트 5\n통과 (0.84ms, 52.6MB)\n\n\n테스트 6\n통과 (0.85ms, 50.3MB)\n\n\n테스트 7\n통과 (0.95ms, 52.4MB)\n\n\n테스트 8\n통과 (0.86ms, 50.5MB)\n\n\n테스트 9\n통과 (0.86ms, 52MB)\n\n\n테스트 10\n통과 (0.89ms, 51.4MB)\n\n\n테스트 11\n통과 (0.84ms, 51MB)\n\n\n테스트 12\n통과 (0.86ms, 52.4MB)\n\n\n테스트 13\n통과 (3.99ms, 52.7MB)\n\n\n테스트 14\n통과 (3.98ms, 50.4MB)\n\n\n\n테스트 케이스1234567assertEquals(2, test.solution(3));assertEquals(5, test.solution(5));assertEquals(987, test.solution(16));assertEquals(256379, test.solution(1234156));assertEquals(473509, test.solution(100001));assertEquals(1168141, test.solution(100000));assertEquals(547662, test.solution(124126347));\n\n참고 사이트\n피보나치 알고리즘을 해결하는 다섯가지 방법\n\n","dateCreated":"2020-06-27T16:23:07+09:00","dateModified":"2020-06-27T16:23:07+09:00","datePublished":"2020-06-27T16:23:07+09:00","description":"","headline":"프로그래머스: 피보나치 수","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/","keywords":"알고리즘, 프로그래머스, 다이나믹 프로그래밍"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://programmers.co.kr/learn/courses/30/lessons/12945\n\n코드1234567891011121314private static final int DIVIDE_NUMBER = 1234567;public int solution(int n) &#123;    int[] cache = new int[n+1];    cache[1] = 1;    for (int i = 2; i &lt; n+1; i++) &#123;        cache[i] = ((cache[i-1]) % DIVIDE_NUMBER + (cache[i-2]) % DIVIDE_NUMBER) % DIVIDE_NUMBER;    &#125;    int answer = cache[n];    return answer;&#125;\n\n\n흐름\nn+1 크기 배열을 생성하는데 이 때 이번 문제에서 n은 1 &lt;= n &lt;= 100,000 이하이다.\nn이 1 일땐 1을 return 해야하므로 배열 1 번째엔 1을 할당 해놓아야 한다.\n2부터 n + 1 까지 반복하면서 피보나치 수열 계산하는 것 처럼 i - 1, i - 2 배열에 저장된 값을 더하는데\n문제에서 1234567을 나눈 나머지 값을 return 하라고 하였으므로 % 1234567을 해준다.\ncache 배열에서 n 번째에 있는 값을 return하면 끝\n\n\n결과\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (0.85ms, 52.8MB)\n\n\n테스트 2\n통과 (0.80ms, 52.2MB)\n\n\n테스트 3\n통과 (0.78ms, 51.3MB)\n\n\n테스트 4\n통과 (0.81ms, 53.1MB)\n\n\n테스트 5\n통과 (0.84ms, 52.6MB)\n\n\n테스트 6\n통과 (0.85ms, 50.3MB)\n\n\n테스트 7\n통과 (0.95ms, 52.4MB)\n\n\n테스트 8\n통과 (0.86ms, 50.5MB)\n\n\n테스트 9\n통과 (0.86ms, 52MB)\n\n\n테스트 10\n통과 (0.89ms, 51.4MB)\n\n\n테스트 11\n통과 (0.84ms, 51MB)\n\n\n테스트 12\n통과 (0.86ms, 52.4MB)\n\n\n테스트 13\n통과 (3.99ms, 52.7MB)\n\n\n테스트 14\n통과 (3.98ms, 50.4MB)\n\n\n\n테스트 케이스1234567assertEquals(2, test.solution(3));assertEquals(5, test.solution(5));assertEquals(987, test.solution(16));assertEquals(256379, test.solution(1234156));assertEquals(473509, test.solution(100001));assertEquals(1168141, test.solution(100000));assertEquals(547662, test.solution(124126347));\n\n참고 사이트\n피보나치 알고리즘을 해결하는 다섯가지 방법\n\n","dateCreated":"2020-06-27T16:23:07+09:00","dateModified":"2020-06-27T16:23:07+09:00","datePublished":"2020-06-27T16:23:07+09:00","description":"","headline":"프로그래머스: 피보나치 수","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/","keywords":"알고리즘, 프로그래머스, 다이나믹 프로그래밍"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;programmers.co.kr&#x2F;learn&#x2F;courses&#x2F;30&#x2F;lessons&#x2F;12945  코드1234567891011121314private static final int DIVIDE_NUMBER &#x3D; 1234567;public int solution(int n) &amp;#123;    int[] cache &#x3D; new int[n+1];    ca">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="프로그래머스: 피보나치 수">
@@ -44,6 +44,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -130,7 +139,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

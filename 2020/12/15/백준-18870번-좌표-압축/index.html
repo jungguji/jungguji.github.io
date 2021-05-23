@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/18870\n\n코드123456789101112131415161718192021222324252627282930313233public static void main(String[] args) throws IOException &#123;    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    br.readLine();    Integer[] array = convertStringArrayToIntegerArray(br.readLine().split(&quot; &quot;));    List&lt;Integer&gt; list = Arrays.asList(array.clone());    Collections.sort(list);    Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();    int index = 0;    for (int i : list) &#123;        if (!map.containsKey(i)) &#123;            map.put(i, index++);        &#125;    &#125;    StringBuilder sb = new StringBuilder();    for (int i : array) &#123;            sb.append(map.get(i)).append(&quot; &quot;);    &#125;    System.out.println(sb.toString());&#125;private static Integer[] convertStringArrayToIntegerArray(String[] args) &#123;    Integer[] array = new Integer[args.length];    int i = 0;    for (String str : args) &#123;        array[i++] = Integer.parseInt(str);    &#125;    return array;&#125;\n\n흐름\n입력받은 좌표를 저장한 리스트로 수정하면 출력 순서를 맞출 수 없으니 우선 좌표 list를 복사한다.\n복사한 list를 정렬하고 순서대로 반복하면서 좌표값을 key로 index를 저장한다.\n{-10 : 0}, {-9, 1}… {4,4}\n\n\n입력받은 좌표를 순서대로 반복하면서 map에 key로 index를 가져온다.\n끝\n\n\n좌표 압축의 이유\n\n\n\n\n\n\n문제의 예제인 좌표 {2 4 -10 4 -9}을 위와 같은 알고리즘으로 압축하면 {2 3 0 3 1}이 되는데 위 그림 처럼 압축된 점들도 같은 동일선상 안에 놓이게 된다.\n이렇게 범위가 매우 넓은 좌표의 경우에 좌표를 인덱싱해서 처리 할 경우 손쉽게 처리 할 수 있게 된다.\n\n\n결과\n\n참고 사이트\nhttps://www.desmos.com/calculator/id7dqtpnmv?lang=ko\nhttps://codingdog.tistory.com/entry/%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B2%94%EC%9C%84%EA%B0%80-%ED%81%B4-%EB%95%8C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B3%B5%EA%B0%84%EC%9D%84-%EC%A4%84%EC%9D%BC%EA%B9%8C%EC%9A%94\n\n","dateCreated":"2020-12-15T14:43:55+09:00","dateModified":"2020-12-15T14:43:55+09:00","datePublished":"2020-12-15T14:43:55+09:00","description":"","headline":"백준 18870번: 좌표 압축","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/","keywords":"알고리즘, 백준, 좌표압축, 정렬"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/18870\n\n코드123456789101112131415161718192021222324252627282930313233public static void main(String[] args) throws IOException &#123;    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    br.readLine();    Integer[] array = convertStringArrayToIntegerArray(br.readLine().split(&quot; &quot;));    List&lt;Integer&gt; list = Arrays.asList(array.clone());    Collections.sort(list);    Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;();    int index = 0;    for (int i : list) &#123;        if (!map.containsKey(i)) &#123;            map.put(i, index++);        &#125;    &#125;    StringBuilder sb = new StringBuilder();    for (int i : array) &#123;            sb.append(map.get(i)).append(&quot; &quot;);    &#125;    System.out.println(sb.toString());&#125;private static Integer[] convertStringArrayToIntegerArray(String[] args) &#123;    Integer[] array = new Integer[args.length];    int i = 0;    for (String str : args) &#123;        array[i++] = Integer.parseInt(str);    &#125;    return array;&#125;\n\n흐름\n입력받은 좌표를 저장한 리스트로 수정하면 출력 순서를 맞출 수 없으니 우선 좌표 list를 복사한다.\n복사한 list를 정렬하고 순서대로 반복하면서 좌표값을 key로 index를 저장한다.\n{-10 : 0}, {-9, 1}… {4,4}\n\n\n입력받은 좌표를 순서대로 반복하면서 map에 key로 index를 가져온다.\n끝\n\n\n좌표 압축의 이유\n\n\n\n\n\n\n문제의 예제인 좌표 {2 4 -10 4 -9}을 위와 같은 알고리즘으로 압축하면 {2 3 0 3 1}이 되는데 위 그림 처럼 압축된 점들도 같은 동일선상 안에 놓이게 된다.\n이렇게 범위가 매우 넓은 좌표의 경우에 좌표를 인덱싱해서 처리 할 경우 손쉽게 처리 할 수 있게 된다.\n\n\n결과\n\n참고 사이트\nhttps://www.desmos.com/calculator/id7dqtpnmv?lang=ko\nhttps://codingdog.tistory.com/entry/%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B2%94%EC%9C%84%EA%B0%80-%ED%81%B4-%EB%95%8C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B3%B5%EA%B0%84%EC%9D%84-%EC%A4%84%EC%9D%BC%EA%B9%8C%EC%9A%94\n\n","dateCreated":"2020-12-15T14:43:55+09:00","dateModified":"2020-12-15T14:43:55+09:00","datePublished":"2020-12-15T14:43:55+09:00","description":"","headline":"백준 18870번: 좌표 압축","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/","keywords":"알고리즘, 백준, 좌표압축, 정렬"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;www.acmicpc.net&#x2F;problem&#x2F;18870  코드123456789101112131415161718192021222324252627282930313233public static void main(String[] args) throws IOException &amp;#123;    BufferedReader br &#x3D; new Buffered">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="백준 18870번: 좌표 압축">
@@ -49,6 +49,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -135,7 +144,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

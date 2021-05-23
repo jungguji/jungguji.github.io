@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/4796\n\n코드1234567891011121314151617181920212223242526272829public static void main(String[] args) throws IOException &#123;    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    StringBuilder sb = new StringBuilder();    int i = 0;    String input = &quot;&quot;;    while (!&quot;0 0 0&quot;.equals(input = br.readLine())) &#123;        int[] lpv = convertStringArrayToIntegerArray(input.split(&quot; &quot;));        int l = lpv[0];        int p = lpv[1];        int v = lpv[2];        sb.append(&quot;Case &quot;).append(++i).append(&quot;: &quot;).append((v/p) * l + ((v%p) &gt; l ? l : (v%p))).append(&quot;\\n&quot;);    &#125;    System.out.println(sb);&#125;private static int[] convertStringArrayToIntegerArray(String[] args) &#123;    int[] array = new int[args.length];    int i = 0;    for (String str : args) &#123;        array[i++] = Integer.parseInt(str);    &#125;    return array;&#125;\n\n흐름\nV일 중에 연속되는 P일 동안 L일 만큼 휴가를 사용 할 수 있으므로\nV에서 P를 나눈 값에서 L일을 곱하면 사용 가능한 휴가 일수가 구해지고\nL이 V일에서 P일을 나눈 값보다 작을 땐 L일 만큼 휴가를 더 갈 수 있고\n큰 경우엔 V % P 일 만큼 갈 수 있으므로 구한 값을 더하면\n총 휴가 일수를 구할 수 있다.\n\n\n결과","dateCreated":"2021-03-25T22:08:42+09:00","dateModified":"2021-03-25T22:08:42+09:00","datePublished":"2021-03-25T22:08:42+09:00","description":"","headline":"백준 4796번: 캠핑","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/","keywords":"알고리즘, 그리디, 백준"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/4796\n\n코드1234567891011121314151617181920212223242526272829public static void main(String[] args) throws IOException &#123;    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    StringBuilder sb = new StringBuilder();    int i = 0;    String input = &quot;&quot;;    while (!&quot;0 0 0&quot;.equals(input = br.readLine())) &#123;        int[] lpv = convertStringArrayToIntegerArray(input.split(&quot; &quot;));        int l = lpv[0];        int p = lpv[1];        int v = lpv[2];        sb.append(&quot;Case &quot;).append(++i).append(&quot;: &quot;).append((v/p) * l + ((v%p) &gt; l ? l : (v%p))).append(&quot;\\n&quot;);    &#125;    System.out.println(sb);&#125;private static int[] convertStringArrayToIntegerArray(String[] args) &#123;    int[] array = new int[args.length];    int i = 0;    for (String str : args) &#123;        array[i++] = Integer.parseInt(str);    &#125;    return array;&#125;\n\n흐름\nV일 중에 연속되는 P일 동안 L일 만큼 휴가를 사용 할 수 있으므로\nV에서 P를 나눈 값에서 L일을 곱하면 사용 가능한 휴가 일수가 구해지고\nL이 V일에서 P일을 나눈 값보다 작을 땐 L일 만큼 휴가를 더 갈 수 있고\n큰 경우엔 V % P 일 만큼 갈 수 있으므로 구한 값을 더하면\n총 휴가 일수를 구할 수 있다.\n\n\n결과","dateCreated":"2021-03-25T22:08:42+09:00","dateModified":"2021-03-25T22:08:42+09:00","datePublished":"2021-03-25T22:08:42+09:00","description":"","headline":"백준 4796번: 캠핑","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/","keywords":"알고리즘, 그리디, 백준"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;www.acmicpc.net&#x2F;problem&#x2F;4796  코드1234567891011121314151617181920212223242526272829public static void main(String[] args) throws IOException &amp;#123;    BufferedReader br &#x3D; new BufferedReader(ne">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="백준 4796번: 캠핑">
@@ -46,6 +46,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -132,7 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

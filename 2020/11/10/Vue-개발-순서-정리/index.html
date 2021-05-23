@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"서론Spring boot + Vue를 활용해 토이 프로젝트 진행하고 있는데 헷갈리는 부분을 차후 또 Vue로 개발 할 일이 있을 경우 참고하기 위해 글로 남겨 놓는다.\n개발 순서\nVue는 설치되어 있다고 가정한다.\n\n\nroot 디렉토리에 vue.config.js 생성하고 필요한 설정 추가\n\nvue.config.js1234567891011121314151617181920const path = require(&quot;path&quot;);module.exports = &#123;  assetsDir: &quot;static&quot;,  outputDir: path.resolve(__dirname, &quot;../backend/src/main/resources/static&quot;),  devServer: &#123;    proxy: &#123;      &quot;/&quot;: &#123;        target: &quot;http://localhost:9312&quot;,        ws: true,        changeOrigin: true      &#125;    &#125;  &#125;,  chainWebpack: config =&gt; &#123;    const svgRule = config.module.rule(&quot;svg&quot;);    svgRule.uses.clear();    svgRule.use(&quot;vue-svg-loader&quot;).loader(&quot;vue-svg-loader&quot;);  &#125;&#125;;\n\nviews/ 에 화면이 될 vue 파일 생성\nsrc/ 에 api 폴더 생성\napi/ 에 화면 별로 필요한 js 파일 생성\n이 js 파일들엔 각 컴포넌트 별로 필요한 api 주소를 호출 할 수 있는 js 코드를 작성한다.\n\n\napi 호출 시 공통으로 들어갈 header를 포함하는 common.js 생성\n\ncommon.js123456789import axios from &quot;axios&quot;;const AXIOS = axios.create(&#123;  headers: &#123;    &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,    &quot;Content-Type&quot;: &quot;application/json; charset = utf-8&quot;  &#125;,  timeout: 1000&#125;);\n\n\ncomponents/ 에 2번에서 만든 화면에 출력 될 component vue 파일 생성\nrouter/index.js 에 추가한 vue path 추가\nrotuer에 추가하지 않으면 화면이 나오지 않음\n\n\n\nrouter/index.js1234567...  &#123;    path: &quot;/main&quot;,    name: &quot;Main&quot;,    component: () =&gt; import(&quot;../views/Main&quot;)  &#125;...","dateCreated":"2020-11-10T19:10:35+09:00","dateModified":"2020-11-10T19:10:35+09:00","datePublished":"2020-11-10T19:10:35+09:00","description":"","headline":"Vue 개발 순서 정리","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/11/10/Vue-%EA%B0%9C%EB%B0%9C-%EC%88%9C%EC%84%9C-%EC%A0%95%EB%A6%AC/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/11/10/Vue-%EA%B0%9C%EB%B0%9C-%EC%88%9C%EC%84%9C-%EC%A0%95%EB%A6%AC/","keywords":"Vue.js"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론Spring boot + Vue를 활용해 토이 프로젝트 진행하고 있는데 헷갈리는 부분을 차후 또 Vue로 개발 할 일이 있을 경우 참고하기 위해 글로 남겨 놓는다.\n개발 순서\nVue는 설치되어 있다고 가정한다.\n\n\nroot 디렉토리에 vue.config.js 생성하고 필요한 설정 추가\n\nvue.config.js1234567891011121314151617181920const path = require(&quot;path&quot;);module.exports = &#123;  assetsDir: &quot;static&quot;,  outputDir: path.resolve(__dirname, &quot;../backend/src/main/resources/static&quot;),  devServer: &#123;    proxy: &#123;      &quot;/&quot;: &#123;        target: &quot;http://localhost:9312&quot;,        ws: true,        changeOrigin: true      &#125;    &#125;  &#125;,  chainWebpack: config =&gt; &#123;    const svgRule = config.module.rule(&quot;svg&quot;);    svgRule.uses.clear();    svgRule.use(&quot;vue-svg-loader&quot;).loader(&quot;vue-svg-loader&quot;);  &#125;&#125;;\n\nviews/ 에 화면이 될 vue 파일 생성\nsrc/ 에 api 폴더 생성\napi/ 에 화면 별로 필요한 js 파일 생성\n이 js 파일들엔 각 컴포넌트 별로 필요한 api 주소를 호출 할 수 있는 js 코드를 작성한다.\n\n\napi 호출 시 공통으로 들어갈 header를 포함하는 common.js 생성\n\ncommon.js123456789import axios from &quot;axios&quot;;const AXIOS = axios.create(&#123;  headers: &#123;    &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,    &quot;Content-Type&quot;: &quot;application/json; charset = utf-8&quot;  &#125;,  timeout: 1000&#125;);\n\n\ncomponents/ 에 2번에서 만든 화면에 출력 될 component vue 파일 생성\nrouter/index.js 에 추가한 vue path 추가\nrotuer에 추가하지 않으면 화면이 나오지 않음\n\n\n\nrouter/index.js1234567...  &#123;    path: &quot;/main&quot;,    name: &quot;Main&quot;,    component: () =&gt; import(&quot;../views/Main&quot;)  &#125;...","dateCreated":"2020-11-10T19:10:35+09:00","dateModified":"2020-11-10T19:10:35+09:00","datePublished":"2020-11-10T19:10:35+09:00","description":"","headline":"Vue 개발 순서 정리","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/11/10/Vue-%EA%B0%9C%EB%B0%9C-%EC%88%9C%EC%84%9C-%EC%A0%95%EB%A6%AC/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/11/10/Vue-%EA%B0%9C%EB%B0%9C-%EC%88%9C%EC%84%9C-%EC%A0%95%EB%A6%AC/","keywords":"Vue.js"}</script>
     <meta name="description" content="서론Spring boot + Vue를 활용해 토이 프로젝트 진행하고 있는데 헷갈리는 부분을 차후 또 Vue로 개발 할 일이 있을 경우 참고하기 위해 글로 남겨 놓는다. 개발 순서 Vue는 설치되어 있다고 가정한다.   root 디렉토리에 vue.config.js 생성하고 필요한 설정 추가  vue.config.js123456789101112131415161">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Vue 개발 순서 정리">
@@ -42,6 +42,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -128,7 +137,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

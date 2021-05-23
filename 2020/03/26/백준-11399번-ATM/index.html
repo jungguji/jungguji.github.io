@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"https://www.acmicpc.net/problem/11399\n\n소스123456789101112public static int solution(int n, int[] times) &#123;    Arrays.sort(times);        int answer = 0;    for (int i = 0; i &lt; times.length; i++) &#123;        answer += times[i] * (n-i);    &#125;        return answer;&#125;\n\n흐름\n시간이 짧게 걸리는 사람이 앞에 올수록 전체 수행 시간이 짧아지므로 sorting부터 실행\n\n앞에 사람이 걸리는 시간은 그 뒤 사람들도 그만큼 시간이 + 되는 것이므로 n-i 한 값을 곱함\n ex) 첫 번째 사람이 1분 걸리면 2, 3, 4, 5 번째 사람도 1분씩 더 걸리게 됨 \n\n다 더한 값을 출력하면 끝\n\n\n","dateCreated":"2020-03-26T17:34:00+09:00","dateModified":"2020-03-26T17:34:00+09:00","datePublished":"2020-03-26T17:34:00+09:00","description":"","headline":"백준 11399번: ATM","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/03/26/%EB%B0%B1%EC%A4%80-11399%EB%B2%88-ATM/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/03/26/%EB%B0%B1%EC%A4%80-11399%EB%B2%88-ATM/","keywords":"알고리즘, 그리디, 백준"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"https://www.acmicpc.net/problem/11399\n\n소스123456789101112public static int solution(int n, int[] times) &#123;    Arrays.sort(times);        int answer = 0;    for (int i = 0; i &lt; times.length; i++) &#123;        answer += times[i] * (n-i);    &#125;        return answer;&#125;\n\n흐름\n시간이 짧게 걸리는 사람이 앞에 올수록 전체 수행 시간이 짧아지므로 sorting부터 실행\n\n앞에 사람이 걸리는 시간은 그 뒤 사람들도 그만큼 시간이 + 되는 것이므로 n-i 한 값을 곱함\n ex) 첫 번째 사람이 1분 걸리면 2, 3, 4, 5 번째 사람도 1분씩 더 걸리게 됨 \n\n다 더한 값을 출력하면 끝\n\n\n","dateCreated":"2020-03-26T17:34:00+09:00","dateModified":"2020-03-26T17:34:00+09:00","datePublished":"2020-03-26T17:34:00+09:00","description":"","headline":"백준 11399번: ATM","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/03/26/%EB%B0%B1%EC%A4%80-11399%EB%B2%88-ATM/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/03/26/%EB%B0%B1%EC%A4%80-11399%EB%B2%88-ATM/","keywords":"알고리즘, 그리디, 백준"}</script>
     <meta name="description" content="https:&#x2F;&#x2F;www.acmicpc.net&#x2F;problem&#x2F;11399  소스123456789101112public static int solution(int n, int[] times) &amp;#123;    Arrays.sort(times);        int answer &#x3D; 0;    for (int i &#x3D; 0; i &lt; times.length; i++)">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="백준 11399번: ATM">
@@ -44,6 +44,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -130,7 +139,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

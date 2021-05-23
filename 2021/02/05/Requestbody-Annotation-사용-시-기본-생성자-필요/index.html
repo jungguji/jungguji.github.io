@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"서론사실, 제목이 결론이다. @Requestbody Annotation을 사용하려면 반드시 해당 DTO에는 기본 생성자가 명시적으로 존재하여야 한다. 뭔가 설정을 잘못했는지는 모르겠지만 intellij 에서 stacktrace가 출력되지 않아 이 사실을 알 수 가 없어서 엄청나게 삽질을 했기에 내용을 정리한다…\n\n본론상황controller 테스트에서 모든 조건을 맞췄는데도 500 에러가 발생하여 테스트를 통과하지 못하는 상황이었는데 @Requestbody annotation을 DTO가 아닌 HashMap으로 변경하니 테스트가 정상적으로 통과되어 JSON이 제대로 DTO로 매핑되지 않아서 발생하는 문제라고 판단했다.\n에러 발생\n\n\nNo suitable constructor found for type [simple type, class 클래스명]: can not instantiate from JSON object (missing default constructor or creator, or perhaps need to add/enable type information?)\n\n직역하면 기본 생성자가 존재하지 않아서 에러가 발생했다는 내용이다.\n해결 방법빌더패턴을 사용하던 클래스에 @Noargsconstructor annotation을 사용해서 기본 생성자를 생성하게 하였다.\n\n\n결론@Requestbody와 DTO를 매핑되게 해야 할 경우 많은 조건이 필요하다.이전 포스트에 작성했던 boolean의 변수명이라던가, 지금과 같은 기본 생성자라 라던지… 이게 모두 @Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다. \n\n참고 사이트\nhttps://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80\n\n","dateCreated":"2021-02-05T22:39:20+09:00","dateModified":"2021-02-05T22:39:20+09:00","datePublished":"2021-02-05T22:39:20+09:00","description":"","headline":"Requestbody Annotation 사용 시 기본 생성자 필요","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/","keywords":"Junit, Test"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론사실, 제목이 결론이다. @Requestbody Annotation을 사용하려면 반드시 해당 DTO에는 기본 생성자가 명시적으로 존재하여야 한다. 뭔가 설정을 잘못했는지는 모르겠지만 intellij 에서 stacktrace가 출력되지 않아 이 사실을 알 수 가 없어서 엄청나게 삽질을 했기에 내용을 정리한다…\n\n본론상황controller 테스트에서 모든 조건을 맞췄는데도 500 에러가 발생하여 테스트를 통과하지 못하는 상황이었는데 @Requestbody annotation을 DTO가 아닌 HashMap으로 변경하니 테스트가 정상적으로 통과되어 JSON이 제대로 DTO로 매핑되지 않아서 발생하는 문제라고 판단했다.\n에러 발생\n\n\nNo suitable constructor found for type [simple type, class 클래스명]: can not instantiate from JSON object (missing default constructor or creator, or perhaps need to add/enable type information?)\n\n직역하면 기본 생성자가 존재하지 않아서 에러가 발생했다는 내용이다.\n해결 방법빌더패턴을 사용하던 클래스에 @Noargsconstructor annotation을 사용해서 기본 생성자를 생성하게 하였다.\n\n\n결론@Requestbody와 DTO를 매핑되게 해야 할 경우 많은 조건이 필요하다.이전 포스트에 작성했던 boolean의 변수명이라던가, 지금과 같은 기본 생성자라 라던지… 이게 모두 @Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다. \n\n참고 사이트\nhttps://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%80\n\n","dateCreated":"2021-02-05T22:39:20+09:00","dateModified":"2021-02-05T22:39:20+09:00","datePublished":"2021-02-05T22:39:20+09:00","description":"","headline":"Requestbody Annotation 사용 시 기본 생성자 필요","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/","keywords":"Junit, Test"}</script>
     <meta name="description" content="서론사실, 제목이 결론이다. @Requestbody Annotation을 사용하려면 반드시 해당 DTO에는 기본 생성자가 명시적으로 존재하여야 한다. 뭔가 설정을 잘못했는지는 모르겠지만 intellij 에서 stacktrace가 출력되지 않아 이 사실을 알 수 가 없어서 엄청나게 삽질을 했기에 내용을 정리한다…  본론상황controller 테스트에서 모든">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Requestbody Annotation 사용 시 기본 생성자 필요">
@@ -46,6 +46,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -132,7 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

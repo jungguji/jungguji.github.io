@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"https://programmers.co.kr/learn/courses/30/lessons/62048?language=java\n\n코드123456789101112public long solution(long w,long h) &#123;    long big = w &gt; h ? w : h;    long small = w &gt; h ? h : w;    while (small != 0) &#123;        long r = big % small;        big = small;        small = r;    &#125;    return (w * h) - (w + h - big);&#125;\n\n흐름\n최대 공약수를 구함\n\n전체 사각형 수 (w * h) 에서 안 멀쩡한 사각형 수(w + h - 최대 공약수)를 뺌\n\n끝\n\n\n\n최대 공약수를 사용하는 이유아래 블로그에서 잘 설명 해주셨음\n\nhttps://leedakyeong.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95-in-python\n\nhttps://taesan94.tistory.com/55\n\n\n\n결과\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (0.76ms, 50.7MB)\n\n\n테스트 2\n통과 (0.81ms, 52.4MB)\n\n\n테스트 3\n통과 (0.75ms, 52.6MB)\n\n\n테스트 4\n통과 (0.70ms, 52.6MB)\n\n\n테스트 5\n통과 (0.82ms, 51.9MB)\n\n\n테스트 6\n통과 (0.80ms, 52.1MB)\n\n\n테스트 7\n통과 (0.85ms, 52.4MB)\n\n\n테스트 8\n통과 (0.86ms, 54.6MB)\n\n\n테스트 9\n통과 (0.72ms, 52.3MB)\n\n\n테스트 10\n통과 (0.73ms, 52.6MB)\n\n\n테스트 11\n통과 (0.74ms, 52.2MB)\n\n\n테스트 12\n통과 (0.58ms, 52.5MB)\n\n\n테스트 13\n통과 (0.51ms, 52.5MB)\n\n\n테스트 14\n통과 (0.60ms, 52.6MB)\n\n\n테스트 15\n통과 (0.53ms, 50.3MB)\n\n\n테스트 16\n통과 (0.61ms, 52.5MB)\n\n\n테스트 17\n통과 (0.61ms, 52.3MB)\n\n\n테스트 18\n통과 (0.80ms, 52.3MB)\n\n\n\n테스트 케이스12345assertEquals(80, test.solution(8, 12));assertEquals(12, test.solution(5, 4));assertEquals(40, test.solution(10, 5));assertEquals(352, test.solution(17, 23));assertEquals(30467460, test.solution(3, 15233730));\n\n\n참고 사이트본문 참조\n","dateCreated":"2020-04-24T13:48:24+09:00","dateModified":"2020-04-24T13:48:24+09:00","datePublished":"2020-04-24T13:48:24+09:00","description":"","headline":"프로그래머스: 멀쩡한 사각형","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/04/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/04/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95/","keywords":"알고리즘, 프로그래머스"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"https://programmers.co.kr/learn/courses/30/lessons/62048?language=java\n\n코드123456789101112public long solution(long w,long h) &#123;    long big = w &gt; h ? w : h;    long small = w &gt; h ? h : w;    while (small != 0) &#123;        long r = big % small;        big = small;        small = r;    &#125;    return (w * h) - (w + h - big);&#125;\n\n흐름\n최대 공약수를 구함\n\n전체 사각형 수 (w * h) 에서 안 멀쩡한 사각형 수(w + h - 최대 공약수)를 뺌\n\n끝\n\n\n\n최대 공약수를 사용하는 이유아래 블로그에서 잘 설명 해주셨음\n\nhttps://leedakyeong.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95-in-python\n\nhttps://taesan94.tistory.com/55\n\n\n\n결과\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (0.76ms, 50.7MB)\n\n\n테스트 2\n통과 (0.81ms, 52.4MB)\n\n\n테스트 3\n통과 (0.75ms, 52.6MB)\n\n\n테스트 4\n통과 (0.70ms, 52.6MB)\n\n\n테스트 5\n통과 (0.82ms, 51.9MB)\n\n\n테스트 6\n통과 (0.80ms, 52.1MB)\n\n\n테스트 7\n통과 (0.85ms, 52.4MB)\n\n\n테스트 8\n통과 (0.86ms, 54.6MB)\n\n\n테스트 9\n통과 (0.72ms, 52.3MB)\n\n\n테스트 10\n통과 (0.73ms, 52.6MB)\n\n\n테스트 11\n통과 (0.74ms, 52.2MB)\n\n\n테스트 12\n통과 (0.58ms, 52.5MB)\n\n\n테스트 13\n통과 (0.51ms, 52.5MB)\n\n\n테스트 14\n통과 (0.60ms, 52.6MB)\n\n\n테스트 15\n통과 (0.53ms, 50.3MB)\n\n\n테스트 16\n통과 (0.61ms, 52.5MB)\n\n\n테스트 17\n통과 (0.61ms, 52.3MB)\n\n\n테스트 18\n통과 (0.80ms, 52.3MB)\n\n\n\n테스트 케이스12345assertEquals(80, test.solution(8, 12));assertEquals(12, test.solution(5, 4));assertEquals(40, test.solution(10, 5));assertEquals(352, test.solution(17, 23));assertEquals(30467460, test.solution(3, 15233730));\n\n\n참고 사이트본문 참조\n","dateCreated":"2020-04-24T13:48:24+09:00","dateModified":"2020-04-24T13:48:24+09:00","datePublished":"2020-04-24T13:48:24+09:00","description":"","headline":"프로그래머스: 멀쩡한 사각형","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/04/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/04/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95/","keywords":"알고리즘, 프로그래머스"}</script>
     <meta name="description" content="https:&#x2F;&#x2F;programmers.co.kr&#x2F;learn&#x2F;courses&#x2F;30&#x2F;lessons&#x2F;62048?language&#x3D;java  코드123456789101112public long solution(long w,long h) &amp;#123;    long big &#x3D; w &gt; h ? w : h;    long small &#x3D; w &gt; h ? h : w;">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="프로그래머스: 멀쩡한 사각형">
@@ -43,6 +43,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -129,7 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

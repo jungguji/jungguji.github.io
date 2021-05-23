@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/1417\n\n코드123456789101112131415161718192021222324252627282930public static void main(String[] args) throws IOException &#123;    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    int n = Integer.parseInt(br.readLine());    LinkedList&lt;Integer&gt; queue = new LinkedList&lt;&gt;();    int dasom = Integer.parseInt(br.readLine());    for (int i = 0; i &lt; n-1; i++) &#123;        int input = Integer.parseInt(br.readLine());        if (dasom &lt;= input) &#123;            queue.offer(input);        &#125;    &#125;    Collections.sort(queue);    int answer = 0;    for (; !queue.isEmpty() &amp;&amp; queue.peekLast() &gt;= dasom; answer++) &#123;        if (queue.peek() &lt; dasom) &#123;            queue.poll();        &#125;        queue.offer((queue.pollLast()-1));        dasom++;        Collections.sort(queue);    &#125;    System.out.println(answer);&#125;\n\n\n흐름\n다솜이는 기호 1번이므로 첫 번째 입력을 다솜이의 표로 저장한다.\n우선순위 큐로 사용하기 위해 list에 입력들을 저장하는데 다솜이 보다 작을 경우엔 문제의 답과 상관이 없으므로 다솜이의 표보다 적은 표는 큐에 저장하지 않는다.\n우선순위 큐로서 동작하게 하기 위해 반복 전에 큐를 한번 정렬시켜준다.\n그 후엔 큐가 비거나, 큐의 가장 큰 값이 다솜이가 될 때까지 반복한다.\n반복하면서 큐의 맨 앞이 다솜이보다 작다면, 이제 그 사람은 다솜이가 재낀 것 이므로 큐에서 빼주고,\n제일 표가 많은 놈한테서 표 하나를 뻇어서 다솜이가 가져가면 되므로 큐의 마지막 값에서 -1 빼서 다시 큐에 넣어준다.\n그리고 제일 표가 많은 놈에게 뺏은 표를 다솜이에게 줬으므로 다솜이의 값을 1 증가시키고\n우선순위 큐 처럼 동작 할 수 있게 큐를 다시 정렬 시킨다.\n반복된 횟수를 출력하면 끝.\n\n\n결과\n\n여담반복문에서 소팅을 하기 때문에 시간 초과가 날 것으로 예상했는데 수가 적은 문제라 그런지 무사히 통과되어 참 다행이다…\n","dateCreated":"2021-03-30T21:38:30+09:00","dateModified":"2021-03-30T21:38:30+09:00","datePublished":"2021-03-30T21:38:30+09:00","description":"","headline":"백준 1417번: 국회의원 선거","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/03/30/%EB%B0%B1%EC%A4%80-1417%EB%B2%88-%EA%B5%AD%ED%9A%8C%EC%9D%98%EC%9B%90-%EC%84%A0%EA%B1%B0/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2021/03/30/%EB%B0%B1%EC%A4%80-1417%EB%B2%88-%EA%B5%AD%ED%9A%8C%EC%9D%98%EC%9B%90-%EC%84%A0%EA%B1%B0/","keywords":"백준, 자료구조, 우선순위 큐"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://www.acmicpc.net/problem/1417\n\n코드123456789101112131415161718192021222324252627282930public static void main(String[] args) throws IOException &#123;    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    int n = Integer.parseInt(br.readLine());    LinkedList&lt;Integer&gt; queue = new LinkedList&lt;&gt;();    int dasom = Integer.parseInt(br.readLine());    for (int i = 0; i &lt; n-1; i++) &#123;        int input = Integer.parseInt(br.readLine());        if (dasom &lt;= input) &#123;            queue.offer(input);        &#125;    &#125;    Collections.sort(queue);    int answer = 0;    for (; !queue.isEmpty() &amp;&amp; queue.peekLast() &gt;= dasom; answer++) &#123;        if (queue.peek() &lt; dasom) &#123;            queue.poll();        &#125;        queue.offer((queue.pollLast()-1));        dasom++;        Collections.sort(queue);    &#125;    System.out.println(answer);&#125;\n\n\n흐름\n다솜이는 기호 1번이므로 첫 번째 입력을 다솜이의 표로 저장한다.\n우선순위 큐로 사용하기 위해 list에 입력들을 저장하는데 다솜이 보다 작을 경우엔 문제의 답과 상관이 없으므로 다솜이의 표보다 적은 표는 큐에 저장하지 않는다.\n우선순위 큐로서 동작하게 하기 위해 반복 전에 큐를 한번 정렬시켜준다.\n그 후엔 큐가 비거나, 큐의 가장 큰 값이 다솜이가 될 때까지 반복한다.\n반복하면서 큐의 맨 앞이 다솜이보다 작다면, 이제 그 사람은 다솜이가 재낀 것 이므로 큐에서 빼주고,\n제일 표가 많은 놈한테서 표 하나를 뻇어서 다솜이가 가져가면 되므로 큐의 마지막 값에서 -1 빼서 다시 큐에 넣어준다.\n그리고 제일 표가 많은 놈에게 뺏은 표를 다솜이에게 줬으므로 다솜이의 값을 1 증가시키고\n우선순위 큐 처럼 동작 할 수 있게 큐를 다시 정렬 시킨다.\n반복된 횟수를 출력하면 끝.\n\n\n결과\n\n여담반복문에서 소팅을 하기 때문에 시간 초과가 날 것으로 예상했는데 수가 적은 문제라 그런지 무사히 통과되어 참 다행이다…\n","dateCreated":"2021-03-30T21:38:30+09:00","dateModified":"2021-03-30T21:38:30+09:00","datePublished":"2021-03-30T21:38:30+09:00","description":"","headline":"백준 1417번: 국회의원 선거","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/03/30/%EB%B0%B1%EC%A4%80-1417%EB%B2%88-%EA%B5%AD%ED%9A%8C%EC%9D%98%EC%9B%90-%EC%84%A0%EA%B1%B0/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2021/03/30/%EB%B0%B1%EC%A4%80-1417%EB%B2%88-%EA%B5%AD%ED%9A%8C%EC%9D%98%EC%9B%90-%EC%84%A0%EA%B1%B0/","keywords":"백준, 자료구조, 우선순위 큐"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;www.acmicpc.net&#x2F;problem&#x2F;1417  코드123456789101112131415161718192021222324252627282930public static void main(String[] args) throws IOException &amp;#123;    BufferedReader br &#x3D; new BufferedReader(">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="백준 1417번: 국회의원 선거">
@@ -46,6 +46,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -132,7 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

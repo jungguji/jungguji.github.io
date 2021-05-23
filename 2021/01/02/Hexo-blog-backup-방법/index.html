@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"서론많은 블로그 서비스 중 필자는 Git, Github를 활용해서 사용하는 hexo로 github 블로그를 선택했지만, 다른 블로그 서비스들과는 달리 설치형 블로그의 특성상 설치된 PC가 아닌 경우엔 블로그에 글을 작성하는 일이 쉽지 않고, 블로그가 설치된 PC가 고장이라도 나는 날에는 고스라니 블로그를 날려버리는 상황이 닥치는 경우도 왕왕있다. (예로 필자는 블로그를 설치한 HDD가 고장나 블로그를 새로 작성했다.) 이런 경우를 방지하고, 블로그 작성의 확장성을 위해 github을 이용해 Hexo 블로그를 back up 하는 방법을 알아본다.\n\n방법\n\n\n우선 위 사진처럼 github에서 테마와 post를 저장 할 repository를 생성한다.이 때 테마를 저장 할 저장소의 이름은 테마와 같게 한다.\n\n\n\n\n테마를 저장하기 위해 연결된 원격 저장소의 위치를 확인하고 설치한 테마 폴더 안에서 git 원격 저장소 주소를 변경한다.\n변경 후 테마용 저장소에 테마를 push한다.\n\n\n\n\n위 처럼 정상적으로 저장되어 있는지 확인하고 themes 폴더안에서 테마를 삭제한다.\ngit의 submodule 기능을 이용해 저장한 테마를 submodule로 추가하는데 이 때 디렉토리의 위치는 themes 폴더 내로 이동해서 submodule 기능을 실행한다.\n\n1git submodule add 테마 저장소\n\n\npost를 저장 할 저장소 주소를 추가한다.(cotent)\n\n1git remote add content post 저장소\n\n\n\n\npost 저장용 저장소에 내용을 push하고 정상적으로 저장되었는지 확인한다.\n이 후엔 post 작성 후 post만 content 저장소로 push해주면 된다.\n\n\n결과이제 우리는 불미스러운 사고로 블로그가 설치된 HDD가 고장나거나(ㅠㅠ), 블로그가 설치 안된 다른 PC or 노트북에서도 백업된 theme와 post들을 다운받아 블로그를 작성 할 수 있게 되었다.\n여담이지만, 과거로 돌아간다면 나는 velog를 사용 할 듯 싶다.\n\n참고 사이트\nHexo 배포 원리와 백업하기\nGit cached 삭제\nGit Submodule 삭제방법\nGit: fatal: Pathspec is in submodule\n\n","dateCreated":"2021-01-02T15:54:05+09:00","dateModified":"2021-01-02T15:54:05+09:00","datePublished":"2021-01-02T15:54:05+09:00","description":"","headline":"Hexo blog backup 방법","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론많은 블로그 서비스 중 필자는 Git, Github를 활용해서 사용하는 hexo로 github 블로그를 선택했지만, 다른 블로그 서비스들과는 달리 설치형 블로그의 특성상 설치된 PC가 아닌 경우엔 블로그에 글을 작성하는 일이 쉽지 않고, 블로그가 설치된 PC가 고장이라도 나는 날에는 고스라니 블로그를 날려버리는 상황이 닥치는 경우도 왕왕있다. (예로 필자는 블로그를 설치한 HDD가 고장나 블로그를 새로 작성했다.) 이런 경우를 방지하고, 블로그 작성의 확장성을 위해 github을 이용해 Hexo 블로그를 back up 하는 방법을 알아본다.\n\n방법\n\n\n우선 위 사진처럼 github에서 테마와 post를 저장 할 repository를 생성한다.이 때 테마를 저장 할 저장소의 이름은 테마와 같게 한다.\n\n\n\n\n테마를 저장하기 위해 연결된 원격 저장소의 위치를 확인하고 설치한 테마 폴더 안에서 git 원격 저장소 주소를 변경한다.\n변경 후 테마용 저장소에 테마를 push한다.\n\n\n\n\n위 처럼 정상적으로 저장되어 있는지 확인하고 themes 폴더안에서 테마를 삭제한다.\ngit의 submodule 기능을 이용해 저장한 테마를 submodule로 추가하는데 이 때 디렉토리의 위치는 themes 폴더 내로 이동해서 submodule 기능을 실행한다.\n\n1git submodule add 테마 저장소\n\n\npost를 저장 할 저장소 주소를 추가한다.(cotent)\n\n1git remote add content post 저장소\n\n\n\n\npost 저장용 저장소에 내용을 push하고 정상적으로 저장되었는지 확인한다.\n이 후엔 post 작성 후 post만 content 저장소로 push해주면 된다.\n\n\n결과이제 우리는 불미스러운 사고로 블로그가 설치된 HDD가 고장나거나(ㅠㅠ), 블로그가 설치 안된 다른 PC or 노트북에서도 백업된 theme와 post들을 다운받아 블로그를 작성 할 수 있게 되었다.\n여담이지만, 과거로 돌아간다면 나는 velog를 사용 할 듯 싶다.\n\n참고 사이트\nHexo 배포 원리와 백업하기\nGit cached 삭제\nGit Submodule 삭제방법\nGit: fatal: Pathspec is in submodule\n\n","dateCreated":"2021-01-02T15:54:05+09:00","dateModified":"2021-01-02T15:54:05+09:00","datePublished":"2021-01-02T15:54:05+09:00","description":"","headline":"Hexo blog backup 방법","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/"}</script>
     <meta name="description" content="서론많은 블로그 서비스 중 필자는 Git, Github를 활용해서 사용하는 hexo로 github 블로그를 선택했지만, 다른 블로그 서비스들과는 달리 설치형 블로그의 특성상 설치된 PC가 아닌 경우엔 블로그에 글을 작성하는 일이 쉽지 않고, 블로그가 설치된 PC가 고장이라도 나는 날에는 고스라니 블로그를 날려버리는 상황이 닥치는 경우도 왕왕있다. (예로 필">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Hexo blog backup 방법">
@@ -46,6 +46,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -132,7 +141,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

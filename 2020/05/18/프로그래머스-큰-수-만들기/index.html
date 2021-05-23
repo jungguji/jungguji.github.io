@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://programmers.co.kr/learn/courses/30/lessons/42883?language=java\n\n코드12345678910111213141516171819202122public String solution(String number, int k) &#123;    char[] toCharArray = number.toCharArray();    StringBuilder answer = new StringBuilder();    int idx = 0;    for(int i = 0; i &lt; number.length() - k; i++) &#123;        int max = 0;        for(int j = idx; j &lt;= k + i; j++) &#123;            int ch = toCharArray[j] - &#x27;0&#x27;;            if(max &lt; ch) &#123;                max = ch;                idx = j + 1;            &#125;        &#125;        answer.append(max);    &#125;    return answer.toString();&#125;\n\n\n흐름\n문자열에서 k 만큼 빼야하니 당연히 문자열 length - k 만큼 반복\n가장 큰 수의 인덱스를 구해서 그 인덱스부터 한 칸씩 밀려야 하니 k + i 한 값 까지 반복\n가장 큰 수의 인덱스부터 반복해야하니 범위 내에서 가장 큰 수를 구해서 그 수의 인덱스를 저장하고 여기서 구한 인덱스를 2번에서 사용\n가장 큰 수를 저장하고 반복이 끝나면 리턴\n끝\n\n\n테스트 케이스1234567assertEquals(&quot;23&quot;, test.solution(&quot;123&quot;, 2));assertEquals(&quot;34&quot;, test.solution(&quot;1234&quot;, 2));assertEquals(&quot;94&quot;, test.solution(&quot;1924&quot;, 2));assertEquals(&quot;3234&quot;, test.solution(&quot;1231234&quot;, 3));assertEquals(&quot;775841&quot;, test.solution(&quot;4177252841&quot;, 4));assertEquals(&quot;9&quot;, test.solution(&quot;9999999999&quot;, 9));assertEquals(&quot;93231357719&quot;, test.solution(&quot;9312131357719&quot;, 5));\n\n\n참고 사이트\nhttps://medium.com/hyeon-hwang/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-lv-1-42883-%EC%88%AB%EC%9E%90-%EB%AC%B8%EC%A0%9C-%EA%B7%B8%EB%A6%AC%EB%94%94-585ce3b8c604\nhttps://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-Java\n\n","dateCreated":"2020-05-18T20:13:25+09:00","dateModified":"2020-05-18T20:13:25+09:00","datePublished":"2020-05-18T20:13:25+09:00","description":"","headline":"프로그래머스: 큰 수 만들기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/","keywords":"알고리즘, 그리디, 프로그래머스"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://programmers.co.kr/learn/courses/30/lessons/42883?language=java\n\n코드12345678910111213141516171819202122public String solution(String number, int k) &#123;    char[] toCharArray = number.toCharArray();    StringBuilder answer = new StringBuilder();    int idx = 0;    for(int i = 0; i &lt; number.length() - k; i++) &#123;        int max = 0;        for(int j = idx; j &lt;= k + i; j++) &#123;            int ch = toCharArray[j] - &#x27;0&#x27;;            if(max &lt; ch) &#123;                max = ch;                idx = j + 1;            &#125;        &#125;        answer.append(max);    &#125;    return answer.toString();&#125;\n\n\n흐름\n문자열에서 k 만큼 빼야하니 당연히 문자열 length - k 만큼 반복\n가장 큰 수의 인덱스를 구해서 그 인덱스부터 한 칸씩 밀려야 하니 k + i 한 값 까지 반복\n가장 큰 수의 인덱스부터 반복해야하니 범위 내에서 가장 큰 수를 구해서 그 수의 인덱스를 저장하고 여기서 구한 인덱스를 2번에서 사용\n가장 큰 수를 저장하고 반복이 끝나면 리턴\n끝\n\n\n테스트 케이스1234567assertEquals(&quot;23&quot;, test.solution(&quot;123&quot;, 2));assertEquals(&quot;34&quot;, test.solution(&quot;1234&quot;, 2));assertEquals(&quot;94&quot;, test.solution(&quot;1924&quot;, 2));assertEquals(&quot;3234&quot;, test.solution(&quot;1231234&quot;, 3));assertEquals(&quot;775841&quot;, test.solution(&quot;4177252841&quot;, 4));assertEquals(&quot;9&quot;, test.solution(&quot;9999999999&quot;, 9));assertEquals(&quot;93231357719&quot;, test.solution(&quot;9312131357719&quot;, 5));\n\n\n참고 사이트\nhttps://medium.com/hyeon-hwang/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-lv-1-42883-%EC%88%AB%EC%9E%90-%EB%AC%B8%EC%A0%9C-%EA%B7%B8%EB%A6%AC%EB%94%94-585ce3b8c604\nhttps://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-Java\n\n","dateCreated":"2020-05-18T20:13:25+09:00","dateModified":"2020-05-18T20:13:25+09:00","datePublished":"2020-05-18T20:13:25+09:00","description":"","headline":"프로그래머스: 큰 수 만들기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/","keywords":"알고리즘, 그리디, 프로그래머스"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;programmers.co.kr&#x2F;learn&#x2F;courses&#x2F;30&#x2F;lessons&#x2F;42883?language&#x3D;java  코드12345678910111213141516171819202122public String solution(String number, int k) &amp;#123;    char[] toCharArray &#x3D; number.toChar">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="프로그래머스: 큰 수 만들기">
@@ -44,6 +44,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -130,7 +139,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>

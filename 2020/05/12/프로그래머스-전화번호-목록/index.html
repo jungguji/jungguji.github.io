@@ -15,7 +15,7 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"articleBody":"문제https://programmers.co.kr/learn/courses/30/lessons/42577\n\n코드1234567891011121314151617public boolean solution(String[] phone_book) &#123;    int length = phone_book.length;    for (int i = 0; i &lt; length; i++) &#123;        for (int j = 0; j &lt; length; j++) &#123;            if (i == j) &#123;                continue;            &#125;            if (phone_book[j].startsWith(phone_book[i])) &#123;                return false;            &#125;        &#125;    &#125;    boolean answer = true;    return answer;&#125;\n\n\n흐름\n배열을 전부 돌면서 해당 인덱스로 시장하는 단어가 있는 지 확인함\n\n끝\n\n\n\n결과\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (0.78ms, 52.1MB)\n\n\n테스트 2\n통과 (0.52ms, 50.1MB)\n\n\n테스트 3\n통과 (0.65ms, 52.6MB)\n\n\n테스트 4\n통과 (0.51ms, 54.6MB)\n\n\n테스트 5\n통과 (0.55ms, 52.2MB)\n\n\n테스트 6\n통과 (0.66ms, 52.5MB)\n\n\n테스트 7\n통과 (0.87ms, 50.3MB)\n\n\n테스트 8\n통과 (0.77ms, 52.8MB)\n\n\n테스트 9\n통과 (0.64ms, 52.3MB)\n\n\n테스트 10\n통과 (0.57ms, 50.3MB)\n\n\n테스트 11\n통과 (0.65ms, 52.8MB)\n\n\n\n효율성 테스트\n\n\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (1.96ms, 60.3MB)\n\n\n테스트 2\n통과 (2.14ms, 59.8MB)\n\n\n\n테스트 케이스123assertFalse(test.solution(new String[] &#123;&quot;119&quot;, &quot;97674223&quot;, &quot;1195524421&quot;&#125; ));assertTrue(test.solution(new String[] &#123;&quot;123&quot;,&quot;456&quot;,&quot;789&quot;&#125; ));assertFalse(test.solution(new String[] &#123;&quot;12&quot;,&quot;123&quot;,&quot;1235&quot;,&quot;567&quot;,&quot;88&quot;&#125; ));\n\n\n여담\n사실 당연히 시간 초과로 안될 줄 알았는데 넘어가서 놀랐다.\n찾아보니 Trie 자료구조로 해결하길 바래서 카테고리가 해쉬 인 듯 싶다.\n하지만 쉽게 풀 수 있는 문제를 어렵게 풀 이유가 없으니 이 문제는 이렇게 마무리 하려한다.\n\n","dateCreated":"2020-05-12T15:53:47+09:00","dateModified":"2020-05-12T15:53:47+09:00","datePublished":"2020-05-12T15:53:47+09:00","description":"","headline":"프로그래머스: 전화번호 목록","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/","mailto"]},"url":"https://jungguji.github.io/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/","keywords":"알고리즘, 프로그래머스"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"문제https://programmers.co.kr/learn/courses/30/lessons/42577\n\n코드1234567891011121314151617public boolean solution(String[] phone_book) &#123;    int length = phone_book.length;    for (int i = 0; i &lt; length; i++) &#123;        for (int j = 0; j &lt; length; j++) &#123;            if (i == j) &#123;                continue;            &#125;            if (phone_book[j].startsWith(phone_book[i])) &#123;                return false;            &#125;        &#125;    &#125;    boolean answer = true;    return answer;&#125;\n\n\n흐름\n배열을 전부 돌면서 해당 인덱스로 시장하는 단어가 있는 지 확인함\n\n끝\n\n\n\n결과\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (0.78ms, 52.1MB)\n\n\n테스트 2\n통과 (0.52ms, 50.1MB)\n\n\n테스트 3\n통과 (0.65ms, 52.6MB)\n\n\n테스트 4\n통과 (0.51ms, 54.6MB)\n\n\n테스트 5\n통과 (0.55ms, 52.2MB)\n\n\n테스트 6\n통과 (0.66ms, 52.5MB)\n\n\n테스트 7\n통과 (0.87ms, 50.3MB)\n\n\n테스트 8\n통과 (0.77ms, 52.8MB)\n\n\n테스트 9\n통과 (0.64ms, 52.3MB)\n\n\n테스트 10\n통과 (0.57ms, 50.3MB)\n\n\n테스트 11\n통과 (0.65ms, 52.8MB)\n\n\n\n효율성 테스트\n\n\n\n\n번호\n속도\n\n\n\n테스트 1\n통과 (1.96ms, 60.3MB)\n\n\n테스트 2\n통과 (2.14ms, 59.8MB)\n\n\n\n테스트 케이스123assertFalse(test.solution(new String[] &#123;&quot;119&quot;, &quot;97674223&quot;, &quot;1195524421&quot;&#125; ));assertTrue(test.solution(new String[] &#123;&quot;123&quot;,&quot;456&quot;,&quot;789&quot;&#125; ));assertFalse(test.solution(new String[] &#123;&quot;12&quot;,&quot;123&quot;,&quot;1235&quot;,&quot;567&quot;,&quot;88&quot;&#125; ));\n\n\n여담\n사실 당연히 시간 초과로 안될 줄 알았는데 넘어가서 놀랐다.\n찾아보니 Trie 자료구조로 해결하길 바래서 카테고리가 해쉬 인 듯 싶다.\n하지만 쉽게 풀 수 있는 문제를 어렵게 풀 이유가 없으니 이 문제는 이렇게 마무리 하려한다.\n\n","dateCreated":"2020-05-12T15:53:47+09:00","dateModified":"2020-05-12T15:53:47+09:00","datePublished":"2020-05-12T15:53:47+09:00","description":"","headline":"프로그래머스: 전화번호 목록","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/","keywords":"알고리즘, 프로그래머스"}</script>
     <meta name="description" content="문제https:&#x2F;&#x2F;programmers.co.kr&#x2F;learn&#x2F;courses&#x2F;30&#x2F;lessons&#x2F;42577  코드1234567891011121314151617public boolean solution(String[] phone_book) &amp;#123;    int length &#x3D; phone_book.length;    for (int i &#x3D; 0; i &lt;">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="프로그래머스: 전화번호 목록">
@@ -43,6 +43,15 @@
 
     <!--STYLES END-->
     
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
 
     
 
@@ -129,7 +138,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a class="sidebar-button-link " href="https://github.com/" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
                         <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">GitHub</span>
                     </a>
