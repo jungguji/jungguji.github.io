@@ -1462,6 +1462,7 @@
 
 <h3 id="thymeleaf를-사용하지-않는-경우"><a href="#thymeleaf를-사용하지-않는-경우" class="headerlink" title="thymeleaf를 사용하지 않는 경우"></a>thymeleaf를 사용하지 않는 경우</h3><p>thymeleaf를 사용하지 않을 경우엔 resource 폴더 하위에 static 폴더에 error 페이지를 만들어놓고 CustomController를 아래처럼 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html">IllegalStateException</a> 을 throw 하기만 하면 된다.</p>
 <h2 id="Controller-1"><a href="#Controller-1" class="headerlink" title="Controller"></a>Controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomErrorController</span> <span class="keyword">implements</span> <span class="title">ErrorController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String PATH = <span class="string">&quot;/error&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping(&quot;/error&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">errorpage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getErrorPath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">return</span> PATH;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <hr>
 <h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><h2 id="적용-결과"><a href="#적용-결과" class="headerlink" title="적용 결과"></a>적용 결과</h2><p><img src="/images/error-page/error.PNG" alt="결과"></p>
 <p>나는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://http.cat/">https://http.cat/</a> 라는 http status code마다 위처럼 고양이 사진을 보여주는 사이트에서 이미지 파일을 가져와 적용하였다.</p>
@@ -1496,13 +1497,6 @@
                 </div>
             
         </div>
-        
-            <a href="/2020/04/15/custom-error-page/" aria-label=": Spring boot + thymeleaf custom error page 적용">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
         
     </article>
     
