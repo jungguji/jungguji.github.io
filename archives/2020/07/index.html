@@ -1627,10 +1627,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.h2database/h2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>그 후 Test 환경에서 사용하는 appication.properties에서 데이터베이스 설정을 H2로 설정해준다.</p>
-<br>
-
-<p><img src="/images/20200705/application-test.PNG" alt="application-test"></p>
-<br>
+<h3 id="application-test-properties-위치"><a href="#application-test-properties-위치" class="headerlink" title="application-test.properties 위치"></a>application-test.properties 위치</h3><img src="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/%EC%9C%84%EC%B9%98.JPG" class title="H2 DB를 이용한 Repository Test">
 
 <h3 id="application-test-properties-내용"><a href="#application-test-properties-내용" class="headerlink" title="application-test.properties 내용"></a>application-test.properties 내용</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1</span></span><br><span class="line"><span class="meta">spring.datasource.driverClassName</span>=<span class="string">org.h2.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">sa</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string"></span></span><br><span class="line"><span class="meta">spring.h2.console.enabled</span>=<span class="string">true</span></span><br><span class="line"></span><br><span class="line"><span class="meta">spring.jpa.hibernate.dialect</span>=<span class="string">org.hibernate.dialect.MariaDBDialect</span></span><br><span class="line"><span class="meta">spring.jpa.database-platform</span>=<span class="string">org.hibernate.dialect.H2Dialect</span></span><br><span class="line"><span class="meta">spring.jpa.hibernate.ddl-auto</span>=<span class="string">create-drop</span></span><br></pre></td></tr></table></figure>
 
@@ -1652,7 +1649,7 @@
 <p>테스트 시 꼭 메서드 각각으로하고 성공한다고 넘어가는게 아니라 클래스 전체로 테스트를 해봐야 할 것 같다.</p>
 <hr>
 <h2 id="프로젝트-전체-코드"><a href="#프로젝트-전체-코드" class="headerlink" title="프로젝트 전체 코드"></a>프로젝트 전체 코드</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/howto-database-initialization.html">https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/howto-database-initialization.html</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook">https://github.com/jungguji/wordbook</a></li>
 </ul>
 <hr>
 <h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
@@ -1674,13 +1671,6 @@
                 </div>
             
         </div>
-        
-            <a href="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/" aria-label=": H2 DB를 이용한 Repository Test">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
         
     </article>
     
