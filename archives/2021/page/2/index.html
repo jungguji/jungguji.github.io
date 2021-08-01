@@ -175,6 +175,68 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/" aria-label=": 백준 4796번: 캠핑">
+                            백준 4796번: 캠핑
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2021-03-25T22:08:42+09:00">
+	
+		    2021/03/25
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/4796">https://www.acmicpc.net/problem/4796</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line"></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    String input = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (!<span class="string">&quot;0 0 0&quot;</span>.equals(input = br.readLine())) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] lpv = convertStringArrayToIntegerArray(input.split(<span class="string">&quot; &quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> l = lpv[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> p = lpv[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> v = lpv[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">        sb.append(<span class="string">&quot;Case &quot;</span>).append(++i).append(<span class="string">&quot;: &quot;</span>).append((v/p) * l + ((v%p) &gt; l ? l : (v%p))).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(sb);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] convertStringArrayToIntegerArray(String[] args) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[args.length];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String str : args) &#123;</span><br><span class="line">        array[i++] = Integer.parseInt(str);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>V일 중에 연속되는 P일 동안 L일 만큼 휴가를 사용 할 수 있으므로</li>
+<li>V에서 P를 나눈 값에서 L일을 곱하면 사용 가능한 휴가 일수가 구해지고</li>
+<li>L이 V일에서 P일을 나눈 값보다 작을 땐 L일 만큼 휴가를 더 갈 수 있고</li>
+<li>큰 경우엔 V % P 일 만큼 갈 수 있으므로 구한 값을 더하면</li>
+<li>총 휴가 일수를 구할 수 있다.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/%EC%BA%A1%EC%B2%98.PNG" class title="백준 4796번: 캠핑">
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2021/03/25/%EB%B0%B1%EC%A4%80-4796%EB%B2%88-%EC%BA%A0%ED%95%91/" aria-label=": 백준 4796번: 캠핑">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/" aria-label=": Requestbody Annotation 사용 시 기본 생성자 필요">
                             Requestbody Annotation 사용 시 기본 생성자 필요
                         </a>

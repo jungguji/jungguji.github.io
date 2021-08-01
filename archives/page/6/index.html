@@ -175,6 +175,184 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%A0%95%EC%82%AC%EA%B0%81%ED%98%95-%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 가장 큰 정사각형 찾기">
+                            프로그래머스: 가장 큰 정사각형 찾기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-23T13:43:48+09:00">
+	
+		    2020/06/23
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/18/lessons/1879">https://programmers.co.kr/learn/courses/18/lessons/1879</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[][] board)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (board.length &lt; <span class="number">2</span> || board[<span class="number">0</span>].length &lt; <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> smallSquare(board);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = nomalSquare(board);</span><br><span class="line">    <span class="keyword">return</span> answer * answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">smallSquare</span><span class="params">(<span class="keyword">int</span>[][] board)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; board.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[i][j] == <span class="number">1</span>) &#123;</span><br><span class="line">                size = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">nomalSquare</span><span class="params">(<span class="keyword">int</span>[][] board)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; board.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[i][j] == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            board[i][j] = Math.min(board[i-<span class="number">1</span>][j-<span class="number">1</span>], Math.min(board[i-<span class="number">1</span>][j], board[i][j-<span class="number">1</span>])) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (board[i][j] &gt; answer) &#123;</span><br><span class="line">                answer = board[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>배열의 크기가 2보다 작은 경우엔 크기가 1인 정사각형 밖에 존재 할 수 없으므로, 배열의 크키가 2 이하인 배열에 1이 들어있는지 확인</li>
+<li>배열을 [1,1] 부터 반복</li>
+<li>현재 위치의 값이 0인 경우엔 절대 정사각형 일 수 없으므로 더 이상 돌지 않고 continue</li>
+<li>현재 위치(1,1)의 좌상(0,0)과 상(0,1) 좌(1,0)의 값들중 최소값을 구함</li>
+<li>구한 최소값에 1을 더해서 현재 위치에 할당</li>
+<li>구한 최소값이 현재 가장 큰 정사각형의 크기 보다 크면 정사각형의 크기를 구한 최소값으로 변경</li>
+<li>반복</li>
+<li>끝</li>
+</ol>
+<h3 id="흐름-이미지-설명"><a href="#흐름-이미지-설명" class="headerlink" title="흐름 이미지 설명"></a>흐름 이미지 설명</h3><p><img src="/images/20200623/%EC%82%AC%EA%B0%81%ED%98%95.gif" alt="사각형"></p>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><h3 id="정확성-테스트"><a href="#정확성-테스트" class="headerlink" title="정확성 테스트"></a>정확성 테스트</h3><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (0.86ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (0.77ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (0.83ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (0.75ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (0.72ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (0.83ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (0.79ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (0.83ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (0.79ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (0.83ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (0.75ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (0.79ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (0.76ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (0.83ms, 49.9MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (0.75ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (0.91ms, 50MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (0.83ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (0.92ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (1.06ms, 52MB)</td>
+</tr>
+</tbody></table>
+<h3 id="효율성-테스트"><a href="#효율성-테스트" class="headerlink" title="효율성 테스트"></a>효율성 테스트</h3><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (24.74ms, 97.5MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (25.24ms, 99.6MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (26.48ms, 99.8MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">9</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][]&#123;&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125; ,&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;,&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][]&#123;&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>&#125; ,&#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][]&#123;&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>&#125;&#125;));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.sonim1.com/212">https://blog.sonim1.com/212</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%A0%95%EC%82%AC%EA%B0%81%ED%98%95-%EC%B0%BE%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%A0%95%EC%82%AC%EA%B0%81%ED%98%95-%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 가장 큰 정사각형 찾기">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/17/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 소수 만들기">
                             프로그래머스: 소수 만들기
                         </a>
@@ -1219,70 +1397,6 @@
                 </div>
             
         </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/" aria-label=": Spring Boot + Maven Travis CI 연동 에러">
-                            Spring Boot + Maven Travis CI 연동 에러
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-06T20:17:56+09:00">
-	
-		    2020/06/06
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="에러"><a href="#에러" class="headerlink" title="에러"></a>에러</h2><p><img src="/images/20200601/travis_error.PNG" alt="Travis 권한 에러"></p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mvnw: Permission denied</span><br></pre></td></tr></table></figure>
-
-<p>Spring Boot + Maven 프로젝트 Travis CI 연동 중 발생한 에러</p>
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">before_install:</span><br><span class="line">  - chmod +x mvnw</span><br></pre></td></tr></table></figure>
-
-<p>설정으로 권한 부여하여 해결</p>
-<h2 id="전체-코드"><a href="#전체-코드" class="headerlink" title="전체 코드"></a>전체 코드</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">language: java</span><br><span class="line">jdk:</span><br><span class="line">  - openjdk8</span><br><span class="line"></span><br><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br><span class="line"></span><br><span class="line"># Travis CI 서버의 Home</span><br><span class="line">cache:</span><br><span class="line">  directories:</span><br><span class="line">    - $HOME/.m2</span><br><span class="line"></span><br><span class="line">before_install:</span><br><span class="line">  - chmod +x mvnw</span><br><span class="line"></span><br><span class="line"># MAVEN 프로젝트는 필요 없음</span><br><span class="line">#script: &quot;./mvnw package&quot;</span><br><span class="line"></span><br><span class="line"># CI 실행 완료시 메일로 알람</span><br><span class="line">notifications:</span><br><span class="line">  email:</span><br><span class="line">    recipients:</span><br><span class="line">      - your@gmail.com</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@recordsbeat/travis-ci-maven-%EC%97%B0%EB%8F%99">https://velog.io/@recordsbeat/travis-ci-maven-%EC%97%B0%EB%8F%99</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/" aria-label=": Spring Boot + Maven Travis CI 연동 에러">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
         
     </article>
     
