@@ -174,6 +174,76 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2021/09/12/Unable-to-locate-Attribute-with-the-the-given-name-XXX-on-this-ManagedType/" aria-label=": Unable to locate Attribute  with the the given name [XXX] on this ManagedType">
+                            Unable to locate Attribute  with the the given name [XXX] on this ManagedType
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2021-09-12T16:02:14+09:00">
+	
+		    2021/09/12
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>spring으로 된 프로젝트를 spring boot으로 전환 중… query method로 작성되어 있는 부분에서 발생한 문제에 대해 알아보고 이에 대한 해결 방법을 정리 해둔다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="에러가-발생한-code"><a href="#에러가-발생한-code" class="headerlink" title="에러가 발생한 code"></a>에러가 발생한 code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XXXX</span> </span>&#123;</span><br><span class="line">    ... </span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> DDay dDay;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Repository</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function">List&lt;Category&gt; <span class="title">findByDDayOrderByDDayStartDateAsc</span><span class="params">(DDay dday)</span></span>;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<h3 id="발생한-에러-전문"><a href="#발생한-에러-전문" class="headerlink" title="발생한 에러 전문"></a>발생한 에러 전문</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.IllegalArgumentException: Unable to locate Attribute  with the the given name [attribute명] on this ManagedType [class명]</span><br><span class="line">    at org.hibernate.metamodel.model.domain.internal.AbstractManagedType.checkNotNull(AbstractManagedType.java:<span class="number">148</span>) ~[hibernate-core-<span class="number">5.4</span>.<span class="number">32.F</span>inal.jar:<span class="number">5.4</span>.<span class="number">32.F</span>inal]</span><br><span class="line">    at org.hibernate.metamodel.model.domain.internal.AbstractManagedType.getAttribute(AbstractManagedType.java:<span class="number">119</span>) ~[hibernate-core-<span class="number">5.4</span>.<span class="number">32.F</span>inal.jar:<span class="number">5.4</span>.<span class="number">32.F</span>inal]</span><br><span class="line">    at org.hibernate.metamodel.model.domain.internal.AbstractManagedType.getAttribute(AbstractManagedType.java:<span class="number">44</span>) ~[hibernate-core-<span class="number">5.4</span>.<span class="number">32.F</span>inal.jar:<span class="number">5.4</span>.<span class="number">32.F</span>inal]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.QueryUtils.requiresOuterJoin(QueryUtils.java:<span class="number">697</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:<span class="number">638</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:<span class="number">617</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.QueryUtils.toExpressionRecursively(QueryUtils.java:<span class="number">613</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.JpaQueryCreator$PredicateBuilder.getTypedPath(JpaQueryCreator.java:<span class="number">385</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.JpaQueryCreator$PredicateBuilder.build(JpaQueryCreator.java:<span class="number">308</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.JpaQueryCreator.toPredicate(JpaQueryCreator.java:<span class="number">211</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.JpaQueryCreator.create(JpaQueryCreator.java:<span class="number">124</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.JpaQueryCreator.create(JpaQueryCreator.java:<span class="number">59</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.repository.query.parser.AbstractQueryCreator.createCriteria(AbstractQueryCreator.java:<span class="number">119</span>) ~[spring-data-commons-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.repository.query.parser.AbstractQueryCreator.createQuery(AbstractQueryCreator.java:<span class="number">95</span>) ~[spring-data-commons-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.repository.query.parser.AbstractQueryCreator.createQuery(AbstractQueryCreator.java:<span class="number">81</span>) ~[spring-data-commons-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$QueryPreparer.&lt;init&gt;(PartTreeJpaQuery.java:<span class="number">217</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.PartTreeJpaQuery$CountQueryPreparer.&lt;init&gt;(PartTreeJpaQuery.java:<span class="number">348</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.&lt;init&gt;(PartTreeJpaQuery.java:<span class="number">91</span>) ~[spring-data-jpa-<span class="number">2.5</span>.<span class="number">2.</span>jar:<span class="number">2.5</span>.<span class="number">2</span>]</span><br><span class="line">    ... <span class="number">117</span> common frames omitted</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="왜-발생-했을까"><a href="#왜-발생-했을까" class="headerlink" title="왜 발생 했을까?"></a>왜 발생 했을까?</h3><blockquote><p>The inconsistency between the subject part and the OrderBy part is certainly a bug.</p>
+<p>For the given case the correct behaviour  seem to be the one from the OrderBy part which is adhering to the conventions laid out in the Java Bean Specification 1.0.1 Section 8.8:</p>
+<p>…</p>
+<p>There is no way to write the property name in the middle of a java method name if the property begins with a single lower case letter followed by an upper case letter.</p>
+<p>Therefore renaming the property, or less invasive providing a @Query annotation are the ways to solve this problem on your side GitFlip</p>
+<footer><strong>spring-data-commons</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/spring-projects/spring-data-commons/issues/1996">spring-projects</a></cite></footer></blockquote>
+
+
+
+<p>독자들의 빠른 문제 해결을 위해 결론부터 이야기 하자면 위의 글에서 보는 것 처럼 query method에서 OrderBy를 사용하지 않거나 “dDay” 같이 맨 앞 한 자리가 소문자인 경우만 아니라면 발생하지 않는 문제로 사용해야 할 경우 발생하는 spring-data-jpa의 버그로 해결방법으로는 @Query annotation을 사용하거나 변수명을 변경하는 것을 권하고 있다.</p>
+<hr>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><h3 id="해결-방법"><a href="#해결-방법" class="headerlink" title="해결 방법"></a>해결 방법</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(&quot;SELECT c FROM Entity명 c WHERE c.dDay =:dday ORDER BY dDayStartDate&quot;)</span></span><br><span class="line"><span class="function">List&lt;Category&gt; <span class="title">findByDDayOrderByDDayStartDateAsc</span><span class="params">(DDay dday)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>위에서 알려준 해결책 중 필자는 @Query Annotation을 사용하는 방법으로 문제를 수정하였는데 다른 이유가 있는 것은 아니고 현재 프로젝트에서 변수명을 변경하는 것이 더 코스트가 많이 발생하기 때문에 @Query를 사용해서 처리했다.</p>
+<p>이 문제 때문에 꽤 많은 시간을 소비 하였는데 필자와 같은 무고한 피해자(?)가 발생하지 않기를 바라며 글을 마친다.</p>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-property-expressions">https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-property-expressions</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hongsii.github.io/2019/01/06/jpa-query-creation-with-underscore/">https://hongsii.github.io/2019/01/06/jpa-query-creation-with-underscore/</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/spring-projects/spring-data-commons/issues/1996">https://github.com/spring-projects/spring-data-commons/issues/1996</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2021/09/12/Unable-to-locate-Attribute-with-the-the-given-name-XXX-on-this-ManagedType/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2021/08/01/Attribute-ifAnyGranted-invalid-for-tag-authorize-according-to-TLD/" aria-label=": Attribute [ifAnyGranted] invalid for tag [authorize] according to TLD">
                             Attribute [ifAnyGranted] invalid for tag [authorize] according to TLD
                         </a>
@@ -880,66 +950,6 @@
         </div>
         
             <a href="/2021/03/28/Spring%20Boot%20+%20Vue%20CORS%20%EC%84%A4%EC%A0%95/" aria-label=": Spring Boot + Vue CORS 설정">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/03/27/Windows%2010%20SSH%20%EC%A0%91%EC%86%8D/" aria-label=": Windows 10 SSH 접속">
-                            Windows 10 SSH 접속
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-03-27T23:43:38+09:00">
-	
-		    2021/03/27
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>집에서 서버에 접속할 일이 생겨서 평소처럼 ssh로 접속을 하려고 했는데..<br>접속이 되지 않아 당황했는데 미래의 나와, 다른 사람들은 이러지 않길 바라며 글을 남긴다.</p>
-<hr>
-<h2 id="접속-방법"><a href="#접속-방법" class="headerlink" title="접속 방법"></a>접속 방법</h2><p><strong>우선 .pem 파일이 존재하는 경로에 폴더명이 한글인 폴더가 존재하면 안된다.</strong></p>
-<ol>
-<li>설정의 앱 및 기능에서 선택적 기능을 선택</li>
-<li>기능 추가를 선택하여 ssh를 검색해서 OpenSSH 클라이언트를 설치</li>
-<li>SSH 이용 가능</li>
-</ol>
-<hr>
-<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><p>나의 경우엔 .pem 파일이 한글 폴더가 있는 경로에 존재해서 인식하지 못했던 문제였지만<br>혹시 모르니 SSH 클라이언트 설치방법도 작성해놓는다.</p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/03/27/Windows%2010%20SSH%20%EC%A0%91%EC%86%8D/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/03/27/Windows%2010%20SSH%20%EC%A0%91%EC%86%8D/" aria-label=": Windows 10 SSH 접속">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>
