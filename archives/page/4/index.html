@@ -175,6 +175,74 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/11/10/JQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5/" aria-label=": JQPL은 return class로 Inner class는 불가능">
+                            JQPL은 return class로 Inner class는 불가능
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-10T18:39:23+09:00">
+	
+		    2020/11/10
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p><strong>JPQL의 return 값으로 Inner class를 지정하면 class를 찾을 수 없다는 에러가 발생 하므로 Inner class 말고 따로 class를 생성하고 그 class를 return class로 지정해줘야 한다.</strong></p>
+<hr>
+<h2 id="발견"><a href="#발견" class="headerlink" title="발견"></a>발견</h2><p>아래 처럼 DTO를 생성하고 view별로 inner class로 DTO를 만들고 jpql의 return class로 지정해주었는데 클래스를 찾을 수 없다는 에러가 발생하였다.</p>
+<h3 id="DTO"><a href="#DTO" class="headerlink" title="DTO"></a>DTO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChannelDTO</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="meta">@Getter</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SubChannelList</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Integer subChannel;</span><br><span class="line">        <span class="keyword">private</span> KillTime killTime;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Builder</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SubChannelList</span><span class="params">(Integer subChannel, KillTime killTime)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.subChannel = subChannel;</span><br><span class="line">            <span class="keyword">this</span>.killTime = killTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JPQL-호출-메서드"><a href="#JPQL-호출-메서드" class="headerlink" title="JPQL 호출 메서드"></a>JPQL 호출 메서드</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;SubChannelList&gt; <span class="title">findSubChannelList</span><span class="params">(Integer dungeonId, Integer mainChannel)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> em.createQuery(</span><br><span class="line">            <span class="string">&quot;select new com.jungguji.windbossgentimer.web.dto.channel.ChannelDTO.SubChannelList&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;(c.subChannel, k)&quot;</span> +</span><br><span class="line">                    <span class="string">&quot; FROM Channel c left join c.killTimes k&quot;</span> +</span><br><span class="line">                    <span class="string">&quot; WHERE c.dungeon.id = :dungeonId AND c.mainChannel = :mainChannel&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;&quot;</span>, SubChannelList.class)</span><br><span class="line">            .setParameter(<span class="string">&quot;dungeonId&quot;</span>, dungeonId)</span><br><span class="line">            .setParameter(<span class="string">&quot;mainChannel&quot;</span>, mainChannel)</span><br><span class="line">            .getResultList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="발생한-에러"><a href="#발생한-에러" class="headerlink" title="발생한 에러"></a>발생한 에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.hibernate.hql.internal.ast.QuerySyntaxException: Unable to locate class [com.jungguji.windbossgentimer.web.dto.channel.ChannelDTO.SubChannelList] [select new com.jungguji.windbossgentimer.web.dto.channel.ChannelDTO.SubChannelList(c.subChannel, k) FROM com.jungguji.windbossgentimer.domain.channel.Channel c left join c.killTimes k WHERE c.dungeon.id = :dungeonId AND c.mainChannel = :mainChannel]</span><br><span class="line">    at org.hibernate.hql.internal.ast.QuerySyntaxException.convert(QuerySyntaxException.java:<span class="number">74</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.ErrorTracker.throwQueryException(ErrorTracker.java:<span class="number">93</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:<span class="number">282</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:<span class="number">192</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:<span class="number">144</span>)</span><br><span class="line">    at org.hibernate.engine.query.spi.HQLQueryPlan.&lt;init&gt;(HQLQueryPlan.java:<span class="number">113</span>)</span><br><span class="line">    at org.hibernate.engine.query.spi.HQLQueryPlan.&lt;init&gt;(HQLQueryPlan.java:<span class="number">73</span>)</span><br><span class="line">    at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:<span class="number">162</span>)</span><br><span class="line">    at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:<span class="number">604</span>)</span><br><span class="line">    at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:<span class="number">716</span>)</span><br><span class="line">    ... <span class="number">73</span> more</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>Inner class로 되어있던 DTO를 class로 생성한다.</p>
+<h3 id="따로-생성한-DTO"><a href="#따로-생성한-DTO" class="headerlink" title="따로 생성한 DTO"></a>따로 생성한 DTO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubChannelListResponseDTO</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer subChannel;</span><br><span class="line">    <span class="keyword">private</span> KillTime killTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Builder</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SubChannelListResponseDTO</span><span class="params">(Integer subChannel, KillTime killTime)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subChannel = subChannel;</span><br><span class="line">        <span class="keyword">this</span>.killTime = killTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h3><p><img src="source_posts%5CJQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5%5C%EA%B2%B0%EA%B3%BC.PNG" alt="Junit Test 통과한 모습"></p>
+<hr>
+<h2 id="P-S"><a href="#P-S" class="headerlink" title="P.S"></a>P.S</h2><ul>
+<li>일반적으로 class명과 table명을 헷갈려 대소문자 때문에 발생하는 에러 이므로 대소문자도 잘 확인 하여야 한다.</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/11/10/JQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/11/10/JQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5/" aria-label=": JQPL은 return class로 Inner class는 불가능">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/11/10/%EB%B0%B1%EC%A4%80-18111%EB%B2%88-%EB%A7%88%EC%9D%B8%ED%81%AC%EB%9E%98%ED%94%84%ED%8A%B8/" aria-label=": 백준 18111번: 마인크래프트">
                             백준 18111번: 마인크래프트
                         </a>
@@ -1183,207 +1251,6 @@
         </div>
         
             <a href="/2020/07/20/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B9%B4%ED%8E%AB/" aria-label=": 프로그래머스: 카펫">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/07/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/" aria-label=": 프로그래머스: 오픈채팅방">
-                            프로그래머스: 오픈채팅방
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-07-19T16:59:19+09:00">
-	
-		    2020/07/19
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42888">https://programmers.co.kr/learn/courses/30/lessons/42888</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ENTER = <span class="string">&quot;Enter&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String LEAVE = <span class="string">&quot;Leave&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String CHANGE = <span class="string">&quot;Change&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_ENTER = <span class="string">&quot;님이 들어왔습니다.&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_LEAVE = <span class="string">&quot;님이 나갔습니다.&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String[] solution(String[] record) &#123;</span><br><span class="line">    List&lt;String[]&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    Map&lt;String, String&gt; nickName = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> returnArraySize = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String s : record) &#123;</span><br><span class="line">        String[] split = s.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        String[] actionAndUid = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">        actionAndUid[<span class="number">0</span>] = split[<span class="number">0</span>];</span><br><span class="line">        actionAndUid[<span class="number">1</span>] = split[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!CHANGE.equals(split[<span class="number">0</span>])) &#123;</span><br><span class="line">            list.add(actionAndUid);</span><br><span class="line">            returnArraySize++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!LEAVE.equals(split[<span class="number">0</span>])) &#123;</span><br><span class="line">            nickName.put(split[<span class="number">1</span>], split[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String[] answer = <span class="keyword">new</span> String[returnArraySize];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String[] array : list) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (array[<span class="number">0</span>]) &#123;</span><br><span class="line">            <span class="keyword">case</span> ENTER :</span><br><span class="line">                answer[i] = nickName.get(array[<span class="number">1</span>]) + MESSAGE_ENTER;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> LEAVE :</span><br><span class="line">                answer[i] = nickName.get(array[<span class="number">1</span>]) + MESSAGE_LEAVE;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>문자열을 공백으로 나눠서 행동과 유저의 아이디를 저장하는 배열에 담는다.</li>
-<li>행동이 Change가 아닌 경우엔 채팅방에 입장했거나 나갓다는 문구룰 출력해야 하기 때문에 List에 담는다.</li>
-<li>행동이 Leave가 아닌 경우엔 닉네임이 변경되었거나, 새로 방에 들어온 것이므로 유저 아이디를 key로하는 map에 value로 닉네임을 저장한다.</li>
-<li>모두 저장했으면 List만큼 돌면서 해당 행동에 맞는 문자열을 만들어 저장한다.</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (18.70ms, 54.1MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (17.35ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (17.84ms, 54.4MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (19.81ms, 54MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (27.75ms, 56.1MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (30.38ms, 56.1MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (35.26ms, 54.4MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (27.59ms, 55.2MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (30.72ms, 56.5MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (28.67ms, 56.1MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (25.16ms, 56.2MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (26.04ms, 56.6MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (26.07ms, 55MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (43.84ms, 57.2MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (20.35ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (18.03ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (19.77ms, 54.2MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (18.86ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (35.94ms, 56.7MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (26.22ms, 55.5MB)</td>
-</tr>
-<tr>
-<td>테스트 21</td>
-<td>통과 (30.18ms, 56.5MB)</td>
-</tr>
-<tr>
-<td>테스트 22</td>
-<td>통과 (28.53ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 23</td>
-<td>통과 (29.40ms, 57.5MB)</td>
-</tr>
-<tr>
-<td>테스트 24</td>
-<td>통과 (37.73ms, 57.3MB)</td>
-</tr>
-<tr>
-<td>테스트 25</td>
-<td>통과 (262.95ms, 158MB)</td>
-</tr>
-<tr>
-<td>테스트 26</td>
-<td>통과 (292.57ms, 158MB)</td>
-</tr>
-<tr>
-<td>테스트 27</td>
-<td>통과 (333.29ms, 169MB)</td>
-</tr>
-<tr>
-<td>테스트 28</td>
-<td>통과 (324.94ms, 163MB)</td>
-</tr>
-<tr>
-<td>테스트 29</td>
-<td>통과 (282.87ms, 157MB)</td>
-</tr>
-<tr>
-<td>테스트 30</td>
-<td>통과 (286.21ms, 153MB)</td>
-</tr>
-<tr>
-<td>테스트 31</td>
-<td>통과 (225.37ms, 147MB)</td>
-</tr>
-<tr>
-<td>테스트 32</td>
-<td>통과 (255.96ms, 137MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] actual = &#123;<span class="string">&quot;Enter uid1234 Muzi&quot;</span>, <span class="string">&quot;Enter uid4567 Prodo&quot;</span>,<span class="string">&quot;Leave uid1234&quot;</span>,<span class="string">&quot;Enter uid1234 Prodo&quot;</span>,<span class="string">&quot;Change uid4567 Ryan&quot;</span>&#125;;</span><br><span class="line">String[] expected =&#123;<span class="string">&quot;Prodo님이 들어왔습니다.&quot;</span>, <span class="string">&quot;Ryan님이 들어왔습니다.&quot;</span>, <span class="string">&quot;Prodo님이 나갔습니다.&quot;</span>, <span class="string">&quot;Prodo님이 들어왔습니다.&quot;</span>&#125;;</span><br><span class="line">assertArrayEquals(expected, test.solution(actual));</span><br></pre></td></tr></table></figure>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/07/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/07/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/" aria-label=": 프로그래머스: 오픈채팅방">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>
