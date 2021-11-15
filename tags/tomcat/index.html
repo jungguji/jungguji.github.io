@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="저장하고 까먹자">
-    <title>태그: spring - 저장하고 까먹자</title>
+    <title>태그: tomcat - 저장하고 까먹자</title>
     <meta name="author" content="Junggu Ji">
     
     
@@ -18,7 +18,7 @@
     <script type="application/ld+json">{}</script>
     <meta property="og:type" content="blog">
 <meta property="og:title" content="저장하고 까먹자">
-<meta property="og:url" content="https://jungguji.github.io/tags/spring/index.html">
+<meta property="og:url" content="https://jungguji.github.io/tags/tomcat/index.html">
 <meta property="og:site_name" content="저장하고 까먹자">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:author" content="Junggu Ji">
@@ -235,70 +235,6 @@
                     
                         <p>
                             <a href="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/08/01/Attribute-ifAnyGranted-invalid-for-tag-authorize-according-to-TLD/" aria-label=": Attribute [ifAnyGranted] invalid for tag [authorize] according to TLD">
-                            Attribute [ifAnyGranted] invalid for tag [authorize] according to TLD
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-08-01T18:18:55+09:00">
-	
-		    2021/08/01
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="상황"><a href="#상황" class="headerlink" title="상황"></a>상황</h2><p>spring으로 된 프로젝트를 spring boot으로 전환 중에 spring-security-taglibs의 버전을 3.x 에서 5.5.1로 업데이트 했는데 아래와 같은 에러가 발생하여 이에 관한 내용을 정리 해둔다.</p>
-<hr>
-<h2 id="발생한-에러"><a href="#발생한-에러" class="headerlink" title="발생한 에러"></a>발생한 에러</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">org.apache.jasper.JasperException: /WEB-INF/views/layout/layout.jsp (line: [<span class="number">126</span>], column: [<span class="number">0</span>]) Attribute [ifAnyGranted] invalid <span class="keyword">for</span> tag [authorize] according to TLD</span><br><span class="line">        at org.apache.jasper.compiler.DefaultErrorHandler.jspError(DefaultErrorHandler.java:<span class="number">41</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.ErrorDispatcher.dispatch(ErrorDispatcher.java:<span class="number">292</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.ErrorDispatcher.jspError(ErrorDispatcher.java:<span class="number">115</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Validator$ValidateVisitor.checkXmlAttributes(Validator.java:<span class="number">1287</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Validator$ValidateVisitor.visit(Validator.java:<span class="number">900</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Node$CustomTag.accept(Node.java:<span class="number">1558</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Node$Nodes.visit(Node.java:<span class="number">2385</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Node$Visitor.visitBody(Node.java:<span class="number">2437</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Node$Visitor.visit(Node.java:<span class="number">2443</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Node$Root.accept(Node.java:<span class="number">471</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line">        at org.apache.jasper.compiler.Node$Nodes.visit(Node.java:<span class="number">2385</span>) ~[tomcat-embed-jasper-<span class="number">9.0</span>.<span class="number">48.</span>jar!/:na]</span><br><span class="line"></span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
-
-<h2 id="왜-발생했을까"><a href="#왜-발생했을까" class="headerlink" title="왜 발생했을까?"></a>왜 발생했을까?</h2><blockquote><p>This section describes all of the deprecated APIs within the spring-security-taglibs module. If you are not using the spring-security-taglibs module or have already completed this task, you can safely skip to spring-security-web.</p>
-<p>Spring Security’s authorize JSP tag deprecated the properties ifAllGranted, ifAnyGranted, and ifNotGranted in favor of using expressions.</p>
-<footer><strong>spring-security,</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-security/site/migrate/current/3-to-4/html5/migrate-3-to-4-jc.html#m3to4-deprecations-taglibs">Migrating from Spring Security 3.x to 4.x</a></cite></footer></blockquote>
-
-
-<p>문서에 적혀 있는 것 처럼 spring-security-taglibs 4.x 버전 이상 부터는 ifAllGranted, ifAnyGranted, ifNotGranted 속성들을 지원하지 않기 때문에 3.x 버전에서 5 버전으로 업그레이드하면서 해당 속성들을 사용한 코드들이 있는 경우 발생하는 문제였다.</p>
-<h2 id="해결방법"><a href="#해결방법" class="headerlink" title="해결방법"></a>해결방법</h2><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;sec:authorize ifAllGranted=<span class="string">&quot;ROLE_ADMIN,ROLE_USER&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;Must have ROLE_ADMIN and ROLE_USER&lt;/p&gt;</span><br><span class="line">&lt;/sec:authorize&gt;</span><br><span class="line">&lt;sec:authorize ifAnyGranted=<span class="string">&quot;ROLE_ADMIN,ROLE_USER&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;Must have ROLE_ADMIN or ROLE_USER&lt;/p&gt;</span><br><span class="line">&lt;/sec:authorize&gt;</span><br><span class="line">&lt;sec:authorize ifNotGranted=<span class="string">&quot;ROLE_ADMIN,ROLE_USER&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;Must not have ROLE_ADMIN or ROLE_USER&lt;/p&gt;</span><br><span class="line">&lt;/sec:authorize&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>위 처럼 되어 있을 경우</p>
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;sec:authorize access=<span class="string">&quot;hasRole(&#x27;ROLE_ADMIN&#x27;) and hasRole(&#x27;ROLE_USER&#x27;)&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;Must have ROLE_ADMIN and ROLE_USER&lt;/p&gt;</span><br><span class="line">&lt;/sec:authorize&gt;</span><br><span class="line">&lt;sec:authorize access=<span class="string">&quot;hasAnyRole(&#x27;ROLE_ADMIN&#x27;,&#x27;ROLE_USER&#x27;)&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;Must have ROLE_ADMIN or ROLE_USER&lt;/p&gt;</span><br><span class="line">&lt;/sec:authorize&gt;</span><br><span class="line">&lt;sec:authorize access=<span class="string">&quot;!hasAnyRole(&#x27;ROLE_ADMIN&#x27;,&#x27;ROLE_USER&#x27;)&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;Must not have ROLE_ADMIN or ROLE_USER&lt;/p&gt;</span><br><span class="line">&lt;/sec:authorize&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>아래 처럼 치환해주면 정상적으로 작동하는 것을 확인 할 수 있을 것이다.</p>
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://okky.kr/article/679832">https://okky.kr/article/679832</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-security/site/migrate/current/3-to-4/html5/migrate-3-to-4-jc.html#m3to4-deprecations-taglibs">https://docs.spring.io/spring-security/site/migrate/current/3-to-4/html5/migrate-3-to-4-jc.html#m3to4-deprecations-taglibs</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/08/01/Attribute-ifAnyGranted-invalid-for-tag-authorize-according-to-TLD/#post-footer" class="postShorten-excerpt_link link" aria-label>
                                 댓글 공유
                             </a>
                         </p>

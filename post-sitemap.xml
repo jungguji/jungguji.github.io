@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/</loc>
+        <lastmod>2021-11-15T12:44:15.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://jungguji.github.io/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/</loc>
         <lastmod>2021-10-31T11:24:57.000Z</lastmod>
         <changefreq>weekly</changefreq>

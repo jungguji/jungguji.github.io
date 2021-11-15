@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="저장하고 까먹자">
+    <title>spring에서 request header를 parsing 하는 법 - 저장하고 까먹자</title>
+    <meta name="author" content="Junggu Ji">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론우선 사과의 말씀부터 올린다. 제목은 ‘spring에서~’ 지만 정확히는 tomcat에서 ~ 로 보는 것이 맞다.\n인프런에서 이영한님의 Spring MVC 강의를 보던 도중 … ‘http request를 정확히 어떠한 방식으로 파싱 하고 있을까?’ 라는 궁금증이 생겨서 강의를 듣다가 말고 삽집을 한 내용들을 기록해둔다.\n\n본론우선, 처음으로 궁금증을 해결하기 위해 들어가본 곳은 http request 요청을 받기 위한 HttpServletRequest interface의 tomcat 구현체인 [RequestFacade] (https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/connector/RequestFacade.html) class부터 시작했다.\n이 중 getHeader 메서드에 대해 찾아보면,\nReturns the value of the specified request header as a String.If the request did not include a header of the specified name, this method returns null.If there are multiple headers with the same name, this method returns the first head in the request.The header name is case insensitive.You can use this method with any request header.\nRequestFacadeRequestFacade\n\n라고 설명되어 있고… 이 때 코드에서 request의 header를 살펴보면\n\n\n이미지와 같이 이미 header에 대한 정보들이 각각 저정되어 있는 걸 볼 수 있다.\n필자가 궁금했던 것은 ‘이 request에 header는 언제 저장되는가?’ 였으므로막연하게 ‘여기서 더 타고 올라가면 찾아 낼 수 있겠구나..’ 라고 안일한(?) 생각을 하고 안으로 더 들어가보았다.\n타고타고 가다보니 …http 1.1 header에 의한 요청이므로 Http11Processor의 service 메서드에서\n12345678// Don&#x27;t parse headers for HTTP/0.9if (!http09 &amp;&amp; !inputBuffer.parseHeaders()) &#123;    // We&#x27;ve read part of the request, don&#x27;t recycle it    // instead associate it with the socket    openSocket = true;    readComplete = false;    break;&#125;\n\n처럼 작성되어 있는 코드를 발견했고, 여기에 있는 inputBuffer.parseHeaders() 을 보니이름부터 여기서 http request에 대해 파싱을 할 것 같아 이 안으로 들어가보았다.\n1234567891011121314151617181920212223242526272829303132333435while (headerParsePos == HeaderParsePosition.HEADER_NAME) &#123;    // Read new bytes if needed    if (byteBuffer.position() &gt;= byteBuffer.limit()) &#123;        if (!fill(false)) &#123; // parse header            return HeaderParseStatus.NEED_MORE_DATA;        &#125;    &#125;    int pos = byteBuffer.position();    chr = byteBuffer.get();    if (chr == Constants.COLON) &#123;        headerParsePos = HeaderParsePosition.HEADER_VALUE_START;        headerData.headerValue = headers.addValue(byteBuffer.array(), headerData.start,                pos - headerData.start);        pos = byteBuffer.position();        // Mark the current buffer position        headerData.start = pos;        headerData.realPos = pos;        headerData.lastSignificantChar = pos;        break;    &#125; else if (!HttpParser.isToken(chr)) &#123;        // Non-token characters are illegal in header names        // Parsing continues so the error can be reported in context        headerData.lastSignificantChar = pos;        byteBuffer.position(byteBuffer.position() - 1);        // skipLine() will handle the error        return skipLine();    &#125;    // chr is next byte of header name. Convert to lowercase.    if ((chr &gt;= Constants.A) &amp;&amp; (chr &lt;= Constants.Z)) &#123;        byteBuffer.put(pos, (byte) (chr - Constants.LC_OFFSET));    &#125;&#125;\n\n들어가서보니 해당 코드처럼\n현재 header data의 파싱된 위치가 key, value 형식의 데이터인 header의 name 부분 이라면 계속 반복하면서 버퍼에 저장하고 COLON(:) 을 만나게 되면,\n12headerData.headerValue = headers.addValue(byteBuffer.array(), headerData.start,                        pos - headerData.start);\n\n코드가 실행되면서 아까 봤던 request의 MimeHeaders 타입인 header에 name으로 저장되고\nvalue에도 위와 같은 방식으로 byte 단위로 이동하고 저장되면서 header에 value에 저장된다.\n\n결론서블릿이 http 통신을 위해 귀찮은 것들을 해준다는 것은 알고 있었지만실제로 어떻게 하고 지에 대해서는 신경을 안 쓰고 있었는데 이렇게 강의를 듣다 보니 궁금해서 한번 확인해보았다.\n만일 이 작업을 서블릿에서 대신 안해주지 않고 개발자가 개발할 때마다 해줘야한다고 생각하면…머리가 어지러워지는 것 같아 이만 글을 줄인다…\n\n참고 사이트\n스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술\n\n","dateCreated":"2021-11-15T21:44:15+09:00","dateModified":"2021-11-15T21:44:15+09:00","datePublished":"2021-11-15T21:44:15+09:00","description":"","headline":"spring에서 request header를 parsing 하는 법","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/","keywords":"spring, tomcat"}</script>
+    <meta name="description" content="서론우선 사과의 말씀부터 올린다. 제목은 ‘spring에서~’ 지만 정확히는 tomcat에서 ~ 로 보는 것이 맞다. 인프런에서 이영한님의 Spring MVC 강의를 보던 도중 … ‘http request를 정확히 어떠한 방식으로 파싱 하고 있을까?’ 라는 궁금증이 생겨서 강의를 듣다가 말고 삽집을 한 내용들을 기록해둔다.  본론우선, 처음으로 궁금증을 해">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="spring에서 request header를 parsing 하는 법">
+<meta property="og:url" content="https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/index.html">
+<meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:description" content="서론우선 사과의 말씀부터 올린다. 제목은 ‘spring에서~’ 지만 정확히는 tomcat에서 ~ 로 보는 것이 맞다. 인프런에서 이영한님의 Spring MVC 강의를 보던 도중 … ‘http request를 정확히 어떠한 방식으로 파싱 하고 있을까?’ 라는 궁금증이 생겨서 강의를 듣다가 말고 삽집을 한 내용들을 기록해둔다.  본론우선, 처음으로 궁금증을 해">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/1.JPG">
+<meta property="article:published_time" content="2021-11-15T12:44:15.000Z">
+<meta property="article:modified_time" content="2021-11-15T12:44:15.000Z">
+<meta property="article:author" content="Junggu Ji">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="tomcat">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/1.JPG">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-0v3zgfakrzmjoj7mhqewlnecogoqxgnfgvjlrw6b9na0ll2gjplxm4ld0oox.min.css">
+
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
+
+    
+
+    
+        
+    
+
+    <script data-ad-client="ca-pub-6264654331856753" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/" aria-label>
+            저장하고 까먹자
+        </a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about" aria-label="링크 열기: /#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="카테고리">
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="태그">
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives" rel="noopener" title="아카이브">
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/mailto" rel="noopener" title="Mail">
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/atom.xml" rel="noopener" title="RSS">
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4" class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            spring에서 request header를 parsing 하는 법
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-11-15T21:44:15+09:00">
+	
+		    2021/11/15
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>우선 사과의 말씀부터 올린다. 제목은 ‘spring에서~’ 지만 정확히는 tomcat에서 ~ 로 보는 것이 맞다.</p>
+<p>인프런에서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard">이영한님의 Spring MVC 강의</a>를 보던 도중 … ‘http request를 정확히 어떠한 방식으로 파싱 하고 있을까?’ 라는 궁금증이 생겨서 강의를 듣다가 말고 삽집을 한 내용들을 기록해둔다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><p>우선, 처음으로 궁금증을 해결하기 위해 들어가본 곳은 http request 요청을 받기 위한 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://javaee.github.io/javaee-spec/javadocs/javax/servlet/http/HttpServletRequest.html">HttpServletRequest interface</a>의 tomcat 구현체인 [RequestFacade] (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/connector/RequestFacade.html">https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/connector/RequestFacade.html</a>) class부터 시작했다.</p>
+<p>이 중 getHeader 메서드에 대해 찾아보면,</p>
+<blockquote><p>Returns the value of the specified request header as a String.<br>If the request did not include a header of the specified name, this method returns null.<br>If there are multiple headers with the same name, this method returns the first head in the request.<br>The header name is case insensitive.<br>You can use this method with any request header.</p>
+<footer><strong>RequestFacade</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/connector/RequestFacade.html#getHeader(java.lang.String)">RequestFacade</a></cite></footer></blockquote>
+
+<p>라고 설명되어 있고… 이 때 코드에서 request의 header를 살펴보면</p>
+<img src="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/1.JPG" class title="spring에서 request header를 parsing 하는 법 이미 header에 정보들이 저장되어 있는 상태 " alt="이미 header에 정보들이 저장되어 있는 상태">
+
+<p>이미지와 같이 이미 header에 대한 정보들이 각각 저정되어 있는 걸 볼 수 있다.</p>
+<p>필자가 궁금했던 것은 ‘이 request에 header는 언제 저장되는가?’ 였으므로<br>막연하게 ‘여기서 더 타고 올라가면 찾아 낼 수 있겠구나..’ 라고 안일한(?) 생각을 하고 안으로 더 들어가보았다.</p>
+<p>타고타고 가다보니 …<br>http 1.1 header에 의한 요청이므로 Http11Processor의 service 메서드에서</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Don&#x27;t parse headers for HTTP/0.9</span></span><br><span class="line"><span class="keyword">if</span> (!http09 &amp;&amp; !inputBuffer.parseHeaders()) &#123;</span><br><span class="line">    <span class="comment">// We&#x27;ve read part of the request, don&#x27;t recycle it</span></span><br><span class="line">    <span class="comment">// instead associate it with the socket</span></span><br><span class="line">    openSocket = <span class="keyword">true</span>;</span><br><span class="line">    readComplete = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>처럼 작성되어 있는 코드를 발견했고, 여기에 있는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/coyote/http11/Http11InputBuffer.html">inputBuffer</a>.parseHeaders() 을 보니<br>이름부터 여기서 http request에 대해 파싱을 할 것 같아 이 안으로 들어가보았다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (headerParsePos == HeaderParsePosition.HEADER_NAME) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read new bytes if needed</span></span><br><span class="line">    <span class="keyword">if</span> (byteBuffer.position() &gt;= byteBuffer.limit()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!fill(<span class="keyword">false</span>)) &#123; <span class="comment">// parse header</span></span><br><span class="line">            <span class="keyword">return</span> HeaderParseStatus.NEED_MORE_DATA;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> pos = byteBuffer.position();</span><br><span class="line">    chr = byteBuffer.get();</span><br><span class="line">    <span class="keyword">if</span> (chr == Constants.COLON) &#123;</span><br><span class="line">        headerParsePos = HeaderParsePosition.HEADER_VALUE_START;</span><br><span class="line">        headerData.headerValue = headers.addValue(byteBuffer.array(), headerData.start,</span><br><span class="line">                pos - headerData.start);</span><br><span class="line">        pos = byteBuffer.position();</span><br><span class="line">        <span class="comment">// Mark the current buffer position</span></span><br><span class="line">        headerData.start = pos;</span><br><span class="line">        headerData.realPos = pos;</span><br><span class="line">        headerData.lastSignificantChar = pos;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!HttpParser.isToken(chr)) &#123;</span><br><span class="line">        <span class="comment">// Non-token characters are illegal in header names</span></span><br><span class="line">        <span class="comment">// Parsing continues so the error can be reported in context</span></span><br><span class="line">        headerData.lastSignificantChar = pos;</span><br><span class="line">        byteBuffer.position(byteBuffer.position() - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// skipLine() will handle the error</span></span><br><span class="line">        <span class="keyword">return</span> skipLine();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// chr is next byte of header name. Convert to lowercase.</span></span><br><span class="line">    <span class="keyword">if</span> ((chr &gt;= Constants.A) &amp;&amp; (chr &lt;= Constants.Z)) &#123;</span><br><span class="line">        byteBuffer.put(pos, (<span class="keyword">byte</span>) (chr - Constants.LC_OFFSET));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>들어가서보니 해당 코드처럼</p>
+<p>현재 header data의 파싱된 위치가 key, value 형식의 데이터인 header의 name 부분 이라면 계속 반복하면서 버퍼에 저장하고 COLON(:) 을 만나게 되면,</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">headerData.headerValue = headers.addValue(byteBuffer.array(), headerData.start,</span><br><span class="line">                        pos - headerData.start);</span><br></pre></td></tr></table></figure>
+
+<p>코드가 실행되면서 아까 봤던 request의 MimeHeaders 타입인 header에 name으로 저장되고</p>
+<p>value에도 위와 같은 방식으로 byte 단위로 이동하고 저장되면서 header에 value에 저장된다.</p>
+<hr>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>서블릿이 http 통신을 위해 귀찮은 것들을 해준다는 것은 알고 있었지만<br>실제로 어떻게 하고 지에 대해서는 신경을 안 쓰고 있었는데 이렇게 강의를 듣다 보니 궁금해서 한번 확인해보았다.</p>
+<p>만일 이 작업을 서블릿에서 대신 안해주지 않고 개발자가 개발할 때마다 해줘야한다고 생각하면…<br>머리가 어지러워지는 것 같아 이만 글을 줄인다…</p>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard">스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</a></li>
+</ul>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">태그</span><br>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/spring/" rel="tag">spring</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/tomcat/" rel="tag">tomcat</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/" data-tooltip="애플 팀 변경 시 유저 정보 migration하기" aria-label="다음: 애플 팀 변경 시 유저 정보 migration하기">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 Junggu Ji. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/" data-tooltip="애플 팀 변경 시 유저 정보 migration하기" aria-label="다음: 애플 팀 변경 시 유저 정보 migration하기">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Twitter에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Google+에 공유하기</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">Junggu Ji</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-goamtf3h90u4wvmhg5penagquqoptje05tyii1tz44r8vwvh6klg97rf1weo.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
