@@ -176,6 +176,95 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/11/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B9%B4%EC%B9%B4%EC%98%A4-%ED%94%84%EB%A0%8C%EC%A6%88-%EC%BB%AC%EB%9F%AC%EB%A7%81%EB%B6%81/" aria-label=": 프로그래머스: 카카오 프렌즈 컬러링북">
+                            프로그래머스: 카카오 프렌즈 컬러링북
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-11T14:40:03+09:00">
+	
+		    2020/06/11
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/1829">https://programmers.co.kr/learn/courses/30/lessons/1829</a></p>
+<hr>
+<ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://namu.wiki/w/BFS#s-1">BFS(너비 우선 탐색)</a> 알고리즘으로 해결</li>
+</ul>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(<span class="keyword">int</span> m, <span class="keyword">int</span> n, <span class="keyword">int</span>[][] picture) &#123;</span><br><span class="line">    <span class="keyword">int</span> numberOfArea = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> maxSizeOfOneArea = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">boolean</span>[][] isPassedArea = <span class="keyword">new</span> <span class="keyword">boolean</span>[m][n];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (picture[i][j] == <span class="number">0</span> || isPassedArea[i][j]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> areaRange = breadthFirstSearch(i, j, picture, isPassedArea);</span><br><span class="line">            maxSizeOfOneArea = (maxSizeOfOneArea &lt; areaRange) ? areaRange : maxSizeOfOneArea;</span><br><span class="line">            ++numberOfArea;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] answer = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">    answer[<span class="number">0</span>] = numberOfArea;</span><br><span class="line">    answer[<span class="number">1</span>] = maxSizeOfOneArea;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">breadthFirstSearch</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span>[][] picture, <span class="keyword">boolean</span>[][] isPassedArea)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] xAround = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span>[] yAround = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, -<span class="number">1</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> areaRange = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    Queue&lt;Position&gt; queue = <span class="keyword">new</span> LinkedList&lt;Position&gt;();</span><br><span class="line"></span><br><span class="line">    setPassedArea(isPassedArea, queue, x, y);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">        Position currentPosition = queue.poll();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; xAround.length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> moveX = xAround[i] + currentPosition.x;</span><br><span class="line">            <span class="keyword">int</span> moveY = yAround[i] + currentPosition.y;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!isSameAreaValidation(moveX, moveY, picture, isPassedArea, currentPosition)) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            setPassedArea(isPassedArea, queue, moveX, moveY);</span><br><span class="line">            ++areaRange;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> areaRange;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isSameAreaValidation</span><span class="params">(<span class="keyword">int</span> moveX, <span class="keyword">int</span> moveY, <span class="keyword">int</span>[][] picture, <span class="keyword">boolean</span>[][] isPassedArea, Position currentPosition)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isOutOfPicture(moveX, moveY, picture)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (picture[moveX][moveY] == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isPassedArea[moveX][moveY]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (picture[currentPosition.x][currentPosition.y] != picture[moveX][moveY]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isOutOfPicture</span><span class="params">(<span class="keyword">int</span> moveX, <span class="keyword">int</span> moveY, <span class="keyword">int</span>[][] picture)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (moveX &lt; <span class="number">0</span> || moveY &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (picture.length &lt;= moveX || picture[<span class="number">0</span>].length &lt;= moveY) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setPassedArea</span><span class="params">(<span class="keyword">boolean</span>[][] isPassedArea, Queue&lt;Position&gt; queue, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    isPassedArea[x][y] = <span class="keyword">true</span>;</span><br><span class="line">    queue.offer(<span class="keyword">new</span> Position(x, y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Position</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Position</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = x;</span><br><span class="line">        <span class="keyword">this</span>.y = y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>이미 지나온 배열인지 확인하기 위해 picture array와 똑같은 크기의 boolean array를 만듦</li>
+<li>2차원 배열 크기만큼 돌면서 picture[i][j] value가 0이거나 이미 지나온 길이면 찾아갈 필요가 없으므로 continute 해서 길을 찾지 않음</li>
+<li>아니면 좌표 x,y를 저장할 class를 담는 Queue를 생성함</li>
+<li>queue에 현재 좌표를 저장하고 boolean array[x][y]를 true로 할당</li>
+<li>queue에 있는 값을 하나씩 꺼내면서 queue가 전부 비워질 때까지 반복</li>
+<li>queue에서 꺼낸 현재 좌표에서 상하 좌우를 비교해서 같은지 판단해야 하므로 현재 좌표에서 x -1 , +1, y +1, -1 씩 돌아가면서 판단할 좌표를 구함</li>
+<li>구한 좌표가 validation을 통과하면 4번과 마찬가지로 좌표를 queue에 저장하고 true로 변경<ol>
+<li>구한 좌표 x, y가 array 범위를 넘어가진 않는 지</li>
+<li>구한 좌표의 value가 0이 아닌 값 인지</li>
+<li>구한 좌표가 이미 지나간 길이 아닌지</li>
+<li>구한 좌표의 value가 현재 좌표의 value와 같은 지</li>
+<li>위 4가지를 모두 통과해야 validation 통과</li>
+</ol>
+</li>
+<li>현재 영역의 크기를 증가시킴</li>
+<li>queue가 전부 비워지면 영역의 크기를 return해서 이전에 구한 영역의 크기와 비교해서 큰 값을 저장</li>
+<li>영역 개수를 증가시킴</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p><img src="/images/20200611/%EA%B2%B0%EA%B3%BC.PNG" alt="결과"></p>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] picture = <span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">3</span>&#125;&#125;;</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">4</span> , <span class="number">5</span>&#125;, test.solution(<span class="number">6</span>, <span class="number">4</span>, picture));</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[][] picture1 = <span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">0</span> , <span class="number">0</span>&#125;, test.solution(<span class="number">5</span>, <span class="number">5</span>, picture1));</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[][] picture2 = <span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;&#125;;</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">3</span> , <span class="number">1</span>&#125;, test.solution(<span class="number">5</span>, <span class="number">5</span>, picture2));</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[][] picture3 = <span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;&#125;;</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span> , <span class="number">25</span>&#125;, test.solution(<span class="number">5</span>, <span class="number">5</span>, picture3));</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[][] picture4 = <span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">100</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;&#125;;</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span> , <span class="number">24</span>&#125;, test.solution(<span class="number">5</span>, <span class="number">5</span>, picture4));</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[][] picture5 = <span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>&#125;&#125;;</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span> , <span class="number">6</span>&#125;, test.solution(<span class="number">6</span>, <span class="number">4</span>, picture5));</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[][] picture6 = <span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;&#125;;</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">12</span> , <span class="number">120</span>&#125;, test.solution(<span class="number">13</span>, <span class="number">16</span>, picture6));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://soobarkbar.tistory.com/92">https://soobarkbar.tistory.com/92</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://gmlwjd9405.github.io/2018/08/15/algorithm-bfs.html">https://gmlwjd9405.github.io/2018/08/15/algorithm-bfs.html</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://namu.wiki/w/BFS#s-1">https://namu.wiki/w/BFS#s-1</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/11/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B9%B4%EC%B9%B4%EC%98%A4-%ED%94%84%EB%A0%8C%EC%A6%88-%EC%BB%AC%EB%9F%AC%EB%A7%81%EB%B6%81/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/11/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B9%B4%EC%B9%B4%EC%98%A4-%ED%94%84%EB%A0%8C%EC%A6%88-%EC%BB%AC%EB%9F%AC%EB%A7%81%EB%B6%81/" aria-label=": 프로그래머스: 카카오 프렌즈 컬러링북">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/09/BDDMockito-given-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98/" aria-label=": BDDMockito given 사용시 주의">
                             BDDMockito given 사용시 주의
                         </a>
@@ -910,117 +999,6 @@
         </div>
         
             <a href="/2020/05/23/%EB%B0%B1%EC%A4%80-%EB%8B%A8%EC%96%B4%EC%9D%98-%EA%B0%9C%EC%88%98/" aria-label=": 백준 1152번: 단어의 개수">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/" aria-label=": 토비의 스프링 reading (5)">
-                            토비의 스프링 reading (5)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-22T20:13:45+09:00">
-	
-		    2020/05/22
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <blockquote><p>스프링의 정수는 엔터프라이즈 서비스 기능을 POJO에 제공하는 것</p>
-<footer><strong>Professional SPring Framework</strong><cite>Rod Johnson 외 4명</cite></footer></blockquote>
-
-<ul>
-<li>스프링의 주요 기술인 Ioc/DI, AOP와 PSA(Portable Service Abstraction)는 애플리케이션을 POJO로 개발할 수 있게 해주는 가능 기술이라고 불린다</li>
-</ul>
-<h2 id="POJO란"><a href="#POJO란" class="headerlink" title="POJO란"></a>POJO란</h2><ul>
-<li>Plain Old Java Object의 약자</li>
-<li>직역하면 평범한 오래된 자바 객체다</li>
-</ul>
-<h3 id="POJO의-조건"><a href="#POJO의-조건" class="headerlink" title="POJO의 조건"></a>POJO의 조건</h3><ol>
-<li>특정 규약에 종속되지 않는다.<ul>
-<li>객체지향 설계의 자유로운 적용이 가능한 오브젝트여야만 POJO라고 불릴 수 있다.</li>
-</ul>
-</li>
-<li>특정 환경에 종속되지 않는다<ul>
-<li>환경에 독립적이어야 한다.</li>
-<li>특히 비즈니스 로직을 담고 있는  POJO 클래스는 웹이라는 환경정보나 웹 기술을 담고 있는 클래스나 인터페이스를 사용해서는 안된다.<ul>
-<li>설령 나중에 웹 컨트롤러와 연결돼서 사용될 것이 뻔하도 할지라도</li>
-</ul>
-</li>
-<li>비즈니스 로직을 담은 코드에 HttpServletRequest나 HttpSession, 캐시와 관련된 API가 등장하거나 웹 프레임워ㅏ크의 클래스를 직접 이용하는 부분이 있다면 그것은 진정한 POJO라고 볼 수 없다.</li>
-</ul>
-</li>
-</ol>
-<p><strong>진정한 POJO란 객체지향적인 원리에 충실하면서, 환경과 기술에 종속되지 않고 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트를 말한다</strong></p>
-<h3 id="POJO의-장점"><a href="#POJO의-장점" class="headerlink" title="POJO의 장점"></a>POJO의 장점</h3><ol>
-<li>특정한 기술과 환겨엥 종속디지 않는 오브젝트는 그만큼 깔끔한 코드가 될 수 있다.</li>
-<li>POJO로 개발된 코드는 자동화된 테스트에 매우 유리하다.</li>
-<li>객체지향적인 설계를 자유롭게 적용할 수 있다.</li>
-</ol>
-<h3 id="POJO-프레임워크"><a href="#POJO-프레임워크" class="headerlink" title="POJO 프레임워크"></a>POJO 프레임워크</h3><ul>
-<li>POJO 프로그래밍이 가능하도록 기술적인 기반을 제공하는 프레임워크</li>
-<li>스프링 프레임워크와 하이버네이트 등</li>
-</ul>
-<hr>
-<h2 id="POJO를-가능하게-하는-스프링의-기술"><a href="#POJO를-가능하게-하는-스프링의-기술" class="headerlink" title="POJO를 가능하게 하는 스프링의 기술"></a>POJO를 가능하게 하는 스프링의 기술</h2><ol>
-<li>Ioc/DI</li>
-<li>AOP</li>
-<li>PSA</li>
-</ol>
-<h3 id="제어의-역전-Ioc-의존관계-주입-DI"><a href="#제어의-역전-Ioc-의존관계-주입-DI" class="headerlink" title="제어의 역전(Ioc) / 의존관계 주입(DI)"></a>제어의 역전(Ioc) / 의존관계 주입(DI)</h3><ul>
-<li>왜 두개의 오브젝트를 분리해서 만들고, 인터페이스를 두고 느슨하게 연결한 뒤, 실제 사용할 대상은 DI를 통해 외부에서 지정하는 걸까?</li>
-<li>이렇게 DI 방식으로 하는 것이 직접 사용할 오브젝트를 new 키워드로 생성해서 사용하는 강한 결합을 쓰는 방법보다 나은 점은 무엇일까?</li>
-</ul>
-<p>= <strong>유연한 확장이 가능하게 하기 위해</strong></p>
-<ul>
-<li>A-&gt;B라는 의존관계가 있을 떄 확장은 B가 자유롭게 변경될 수 있음을 의미</li>
-<li>이는 B가 변경되어도 A는 아무 영향이 없고 그대로 유지 가능<br>B 관점에선 유연한 확장이고, A 관점에서는 변경 없이 재사용이 가능함</li>
-<li>개방 폐쇄 원칙(OCP)라는 객체지향 설계 원칙으로 설명할 수 있음</li>
-</ul>
-<h3 id="애스펙트-지향-프로그래밍-AOP"><a href="#애스펙트-지향-프로그래밍-AOP" class="headerlink" title="애스펙트 지향 프로그래밍(AOP)"></a>애스펙트 지향 프로그래밍(AOP)</h3><ul>
-<li>객체지향 기술만으로는 애플리케이션의 요구조건과 기술적인 난해함을 모두 해결하는데 한계가 있음</li>
-<li>이를 도와주는 보조적인 프로그래밍 기술이 AOP</li>
-<li>스프링의 AOP는 스프링이 POJO 프로그래밍을 지원하려는 그 핵심 목적을 위해 중요한 역할을 하고 있음</li>
-</ul>
-<h3 id="포터블-서비스-추상화-PSA"><a href="#포터블-서비스-추상화-PSA" class="headerlink" title="포터블 서비스 추상화(PSA)"></a>포터블 서비스 추상화(PSA)</h3><ul>
-<li>POJO로 개발된 코드는 특정 환경이나 구현 방식에 종속적이지 않아야 함</li>
-<li>환경과 세부 기술의 변화에 관계없이 일관된 방식으로 기술에 접근 할 수 있게 해주는게 PSA</li>
-<li>단순히 구체적인 기술에 종속되지 않게 하기 위해서 말고 테스트가 어렵게 만들어진 API나 설정을 통해 주요 기느을 외부에서 제어하게 만들고 싶을 때도 이용할 수 있음</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/" aria-label=": 토비의 스프링 reading (5)">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

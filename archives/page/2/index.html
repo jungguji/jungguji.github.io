@@ -177,6 +177,90 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/" aria-label=": 백준 10527번: Judging Troubles">
+                            백준 10527번: Judging Troubles
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2021-04-01T22:51:49+09:00">
+	
+		    2021/04/01
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/10527">https://www.acmicpc.net/problem/10527</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="keyword">int</span> n = Integer.parseInt(br.readLine());</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Boolean&gt; isDuplicate = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    Map&lt;String, Integer&gt; domJudge = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        String input = br.readLine();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!isDuplicate.containsKey(input)) &#123;</span><br><span class="line">            isDuplicate.put(input, <span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        domJudge.put(input, domJudge.getOrDefault(input, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Integer&gt; kattis = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        String input = br.readLine();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isDuplicate.containsKey(input)) &#123;</span><br><span class="line">            isDuplicate.put(input, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        kattis.put(input, kattis.getOrDefault(input, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;Map.Entry&lt;String, Integer&gt;&gt; entries1 = <span class="keyword">new</span> ArrayList&lt;&gt;(domJudge.entrySet());</span><br><span class="line">    List&lt;Map.Entry&lt;String, Integer&gt;&gt; entries2 = <span class="keyword">new</span> ArrayList&lt;&gt;(kattis.entrySet());</span><br><span class="line"></span><br><span class="line">    entries1.addAll(entries2);</span><br><span class="line">    Collections.sort(entries1, (e1, e2) -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (e1.getKey().compareTo(e2.getKey()) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e1.getKey().compareTo(e2.getKey()) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(e1.getValue(), e2.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; entries1.size(); i++) &#123;</span><br><span class="line">        Map.Entry&lt;String, Integer&gt; entry = entries1.get(i);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isDuplicate.getOrDefault(entry.getKey(), <span class="keyword">false</span>) &amp;&amp; set.add(entry.getKey())) &#123;</span><br><span class="line">            answer += entry.getValue();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(answer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ul>
+<li>우선 이 문제는 domJudge와 kattis가 순서대로 n만큼씩 입력 받는 문제다.</li>
+</ul>
+<p>예제를 보며 얘기하면</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">correct</span><br><span class="line">wronganswer</span><br><span class="line">correct</span><br><span class="line">correct</span><br><span class="line">timelimit</span><br><span class="line">wronganswer</span><br><span class="line">correct</span><br><span class="line">timelimit</span><br><span class="line">correct</span><br><span class="line">timelimit</span><br></pre></td></tr></table></figure>
+
+<p>이렇게 되어 있을 때 위에 다섯 줄은 domJudge에서 채점한 결과고, 그 아래 다섯 줄은 kattis 채점한 결과다.</p>
+<p>이걸 생각하고 프로그램을 작성하면</p>
+<ol>
+<li>우선 양 쪽에서 채점된 결과들 중에 작은 녀석의 값을 골라야 하므로 채점 결과를 Key로 하는 Map을 만들고</li>
+<li>n 만큼 돌면서 domJudge의 채점 결과를 저장하는데 이 때 처음나온 채점 결과는 Map에 false로 저장하고, 이전에 이미 나온 결과는 +1 해준다.</li>
+<li>그 후 다시 n만큼 돌면서 kattis의 채점결과를 저장하는데</li>
+<li>이 때는 전에 domJudge에서 나온 채점 결과 인지 확인해야 하므로 중복을 체크하기 위해 만든 Map에 채점 결과가 존재하면 그 key의 값을 true로 변경시켜서 양 쪽에서 모두 나온 결과 임을 저장한다.</li>
+<li>그 후 양 쪽에서 모두 나온 채점 결과들 중 작은 값들을 더하기 위해</li>
+<li>두 Map을 리스트로 변환 후 합쳐서 key와 value로 sorting 한다.</li>
+<li>그 후 합친 리스트를 반복하면서..</li>
+<li>채점 결과가 양 쪽 모두에서 나온 녀석이면서 이전에 더한 key가 아니라면 쭉 더하고</li>
+<li>출력하고 끝낸다.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/%EC%BA%A1%EC%B2%98.PNG" class title="백준 10527번: Judging Troubles">
+<hr>
+<h2 id="다른-분의-코드"><a href="#다른-분의-코드" class="headerlink" title="다른 분의 코드"></a>다른 분의 코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    String line = br.readLine().trim();</span><br><span class="line">    <span class="keyword">int</span> n = Integer.parseInt(line);</span><br><span class="line">    Map&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        String dom = br.readLine();</span><br><span class="line">        map.put(dom, map.getOrDefault(dom, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        String kattis = br.readLine();</span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(kattis) &amp;&amp; map.get(kattis) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            map.put(kattis, map.get(kattis) - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(cnt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>나 처럼 바보 같이 Map을 여러 개 쓰지 않고 하나의 맵에 +1, -1로 해서 겹치는 결과 인지 아닌지 판단했다.</li>
+<li>나는 왜 이렇게 생각하지 못했을까? 다른 곳에서도 흔히 쓰이는 방식인데</li>
+<li>오늘도 역시 반성해본다…</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/" aria-label=": 백준 10527번: Judging Troubles">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2021/03/30/%EB%B0%B1%EC%A4%80-1417%EB%B2%88-%EA%B5%AD%ED%9A%8C%EC%9D%98%EC%9B%90-%EC%84%A0%EA%B1%B0/" aria-label=": 백준 1417번: 국회의원 선거">
                             백준 1417번: 국회의원 선거
                         </a>
@@ -832,87 +916,6 @@
         </div>
         
             <a href="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/" aria-label=": Hexo blog backup 방법">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/" aria-label=": RequestBody Annotation 사용 시 boolean 변수 바인딩 에러">
-                            RequestBody Annotation 사용 시 boolean 변수 바인딩 에러
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-12-31T22:08:54+09:00">
-	
-		    2020/12/31
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>토이프로젝트 중 @Reqeust 어노테이션을 적용한 DTO에서 boolean 데이터를 제대로 전달 받지 못하는 문제가 발생하여 이를 정리한다.</p>
-<hr>
-<h2 id="문제-발생"><a href="#문제-발생" class="headerlink" title="문제 발생"></a>문제 발생</h2><p>vue.js에서 넘어온 데이터를 @RequestBody 어노테이션을 활용해 DTO 객체로 전달 받으려 하였는데 boolean 타입의 데이터가 정상적으로 넘어오지 않는 문제가 발생하였다.</p>
-<h3 id="문제가-발생한-Test-Code"><a href="#문제가-발생한-Test-Code" class="headerlink" title="문제가 발생한 Test Code"></a>문제가 발생한 Test Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dto_boolean_test</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">//given</span></span><br><span class="line">    RequestDTO dto = RequestDTO.builder()</span><br><span class="line">            .isTestCase(<span class="keyword">true</span>)</span><br><span class="line">            .isNQuantity(<span class="keyword">true</span>)</span><br><span class="line">            .isSpaceIncludeNumber(<span class="keyword">true</span>)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    String test = objectMapper.writeValueAsString(dto);</span><br><span class="line"></span><br><span class="line">    System.out.println(test);</span><br><span class="line">    <span class="keyword">final</span> ResultActions action = mockMvc.perform(post(<span class="string">&quot;/frame&quot;</span>)</span><br><span class="line">            .contentType(MediaType.APPLICATION_JSON)</span><br><span class="line">            .content(test))</span><br><span class="line">            .andDo(print());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//then</span></span><br><span class="line">    MvcResult result = action</span><br><span class="line">            .andExpect(status().isOk())</span><br><span class="line">            .andExpect(content().json(test))</span><br><span class="line">            .andReturn();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="에러-결과"><a href="#에러-결과" class="headerlink" title="에러 결과"></a>에러 결과</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/test%EC%8B%A4%ED%8C%A8.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러">
-<hr>
-<h2 id="원인"><a href="#원인" class="headerlink" title="원인"></a>원인</h2><blockquote><p> You can annotate any field with @Getter and/or @Setter, to let lombok generate the default getter/setter automatically.<br>A default getter simply returns the field, and is named getFoo if the field is called foo (or isFoo if the field’s type is boolean). </p>
-<footer><strong>Project Lombok</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://projectlombok.org/features/GetterSetter">Project Lombok</a></cite></footer></blockquote>
-
-<p>위 설명처럼 lombok에서 제공하는 @Getter 혹은 @Setter 어노테이션을 사용 할 경우 자동으로 getter/setter 메서드를 생성해주는데<br>이 때 boolean 타입의 변수에 붙는 prefix는 get이 아닌 is이므로 @RequestBody에서 찾을 수 없어 바인딩 되지 않아 발생하는 문제였다.</p>
-<h3 id="실패한-코드"><a href="#실패한-코드" class="headerlink" title="실패한 코드"></a>실패한 코드</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/%EC%8B%A4%ED%8C%A8%ED%95%9C_%EC%BD%94%EB%93%9C.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러 실패한_코드 실패했을 당시 DTO 실패한_코드 실패했을 당시 DTO">
-
-<p>이 처럼 boolean 변수에 is prefix를 붙여놓은 상태에서 @Getter 어노테이션을 사용하니, 내부적으로 isIsTestCase() 같은 이상한 네이밍의 메서드가 생성되서<br>@RequestBody에서 바인딩에 사용하는 Jackson 라이브러리의 ObjectMapper에서 필드를 찾을 수 없어서 바인딩 되지 않아 DTO에 정상적으로 값이 입력되지 않았던 것이다.</p>
-<blockquote><p>By default Jackson maps the fields of a JSON object to fields in a Java object by matching the names of the JSON field to the getter and setter methods in the Java object. Jackson removes the “get” and “set” part of the names of the getter and setter methods, and converts the first character of the remaining name to lowercase.</p>
-<footer><strong>Jackson ObjectMapper</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tutorials.jenkov.com/java-json/jackson-objectmapper.html#how-jackson-objectmapper-matches-json-fields-to-java-fields">Jackson ObjectMapper</a></cite></footer></blockquote>
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><ol>
-<li>boolean 변수명에서 is prefix를 제거한다.</li>
-<li>default로 false로 되어 있는 lombok.getter.noIsPrefix=true 설정을 추가한다.<br>이 설정을 추가하면 boolean 변수도 get prefix를 사용한다.</li>
-</ol>
-<p>필자는 boolean 변수에서 is prefix를 제거하는 방식으로 처리했다.<br>다른 타입은 자료형에 따라 prefix를 붙이지 않는 상황에서 boolean 변수에만 붙이는 것이 옳지 않다고 생각했기 때문에 1번을 선택했다.</p>
-<h3 id="수정된-코드"><a href="#수정된-코드" class="headerlink" title="수정된 코드"></a>수정된 코드</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/%EC%84%B1%EA%B3%B5%ED%95%9C_%EC%BD%94%EB%93%9C.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러 문제를 수정한 DTO 에러 문제를 수정한 DTO">
-
-<h3 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/test%EC%84%B1%EA%B3%B5.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러 수정 후 성공한 테스트 에러 수정 후 성공한 테스트">
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://projectlombok.org/features/GetterSetter">https://projectlombok.org/features/GetterSetter</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@conatuseus/RequestBody%EC%97%90-%EC%99%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%ED%95%84%EC%9A%94%ED%95%98%EA%B3%A0-Setter%EB%8A%94-%ED%95%84%EC%9A%94-%EC%97%86%EC%9D%84%EA%B9%8C-3-idnrafiw">https://velog.io/@conatuseus/RequestBody%EC%97%90-%EC%99%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%ED%95%84%EC%9A%94%ED%95%98%EA%B3%A0-Setter%EB%8A%94-%ED%95%84%EC%9A%94-%EC%97%86%EC%9D%84%EA%B9%8C-3-idnrafiw</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="http://tutorials.jenkov.com/java-json/jackson-objectmapper.html#how-jackson-objectmapper-matches-json-fields-to-java-fields">http://tutorials.jenkov.com/java-json/jackson-objectmapper.html#how-jackson-objectmapper-matches-json-fields-to-java-fields</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/" aria-label=": RequestBody Annotation 사용 시 boolean 변수 바인딩 에러">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

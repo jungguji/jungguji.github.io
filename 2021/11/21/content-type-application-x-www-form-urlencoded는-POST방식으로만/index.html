@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="저장하고 까먹자">
-    <title>아카이브: 2021/11 - 저장하고 까먹자</title>
+    <title>content-type application/x-www-form-urlencoded는 POST방식으로만 - 저장하고 까먹자</title>
     <meta name="author" content="Junggu Ji">
     
     
@@ -15,14 +15,24 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{}</script>
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="저장하고 까먹자">
-<meta property="og:url" content="https://jungguji.github.io/archives/2021/11/index.html">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론오늘도 어김없이 영한님의 스프링 MVC 강의를 듣고 있었는데, html form 데이터를 body에 보낼 때는 post 방식 밖에 안된다는 말씀을 하시기에…‘그럼 GET 방식도 안된다는건가?’ 라는 궁금증이 들어서 직접 확인해본 결과에 대해 작성한다.\n\n본론우선… 기본적으로 지금 필요한 GET방식과 POST방식의 차이점만을 다시 상기해보자면, GET방식은 데이터가 URL의 query string으로 들어간다는 것과,POST방식은 데이터가 http message-body에 들어간다는 차이만 알아두면 될 것 같다. (다른 많은 차이가 있지만)\n그렇기 때문에 우리가 html form 태그 에서 method attribute에 GET라고 작성한 후 데이터를 submit하면 데이터는 query string에 담겨 서버로 전송되고POST라고 작성한 후 데이터를 submit하면 데이터는 message-body에 담겨서 서버로 전성되고 이 때 content-type은 application/x-www-form-urlencoded로 전송된다.\n1234567891011121314&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;meta charset=&quot;UTF-8&quot;&gt;    &lt;title&gt;Title&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;form action=&quot;/request-param&quot; method=&quot;post&quot;&gt;    username: &lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;    age:      &lt;input type=&quot;text&quot; name=&quot;age&quot; /&gt;    &lt;button type=&quot;submit&quot;&gt;전송&lt;/button&gt;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;\n\n\n\n그럼 method는 GET이면서 content-type은 application/x-www-form-urlencoded 일 경우엔 어떻게 될까?\npostman으로 아래처럼 실행해본 결과 보는 것과 같이 400 error가 응답되며 요청에 실패하였다.\n\n\n어째서 이런 일이 발생하였나를 코드 레벨에서 확인해보니…\ntomcat의 Request class에 있는 parseParameters()라는 메서드에서 넘어온 데이터를 parsing 하는데,이 때 http method가 post인지 확인하고 post가 아니라면 message-body의 데이터를 파싱 할 수 없게 되어 있는 것을 확인했다.\n1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162if( !getConnector().isParseBodyMethod(getMethod()) ) &#123;    success = true;    return;&#125;...// 이 아래부턴 Connector.javaprotected boolean isParseBodyMethod(String method) &#123;    return parseBodyMethodsSet.contains(method);&#125;...if (null == parseBodyMethodsSet) &#123;    setParseBodyMethods(getParseBodyMethods());&#125;.../** * Set list of HTTP methods which should allow body parameter * parsing. This defaults to &lt;code&gt;POST&lt;/code&gt;. * * @param methods Comma separated list of HTTP method names */public void setParseBodyMethods(String methods) &#123;    HashSet&lt;String&gt; methodSet = new HashSet&lt;&gt;();    if (null != methods) &#123;        methodSet.addAll(Arrays.asList(methods.split(&quot;\\\\s*,\\\\s*&quot;)));    &#125;    if (methodSet.contains(&quot;TRACE&quot;)) &#123;        throw new IllegalArgumentException(sm.getString(&quot;coyoteConnector.parseBodyMethodNoTrace&quot;));    &#125;    this.parseBodyMethods = methods;    this.parseBodyMethodsSet = methodSet;    setProperty(&quot;parseBodyMethods&quot;, methods);&#125;.../** * @return the HTTP methods which will support body parameters parsing */public String getParseBodyMethods() &#123;    return this.parseBodyMethods;&#125;.../** * Comma-separated list of HTTP methods that will be parsed according * to POST-style rules for application/x-www-form-urlencoded request bodies. */protected String parseBodyMethods = &quot;POST&quot;;\n\n위에 정리한 것 처럼\n\nisParseBodyMethod()에서 지금 request의 method가 body를 파싱 할 수 있는 메서드 인지 확인하는데, 이 때 가능한 method들은 인스턴스 변수 parseBodyMethodsSet에 저장되어 있고,\n인스턴스 변수 parseBodyMethodsSet는 setParseBodyMethods() 메서드에서 저장되고 있고~\nparseBodyMethodsSet가 null인 경우에\nsetParseBodyMethods(getParseBodyMethods()) 메서드를 실행해서 이 때 method를 저장 시키는데,\ngetParseBodyMethods() 메서드를 호출하면\n인스턴스변수 parseBodyMethods를 return 하는데\n이 때 이 인스턴스 변수 parseBodyMethods에는 이미 “POST”로 method가 지정되어 있기 때문에\nGET방식 일 경우에는 message-body를 파싱 할 수 있는 method가 아닌 것으로 처리 되므로~\n파싱 할 수 없다는 에러 메시지를 출력하면서 프로세스가 끝이난다.\n\n\n결론생각해보면… content-type은 message-body이 어떤 형식의 데이터로 담겨 있는가를 알려주는 일종의 os의 파일 확장자같은 개념인데당연히 get방식의 경우 message-body에 데이터가 담기는 것이 아니니 get방식으로 content-type만 application/x-www-form-urlencoded로 한다고 될 턱이 없는데강의를 듣기만 했을 때는 왜 생각하지 못했는 지 모르겠다.. 머리가 나쁘면 몸이 고생이라더니 옛말에 틀린 말이 없다.\n\n참고 사이트\nhttps://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Content-Type\nhttps://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5\nhttps://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html\n\n","dateCreated":"2021-11-21T22:18:58+09:00","dateModified":"2021-11-21T22:18:58+09:00","datePublished":"2021-11-21T22:18:58+09:00","description":"","headline":"content-type application/x-www-form-urlencoded는 POST방식으로만","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/","keywords":"spring, servlet, 강의"}</script>
+    <meta name="description" content="서론오늘도 어김없이 영한님의 스프링 MVC 강의를 듣고 있었는데, html form 데이터를 body에 보낼 때는 post 방식 밖에 안된다는 말씀을 하시기에…‘그럼 GET 방식도 안된다는건가?’ 라는 궁금증이 들어서 직접 확인해본 결과에 대해 작성한다.  본론우선… 기본적으로 지금 필요한 GET방식과 POST방식의 차이점만을 다시 상기해보자면, GET방식">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="content-type application&#x2F;x-www-form-urlencoded는 POST방식으로만">
+<meta property="og:url" content="https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/index.html">
 <meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:description" content="서론오늘도 어김없이 영한님의 스프링 MVC 강의를 듣고 있었는데, html form 데이터를 body에 보낼 때는 post 방식 밖에 안된다는 말씀을 하시기에…‘그럼 GET 방식도 안된다는건가?’ 라는 궁금증이 들어서 직접 확인해본 결과에 대해 작성한다.  본론우선… 기본적으로 지금 필요한 GET방식과 POST방식의 차이점만을 다시 상기해보자면, GET방식">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/1.JPG">
+<meta property="og:image" content="https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/2.JPG">
+<meta property="article:published_time" content="2021-11-21T13:18:58.000Z">
+<meta property="article:modified_time" content="2021-11-21T13:18:58.000Z">
 <meta property="article:author" content="Junggu Ji">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="servlet">
+<meta property="article:tag" content="강의">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/1.JPG">
     
     
         
@@ -50,6 +60,8 @@
     
 
     
+        
+    
 
     <script data-ad-client="ca-pub-6264654331856753" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
@@ -61,7 +73,7 @@
 
     
 
-<header id="header" data-behavior="1">
+<header id="header" data-behavior="4">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/" aria-label>
@@ -80,7 +92,7 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="1">
+<nav id="sidebar" data-behavior="4">
     <div class="sidebar-container">
         
         
@@ -164,25 +176,21 @@
 </nav>
 
             
-            <div id="main" data-behavior="1" class="
+            <div id="main" data-behavior="4" class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" aria-label=": content-type application/x-www-form-urlencoded는 POST방식으로만">
-                            content-type application/x-www-form-urlencoded는 POST방식으로만
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            content-type application/x-www-form-urlencoded는 POST방식으로만
+        </h1>
+    
+    
+        <div class="post-meta">
     <time datetime="2021-11-21T22:18:58+09:00">
 	
 		    2021/11/21
@@ -191,10 +199,13 @@
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>오늘도 어김없이 영한님의 스프링 MVC 강의를 듣고 있었는데, html form 데이터를 body에 보낼 때는 post 방식 밖에 안된다는 말씀을 하시기에…<br>‘그럼 GET 방식도 안된다는건가?’ 라는 궁금증이 들어서 직접 확인해본 결과에 대해 작성한다.</p>
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>오늘도 어김없이 영한님의 스프링 MVC 강의를 듣고 있었는데, html form 데이터를 body에 보낼 때는 post 방식 밖에 안된다는 말씀을 하시기에…<br>‘그럼 GET 방식도 안된다는건가?’ 라는 궁금증이 들어서 직접 확인해본 결과에 대해 작성한다.</p>
 <hr>
 <h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><p>우선… 기본적으로 지금 필요한 GET방식과 POST방식의 차이점만을 다시 상기해보자면, GET방식은 데이터가 URL의 query string으로 들어간다는 것과,<br>POST방식은 데이터가 http message-body에 들어간다는 차이만 알아두면 될 것 같다. (다른 많은 차이가 있지만)</p>
 <p>그렇기 때문에 우리가 html form 태그 에서 method attribute에 GET라고 작성한 후 데이터를 submit하면 데이터는 query string에 담겨 서버로 전송되고<br>POST라고 작성한 후 데이터를 submit하면 데이터는 message-body에 담겨서 서버로 전성되고 이 때 content-type은 application/x-www-form-urlencoded로 전송된다.</p>
@@ -231,108 +242,94 @@
 <li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html">https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html</a></li>
 </ul>
 
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
             
+
+
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" aria-label=": spring에서 request header를 parsing 하는 법">
-                            spring에서 request header를 parsing 하는 법
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-11-15T21:44:15+09:00">
-	
-		    2021/11/15
-    	
-    </time>
-    
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">태그</span><br>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/servlet/" rel="tag">servlet</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/spring/" rel="tag">spring</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%EA%B0%95%EC%9D%98/" rel="tag">강의</a>
 
             </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>우선 사과의 말씀부터 올린다. 제목은 ‘spring에서~’ 지만 정확히는 tomcat에서 ~ 로 보는 것이 맞다.</p>
-<p>인프런에서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard">이영한 님의 Spring MVC 강의</a>를 보던 도중 … ‘http request를 정확히 어떠한 방식으로 파싱하고 있을까?’라는 궁금증이 생겨서 강의를 듣다가 말고 삽질을 한 내용을 기록해둔다.</p>
-<hr>
-<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><p>우선, 처음으로 궁금증을 해결하기 위해 들어가본 곳은 http request 요청을 받기 위한 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://javaee.github.io/javaee-spec/javadocs/javax/servlet/http/HttpServletRequest.html">HttpServletRequest interface</a>의 tomcat 구현체인 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/connector/RequestFacade.html">RequestFacade</a> class부터 시작했다.</p>
-<p>이 중 getHeader 메서드에 대해 찾아보면,</p>
-<blockquote><p>Returns the value of the specified request header as a String.<br>If the request did not include a header of the specified name, this method returns null.<br>If there are multiple headers with the same name, this method returns the first head in the request.<br>The header name is case insensitive.<br>You can use this method with any request header.</p>
-<footer><strong>RequestFacade</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/connector/RequestFacade.html#getHeader(java.lang.String)">RequestFacade</a></cite></footer></blockquote>
-
-<p>라고 설명되어 있고… 이 때 코드에서 request의 header를 살펴보면</p>
-<img src="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/1.JPG" class title="spring에서 request header를 parsing 하는 법 이미 header에 정보들이 저장되어 있는 상태 " alt="이미 header에 정보들이 저장되어 있는 상태">
-
-<p>이미지와 같이 이미 header에 대한 정보들이 각각 저정되어 있는 걸 볼 수 있다.</p>
-<p>필자가 궁금했던 것은 ‘이 request에 header는 언제 저장되는가?’ 였으므로<br>막연하게 ‘여기서 더 타고 올라가면 찾아 낼 수 있겠구나..’ 라고 안일한(?) 생각을 하고 안으로 더 들어가보았다.</p>
-<p>타고타고 가다보니 …<br>http 1.1 header에 의한 요청이므로 Http11Processor의 service 메서드에서</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Don&#x27;t parse headers for HTTP/0.9</span></span><br><span class="line"><span class="keyword">if</span> (!http09 &amp;&amp; !inputBuffer.parseHeaders()) &#123;</span><br><span class="line">    <span class="comment">// We&#x27;ve read part of the request, don&#x27;t recycle it</span></span><br><span class="line">    <span class="comment">// instead associate it with the socket</span></span><br><span class="line">    openSocket = <span class="keyword">true</span>;</span><br><span class="line">    readComplete = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>처럼 작성되어 있는 코드를 발견했고, 여기에 있는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://tomcat.apache.org/tomcat-9.0-doc/api/org/apache/coyote/http11/Http11InputBuffer.html">inputBuffer</a>.parseHeaders() 을 보니<br>이름부터 여기서 http request에 대해 파싱을 할 것 같아 이 안으로 들어가보았다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (headerParsePos == HeaderParsePosition.HEADER_NAME) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Read new bytes if needed</span></span><br><span class="line">    <span class="keyword">if</span> (byteBuffer.position() &gt;= byteBuffer.limit()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!fill(<span class="keyword">false</span>)) &#123; <span class="comment">// parse header</span></span><br><span class="line">            <span class="keyword">return</span> HeaderParseStatus.NEED_MORE_DATA;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> pos = byteBuffer.position();</span><br><span class="line">    chr = byteBuffer.get();</span><br><span class="line">    <span class="keyword">if</span> (chr == Constants.COLON) &#123;</span><br><span class="line">        headerParsePos = HeaderParsePosition.HEADER_VALUE_START;</span><br><span class="line">        headerData.headerValue = headers.addValue(byteBuffer.array(), headerData.start,</span><br><span class="line">                pos - headerData.start);</span><br><span class="line">        pos = byteBuffer.position();</span><br><span class="line">        <span class="comment">// Mark the current buffer position</span></span><br><span class="line">        headerData.start = pos;</span><br><span class="line">        headerData.realPos = pos;</span><br><span class="line">        headerData.lastSignificantChar = pos;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!HttpParser.isToken(chr)) &#123;</span><br><span class="line">        <span class="comment">// Non-token characters are illegal in header names</span></span><br><span class="line">        <span class="comment">// Parsing continues so the error can be reported in context</span></span><br><span class="line">        headerData.lastSignificantChar = pos;</span><br><span class="line">        byteBuffer.position(byteBuffer.position() - <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// skipLine() will handle the error</span></span><br><span class="line">        <span class="keyword">return</span> skipLine();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// chr is next byte of header name. Convert to lowercase.</span></span><br><span class="line">    <span class="keyword">if</span> ((chr &gt;= Constants.A) &amp;&amp; (chr &lt;= Constants.Z)) &#123;</span><br><span class="line">        byteBuffer.put(pos, (<span class="keyword">byte</span>) (chr - Constants.LC_OFFSET));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>들어가서보니 해당 코드처럼</p>
-<p>현재 header data의 파싱된 위치가 key, value 형식의 데이터인 header의 name 부분 이라면 계속 반복하면서 버퍼에 저장하고 COLON(:) 을 만나게 되면,</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">headerData.headerValue = headers.addValue(byteBuffer.array(), headerData.start,</span><br><span class="line">                        pos - headerData.start);</span><br></pre></td></tr></table></figure>
-
-<p>코드가 실행되면서 아까 봤던 request의 MimeHeaders 타입인 header에 name으로 저장되고</p>
-<p>value에도 위와 같은 방식으로 byte 단위로 이동하고 저장되면서 header에 value에 저장된다.</p>
-<hr>
-<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>서블릿이 http 통신을 위해 귀찮은 것들을 해준다는 것은 알고 있었지만<br>실제로 어떻게 하고 지에 대해서는 신경을 안 쓰고 있었는데 이렇게 강의를 듣다 보니 궁금해서 한번 확인해보았다.</p>
-<p>만일 이 작업을 서블릿에서 대신 안해주지 않고 개발자가 개발할 때마다 해줘야한다고 생각하면…<br>머리가 어지러워지는 것 같아 이만 글을 줄인다…</p>
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard">스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</a></li>
-</ul>
-
-                    
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
                         
-
-
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
                     
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" data-tooltip="spring에서 request header를 parsing 하는 법" aria-label="다음: spring에서 request header를 parsing 하는 법">
                     
-                        <p>
-                            <a href="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
             
-        </div>
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
         
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
         
         
-        <li class="pagination-number">page 1 of 1</li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+        
+            
+        
+    </div>
+</article>
 
 
 
@@ -343,6 +340,109 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" data-tooltip="spring에서 request header를 parsing 하는 법" aria-label="다음: spring에서 request header를 parsing 하는 법">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Twitter에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Google+에 공유하기</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
             
         </div>
         
@@ -380,6 +480,8 @@
 
 <!--SCRIPTS END-->
 
+
+    
 
 
 

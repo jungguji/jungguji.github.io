@@ -177,6 +177,85 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" aria-label=": content-type application/x-www-form-urlencoded는 POST방식으로만">
+                            content-type application/x-www-form-urlencoded는 POST방식으로만
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2021-11-21T22:18:58+09:00">
+	
+		    2021/11/21
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>오늘도 어김없이 영한님의 스프링 MVC 강의를 듣고 있었는데, html form 데이터를 body에 보낼 때는 post 방식 밖에 안된다는 말씀을 하시기에…<br>‘그럼 GET 방식도 안된다는건가?’ 라는 궁금증이 들어서 직접 확인해본 결과에 대해 작성한다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><p>우선… 기본적으로 지금 필요한 GET방식과 POST방식의 차이점만을 다시 상기해보자면, GET방식은 데이터가 URL의 query string으로 들어간다는 것과,<br>POST방식은 데이터가 http message-body에 들어간다는 차이만 알아두면 될 것 같다. (다른 많은 차이가 있지만)</p>
+<p>그렇기 때문에 우리가 html form 태그 에서 method attribute에 GET라고 작성한 후 데이터를 submit하면 데이터는 query string에 담겨 서버로 전송되고<br>POST라고 작성한 후 데이터를 submit하면 데이터는 message-body에 담겨서 서버로 전성되고 이 때 content-type은 application/x-www-form-urlencoded로 전송된다.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/request-param&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> /&gt;</span></span><br><span class="line">    age:      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>전송<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/1.JPG" class title="content-type application&#x2F;x-www-form-urlencoded는 POST방식으로만">
+
+<p>그럼 method는 GET이면서 content-type은 application/x-www-form-urlencoded 일 경우엔 어떻게 될까?</p>
+<p>postman으로 아래처럼 실행해본 결과 보는 것과 같이 400 error가 응답되며 요청에 실패하였다.</p>
+<img src="/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/2.JPG" class title="content-type application&#x2F;x-www-form-urlencoded는 POST방식으로만">
+
+<p>어째서 이런 일이 발생하였나를 코드 레벨에서 확인해보니…</p>
+<p>tomcat의 Request class에 있는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://tomcat.apache.org/tomcat-8.5-doc/api/org/apache/catalina/connector/Request.html#parseParameters()">parseParameters()</a>라는 메서드에서 넘어온 데이터를 parsing 하는데,<br>이 때 http method가 post인지 확인하고 post가 아니라면 message-body의 데이터를 파싱 할 수 없게 되어 있는 것을 확인했다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( !getConnector().isParseBodyMethod(getMethod()) ) &#123;</span><br><span class="line">    success = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 이 아래부턴 Connector.java</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">isParseBodyMethod</span><span class="params">(String method)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> parseBodyMethodsSet.contains(method);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">null</span> == parseBodyMethodsSet) &#123;</span><br><span class="line">    setParseBodyMethods(getParseBodyMethods());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Set list of HTTP methods which should allow body parameter</span></span><br><span class="line"><span class="comment"> * parsing. This defaults to &lt;code&gt;POST&lt;/code&gt;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> methods Comma separated list of HTTP method names</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParseBodyMethods</span><span class="params">(String methods)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    HashSet&lt;String&gt; methodSet = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> != methods) &#123;</span><br><span class="line">        methodSet.addAll(Arrays.asList(methods.split(<span class="string">&quot;\\s*,\\s*&quot;</span>)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (methodSet.contains(<span class="string">&quot;TRACE&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(sm.getString(<span class="string">&quot;coyoteConnector.parseBodyMethodNoTrace&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.parseBodyMethods = methods;</span><br><span class="line">    <span class="keyword">this</span>.parseBodyMethodsSet = methodSet;</span><br><span class="line">    setProperty(<span class="string">&quot;parseBodyMethods&quot;</span>, methods);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the HTTP methods which will support body parameters parsing</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getParseBodyMethods</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.parseBodyMethods;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Comma-separated list of HTTP methods that will be parsed according</span></span><br><span class="line"><span class="comment"> * to POST-style rules for application/x-www-form-urlencoded request bodies.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">protected</span> String parseBodyMethods = <span class="string">&quot;POST&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>위에 정리한 것 처럼</p>
+<ol>
+<li>isParseBodyMethod()에서 지금 request의 method가 body를 파싱 할 수 있는 메서드 인지 확인하는데, 이 때 가능한 method들은 인스턴스 변수 parseBodyMethodsSet에 저장되어 있고,</li>
+<li>인스턴스 변수 parseBodyMethodsSet는 setParseBodyMethods() 메서드에서 저장되고 있고~</li>
+<li>parseBodyMethodsSet가 null인 경우에</li>
+<li>setParseBodyMethods(getParseBodyMethods()) 메서드를 실행해서 이 때 method를 저장 시키는데,</li>
+<li>getParseBodyMethods() 메서드를 호출하면</li>
+<li>인스턴스변수 parseBodyMethods를 return 하는데</li>
+<li>이 때 이 인스턴스 변수 parseBodyMethods에는 이미 “POST”로 method가 지정되어 있기 때문에</li>
+<li>GET방식 일 경우에는 message-body를 파싱 할 수 있는 method가 아닌 것으로 처리 되므로~</li>
+<li>파싱 할 수 없다는 에러 메시지를 출력하면서 프로세스가 끝이난다.</li>
+</ol>
+<hr>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>생각해보면… content-type은 message-body이 어떤 형식의 데이터로 담겨 있는가를 알려주는 일종의 os의 파일 확장자같은 개념인데<br>당연히 get방식의 경우 message-body에 데이터가 담기는 것이 아니니 get방식으로 content-type만 application/x-www-form-urlencoded로 한다고 될 턱이 없는데<br>강의를 듣기만 했을 때는 왜 생각하지 못했는 지 모르겠다.. 머리가 나쁘면 몸이 고생이라더니 옛말에 틀린 말이 없다.</p>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Content-Type">https://developer.mozilla.org/ko/docs/Web/HTTP/Headers/Content-Type</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5">https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html">https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2021/11/15/spring%EC%97%90%EC%84%9C-request-header%EB%A5%BC-parsing-%ED%95%98%EB%8A%94-%EB%B2%95/" aria-label=": spring에서 request header를 parsing 하는 법">
                             spring에서 request header를 parsing 하는 법
                         </a>
@@ -936,90 +1015,6 @@
         </div>
         
             <a href="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/" aria-label=": 백준 2485번: 가로수">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/" aria-label=": 백준 10527번: Judging Troubles">
-                            백준 10527번: Judging Troubles
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-04-01T22:51:49+09:00">
-	
-		    2021/04/01
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/10527">https://www.acmicpc.net/problem/10527</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="keyword">int</span> n = Integer.parseInt(br.readLine());</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Boolean&gt; isDuplicate = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    Map&lt;String, Integer&gt; domJudge = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        String input = br.readLine();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!isDuplicate.containsKey(input)) &#123;</span><br><span class="line">            isDuplicate.put(input, <span class="keyword">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        domJudge.put(input, domJudge.getOrDefault(input, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Map&lt;String, Integer&gt; kattis = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        String input = br.readLine();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isDuplicate.containsKey(input)) &#123;</span><br><span class="line">            isDuplicate.put(input, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        kattis.put(input, kattis.getOrDefault(input, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;Map.Entry&lt;String, Integer&gt;&gt; entries1 = <span class="keyword">new</span> ArrayList&lt;&gt;(domJudge.entrySet());</span><br><span class="line">    List&lt;Map.Entry&lt;String, Integer&gt;&gt; entries2 = <span class="keyword">new</span> ArrayList&lt;&gt;(kattis.entrySet());</span><br><span class="line"></span><br><span class="line">    entries1.addAll(entries2);</span><br><span class="line">    Collections.sort(entries1, (e1, e2) -&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (e1.getKey().compareTo(e2.getKey()) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e1.getKey().compareTo(e2.getKey()) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.compare(e1.getValue(), e2.getValue());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; entries1.size(); i++) &#123;</span><br><span class="line">        Map.Entry&lt;String, Integer&gt; entry = entries1.get(i);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isDuplicate.getOrDefault(entry.getKey(), <span class="keyword">false</span>) &amp;&amp; set.add(entry.getKey())) &#123;</span><br><span class="line">            answer += entry.getValue();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(answer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ul>
-<li>우선 이 문제는 domJudge와 kattis가 순서대로 n만큼씩 입력 받는 문제다.</li>
-</ul>
-<p>예제를 보며 얘기하면</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">correct</span><br><span class="line">wronganswer</span><br><span class="line">correct</span><br><span class="line">correct</span><br><span class="line">timelimit</span><br><span class="line">wronganswer</span><br><span class="line">correct</span><br><span class="line">timelimit</span><br><span class="line">correct</span><br><span class="line">timelimit</span><br></pre></td></tr></table></figure>
-
-<p>이렇게 되어 있을 때 위에 다섯 줄은 domJudge에서 채점한 결과고, 그 아래 다섯 줄은 kattis 채점한 결과다.</p>
-<p>이걸 생각하고 프로그램을 작성하면</p>
-<ol>
-<li>우선 양 쪽에서 채점된 결과들 중에 작은 녀석의 값을 골라야 하므로 채점 결과를 Key로 하는 Map을 만들고</li>
-<li>n 만큼 돌면서 domJudge의 채점 결과를 저장하는데 이 때 처음나온 채점 결과는 Map에 false로 저장하고, 이전에 이미 나온 결과는 +1 해준다.</li>
-<li>그 후 다시 n만큼 돌면서 kattis의 채점결과를 저장하는데</li>
-<li>이 때는 전에 domJudge에서 나온 채점 결과 인지 확인해야 하므로 중복을 체크하기 위해 만든 Map에 채점 결과가 존재하면 그 key의 값을 true로 변경시켜서 양 쪽에서 모두 나온 결과 임을 저장한다.</li>
-<li>그 후 양 쪽에서 모두 나온 채점 결과들 중 작은 값들을 더하기 위해</li>
-<li>두 Map을 리스트로 변환 후 합쳐서 key와 value로 sorting 한다.</li>
-<li>그 후 합친 리스트를 반복하면서..</li>
-<li>채점 결과가 양 쪽 모두에서 나온 녀석이면서 이전에 더한 key가 아니라면 쭉 더하고</li>
-<li>출력하고 끝낸다.</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/%EC%BA%A1%EC%B2%98.PNG" class title="백준 10527번: Judging Troubles">
-<hr>
-<h2 id="다른-분의-코드"><a href="#다른-분의-코드" class="headerlink" title="다른 분의 코드"></a>다른 분의 코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    String line = br.readLine().trim();</span><br><span class="line">    <span class="keyword">int</span> n = Integer.parseInt(line);</span><br><span class="line">    Map&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        String dom = br.readLine();</span><br><span class="line">        map.put(dom, map.getOrDefault(dom, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">        String kattis = br.readLine();</span><br><span class="line">        <span class="keyword">if</span>(map.containsKey(kattis) &amp;&amp; map.get(kattis) &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            cnt++;</span><br><span class="line">            map.put(kattis, map.get(kattis) - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(cnt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>나 처럼 바보 같이 Map을 여러 개 쓰지 않고 하나의 맵에 +1, -1로 해서 겹치는 결과 인지 아닌지 판단했다.</li>
-<li>나는 왜 이렇게 생각하지 못했을까? 다른 곳에서도 흔히 쓰이는 방식인데</li>
-<li>오늘도 역시 반성해본다…</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/" aria-label=": 백준 10527번: Judging Troubles">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>
