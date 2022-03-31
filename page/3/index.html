@@ -176,66 +176,6 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
-                        <a class="link-unstyled" href="/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/" aria-label=": Junit4 설정 주입 에러">
-                            Junit4 설정 주입 에러
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-01-12T21:45:32+09:00">
-	
-		    2021/01/12
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>현재 작업 중인 프로젝트에서 테스트 코드를 작성해 테스트할 일이 있었는데 프로젝트의 환경은 spring 4.3에 Junit 4.8이었다.</p>
-<p>이에 원래 사용하던 junit5로 넘어갈까 하였으나 junit5를 사용하려면 설정을 spring boot으로 해야 한다는 글들이 있어 같은 테스트 환경을 만들기 위해 junit만 4.12 버전으로 업그레이드한 후 테스트를 진행하였는데 spring 프로젝트지만 config 설정들을 boot 처럼 java 파일로 관리하는 형태여서 java 파일과 properties 파일을 동시에 잡아 줄 필요가 있었는데<br>@Contextconfiguration(classes = {블라블라…}, locations = {블라블라…})로 잡으니 에러가 발생하여 해결한 방법을 작성해놓는다.</p>
-<hr>
-<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;</span></span><br><span class="line"><span class="meta">        DatabaseConfig.class,</span></span><br><span class="line"><span class="meta">        SecurityConfig.class,</span></span><br><span class="line"><span class="meta">        SocialConfig.class,</span></span><br><span class="line"><span class="meta">        EnumConfig.class,</span></span><br><span class="line"><span class="meta">        WebMvcConfig.class</span></span><br><span class="line"><span class="meta">&#125;, locations = &quot;classpath:properties/test.properties&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<p>서론에 적은 것 처럼 classes와 locations를 둘 다 설정하였더니 아래와 같이 에러가 발생하였다.</p>
-<h3 id="에러"><a href="#에러" class="headerlink" title="에러"></a>에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalArgumentException: Cannot process locations AND classes <span class="keyword">for</span> context configuration [ContextConfigurationAttributes@64c87930 declaringClass = <span class="string">&#x27;com.xxxx.xxxImplTest&#x27;</span>, classes = <span class="string">&#x27;&#123;class com.xxxx.config.DatabaseConfig, class com.xxx.config.SecurityConfig, class com.xxx.config.SocialConfig, class com.xxx.config.EnumConfig, class com.xxx.config.WebMvcConfig&#125;&#x27;</span>, locations = <span class="string">&#x27;&#123;classpath:properties/test.properties&#125;&#x27;</span>, inheritLocations = <span class="keyword">true</span>, initializers = <span class="string">&#x27;&#123;&#125;&#x27;</span>, inheritInitializers = <span class="keyword">true</span>, name = [<span class="keyword">null</span>], contextLoaderClass = <span class="string">&#x27;org.springframework.test.context.ContextLoader&#x27;</span>]: configure one or the other, but not both.</span><br><span class="line"></span><br><span class="line">	at org.springframework.util.Assert.isTrue(Assert.java:<span class="number">68</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.processContextConfiguration(AbstractDelegatingSmartContextLoader.java:<span class="number">154</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">371</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">305</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:<span class="number">112</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">120</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">105</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:<span class="number">152</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:<span class="number">143</span>)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">423</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:<span class="number">104</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:<span class="number">86</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">70</span>)</span><br><span class="line">	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:<span class="number">37</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">70</span>)</span><br><span class="line">	at org.junit.internal.requests.ClassRequest.createRunner(ClassRequest.java:<span class="number">28</span>)</span><br><span class="line">	at org.junit.internal.requests.MemoizingRequest.getRunner(MemoizingRequest.java:<span class="number">19</span>)</span><br><span class="line">	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:<span class="number">36</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">49</span>)</span><br><span class="line">	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">33</span>)</span><br><span class="line">	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">230</span>)</span><br><span class="line">	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">58</span>)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>@Testpropertysource(classpath:””)로 test properties를 잡아주고<br>@Contextconfiguration(classes = { XXXConfig.class}) 로 Java config 파일들을 잡아준다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;</span></span><br><span class="line"><span class="meta">        DatabaseConfig.class,</span></span><br><span class="line"><span class="meta">        SecurityConfig.class,</span></span><br><span class="line"><span class="meta">        SocialConfig.class,</span></span><br><span class="line"><span class="meta">        EnumConfig.class,</span></span><br><span class="line"><span class="meta">        WebMvcConfig.class</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line"><span class="meta">@Testpropertysource(&quot;classpath:properties/test.properties&quot;)</span></span><br></pre></td></tr></table></figure>
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/" aria-label=": Junit4 설정 주입 에러">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
                         <a class="link-unstyled" href="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/" aria-label=": Hexo blog backup 방법">
                             Hexo blog backup 방법
                         </a>
@@ -1022,6 +962,206 @@
         </div>
         
             <a href="/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/" aria-label=": 백준 2751번: 수 정렬하기 2">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%B0%A9%EA%B8%88-%EA%B7%B8-%EA%B3%A1/" aria-label=": 프로그래머스: 방금 그 곡">
+                            프로그래머스: 방금 그 곡
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-12T19:05:46+09:00">
+	
+		    2020/11/12
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17683">https://programmers.co.kr/learn/courses/30/lessons/17683</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">solution</span><span class="params">(String m, String[] musicinfos)</span> </span>&#123;</span><br><span class="line">    String answer = <span class="string">&quot;(None)&quot;</span>;</span><br><span class="line"></span><br><span class="line">    m = getSharpReplace(m);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> maxPlayTime = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String music : musicinfos) &#123;</span><br><span class="line">        String[] info = music.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> playTimeToMinute = getPlayTime(info[<span class="number">0</span>], info[<span class="number">1</span>]);</span><br><span class="line">        String melody = getMelody(playTimeToMinute, info[<span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (melody.contains(m)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (maxPlayTime &lt; playTimeToMinute) &#123;</span><br><span class="line">                answer = info[<span class="number">2</span>];</span><br><span class="line">                maxPlayTime = playTimeToMinute;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getSharpReplace</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arg.replace(<span class="string">&quot;C#&quot;</span>, <span class="string">&quot;1&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;D#&quot;</span>, <span class="string">&quot;2&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;E#&quot;</span>, <span class="string">&quot;3&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;F#&quot;</span>, <span class="string">&quot;4&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;G#&quot;</span>, <span class="string">&quot;5&quot;</span>)</span><br><span class="line">            .replace(<span class="string">&quot;A#&quot;</span>, <span class="string">&quot;6&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getPlayTime</span><span class="params">(String start, String end)</span> </span>&#123;</span><br><span class="line">    LocalTime startTime = convertLocalTime(start);</span><br><span class="line">    LocalTime endTime = convertLocalTime(end);</span><br><span class="line"></span><br><span class="line">    LocalTime playTime = endTime.minusHours(startTime.getHour()).minusMinutes(startTime.getMinute());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> playTime.getHour() * <span class="number">60</span> + playTime.getMinute();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> LocalTime <span class="title">convertLocalTime</span><span class="params">(String time)</span> </span>&#123;</span><br><span class="line">    String[] hourAndMinute = time.split(<span class="string">&quot;:&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> LocalTime.of(Integer.parseInt(hourAndMinute[<span class="number">0</span>]), Integer.parseInt(hourAndMinute[<span class="number">1</span>]), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getMelody</span><span class="params">(<span class="keyword">int</span> playtime, String melody)</span> </span>&#123;</span><br><span class="line">    String sharpReplaceMelody = getSharpReplace(melody);</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] array = sharpReplaceMelody.toCharArray();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; playtime; i++) &#123;</span><br><span class="line">        sb.append(array[i % sharpReplaceMelody.length()]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>“#”이 붙은 음계들을 유일한 값으로 치환한다.</li>
+<li>곡 정보를 담은 musicinfos의 개수만큼 반복한다.</li>
+<li>돌면서 “,”로 잘라 시작시간, 끝난시간, 곡 이름, 멜로디 순으로 구분하여 String array에 저장한다.</li>
+<li>시작 시간과 끝난 시간을 LocalTime type으로 만들어서 끝난 시간에서 시작 시간을 빼서 얼마나 오래 방송 됐는지 playTime을 구한다.</li>
+<li>곡 정보에 있는 멜로디에서도 “#”이 붙은 음계들을 1번에서 한 것과 같은 값으로 치환한다.</li>
+<li>playtime에 따라 멜로디에 음계를 추가하기 위해 멜로디를 char array로 변경한다.</li>
+<li>playtime 만큼 반복하면서 멜로디를 만든다.<ol>
+<li>playtime보다 멜로디가 짧은 경우엔 지금 멜로디에 음계를 이어 붙여 playtime 길이 만큼 만든다.</li>
+<li>멜로디가 더 긴 경우엔 playtime 만큼 자른다.</li>
+</ol>
+</li>
+<li>이렇게 구한 멜로디에 기억 중인 멜로디 m이 포함된다면 playtime이 가장 긴지 확인하고 곡 정보를 저장한다.</li>
+<li>끝.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.31ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.38ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (3.19ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.33ms, 51.7MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (1.44ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.42ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (2.26ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (2.27ms, 53.3MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (2.38ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (2.31ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (2.24ms, 53.4MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (2.03ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (2.27ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (2.23ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (2.19ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (2.22ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (1.78ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (2.22ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (2.66ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (2.42ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (2.41ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (3.55ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (3.94ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (2.15ms, 51.9MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (1.24ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (1.30ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 27</td>
+<td>통과 (1.41ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 28</td>
+<td>통과 (1.12ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 29</td>
+<td>통과 (12.67ms, 53.4MB)</td>
+</tr>
+<tr>
+<td>테스트 30</td>
+<td>통과 (13.24ms, 53.1MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;HELLO&quot;</span>, test.solution(<span class="string">&quot;ABCDEFG&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;12:00,12:14,HELLO,CDEFGAB&quot;</span>, <span class="string">&quot;13:00,13:05,WORLD,ABCDEF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;FOO&quot;</span>, test.solution(<span class="string">&quot;CC#BCC#BCC#BCC#B&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;03:00,03:30,FOO,CC#B&quot;</span>, <span class="string">&quot;04:00,04:08,BAR,CC#BCC#BCC#B&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;WORLD&quot;</span>, test.solution(<span class="string">&quot;ABC&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;12:00,12:14,HELLO,C#DEFGAB&quot;</span>, <span class="string">&quot;13:00,13:05,WORLD,ABCDEF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;(None)&quot;</span>, test.solution(<span class="string">&quot;CDEFGAC&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;12:00,12:06,HELLO,CDEFGA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="string">&quot;FOO&quot;</span>, test.solution(<span class="string">&quot;CCB&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;03:00,03:10,FOO,CCB#CCB&quot;</span>, <span class="string">&quot;04:00,04:08,BAR,ABC&quot;</span>&#125;));</span><br></pre></td></tr></table></figure>
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%B0%A9%EA%B8%88-%EA%B7%B8-%EA%B3%A1/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%B0%A9%EA%B8%88-%EA%B7%B8-%EA%B3%A1/" aria-label=": 프로그래머스: 방금 그 곡">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>
