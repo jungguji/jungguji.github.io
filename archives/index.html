@@ -177,6 +177,142 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" aria-label=": RequestBody 바인딩">
+                            RequestBody 바인딩
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2022-03-31T22:44:43+09:00">
+	
+		    2022/03/31
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>이전에 작성한 글 중에 <a href="https://jungguji.github.io/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/">@Requestbody Annotation 사용 시 기본 생성자 필요</a> 라는<br>글을 올린 적이 있는데 글의 마지막에 보면</p>
+<blockquote><p>@Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다.</p>
+<footer><strong>JG.JI</strong><cite>@Requestbody Annotation 사용 시 기본 생성자 필요</cite></footer></blockquote>
+
+<br>
+
+<p>라는 결론으로 글을 마무리 하였는데, <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard">김영한님의 강의</a>에서 해당 내용과 관련해서 자세하게 알려주시는 부분이 있어, 해당 내용을 정리해본다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><p>우선 Spring에서는 Controller에서 @RequestBody로 넘어오는 파라미터들에 대해서 내부적으로 ObjectMapper를 이용해 JSON 데이터를 우리가 만든 DTO 객체로 변환시켜주고,<br>@ResponseBody인 경우엔, DTO 객체를 JSON 데이터로 변환해서 클라이언트에 넘겨준다.</p>
+<p>이렇게해서 해소 될 궁금증이었으면 이 글을 읽으러 오지 않았을테니, 해당 내용에 대하여 코드 레벨에서 자세히 알아보기로 한다.</p>
+<p>우선, Spring MVC의 동작 순서를 간략하게 서술하자면(구글에 검색하면 훌륭한 분들이 작성하신 훌륭한 글들이 많으므로)</p>
+<ol>
+<li>클라이언트에서 요청이 넘어오면 FrontController 역할을 수행하는 DispatcherServlet에서 먼저 확인해서,</li>
+<li>핸들러 매핑 리스트 중 해당 요청을 처리 할 수 있는 핸들러를 가져오고,</li>
+<li>핸들러 어댑터 리스트 중에서 해당 핸들러를 처리 할 수 있는 핸들러 어댑터를 가져와서,</li>
+<li>해당 어댑터에서 우리가 만든 컨트롤러에 호출해서 비즈니스 로직을 처리 한 후,</li>
+<li>리턴되는 데이터에 맞게 뷰 리졸버나 메시지컨버터가 동작하고,</li>
+<li>알맞게 클라이언트로 반환된다.</li>
+</ol>
+<p>여기서, @RequestMapping에 대한 request는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.html">RequestMappingHandlerAdapter</a>에서 처리하는데<br>이 RequestMappingHandlerAdapter는<br>    1. byte[]를 처리하기 위한 ByteArrayHttpMessageConverter<br>    2. String을 처리하기 위한 StringHttpMessageConverter<br>    3. json을 처리하기 위한 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/index.html?org/springframework/http/converter/json/MappingJackson2HttpMessageConverter.html">MappingJackson2HttpMessageConverter</a><br>등을 가지고 있다.</p>
+<h3 id="RequestMappingHandlerAdapter에-설정된-MessageConverter들"><a href="#RequestMappingHandlerAdapter에-설정된-MessageConverter들" class="headerlink" title="RequestMappingHandlerAdapter에 설정된 MessageConverter들"></a>RequestMappingHandlerAdapter에 설정된 MessageConverter들</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/1_RequestMappingHandlerAdapter_messageConverters.JPG" class title="RequestBody 바인딩 RequestMappingHandlerAdapter에 설정된 MessageConverter들 " alt="RequestMappingHandlerAdapter에 설정된 MessageConverter들">
+
+<br>
+
+<p>그리고 자신이 가지고 있는 ArgumentResolver들 중<br>@RequestBody형식으로 들어오는 파라미터를 처리하기 위해 RequestResponseBodyMethodProcessor 라는 ArgumentResolver를 호출한다.</p>
+<h3 id="RequestMappingHandlerAdapter에-설정된-ArgumentResolver들"><a href="#RequestMappingHandlerAdapter에-설정된-ArgumentResolver들" class="headerlink" title="RequestMappingHandlerAdapter에 설정된 ArgumentResolver들"></a>RequestMappingHandlerAdapter에 설정된 ArgumentResolver들</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/2_RequestMappingHandlerAdapter_ArgumentResolvers.JPG" class title="RequestBody 바인딩">
+
+<br>
+
+<p>이 RequestResponseBodyMethodProcessor에서 readWithMessageConverters 메서드에서 메시지 컨버터 리스트를 loop 돌면서<br>대상 클래스 타입과 미디어 타입 등을 체크해서 알맞은 메시지 컨버터를 호출해서 사용하는데<br>이 때 호출되는 MessageConverter가 MappingJackson2HttpMessageConverter라는 MessageConverter이다.</p>
+<h3 id="요청을-처리-할-수-있는-MessageConverter-호출"><a href="#요청을-처리-할-수-있는-MessageConverter-호출" class="headerlink" title="요청을 처리 할 수 있는 MessageConverter 호출"></a>요청을 처리 할 수 있는 MessageConverter 호출</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/3_AbstractMessageConverterMethodArgumentResolver_readWithMessageConverters.JPG" class title="RequestBody 바인딩">
+
+<ol>
+<li>MessageConverter의 canRead() 메서드로 해당 요청을 처리 할 수 있는 컨버터 인지 확인.</li>
+<li>처리 할 수 있으면 read() 메서드로 메시지에서 객체를 읽고 반환한다.</li>
+</ol>
+<br>
+
+<p>MappingJackson2HttpMessageConverter에서는 최종적으로 readJavaType 메서드가 호출되는데 이 때 objectMapper를 사용해서 json 데이터를 DTO 객체로 변환하는 것을 볼 수 있다.</p>
+<h3 id="ObjectMapper를-이용해서-JSON데이터를-변환하는-부분"><a href="#ObjectMapper를-이용해서-JSON데이터를-변환하는-부분" class="headerlink" title="ObjectMapper를 이용해서 JSON데이터를 변환하는 부분"></a>ObjectMapper를 이용해서 JSON데이터를 변환하는 부분</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/4_AbstractJackson2HttpMessageConverter_readJavaType.JPG" class title="RequestBody 바인딩">
+
+<hr>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>보이지 않는 곳에서 이렇게 많은 부분을 스프링에서 처리해주고 있었기 때문에 우리는 Controller에서 편하게 파라미터를 사용 할 수 있고, JSON 데이터도 바로 객체로 받을 수 있는 것이었다.<br>이런 내용을 알아도, 몰라도 결국 같은 방식으로 개발 하겠지만… 언젠가 도움이 되겠거니 생각하고 지금은 궁금증을 해결 했다는 것에 대해 만족한다.<br>이 글을 읽는 다른 분들도 필자와 같은 궁금증이 있었다면 조금이나마 해소가 됐길 바라며..</p>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%8">https://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%8</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://csy7792.tistory.com/317">https://csy7792.tistory.com/317</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1">김영한 - 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2022/03/15/Spring-MVC%EC%9D%98-%EA%B5%AC%EC%A1%B0/" aria-label=": Spring MVC의 구조">
+                            Spring MVC의 구조
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2022-03-15T23:29:00+09:00">
+	
+		    2022/03/15
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <p>DispatcherServlet의 initHandlerMappings 메서드에서 기본적으로 세팅되는 스프링의 핸들러들</p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2022/03/15/Spring-MVC%EC%9D%98-%EA%B5%AC%EC%A1%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2021/11/21/content-type-application-x-www-form-urlencoded%EB%8A%94-POST%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C%EB%A7%8C/" aria-label=": content-type application/x-www-form-urlencoded는 POST방식으로만">
                             content-type application/x-www-form-urlencoded는 POST방식으로만
                         </a>
@@ -872,157 +1008,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/" aria-label=": org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
-                            org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-04-19T22:09:46+09:00">
-	
-		    2021/04/19
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>기존에 jar파일을 추가해서 Junit4로 테스트하던 프로젝트를 마찬가지로 jar파일을 Junit5로 버전 업해서 사용하고 있었는데<br>‘굳이 이럴 필요없이 maven 프로젝트로 변경하면 되지 않나?’라는 생각에 maven 프로젝트로 변경 후 발생했던 에러를 해결한 방법을 작성해둔다…</p>
-<h2 id="상황"><a href="#상황" class="headerlink" title="상황"></a>상황</h2><p>위에서 적은 것 처럼 기존에 Junit jar를 다운받아서 직접 경로를 지정하는 방식으로 junit4, 5를 둘 다 사용하고 있었는데 프로젝트를 maven으로 변경 후 의존성 충돌이 발생해 아래와 같은 에러가 발생하며 테스트가 진행되지 않았다.</p>
-<h3 id="발생한-에러"><a href="#발생한-에러" class="headerlink" title="발생한 에러"></a>발생한 에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Internal Error occurred.</span><br><span class="line">org.junit.platform.commons.JUnitException: TestEngine with ID <span class="string">&#x27;junit-vintage&#x27;</span> failed to discover tests</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:<span class="number">111</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:<span class="number">85</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:<span class="number">92</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:<span class="number">75</span>)</span><br><span class="line">  at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:<span class="number">71</span>)</span><br><span class="line">  at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">33</span>)</span><br><span class="line">  at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">220</span>)</span><br><span class="line">  at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">53</span>)</span><br><span class="line">Caused by: org.junit.platform.commons.JUnitException: Unsupported version of junit:junit: <span class="number">3.8</span>.<span class="number">1.</span> Please upgrade to version <span class="number">4.12</span> or later.</span><br><span class="line">  at org.junit.vintage.engine.JUnit4VersionCheck.checkSupported(JUnit4VersionCheck.java:<span class="number">49</span>)</span><br><span class="line">  at org.junit.vintage.engine.JUnit4VersionCheck.checkSupported(JUnit4VersionCheck.java:<span class="number">35</span>)</span><br><span class="line">  at org.junit.vintage.engine.VintageTestEngine.discover(VintageTestEngine.java:<span class="number">62</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:<span class="number">103</span>)</span><br><span class="line">  ... <span class="number">7</span> more</span><br><span class="line"></span><br><span class="line">Process finished with exit code -<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>위 에러 로그처럼 ‘junit-vintage’를 아이디로 하는 테스트 엔진을 찾지 못했다는 에러가 발생해서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine">junit-vintage</a> 의존성을 추가해주었는데..</p>
-<hr>
-<h2 id="그-후-삽질"><a href="#그-후-삽질" class="headerlink" title="그 후 삽질"></a>그 후 삽질</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>추가 해줘도 똑같은 에러만 반복 할 뿐이었다.</p>
-<p>그래서 공식 문서를 살펴보니..</p>
-<blockquote><p>JUnit 5 = JUnit Platform + JUnit Jupiter + JUnit Vintage</p>
-<footer><strong>JUnit 5 User Guide</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://junit.org/junit5/docs/current/user-guide/#overview-what-is-junit-5">What is JUnit 5?</a></cite></footer></blockquote>
-
-<p>라고 떡하니 써 적혀있어서 위에 3 개의 의존성을 모두 추가한 후 리빌드 후 다시 테스트를 실행해봤다.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Only needed to run tests in a version of IntelliJ IDEA that bundles older versions --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.platform<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-platform-launcher<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.jupiter<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-jupiter-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>하지만 결과는 마찬가지였고… .m2폴더에서 Junit 의존성을 다 삭제하고, Intellij project setting에서 Modules, Libraies에서 모두 삭제하고 이것저것 다 해봤지만 모두 실패로 돌아가서 결국 새 maven 프로젝트를 만들어서 하나씩 비교해보기로 했다.</p>
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>그 결과… .iml 파일에 아래 처럼 의존성들이 남아있는 것을 확인했고…</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;module-library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">library</span> <span class="attr">name</span>=<span class="string">&quot;JUnit5.4&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CLASSES</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">CLASSES</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">JAVADOC</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SOURCES</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">library</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">orderEntry</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.jupiter:junit-jupiter-api:5.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.apiguardian:apiguardian-api:1.1.0&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.opentest4j:opentest4j:1.2.0&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.platform:junit-platform-commons:1.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.jupiter:junit-jupiter-engine:5.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.platform:junit-platform-engine:1.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>모든 의존성을 삭제 후 다시 Junit5만 의존성 추가하여 테스트를 실행하니…</p>
-<img src="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/%EC%84%B1%EA%B3%B5.PNG" class title="org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
-
-<p>드디어 성공적인 테스트를 완료 할 수 있었다.</p>
-<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><p>project setting에서 분명 모듈 관련된 설정을 모두 삭제 했는데 왜 .iml파일에 설정이 삭제되지 않고 남아있는진 모르겠지만, 필자와 같은 상황이 발생하는 다른 사람들에게 도움이 되길 바라며 글을 마무리한다.</p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/" aria-label=": org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/" aria-label=": 백준 2485번: 가로수">
-                            백준 2485번: 가로수
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-04-12T22:16:19+09:00">
-	
-		    2021/04/12
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/2485">https://www.acmicpc.net/problem/2485</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; differences = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> preValue = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n = Integer.parseInt(br.readLine());</span><br><span class="line">    <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> input = Integer.parseInt(br.readLine());</span><br><span class="line">        list.add(input);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (preValue != <span class="number">0</span>) &#123;</span><br><span class="line">            differences.add(Math.abs(preValue - input));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        preValue = input;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Collections.sort(list);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> gcd = Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; differences.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = gcd(differences.get(i-<span class="number">1</span>), differences.get(i));</span><br><span class="line">        gcd = temp &gt; gcd ? gcd : temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> pre = list.get(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (list.get(i) - pre != gcd) &#123;</span><br><span class="line">            answer += ((list.get(i) - pre) / gcd) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        pre = list.get(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(answer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b!=<span class="number">0</span> ? gcd(b, a%b) : a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>입력 받은 값들을 뺀 값의 차를 구한 값으로 약수를 구하기 위한 differences,<br>입력 받은 값을 그대로 저장하는 list 변수 생성.</li>
-<li>두 리스트 모두 n 만큼 돌면서 값을 저장하는데</li>
-<li>differences의 경우 첫 번쨰 루프에서 값을 저장 할 수 없으므로(2 번쨰 값부터 첫 번째 값과 뺄 수 있으므로) 이전 값이 있는 경우에만 리스트에 저장한다.</li>
-<li>가로수들 사이에 끼워넣어야 되는 가로수의 개수를 구해야 하므로 입력 받은 가로수의 위치를 정렬한다.</li>
-<li>가로수 간의 최소 간격을 구하기 위해 아까 저장한 가로수 간의 차이를 구한 리스트 differences를 돌면서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C_%ED%98%B8%EC%A0%9C%EB%B2%95">유클리드 호제법</a>을 이용해 최대공약수를 구하고, 구한 최대 공약수 중 가장 작은 값을 저장한다.</li>
-<li>가로수 간의 차이값에서 최대 공약수를 구하는 이유는,</li>
-<li>문제가 가로수를 일정한 간격으로 최대한 적게 심기게 하기 위한 문제 이므로 두 수에서 공통되는 값들 중 가장 큰 수인 최대 공약수를 구하고,</li>
-<li>그 최대 공약수들 중 가장 작은 값이어야 모두 일정한 간격으로 심을 수 있으므로 최대 공약수 중 가장 작을 값을 구한다.</li>
-<li>이렇게 잘 구한 값으로 이제 몇 개의 가로수를 더 심어야 하는지 알아내야 하므로</li>
-<li>아까 정렬시킨 가로수 리스트를 반복 하면서 이전 가로수 와의 간격이 최대 공약수 보다 큰 녀석들이 있으면</li>
-<li>그 녀석들 사이에 가로수를 심어야 되므로,</li>
-<li>구한 간격을 최대 공약수로 나눈 값에서 -1 한 값을 더한다.</li>
-<li>이 때 -1을 하는 이유는 두 수의 간격이므로 하나는 이미 심어져 있으니 -1 을 한다.</li>
-<li>그렇게 추가로 심어야 하는 가로수의 개수를 모두 구하면</li>
-<li>끝.</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/%EC%BA%A1%EC%B2%98.PNG" class title="백준 2485번: 가로수">
-<hr>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/" aria-label=": 백준 2485번: 가로수">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1044,7 +1029,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

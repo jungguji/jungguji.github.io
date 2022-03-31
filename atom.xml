@@ -6,7 +6,7 @@
   <link href="https://jungguji.github.io/atom.xml" rel="self"/>
   
   <link href="https://jungguji.github.io/"/>
-  <updated>2021-11-21T13:18:58.000Z</updated>
+  <updated>2022-03-31T13:44:43.000Z</updated>
   <id>https://jungguji.github.io/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RequestBody 바인딩</title>
+    <link href="https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/"/>
+    <id>https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/</id>
+    <published>2022-03-31T13:44:43.000Z</published>
+    <updated>2022-03-31T13:44:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>이전에 작성한 글 중에 <a href="https://jungguji.github.io/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/">@Requestbody Annotation 사용 시 기본 생성자 필요</a> 라는<br>글을 올린 적이 있는데 글의 마지막에 보면</p><blockquote><p>@Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다.</p><footer><strong>JG.JI</strong><cite>@Requestbody Annotation 사용 시 기본 생성자 필요</cite></footer></blockquote><br /><p>라는 결론으로 글을 마무리 하였는데, <a href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard">김영한님의 강의</a>에서 해당 내용과 관련해서 자세하게 알려주시는 부분이 있어, 해당 내용을 정리해본다.</p><hr><h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><p>우선 Spring에서는 Controller에서 @RequestBody로 넘어오는 파라미터들에 대해서 내부적으로 ObjectMapper를 이용해 JSON 데이터를 우리가 만든 DTO 객체로 변환시켜주고,<br>@ResponseBody인 경우엔, DTO 객체를 JSON 데이터로 변환해서 클라이언트에 넘겨준다.</p><p>이렇게해서 해소 될 궁금증이었으면 이 글을 읽으러 오지 않았을테니, 해당 내용에 대하여 코드 레벨에서 자세히 알아보기로 한다.</p><p>우선, Spring MVC의 동작 순서를 간략하게 서술하자면(구글에 검색하면 훌륭한 분들이 작성하신 훌륭한 글들이 많으므로)</p><ol><li>클라이언트에서 요청이 넘어오면 FrontController 역할을 수행하는 DispatcherServlet에서 먼저 확인해서,</li><li>핸들러 매핑 리스트 중 해당 요청을 처리 할 수 있는 핸들러를 가져오고,</li><li>핸들러 어댑터 리스트 중에서 해당 핸들러를 처리 할 수 있는 핸들러 어댑터를 가져와서,</li><li>해당 어댑터에서 우리가 만든 컨트롤러에 호출해서 비즈니스 로직을 처리 한 후,</li><li>리턴되는 데이터에 맞게 뷰 리졸버나 메시지컨버터가 동작하고,</li><li>알맞게 클라이언트로 반환된다.</li></ol><p>여기서, @RequestMapping에 대한 request는 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.html">RequestMappingHandlerAdapter</a>에서 처리하는데<br>이 RequestMappingHandlerAdapter는<br>    1. byte[]를 처리하기 위한 ByteArrayHttpMessageConverter<br>    2. String을 처리하기 위한 StringHttpMessageConverter<br>    3. json을 처리하기 위한 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/index.html?org/springframework/http/converter/json/MappingJackson2HttpMessageConverter.html">MappingJackson2HttpMessageConverter</a><br>등을 가지고 있다.</p><h3 id="RequestMappingHandlerAdapter에-설정된-MessageConverter들"><a href="#RequestMappingHandlerAdapter에-설정된-MessageConverter들" class="headerlink" title="RequestMappingHandlerAdapter에 설정된 MessageConverter들"></a>RequestMappingHandlerAdapter에 설정된 MessageConverter들</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/1_RequestMappingHandlerAdapter_messageConverters.JPG" class="" title="RequestBody 바인딩 RequestMappingHandlerAdapter에 설정된 MessageConverter들 " alt="RequestMappingHandlerAdapter에 설정된 MessageConverter들"><br /><p>그리고 자신이 가지고 있는 ArgumentResolver들 중<br>@RequestBody형식으로 들어오는 파라미터를 처리하기 위해 RequestResponseBodyMethodProcessor 라는 ArgumentResolver를 호출한다.</p><h3 id="RequestMappingHandlerAdapter에-설정된-ArgumentResolver들"><a href="#RequestMappingHandlerAdapter에-설정된-ArgumentResolver들" class="headerlink" title="RequestMappingHandlerAdapter에 설정된 ArgumentResolver들"></a>RequestMappingHandlerAdapter에 설정된 ArgumentResolver들</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/2_RequestMappingHandlerAdapter_ArgumentResolvers.JPG" class="" title="RequestBody 바인딩"><br /><p>이 RequestResponseBodyMethodProcessor에서 readWithMessageConverters 메서드에서 메시지 컨버터 리스트를 loop 돌면서<br>대상 클래스 타입과 미디어 타입 등을 체크해서 알맞은 메시지 컨버터를 호출해서 사용하는데<br>이 때 호출되는 MessageConverter가 MappingJackson2HttpMessageConverter라는 MessageConverter이다.</p><h3 id="요청을-처리-할-수-있는-MessageConverter-호출"><a href="#요청을-처리-할-수-있는-MessageConverter-호출" class="headerlink" title="요청을 처리 할 수 있는 MessageConverter 호출"></a>요청을 처리 할 수 있는 MessageConverter 호출</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/3_AbstractMessageConverterMethodArgumentResolver_readWithMessageConverters.JPG" class="" title="RequestBody 바인딩"><ol><li>MessageConverter의 canRead() 메서드로 해당 요청을 처리 할 수 있는 컨버터 인지 확인.</li><li>처리 할 수 있으면 read() 메서드로 메시지에서 객체를 읽고 반환한다.</li></ol><br /><p>MappingJackson2HttpMessageConverter에서는 최종적으로 readJavaType 메서드가 호출되는데 이 때 objectMapper를 사용해서 json 데이터를 DTO 객체로 변환하는 것을 볼 수 있다.</p><h3 id="ObjectMapper를-이용해서-JSON데이터를-변환하는-부분"><a href="#ObjectMapper를-이용해서-JSON데이터를-변환하는-부분" class="headerlink" title="ObjectMapper를 이용해서 JSON데이터를 변환하는 부분"></a>ObjectMapper를 이용해서 JSON데이터를 변환하는 부분</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/4_AbstractJackson2HttpMessageConverter_readJavaType.JPG" class="" title="RequestBody 바인딩"><hr><h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>보이지 않는 곳에서 이렇게 많은 부분을 스프링에서 처리해주고 있었기 때문에 우리는 Controller에서 편하게 파라미터를 사용 할 수 있고, JSON 데이터도 바로 객체로 받을 수 있는 것이었다.<br>이런 내용을 알아도, 몰라도 결국 같은 방식으로 개발 하겠지만… 언젠가 도움이 되겠거니 생각하고 지금은 궁금증을 해결 했다는 것에 대해 만족한다.<br>이 글을 읽는 다른 분들도 필자와 같은 궁금증이 있었다면 조금이나마 해소가 됐길 바라며..</p><hr><h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul><li><a href="https://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%8">https://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%8</a></li><li><a href="https://csy7792.tistory.com/317">https://csy7792.tistory.com/317</a></li><li><a href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1">김영한 - 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;서론&quot;&gt;&lt;a href=&quot;#서론&quot; class=&quot;headerlink&quot; title=&quot;서론&quot;&gt;&lt;/a&gt;서론&lt;/h2&gt;&lt;p&gt;이전에 작성한 글 중에 &lt;a href=&quot;https://jungguji.github.io/2021/02/05/Requestbod</summary>
+      
+    
+    
+    
+    
+    <category term="spring" scheme="https://jungguji.github.io/tags/spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring MVC의 구조</title>
+    <link href="https://jungguji.github.io/2022/03/15/Spring-MVC%EC%9D%98-%EA%B5%AC%EC%A1%B0/"/>
+    <id>https://jungguji.github.io/2022/03/15/Spring-MVC%EC%9D%98-%EA%B5%AC%EC%A1%B0/</id>
+    <published>2022-03-15T14:29:00.000Z</published>
+    <updated>2022-03-15T14:29:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>DispatcherServlet의 initHandlerMappings 메서드에서 기본적으로 세팅되는 스프링의 핸들러들</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;DispatcherServlet의 initHandlerMappings 메서드에서 기본적으로 세팅되는 스프링의 핸들러들&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="spring" scheme="https://jungguji.github.io/tags/spring/"/>
+    
+  </entry>
   
   <entry>
     <title>content-type application/x-www-form-urlencoded는 POST방식으로만</title>
@@ -459,52 +504,6 @@
     <category term="Junit" scheme="https://jungguji.github.io/tags/Junit/"/>
     
     <category term="JPA" scheme="https://jungguji.github.io/tags/JPA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Junit4 설정 주입 에러</title>
-    <link href="https://jungguji.github.io/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/"/>
-    <id>https://jungguji.github.io/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/</id>
-    <published>2021-01-12T12:45:32.000Z</published>
-    <updated>2021-01-12T12:45:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>현재 작업 중인 프로젝트에서 테스트 코드를 작성해 테스트할 일이 있었는데 프로젝트의 환경은 spring 4.3에 Junit 4.8이었다.</p><p>이에 원래 사용하던 junit5로 넘어갈까 하였으나 junit5를 사용하려면 설정을 spring boot으로 해야 한다는 글들이 있어 같은 테스트 환경을 만들기 위해 junit만 4.12 버전으로 업그레이드한 후 테스트를 진행하였는데 spring 프로젝트지만 config 설정들을 boot 처럼 java 파일로 관리하는 형태여서 java 파일과 properties 파일을 동시에 잡아 줄 필요가 있었는데<br>@Contextconfiguration(classes = {블라블라…}, locations = {블라블라…})로 잡으니 에러가 발생하여 해결한 방법을 작성해놓는다.</p><hr><h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;</span></span><br><span class="line"><span class="meta">        DatabaseConfig.class,</span></span><br><span class="line"><span class="meta">        SecurityConfig.class,</span></span><br><span class="line"><span class="meta">        SocialConfig.class,</span></span><br><span class="line"><span class="meta">        EnumConfig.class,</span></span><br><span class="line"><span class="meta">        WebMvcConfig.class</span></span><br><span class="line"><span class="meta">&#125;, locations = &quot;classpath:properties/test.properties&quot;)</span></span><br></pre></td></tr></table></figure><p>서론에 적은 것 처럼 classes와 locations를 둘 다 설정하였더니 아래와 같이 에러가 발생하였다.</p><h3 id="에러"><a href="#에러" class="headerlink" title="에러"></a>에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalArgumentException: Cannot process locations AND classes <span class="keyword">for</span> context configuration [ContextConfigurationAttributes@64c87930 declaringClass = <span class="string">&#x27;com.xxxx.xxxImplTest&#x27;</span>, classes = <span class="string">&#x27;&#123;class com.xxxx.config.DatabaseConfig, class com.xxx.config.SecurityConfig, class com.xxx.config.SocialConfig, class com.xxx.config.EnumConfig, class com.xxx.config.WebMvcConfig&#125;&#x27;</span>, locations = <span class="string">&#x27;&#123;classpath:properties/test.properties&#125;&#x27;</span>, inheritLocations = <span class="keyword">true</span>, initializers = <span class="string">&#x27;&#123;&#125;&#x27;</span>, inheritInitializers = <span class="keyword">true</span>, name = [<span class="keyword">null</span>], contextLoaderClass = <span class="string">&#x27;org.springframework.test.context.ContextLoader&#x27;</span>]: configure one or the other, but not both.</span><br><span class="line"></span><br><span class="line">at org.springframework.util.Assert.isTrue(Assert.java:<span class="number">68</span>)</span><br><span class="line">at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.processContextConfiguration(AbstractDelegatingSmartContextLoader.java:<span class="number">154</span>)</span><br><span class="line">at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">371</span>)</span><br><span class="line">at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">305</span>)</span><br><span class="line">at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:<span class="number">112</span>)</span><br><span class="line">at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">120</span>)</span><br><span class="line">at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">105</span>)</span><br><span class="line">at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:<span class="number">152</span>)</span><br><span class="line">at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:<span class="number">143</span>)</span><br><span class="line">at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br><span class="line">at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">423</span>)</span><br><span class="line">at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:<span class="number">104</span>)</span><br><span class="line">at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:<span class="number">86</span>)</span><br><span class="line">at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">70</span>)</span><br><span class="line">at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:<span class="number">37</span>)</span><br><span class="line">at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">70</span>)</span><br><span class="line">at org.junit.internal.requests.ClassRequest.createRunner(ClassRequest.java:<span class="number">28</span>)</span><br><span class="line">at org.junit.internal.requests.MemoizingRequest.getRunner(MemoizingRequest.java:<span class="number">19</span>)</span><br><span class="line">at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:<span class="number">36</span>)</span><br><span class="line">at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">49</span>)</span><br><span class="line">at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">33</span>)</span><br><span class="line">at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">230</span>)</span><br><span class="line">at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">58</span>)</span><br></pre></td></tr></table></figure><hr><h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>@Testpropertysource(classpath:””)로 test properties를 잡아주고<br>@Contextconfiguration(classes = { XXXConfig.class}) 로 Java config 파일들을 잡아준다.</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;</span></span><br><span class="line"><span class="meta">        DatabaseConfig.class,</span></span><br><span class="line"><span class="meta">        SecurityConfig.class,</span></span><br><span class="line"><span class="meta">        SocialConfig.class,</span></span><br><span class="line"><span class="meta">        EnumConfig.class,</span></span><br><span class="line"><span class="meta">        WebMvcConfig.class</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line"><span class="meta">@Testpropertysource(&quot;classpath:properties/test.properties&quot;)</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;서론&quot;&gt;&lt;a href=&quot;#서론&quot; class=&quot;headerlink&quot; title=&quot;서론&quot;&gt;&lt;/a&gt;서론&lt;/h2&gt;&lt;p&gt;현재 작업 중인 프로젝트에서 테스트 코드를 작성해 테스트할 일이 있었는데 프로젝트의 환경은 spring 4.3에 Junit 4</summary>
-      
-    
-    
-    
-    
-    <category term="Junit" scheme="https://jungguji.github.io/tags/Junit/"/>
-    
-    <category term="Test" scheme="https://jungguji.github.io/tags/Test/"/>
-    
-    <category term="Spring" scheme="https://jungguji.github.io/tags/Spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo blog backup 방법</title>
-    <link href="https://jungguji.github.io/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/"/>
-    <id>https://jungguji.github.io/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/</id>
-    <published>2021-01-02T06:54:05.000Z</published>
-    <updated>2021-01-02T06:54:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>많은 블로그 서비스 중 필자는 Git, Github를 활용해서 사용하는 hexo로 github 블로그를 선택했지만, 다른 블로그 서비스들과는 달리 설치형 블로그의 특성상 설치된 PC가 아닌 경우엔 블로그에 글을 작성하는 일이 쉽지 않고, 블로그가 설치된 PC가 고장이라도 나는 날에는 고스라니 블로그를 날려버리는 상황이 닥치는 경우도 왕왕있다. (예로 필자는 블로그를 설치한 HDD가 고장나 블로그를 새로 작성했다.) 이런 경우를 방지하고, 블로그 작성의 확장성을 위해 github을 이용해 Hexo 블로그를 back up 하는 방법을 알아본다.</p><hr><h2 id="방법"><a href="#방법" class="headerlink" title="방법"></a>방법</h2><img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/1_%EC%A0%80%EC%9E%A5%EC%86%8C.PNG" class="" title="Hexo blog backup 방법 post와 테마를 저장 할 저장소 생성 " alt="post와 테마를 저장 할 저장소 생성"><ol><li>우선 위 사진처럼 github에서 테마와 post를 저장 할 repository를 생성한다.<br>이 때 테마를 저장 할 저장소의 이름은 테마와 같게 한다.</li></ol><img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/2_%ED%85%8C%EB%A7%88_%EC%A0%80%EC%9E%A5%EC%86%8C_%EB%B3%80%EA%B2%BD.PNG" class="" title="Hexo blog backup 방법 설치한 테마의 저장소 변경 " alt="설치한 테마의 저장소 변경"><ol start="2"><li>테마를 저장하기 위해 연결된 원격 저장소의 위치를 확인하고 설치한 테마 폴더 안에서 git 원격 저장소 주소를 변경한다.</li><li>변경 후 테마용 저장소에 테마를 push한다.</li></ol><img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/3_%ED%85%8C%EB%A7%88-%EC%A0%80%EC%9E%A5%ED%99%95%EC%9D%B8.PNG" class="" title="Hexo blog backup 방법 push 된 테마 확인 " alt="push 된 테마 확인"><ol start="4"><li>위 처럼 정상적으로 저장되어 있는지 확인하고 themes 폴더안에서 테마를 삭제한다.</li><li>git의 submodule 기능을 이용해 저장한 테마를 submodule로 추가하는데 이 때 디렉토리의 위치는 themes 폴더 내로 이동해서 submodule 기능을 실행한다.</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add 테마 저장소</span><br></pre></td></tr></table></figure><ol start="6"><li>post를 저장 할 저장소 주소를 추가한다.(cotent)</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add content post 저장소</span><br></pre></td></tr></table></figure><img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/4_post-%EC%A0%80%EC%9E%A5%ED%99%95%EC%9D%B8.PNG" class="" title="Hexo blog backup 방법 post 저장 확인 " alt="post 저장 확인"><ol start="7"><li>post 저장용 저장소에 내용을 push하고 정상적으로 저장되었는지 확인한다.</li><li>이 후엔 post 작성 후 post만 content 저장소로 push해주면 된다.</li></ol><hr><h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p>이제 우리는 불미스러운 사고로 블로그가 설치된 HDD가 고장나거나(ㅠㅠ), 블로그가 설치 안된 다른 PC or 노트북에서도 백업된 theme와 post들을 다운받아 블로그를 작성 할 수 있게 되었다.</p><p>여담이지만, 과거로 돌아간다면 나는 velog를 사용 할 듯 싶다.</p><hr><h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul><li><a href="https://futurecreator.github.io/2018/07/18/hexo-blog-backup/">Hexo 배포 원리와 백업하기</a></li><li><a href="https://blog.naver.com/PostView.nhn?blogId=bestmic&logNo=220939712681&proxyReferer=https://www.google.com/">Git cached 삭제</a></li><li><a href="http://snowdeer.github.io/git/2018/08/01/how-to-remove-git-submodule/">Git Submodule 삭제방법</a></li><li><a href="https://stackoverflow.com/questions/24472596/git-fatal-pathspec-is-in-submodule">Git: fatal: Pathspec is in submodule</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;서론&quot;&gt;&lt;a href=&quot;#서론&quot; class=&quot;headerlink&quot; title=&quot;서론&quot;&gt;&lt;/a&gt;서론&lt;/h2&gt;&lt;p&gt;많은 블로그 서비스 중 필자는 Git, Github를 활용해서 사용하는 hexo로 github 블로그를 선택했지만, 다른 블로</summary>
-      
-    
-    
-    
     
   </entry>
   

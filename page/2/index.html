@@ -176,6 +176,157 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/" aria-label=": org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
+                            org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2021-04-19T22:09:46+09:00">
+	
+		    2021/04/19
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>기존에 jar파일을 추가해서 Junit4로 테스트하던 프로젝트를 마찬가지로 jar파일을 Junit5로 버전 업해서 사용하고 있었는데<br>‘굳이 이럴 필요없이 maven 프로젝트로 변경하면 되지 않나?’라는 생각에 maven 프로젝트로 변경 후 발생했던 에러를 해결한 방법을 작성해둔다…</p>
+<h2 id="상황"><a href="#상황" class="headerlink" title="상황"></a>상황</h2><p>위에서 적은 것 처럼 기존에 Junit jar를 다운받아서 직접 경로를 지정하는 방식으로 junit4, 5를 둘 다 사용하고 있었는데 프로젝트를 maven으로 변경 후 의존성 충돌이 발생해 아래와 같은 에러가 발생하며 테스트가 진행되지 않았다.</p>
+<h3 id="발생한-에러"><a href="#발생한-에러" class="headerlink" title="발생한 에러"></a>발생한 에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Internal Error occurred.</span><br><span class="line">org.junit.platform.commons.JUnitException: TestEngine with ID <span class="string">&#x27;junit-vintage&#x27;</span> failed to discover tests</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:<span class="number">111</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:<span class="number">85</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:<span class="number">92</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:<span class="number">75</span>)</span><br><span class="line">  at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:<span class="number">71</span>)</span><br><span class="line">  at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">33</span>)</span><br><span class="line">  at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">220</span>)</span><br><span class="line">  at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">53</span>)</span><br><span class="line">Caused by: org.junit.platform.commons.JUnitException: Unsupported version of junit:junit: <span class="number">3.8</span>.<span class="number">1.</span> Please upgrade to version <span class="number">4.12</span> or later.</span><br><span class="line">  at org.junit.vintage.engine.JUnit4VersionCheck.checkSupported(JUnit4VersionCheck.java:<span class="number">49</span>)</span><br><span class="line">  at org.junit.vintage.engine.JUnit4VersionCheck.checkSupported(JUnit4VersionCheck.java:<span class="number">35</span>)</span><br><span class="line">  at org.junit.vintage.engine.VintageTestEngine.discover(VintageTestEngine.java:<span class="number">62</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:<span class="number">103</span>)</span><br><span class="line">  ... <span class="number">7</span> more</span><br><span class="line"></span><br><span class="line">Process finished with exit code -<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>위 에러 로그처럼 ‘junit-vintage’를 아이디로 하는 테스트 엔진을 찾지 못했다는 에러가 발생해서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine">junit-vintage</a> 의존성을 추가해주었는데..</p>
+<hr>
+<h2 id="그-후-삽질"><a href="#그-후-삽질" class="headerlink" title="그 후 삽질"></a>그 후 삽질</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>추가 해줘도 똑같은 에러만 반복 할 뿐이었다.</p>
+<p>그래서 공식 문서를 살펴보니..</p>
+<blockquote><p>JUnit 5 = JUnit Platform + JUnit Jupiter + JUnit Vintage</p>
+<footer><strong>JUnit 5 User Guide</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://junit.org/junit5/docs/current/user-guide/#overview-what-is-junit-5">What is JUnit 5?</a></cite></footer></blockquote>
+
+<p>라고 떡하니 써 적혀있어서 위에 3 개의 의존성을 모두 추가한 후 리빌드 후 다시 테스트를 실행해봤다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Only needed to run tests in a version of IntelliJ IDEA that bundles older versions --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.platform<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-platform-launcher<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.jupiter<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-jupiter-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>하지만 결과는 마찬가지였고… .m2폴더에서 Junit 의존성을 다 삭제하고, Intellij project setting에서 Modules, Libraies에서 모두 삭제하고 이것저것 다 해봤지만 모두 실패로 돌아가서 결국 새 maven 프로젝트를 만들어서 하나씩 비교해보기로 했다.</p>
+<hr>
+<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>그 결과… .iml 파일에 아래 처럼 의존성들이 남아있는 것을 확인했고…</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;module-library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">library</span> <span class="attr">name</span>=<span class="string">&quot;JUnit5.4&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CLASSES</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">CLASSES</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">JAVADOC</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SOURCES</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">library</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">orderEntry</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.jupiter:junit-jupiter-api:5.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.apiguardian:apiguardian-api:1.1.0&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.opentest4j:opentest4j:1.2.0&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.platform:junit-platform-commons:1.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.jupiter:junit-jupiter-engine:5.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.platform:junit-platform-engine:1.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>모든 의존성을 삭제 후 다시 Junit5만 의존성 추가하여 테스트를 실행하니…</p>
+<img src="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/%EC%84%B1%EA%B3%B5.PNG" class title="org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
+
+<p>드디어 성공적인 테스트를 완료 할 수 있었다.</p>
+<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><p>project setting에서 분명 모듈 관련된 설정을 모두 삭제 했는데 왜 .iml파일에 설정이 삭제되지 않고 남아있는진 모르겠지만, 필자와 같은 상황이 발생하는 다른 사람들에게 도움이 되길 바라며 글을 마무리한다.</p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/" aria-label=": org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/" aria-label=": 백준 2485번: 가로수">
+                            백준 2485번: 가로수
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2021-04-12T22:16:19+09:00">
+	
+		    2021/04/12
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/2485">https://www.acmicpc.net/problem/2485</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; differences = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> preValue = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n = Integer.parseInt(br.readLine());</span><br><span class="line">    <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> input = Integer.parseInt(br.readLine());</span><br><span class="line">        list.add(input);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (preValue != <span class="number">0</span>) &#123;</span><br><span class="line">            differences.add(Math.abs(preValue - input));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        preValue = input;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Collections.sort(list);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> gcd = Integer.MAX_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; differences.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = gcd(differences.get(i-<span class="number">1</span>), differences.get(i));</span><br><span class="line">        gcd = temp &gt; gcd ? gcd : temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> pre = list.get(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (list.get(i) - pre != gcd) &#123;</span><br><span class="line">            answer += ((list.get(i) - pre) / gcd) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        pre = list.get(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(answer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> b!=<span class="number">0</span> ? gcd(b, a%b) : a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>입력 받은 값들을 뺀 값의 차를 구한 값으로 약수를 구하기 위한 differences,<br>입력 받은 값을 그대로 저장하는 list 변수 생성.</li>
+<li>두 리스트 모두 n 만큼 돌면서 값을 저장하는데</li>
+<li>differences의 경우 첫 번쨰 루프에서 값을 저장 할 수 없으므로(2 번쨰 값부터 첫 번째 값과 뺄 수 있으므로) 이전 값이 있는 경우에만 리스트에 저장한다.</li>
+<li>가로수들 사이에 끼워넣어야 되는 가로수의 개수를 구해야 하므로 입력 받은 가로수의 위치를 정렬한다.</li>
+<li>가로수 간의 최소 간격을 구하기 위해 아까 저장한 가로수 간의 차이를 구한 리스트 differences를 돌면서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C_%ED%98%B8%EC%A0%9C%EB%B2%95">유클리드 호제법</a>을 이용해 최대공약수를 구하고, 구한 최대 공약수 중 가장 작은 값을 저장한다.</li>
+<li>가로수 간의 차이값에서 최대 공약수를 구하는 이유는,</li>
+<li>문제가 가로수를 일정한 간격으로 최대한 적게 심기게 하기 위한 문제 이므로 두 수에서 공통되는 값들 중 가장 큰 수인 최대 공약수를 구하고,</li>
+<li>그 최대 공약수들 중 가장 작은 값이어야 모두 일정한 간격으로 심을 수 있으므로 최대 공약수 중 가장 작을 값을 구한다.</li>
+<li>이렇게 잘 구한 값으로 이제 몇 개의 가로수를 더 심어야 하는지 알아내야 하므로</li>
+<li>아까 정렬시킨 가로수 리스트를 반복 하면서 이전 가로수 와의 간격이 최대 공약수 보다 큰 녀석들이 있으면</li>
+<li>그 녀석들 사이에 가로수를 심어야 되므로,</li>
+<li>구한 간격을 최대 공약수로 나눈 값에서 -1 한 값을 더한다.</li>
+<li>이 때 -1을 하는 이유는 두 수의 간격이므로 하나는 이미 심어져 있으니 -1 을 한다.</li>
+<li>그렇게 추가로 심어야 하는 가로수의 개수를 모두 구하면</li>
+<li>끝.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/%EC%BA%A1%EC%B2%98.PNG" class title="백준 2485번: 가로수">
+<hr>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2021/04/12/%EB%B0%B1%EC%A4%80-2485%EB%B2%88-%EA%B0%80%EB%A1%9C%EC%88%98/" aria-label=": 백준 2485번: 가로수">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2021/04/01/%EB%B0%B1%EC%A4%80-10527%EB%B2%88-Judging-Troubles/" aria-label=": 백준 10527번: Judging Troubles">
                             백준 10527번: Judging Troubles
                         </a>
@@ -771,158 +922,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/" aria-label=": Junit4 설정 주입 에러">
-                            Junit4 설정 주입 에러
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-01-12T21:45:32+09:00">
-	
-		    2021/01/12
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>현재 작업 중인 프로젝트에서 테스트 코드를 작성해 테스트할 일이 있었는데 프로젝트의 환경은 spring 4.3에 Junit 4.8이었다.</p>
-<p>이에 원래 사용하던 junit5로 넘어갈까 하였으나 junit5를 사용하려면 설정을 spring boot으로 해야 한다는 글들이 있어 같은 테스트 환경을 만들기 위해 junit만 4.12 버전으로 업그레이드한 후 테스트를 진행하였는데 spring 프로젝트지만 config 설정들을 boot 처럼 java 파일로 관리하는 형태여서 java 파일과 properties 파일을 동시에 잡아 줄 필요가 있었는데<br>@Contextconfiguration(classes = {블라블라…}, locations = {블라블라…})로 잡으니 에러가 발생하여 해결한 방법을 작성해놓는다.</p>
-<hr>
-<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;</span></span><br><span class="line"><span class="meta">        DatabaseConfig.class,</span></span><br><span class="line"><span class="meta">        SecurityConfig.class,</span></span><br><span class="line"><span class="meta">        SocialConfig.class,</span></span><br><span class="line"><span class="meta">        EnumConfig.class,</span></span><br><span class="line"><span class="meta">        WebMvcConfig.class</span></span><br><span class="line"><span class="meta">&#125;, locations = &quot;classpath:properties/test.properties&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<p>서론에 적은 것 처럼 classes와 locations를 둘 다 설정하였더니 아래와 같이 에러가 발생하였다.</p>
-<h3 id="에러"><a href="#에러" class="headerlink" title="에러"></a>에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalArgumentException: Cannot process locations AND classes <span class="keyword">for</span> context configuration [ContextConfigurationAttributes@64c87930 declaringClass = <span class="string">&#x27;com.xxxx.xxxImplTest&#x27;</span>, classes = <span class="string">&#x27;&#123;class com.xxxx.config.DatabaseConfig, class com.xxx.config.SecurityConfig, class com.xxx.config.SocialConfig, class com.xxx.config.EnumConfig, class com.xxx.config.WebMvcConfig&#125;&#x27;</span>, locations = <span class="string">&#x27;&#123;classpath:properties/test.properties&#125;&#x27;</span>, inheritLocations = <span class="keyword">true</span>, initializers = <span class="string">&#x27;&#123;&#125;&#x27;</span>, inheritInitializers = <span class="keyword">true</span>, name = [<span class="keyword">null</span>], contextLoaderClass = <span class="string">&#x27;org.springframework.test.context.ContextLoader&#x27;</span>]: configure one or the other, but not both.</span><br><span class="line"></span><br><span class="line">	at org.springframework.util.Assert.isTrue(Assert.java:<span class="number">68</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractDelegatingSmartContextLoader.processContextConfiguration(AbstractDelegatingSmartContextLoader.java:<span class="number">154</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">371</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">305</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:<span class="number">112</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">120</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">105</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:<span class="number">152</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:<span class="number">143</span>)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">423</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:<span class="number">104</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:<span class="number">86</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">70</span>)</span><br><span class="line">	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:<span class="number">37</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">70</span>)</span><br><span class="line">	at org.junit.internal.requests.ClassRequest.createRunner(ClassRequest.java:<span class="number">28</span>)</span><br><span class="line">	at org.junit.internal.requests.MemoizingRequest.getRunner(MemoizingRequest.java:<span class="number">19</span>)</span><br><span class="line">	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:<span class="number">36</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">49</span>)</span><br><span class="line">	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">33</span>)</span><br><span class="line">	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">230</span>)</span><br><span class="line">	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">58</span>)</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>@Testpropertysource(classpath:””)로 test properties를 잡아주고<br>@Contextconfiguration(classes = { XXXConfig.class}) 로 Java config 파일들을 잡아준다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContextConfiguration(classes = &#123;</span></span><br><span class="line"><span class="meta">        DatabaseConfig.class,</span></span><br><span class="line"><span class="meta">        SecurityConfig.class,</span></span><br><span class="line"><span class="meta">        SocialConfig.class,</span></span><br><span class="line"><span class="meta">        EnumConfig.class,</span></span><br><span class="line"><span class="meta">        WebMvcConfig.class</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line"><span class="meta">@Testpropertysource(&quot;classpath:properties/test.properties&quot;)</span></span><br></pre></td></tr></table></figure>
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/01/12/Junit4-%EC%84%A4%EC%A0%95-%EC%A3%BC%EC%9E%85-%EC%97%90%EB%9F%AC/" aria-label=": Junit4 설정 주입 에러">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/" aria-label=": Hexo blog backup 방법">
-                            Hexo blog backup 방법
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-01-02T15:54:05+09:00">
-	
-		    2021/01/02
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>많은 블로그 서비스 중 필자는 Git, Github를 활용해서 사용하는 hexo로 github 블로그를 선택했지만, 다른 블로그 서비스들과는 달리 설치형 블로그의 특성상 설치된 PC가 아닌 경우엔 블로그에 글을 작성하는 일이 쉽지 않고, 블로그가 설치된 PC가 고장이라도 나는 날에는 고스라니 블로그를 날려버리는 상황이 닥치는 경우도 왕왕있다. (예로 필자는 블로그를 설치한 HDD가 고장나 블로그를 새로 작성했다.) 이런 경우를 방지하고, 블로그 작성의 확장성을 위해 github을 이용해 Hexo 블로그를 back up 하는 방법을 알아본다.</p>
-<hr>
-<h2 id="방법"><a href="#방법" class="headerlink" title="방법"></a>방법</h2><img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/1_%EC%A0%80%EC%9E%A5%EC%86%8C.PNG" class title="Hexo blog backup 방법 post와 테마를 저장 할 저장소 생성 " alt="post와 테마를 저장 할 저장소 생성">
-
-<ol>
-<li>우선 위 사진처럼 github에서 테마와 post를 저장 할 repository를 생성한다.<br>이 때 테마를 저장 할 저장소의 이름은 테마와 같게 한다.</li>
-</ol>
-<img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/2_%ED%85%8C%EB%A7%88_%EC%A0%80%EC%9E%A5%EC%86%8C_%EB%B3%80%EA%B2%BD.PNG" class title="Hexo blog backup 방법 설치한 테마의 저장소 변경 " alt="설치한 테마의 저장소 변경">
-
-<ol start="2">
-<li>테마를 저장하기 위해 연결된 원격 저장소의 위치를 확인하고 설치한 테마 폴더 안에서 git 원격 저장소 주소를 변경한다.</li>
-<li>변경 후 테마용 저장소에 테마를 push한다.</li>
-</ol>
-<img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/3_%ED%85%8C%EB%A7%88-%EC%A0%80%EC%9E%A5%ED%99%95%EC%9D%B8.PNG" class title="Hexo blog backup 방법 push 된 테마 확인 " alt="push 된 테마 확인">
-
-<ol start="4">
-<li>위 처럼 정상적으로 저장되어 있는지 확인하고 themes 폴더안에서 테마를 삭제한다.</li>
-<li>git의 submodule 기능을 이용해 저장한 테마를 submodule로 추가하는데 이 때 디렉토리의 위치는 themes 폴더 내로 이동해서 submodule 기능을 실행한다.</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git submodule add 테마 저장소</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>post를 저장 할 저장소 주소를 추가한다.(cotent)</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add content post 저장소</span><br></pre></td></tr></table></figure>
-
-<img src="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/4_post-%EC%A0%80%EC%9E%A5%ED%99%95%EC%9D%B8.PNG" class title="Hexo blog backup 방법 post 저장 확인 " alt="post 저장 확인">
-
-<ol start="7">
-<li>post 저장용 저장소에 내용을 push하고 정상적으로 저장되었는지 확인한다.</li>
-<li>이 후엔 post 작성 후 post만 content 저장소로 push해주면 된다.</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p>이제 우리는 불미스러운 사고로 블로그가 설치된 HDD가 고장나거나(ㅠㅠ), 블로그가 설치 안된 다른 PC or 노트북에서도 백업된 theme와 post들을 다운받아 블로그를 작성 할 수 있게 되었다.</p>
-<p>여담이지만, 과거로 돌아간다면 나는 velog를 사용 할 듯 싶다.</p>
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://futurecreator.github.io/2018/07/18/hexo-blog-backup/">Hexo 배포 원리와 백업하기</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.naver.com/PostView.nhn?blogId=bestmic&logNo=220939712681&proxyReferer=https://www.google.com/">Git cached 삭제</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="http://snowdeer.github.io/git/2018/08/01/how-to-remove-git-submodule/">Git Submodule 삭제방법</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/24472596/git-fatal-pathspec-is-in-submodule">Git: fatal: Pathspec is in submodule</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/01/02/Hexo-blog-backup-%EB%B0%A9%EB%B2%95/" aria-label=": Hexo blog backup 방법">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -950,7 +949,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

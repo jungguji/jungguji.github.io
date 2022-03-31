@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="저장하고 까먹자">
+    <title>RequestBody 바인딩 - 저장하고 까먹자</title>
+    <meta name="author" content="Junggu Ji">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론이전에 작성한 글 중에 @Requestbody Annotation 사용 시 기본 생성자 필요 라는글을 올린 적이 있는데 글의 마지막에 보면\n@Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다.\nJG.JI@Requestbody Annotation 사용 시 기본 생성자 필요\n\n\n\n라는 결론으로 글을 마무리 하였는데, 김영한님의 강의에서 해당 내용과 관련해서 자세하게 알려주시는 부분이 있어, 해당 내용을 정리해본다.\n\n본론우선 Spring에서는 Controller에서 @RequestBody로 넘어오는 파라미터들에 대해서 내부적으로 ObjectMapper를 이용해 JSON 데이터를 우리가 만든 DTO 객체로 변환시켜주고,@ResponseBody인 경우엔, DTO 객체를 JSON 데이터로 변환해서 클라이언트에 넘겨준다.\n이렇게해서 해소 될 궁금증이었으면 이 글을 읽으러 오지 않았을테니, 해당 내용에 대하여 코드 레벨에서 자세히 알아보기로 한다.\n우선, Spring MVC의 동작 순서를 간략하게 서술하자면(구글에 검색하면 훌륭한 분들이 작성하신 훌륭한 글들이 많으므로)\n\n클라이언트에서 요청이 넘어오면 FrontController 역할을 수행하는 DispatcherServlet에서 먼저 확인해서,\n핸들러 매핑 리스트 중 해당 요청을 처리 할 수 있는 핸들러를 가져오고,\n핸들러 어댑터 리스트 중에서 해당 핸들러를 처리 할 수 있는 핸들러 어댑터를 가져와서,\n해당 어댑터에서 우리가 만든 컨트롤러에 호출해서 비즈니스 로직을 처리 한 후,\n리턴되는 데이터에 맞게 뷰 리졸버나 메시지컨버터가 동작하고,\n알맞게 클라이언트로 반환된다.\n\n여기서, @RequestMapping에 대한 request는 RequestMappingHandlerAdapter에서 처리하는데이 RequestMappingHandlerAdapter는    1. byte[]를 처리하기 위한 ByteArrayHttpMessageConverter    2. String을 처리하기 위한 StringHttpMessageConverter    3. json을 처리하기 위한 MappingJackson2HttpMessageConverter등을 가지고 있다.\nRequestMappingHandlerAdapter에 설정된 MessageConverter들\n\n\n\n그리고 자신이 가지고 있는 ArgumentResolver들 중@RequestBody형식으로 들어오는 파라미터를 처리하기 위해 RequestResponseBodyMethodProcessor 라는 ArgumentResolver를 호출한다.\nRequestMappingHandlerAdapter에 설정된 ArgumentResolver들\n\n\n\n이 RequestResponseBodyMethodProcessor에서 readWithMessageConverters 메서드에서 메시지 컨버터 리스트를 loop 돌면서대상 클래스 타입과 미디어 타입 등을 체크해서 알맞은 메시지 컨버터를 호출해서 사용하는데이 때 호출되는 MessageConverter가 MappingJackson2HttpMessageConverter라는 MessageConverter이다.\n요청을 처리 할 수 있는 MessageConverter 호출\n\n\nMessageConverter의 canRead() 메서드로 해당 요청을 처리 할 수 있는 컨버터 인지 확인.\n처리 할 수 있으면 read() 메서드로 메시지에서 객체를 읽고 반환한다.\n\n\n\nMappingJackson2HttpMessageConverter에서는 최종적으로 readJavaType 메서드가 호출되는데 이 때 objectMapper를 사용해서 json 데이터를 DTO 객체로 변환하는 것을 볼 수 있다.\nObjectMapper를 이용해서 JSON데이터를 변환하는 부분\n\n\n결론보이지 않는 곳에서 이렇게 많은 부분을 스프링에서 처리해주고 있었기 때문에 우리는 Controller에서 편하게 파라미터를 사용 할 수 있고, JSON 데이터도 바로 객체로 받을 수 있는 것이었다.이런 내용을 알아도, 몰라도 결국 같은 방식으로 개발 하겠지만… 언젠가 도움이 되겠거니 생각하고 지금은 궁금증을 해결 했다는 것에 대해 만족한다.이 글을 읽는 다른 분들도 필자와 같은 궁금증이 있었다면 조금이나마 해소가 됐길 바라며..\n\n참고 사이트\nhttps://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%8\nhttps://csy7792.tistory.com/317\n김영한 - 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술\n\n","dateCreated":"2022-03-31T22:44:43+09:00","dateModified":"2022-03-31T22:44:43+09:00","datePublished":"2022-03-31T22:44:43+09:00","description":"","headline":"RequestBody 바인딩","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/","keywords":"spring"}</script>
+    <meta name="description" content="서론이전에 작성한 글 중에 @Requestbody Annotation 사용 시 기본 생성자 필요 라는글을 올린 적이 있는데 글의 마지막에 보면 @Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다. JG.JI@Requestbody Annotation 사용 시 기본 생성자 필요    라는 결론으로 글을 마무리 하였는데, 김영한님의 강의">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="RequestBody 바인딩">
+<meta property="og:url" content="https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/index.html">
+<meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:description" content="서론이전에 작성한 글 중에 @Requestbody Annotation 사용 시 기본 생성자 필요 라는글을 올린 적이 있는데 글의 마지막에 보면 @Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다. JG.JI@Requestbody Annotation 사용 시 기본 생성자 필요    라는 결론으로 글을 마무리 하였는데, 김영한님의 강의">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/1_RequestMappingHandlerAdapter_messageConverters.JPG">
+<meta property="og:image" content="https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/2_RequestMappingHandlerAdapter_ArgumentResolvers.JPG">
+<meta property="og:image" content="https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/3_AbstractMessageConverterMethodArgumentResolver_readWithMessageConverters.JPG">
+<meta property="og:image" content="https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/4_AbstractJackson2HttpMessageConverter_readJavaType.JPG">
+<meta property="article:published_time" content="2022-03-31T13:44:43.000Z">
+<meta property="article:modified_time" content="2022-03-31T13:44:43.000Z">
+<meta property="article:author" content="Junggu Ji">
+<meta property="article:tag" content="spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/1_RequestMappingHandlerAdapter_messageConverters.JPG">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-0v3zgfakrzmjoj7mhqewlnecogoqxgnfgvjlrw6b9na0ll2gjplxm4ld0oox.min.css">
+
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
+
+    
+
+    
+        
+    
+
+    <script data-ad-client="ca-pub-6264654331856753" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/" aria-label>
+            저장하고 까먹자
+        </a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about" aria-label="링크 열기: /#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="카테고리">
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="태그">
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives" rel="noopener" title="아카이브">
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/mailto" rel="noopener" title="Mail">
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/atom.xml" rel="noopener" title="RSS">
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4" class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            RequestBody 바인딩
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2022-03-31T22:44:43+09:00">
+	
+		    2022/03/31
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>이전에 작성한 글 중에 <a href="https://jungguji.github.io/2021/02/05/Requestbody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%84%EC%9A%94/">@Requestbody Annotation 사용 시 기본 생성자 필요</a> 라는<br>글을 올린 적이 있는데 글의 마지막에 보면</p>
+<blockquote><p>@Requestbody가 jackson 라이브러리를 이용해 매핑하기 때문이다.</p>
+<footer><strong>JG.JI</strong><cite>@Requestbody Annotation 사용 시 기본 생성자 필요</cite></footer></blockquote>
+
+<br>
+
+<p>라는 결론으로 글을 마무리 하였는데, <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1/dashboard">김영한님의 강의</a>에서 해당 내용과 관련해서 자세하게 알려주시는 부분이 있어, 해당 내용을 정리해본다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><p>우선 Spring에서는 Controller에서 @RequestBody로 넘어오는 파라미터들에 대해서 내부적으로 ObjectMapper를 이용해 JSON 데이터를 우리가 만든 DTO 객체로 변환시켜주고,<br>@ResponseBody인 경우엔, DTO 객체를 JSON 데이터로 변환해서 클라이언트에 넘겨준다.</p>
+<p>이렇게해서 해소 될 궁금증이었으면 이 글을 읽으러 오지 않았을테니, 해당 내용에 대하여 코드 레벨에서 자세히 알아보기로 한다.</p>
+<p>우선, Spring MVC의 동작 순서를 간략하게 서술하자면(구글에 검색하면 훌륭한 분들이 작성하신 훌륭한 글들이 많으므로)</p>
+<ol>
+<li>클라이언트에서 요청이 넘어오면 FrontController 역할을 수행하는 DispatcherServlet에서 먼저 확인해서,</li>
+<li>핸들러 매핑 리스트 중 해당 요청을 처리 할 수 있는 핸들러를 가져오고,</li>
+<li>핸들러 어댑터 리스트 중에서 해당 핸들러를 처리 할 수 있는 핸들러 어댑터를 가져와서,</li>
+<li>해당 어댑터에서 우리가 만든 컨트롤러에 호출해서 비즈니스 로직을 처리 한 후,</li>
+<li>리턴되는 데이터에 맞게 뷰 리졸버나 메시지컨버터가 동작하고,</li>
+<li>알맞게 클라이언트로 반환된다.</li>
+</ol>
+<p>여기서, @RequestMapping에 대한 request는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.html">RequestMappingHandlerAdapter</a>에서 처리하는데<br>이 RequestMappingHandlerAdapter는<br>    1. byte[]를 처리하기 위한 ByteArrayHttpMessageConverter<br>    2. String을 처리하기 위한 StringHttpMessageConverter<br>    3. json을 처리하기 위한 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/index.html?org/springframework/http/converter/json/MappingJackson2HttpMessageConverter.html">MappingJackson2HttpMessageConverter</a><br>등을 가지고 있다.</p>
+<h3 id="RequestMappingHandlerAdapter에-설정된-MessageConverter들"><a href="#RequestMappingHandlerAdapter에-설정된-MessageConverter들" class="headerlink" title="RequestMappingHandlerAdapter에 설정된 MessageConverter들"></a>RequestMappingHandlerAdapter에 설정된 MessageConverter들</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/1_RequestMappingHandlerAdapter_messageConverters.JPG" class title="RequestBody 바인딩 RequestMappingHandlerAdapter에 설정된 MessageConverter들 " alt="RequestMappingHandlerAdapter에 설정된 MessageConverter들">
+
+<br>
+
+<p>그리고 자신이 가지고 있는 ArgumentResolver들 중<br>@RequestBody형식으로 들어오는 파라미터를 처리하기 위해 RequestResponseBodyMethodProcessor 라는 ArgumentResolver를 호출한다.</p>
+<h3 id="RequestMappingHandlerAdapter에-설정된-ArgumentResolver들"><a href="#RequestMappingHandlerAdapter에-설정된-ArgumentResolver들" class="headerlink" title="RequestMappingHandlerAdapter에 설정된 ArgumentResolver들"></a>RequestMappingHandlerAdapter에 설정된 ArgumentResolver들</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/2_RequestMappingHandlerAdapter_ArgumentResolvers.JPG" class title="RequestBody 바인딩">
+
+<br>
+
+<p>이 RequestResponseBodyMethodProcessor에서 readWithMessageConverters 메서드에서 메시지 컨버터 리스트를 loop 돌면서<br>대상 클래스 타입과 미디어 타입 등을 체크해서 알맞은 메시지 컨버터를 호출해서 사용하는데<br>이 때 호출되는 MessageConverter가 MappingJackson2HttpMessageConverter라는 MessageConverter이다.</p>
+<h3 id="요청을-처리-할-수-있는-MessageConverter-호출"><a href="#요청을-처리-할-수-있는-MessageConverter-호출" class="headerlink" title="요청을 처리 할 수 있는 MessageConverter 호출"></a>요청을 처리 할 수 있는 MessageConverter 호출</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/3_AbstractMessageConverterMethodArgumentResolver_readWithMessageConverters.JPG" class title="RequestBody 바인딩">
+
+<ol>
+<li>MessageConverter의 canRead() 메서드로 해당 요청을 처리 할 수 있는 컨버터 인지 확인.</li>
+<li>처리 할 수 있으면 read() 메서드로 메시지에서 객체를 읽고 반환한다.</li>
+</ol>
+<br>
+
+<p>MappingJackson2HttpMessageConverter에서는 최종적으로 readJavaType 메서드가 호출되는데 이 때 objectMapper를 사용해서 json 데이터를 DTO 객체로 변환하는 것을 볼 수 있다.</p>
+<h3 id="ObjectMapper를-이용해서-JSON데이터를-변환하는-부분"><a href="#ObjectMapper를-이용해서-JSON데이터를-변환하는-부분" class="headerlink" title="ObjectMapper를 이용해서 JSON데이터를 변환하는 부분"></a>ObjectMapper를 이용해서 JSON데이터를 변환하는 부분</h3><img src="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/4_AbstractJackson2HttpMessageConverter_readJavaType.JPG" class title="RequestBody 바인딩">
+
+<hr>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>보이지 않는 곳에서 이렇게 많은 부분을 스프링에서 처리해주고 있었기 때문에 우리는 Controller에서 편하게 파라미터를 사용 할 수 있고, JSON 데이터도 바로 객체로 받을 수 있는 것이었다.<br>이런 내용을 알아도, 몰라도 결국 같은 방식으로 개발 하겠지만… 언젠가 도움이 되겠거니 생각하고 지금은 궁금증을 해결 했다는 것에 대해 만족한다.<br>이 글을 읽는 다른 분들도 필자와 같은 궁금증이 있었다면 조금이나마 해소가 됐길 바라며..</p>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%8">https://velog.io/@conatuseus/RequestBody%EC%97%90-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%EC%99%9C-%ED%95%84%EC%9A%94%ED%95%9C%EA%B0%8</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://csy7792.tistory.com/317">https://csy7792.tistory.com/317</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81-mvc-1">김영한 - 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술</a></li>
+</ul>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">태그</span><br>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/spring/" rel="tag">spring</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/03/15/Spring-MVC%EC%9D%98-%EA%B5%AC%EC%A1%B0/" data-tooltip="Spring MVC의 구조" aria-label="다음: Spring MVC의 구조">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/03/15/Spring-MVC%EC%9D%98-%EA%B5%AC%EC%A1%B0/" data-tooltip="Spring MVC의 구조" aria-label="다음: Spring MVC의 구조">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Twitter에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Google+에 공유하기</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">Junggu Ji</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-goamtf3h90u4wvmhg5penagquqoptje05tyii1tz44r8vwvh6klg97rf1weo.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
