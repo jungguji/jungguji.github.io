@@ -177,6 +177,239 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/08/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-H-Index/" aria-label=": 프로그래머스: H-Index">
+                            프로그래머스: H-Index
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-08T17:42:01+09:00">
+	
+		    2020/05/08
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42747?language=java">https://programmers.co.kr/learn/courses/30/lessons/42747?language=java</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] citations)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> n = citations.length;</span><br><span class="line"></span><br><span class="line">    Arrays.sort(citations);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= citations[n - <span class="number">1</span>]; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> high = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &lt;= citations[j]) &#123;</span><br><span class="line">                high++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (i &lt;= high) &#123;</span><br><span class="line">                answer = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li><p>논문을 인용한 횟수가 담긴 배열 citations를 정렬</p>
+</li>
+<li><p>가장 많이 인용한 횟수 만큼 반복</p>
+</li>
+<li><p>0부터 배열 길이만큼 반복하면서 i 값이 인용 횟수보다 작은 경우 i 보다 인용된 횟수가 많은 것이므로 high 변수 증가</p>
+</li>
+<li><p>h번 이상 인용된 논문이 h편 이상이여야 하므로 i가 high 보다 작을 경우에만 answer에 저장</p>
+</li>
+<li><p>i가 high보다 커질 경우 answer에 저장되지 않으므로 answer에 마지막으로 저장된 값이 h</p>
+</li>
+<li><p>끝</p>
+</li>
+</ol>
+<hr>
+<h2 id="다른-해결방법"><a href="#다른-해결방법" class="headerlink" title="다른 해결방법"></a>다른 해결방법</h2><h3 id="코드-1"><a href="#코드-1" class="headerlink" title="코드"></a>코드</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] citations)</span> </span>&#123;</span><br><span class="line">    Arrays.sort(citations);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = citations.length-<span class="number">1</span>; i &gt; -<span class="number">1</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">int</span> min = (<span class="keyword">int</span>)Math.min(citations[i], citations.length - i);</span><br><span class="line">        <span class="keyword">if</span>(max &lt; min) max = min;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="위-코드의-로직"><a href="#위-코드의-로직" class="headerlink" title="위 코드의 로직"></a>위 코드의 로직</h3><ol>
+<li><p>배열을 정렬 후 배열의 마지막 값과 1 부터 증가 시키면서 citations의 길이 만큼 반복함</p>
+</li>
+<li><p>예를 들어 {0, 1, 3, 5, 6} 인 경우, citations.length는 5, i = 5 - 1 이므로 4, citations.length - i는 5 - 4가 되므로 1임 그런고로, 1과 citations[4]인 6과 비교해서 작은 놈을 min에 저장</p>
+</li>
+<li><p>위 과정을 반복하면<br>min = Min(6,1)<br>min = Min(5,2)<br>min = Min(3,3)<br>min = Min(1,4)<br>min = Min(0,5)<br>가 되고 max는 max가 min 보다 작을 때 max에 min 값이 저장되므로 max엔 최종적으로 3이 저장</p>
+</li>
+</ol>
+<ul>
+<li>어떻게 유추해서 푼 건지 이해가 안간다 천재인 듯</li>
+</ul>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><h3 id="1번"><a href="#1번" class="headerlink" title="1번"></a>1번</h3><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (11.43ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (14.71ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (15.13ms, 50.7MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (13.74ms, 50.1MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (16.49ms, 50.6MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (13.86ms, 50MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (10.08ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (7.45ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (8.26ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (10.29ms, 50MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (17.04ms, 50.9MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (8.21ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (15.30ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (13.62ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (15.64ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (0.97ms, 54.7MB)</td>
+</tr>
+</tbody></table>
+<h3 id="2번"><a href="#2번" class="headerlink" title="2번"></a>2번</h3><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.10ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.36ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.36ms, 50.8MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (0.85ms, 51.9MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (0.95ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.35ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (1.00ms, 50.6MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (0.87ms, 50.9MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (1.06ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (1.11ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.39ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (0.91ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (1.22ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (1.50ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (1.36ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (0.94ms, 52.5MB)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>속도도 압도적…</li>
+</ul>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">3</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">5</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">6</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">4</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">0</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">5</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">7</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">4</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">0</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">6</span>, <span class="number">5</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">0</span>&#125;));</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/08/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-H-Index/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/08/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-H-Index/" aria-label=": 프로그래머스: H-Index">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/07/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%88%98/" aria-label=": 프로그래머스: 가장 큰 수">
                             프로그래머스: 가장 큰 수
                         </a>
@@ -1690,145 +1923,6 @@
         </div>
         
             <a href="/2020/04/21/%EC%8A%A4%ED%82%AC%ED%8A%B8%EB%A6%AC/" aria-label=": 프로그래머스: 스킬트리">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/04/20/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading/" aria-label=": 토비의 스프링 reading (1)">
-                            토비의 스프링 reading (1)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-04-20T20:17:09+09:00">
-	
-		    2020/04/20
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h1 id="관심사-분리"><a href="#관심사-분리" class="headerlink" title="관심사 분리"></a>관심사 분리</h1><ul>
-<li>관심이 같은 것 끼리는 하나의 객체 안으로 또는 친한 객체로 모이게하고,<br>관심이 다른 것은 가능한 따로 떨어져서 서로 영향을 주지 않도록 분리하는 것</li>
-</ul>
-<h3 id="템플릿-메서드-패턴"><a href="#템플릿-메서드-패턴" class="headerlink" title="템플릿 메서드 패턴"></a>템플릿 메서드 패턴</h3><ul>
-<li>슈퍼클래스에 기본적인 로직의 흐름을 만들고,<br>그 기능의 일부를 추상 메서드나 오버라이딩 가능한 protected 메서드 등으로 만든 뒤 서브클래스에서 이런 메서드를 필요에 맞게 구현해서 사용하도록 하는 방법</li>
-</ul>
-<h3 id="팩토리-메서드-패턴"><a href="#팩토리-메서드-패턴" class="headerlink" title="팩토리 메서드 패턴"></a>팩토리 메서드 패턴</h3><ul>
-<li>서브클래스에서 구체적인 오브젝트 생성 방법을 결정하게 하는 것</li>
-</ul>
-<blockquote>
-<p>중요한 건 디자인 패턴이 아닌 상속구조를 통해 성격이 다른 관심사항을<br>분리한 코드를 만들어내고, 서로 영향을 덜 주도록 했는지를 이해하는 것 </p>
-</blockquote>
-<hr>
-<h1 id="상속을-통한-확장의-문제점"><a href="#상속을-통한-확장의-문제점" class="headerlink" title="상속을 통한 확장의 문제점"></a>상속을 통한 확장의 문제점</h1><ol>
-<li><p>만약 다른 목적을 위해 이미 상속을 사용하고 있다면?</p>
-</li>
-<li><p>상속을 통한 상하위 클래스의 관계는 생각보다 밀접</p>
-</li>
-<li><p>서브클래스는 슈퍼클래스의 기능을 직접 사용할 수 있음<br>그래서 슈퍼클래스 내부의 변경이 있을 때 모든 서브클래스를 함께 수정하거나 다시 개발해야 할 수도 있음<br>반대로 그런 변화에 따른 불편을 주지 않기 위해 슈퍼클래스가 더 이상 변화하지 않도록 제약을 가해야 할지도 모름</p>
-</li>
-</ol>
-<blockquote>
-<p>추상 클래스를 만들고 이를 상속한 서브클래스에서<br>변화가 필요한 부분을 바꿔서 쓸수 있게 만든 이유는<br>변화의 성격이 다른 것을 분리해서 서로 영향을 주지 않은 채로<br>각각 필요한 시점에 독립적으로 변경할 수 있게 하기 위해서</p>
-</blockquote>
-<h2 id="그렇다면-아예-클래스로-따로-때-버린다면"><a href="#그렇다면-아예-클래스로-따로-때-버린다면" class="headerlink" title="그렇다면 아예 클래스로 따로 때 버린다면?"></a>그렇다면 아예 클래스로 따로 때 버린다면?</h2><ul>
-<li>코드로 새로 만든 클래스에 종속되어 버림</li>
-<li>상속 했을 때 처럼 코드 수정없이 기능을 변경할 방법이 없음</li>
-</ul>
-<hr>
-<h1 id="클래스를-통한-확장의-문제점"><a href="#클래스를-통한-확장의-문제점" class="headerlink" title="클래스를 통한 확장의 문제점"></a>클래스를 통한 확장의 문제점</h1><ol>
-<li><p>현재 a 메서드를 사용해 기능을 제공하고 있는데<br>만약 a 메서드 대신 b 메서드를 사용하도록 수정 된다면<br>일일이 a 메서드를 사용한 수십 수백개의 메서드를 수정해야 함</p>
-</li>
-<li><p>기능을 제공하는 클래스가 어떤 것인지 클라이언트가 구체적으로 알고 있어야 함<br>만약 다른 클래스를 구현하면 또 클라이언트 자체를 수정해야 함</p>
-</li>
-<li><p>근본적인 원인은 클라이언트가 바뀔 수 있는 정보(db 커넥션 등)을 가져오는 클래스에 대해 너무 많이 알고 있기 때문</p>
-</li>
-</ol>
-<h1 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h1><ul>
-<li><p>두 클래스가 서로 긴밀하게 연결되지 않도록 중간에 추상적인 연결고리를 만드는 것(java의 interface)</p>
-</li>
-<li><p>클라이언트 입장에서는 인터페이스를 상속 받는 클래스의 오브젝트라면 어떤 클래스로 만들었건<br>메서드를 호출하기만 하면 약속된 오브젝트를 만들어서 돌려줄 것으로 기대함</p>
-</li>
-</ul>
-<hr>
-<h1 id="Interface를-통한-확장의-문제점"><a href="#Interface를-통한-확장의-문제점" class="headerlink" title="Interface를 통한 확장의 문제점"></a>Interface를 통한 확장의 문제점</h1><ol>
-<li><p>아직도 클래스의 생성자를 호출해서 오브젝트를 생성하는 코드가 남아있음</p>
-<ul>
-<li>초기에 한번 어떤 클래스의 오브젝트를 사용할지를 결정하는 생성자의 코드는 남아 있음</li>
-<li>ex) conntion = new DConnectionMaker();</li>
-</ul>
-</li>
-<li><p>결국 클라이언트가 어떤 구현 클래스의 오브젝트를 이용하게 할지 결정하는 관심사가 남아 있음</p>
-</li>
-</ol>
-<h1 id="해결-1"><a href="#해결-1" class="headerlink" title="해결"></a>해결</h1><ul>
-<li><p>오브젝트와 오브젝트 사이에 관계를 설정해야함</p>
-</li>
-<li><p>오브젝트 사이의 관계는 런타임 시에 한쪽이 다른 오브젝트의 레퍼런스를 갖고 잇는 방식으로 만들어짐(보통 알고 있는 인스턴스 생성 방식)</p>
-<ul>
-<li>ex)conntion = new DConnectionMaker();</li>
-<li>DConnectionMaker의 오브젝트의 레퍼런스를 클라이언트의 connection 변수에 넣어서 사용하게 함</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="클래스-사이의-관계는-코드에-다른-클래스-이름이-나타나기-때문에-만들어지는-것"><a href="#클래스-사이의-관계는-코드에-다른-클래스-이름이-나타나기-때문에-만들어지는-것" class="headerlink" title="클래스 사이의 관계는 코드에 다른 클래스 이름이 나타나기 때문에 만들어지는 것"></a>클래스 사이의 관계는 코드에 다른 클래스 이름이 나타나기 때문에 만들어지는 것</h3><h3 id="오브젝트-사이의-관계는-코드에서는-특정한-클래스를-전혀-알지-못하더라도-해당-클래스가-구현한-인터페이스를-사용했다면-그-클래스의-오브젝트를-인터페이스-타입을-받아서-사용-할-수-있음"><a href="#오브젝트-사이의-관계는-코드에서는-특정한-클래스를-전혀-알지-못하더라도-해당-클래스가-구현한-인터페이스를-사용했다면-그-클래스의-오브젝트를-인터페이스-타입을-받아서-사용-할-수-있음" class="headerlink" title="오브젝트 사이의 관계는 코드에서는 특정한 클래스를 전혀 알지 못하더라도 해당 클래스가 구현한 인터페이스를 사용했다면, 그 클래스의 오브젝트를 인터페이스 타입을 받아서 사용 할 수 있음"></a>오브젝트 사이의 관계는 코드에서는 특정한 클래스를 전혀 알지 못하더라도 해당 클래스가 구현한 인터페이스를 사용했다면, 그 클래스의 오브젝트를 인터페이스 타입을 받아서 사용 할 수 있음</h3><blockquote>
-<p>이것이 객체지향의 다형성</p>
-</blockquote>
-<hr>
-<h2 id="개방-폐쇄-원칙"><a href="#개방-폐쇄-원칙" class="headerlink" title="개방 폐쇄 원칙"></a>개방 폐쇄 원칙</h2><ul>
-<li>클래스나 모듈은 확장에는 열려 있어야하고 변경에는 닫혀 있어야 함</li>
-</ul>
-<h2 id="높은-응집도와-낮은-결합도"><a href="#높은-응집도와-낮은-결합도" class="headerlink" title="높은 응집도와 낮은 결합도"></a>높은 응집도와 낮은 결합도</h2><h3 id="높은-응집도"><a href="#높은-응집도" class="headerlink" title="높은 응집도"></a>높은 응집도</h3><ul>
-<li>하나의 모듈, 클래스가 하나의 책임 또는 관심사에만 집중되어 있음</li>
-<li>작업은 항상 전체적으로 일어나고 무엇을 변경할지 명확하며, 그것이 클라이언트의 다른 로직에 수정을 요구하지 않을 뿐더라<br>기능에 영향을 주지 않음</li>
-<li>변경이 일어난 경우에 이를 검증하려고 하면 변경한 구현 클래스만 직접 테스트 해보는 것으로 충분하기 때문</li>
-<li>응집도를 높인 덕분</li>
-</ul>
-<h3 id="낮은-결합도"><a href="#낮은-결합도" class="headerlink" title="낮은 결합도"></a>낮은 결합도</h3><ul>
-<li>하나의 오브젝트가 변경이 일어날 떄에 관계를 맺고 잇는 다른 오브젝트에게 변화를 요구하는 정도</li>
-<li>하나의 변경이 발생할 때 여타 모듈과 객체로 변경에 대한 요구가 전파되지 않는 상태</li>
-<li>책임과 관심사가 다른 오브젝트 또는 모듈과는 낮은 결합도를 유지해야 함</li>
-<li>느슨하게 연결된 형태를 유지하는 것이 바람직</li>
-<li>꼭 필요한 최소한의 방법만 제공</li>
-<li>결합도가 낮아지면 대응하는 속도가 높아지고 구성이 깔금해짐</li>
-</ul>
-<h3 id="전략패턴"><a href="#전략패턴" class="headerlink" title="전략패턴"></a>전략패턴</h3><ul>
-<li>자신의 기능 맥락(context)에서 필요에 따라 변경이 필요한 알고리즘을 인터페스를 통해 통째로 외부로 분리시키고 이률 구현한 구체적인 알고리즘 클래스를 필요에 따라 바꿔 사용할 수 있게 하는 디자인 패턴</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/04/20/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/04/20/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading/" aria-label=": 토비의 스프링 reading (1)">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

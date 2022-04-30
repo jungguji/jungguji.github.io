@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="저장하고 까먹자">
+    <title>Jackson @JsonCreator를 이용한 역직렬화 - 저장하고 까먹자</title>
+    <meta name="author" content="Junggu Ji">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론어쩌다 보니 연속해서 @RequestBody에 관한 글을 작성하게 되었는데… 이전에 말했던 것 처럼 @RequestBody는 Jackson 라이브러리를 사용하기 때문에 기본생성자를 이용해 object(DTO)를 바인딩한다. 그 때문에 다른 생성자에서 validtion등을 처리했다고 해도 당연히 처리되지 않는데 이 때 사용할 수 있는 @JsonCreator에 대해 알아본다.\n\n본론현재 상황\n\n\n\n\n\n\n\n위 이미지들 처럼 Controller와 dto를 만들었다고 했을 때, /test 를 호출해보면 어떻게 될까?\n\n\n\n\n@RequestBody를 사용 할 경우 Jackson 라이브러리를 사용해서 기본 생성자를 이용해 매핑시키기 때문에 “여기타고 생성이 될까요?” 라는 로그는 찍히지 않는다.\n이 때, DTO에 처리 혹은 Assert 등을 이용한 validtion을 추가하고 싶다면 어떻게 될까?\n생성자에 추가해서 처리하면 좋겠지만, 기본 생성자를 이용해서 생성되므로, controller 혹은 service 단에서 처리해야 한다.(물론 validtion의 경우엔 @Valid를 통해 어느정도 처리 가능하다.)\n이런 경우, 기본 생성자가 아닌 다른 생성자를 이용해 dto를 바인딩 시키고 싶은 경우 사용 할 수 있는 annotation이 바로 @JsonCreator이다.\n이제 다시 코드로 돌아와서, 이 @JsonCreator를 생성자에 선언 해놓고 다시 /test를 요청한다면\n\n\n\n\n아까와 다르게 @Builder 패턴이 적용된 생성자를 통해 바인딩 되어서 “여기타고 생성이 될까요?” 라는 로그가 정상적으로 찍힌 걸 볼 수 있다.\n\n결론이제 우리는 @RequestBody를 사용할 때 기본 생성자만이 아닌 다른 생성자로도 DTO를 바인딩 할 수 있게 되었으므로, @Valid보다 더 정교한 validtion이나, String을 encoding 해야 할 경우에도 service나 controller가 아닌 생성자에서 처리 할 수 있게 되었으므로 테스트도 더 간편하게 할 수 있게 되었다.\n번외로 보통 @JsonCreator는 인스턴스화 할 때 사용 할 생성자를 정의 할 때 사용 하는 annotation으로,보통 아래 코드처럼 @JsonProperty와 같이 사용해서 엔티티와 완벽히 일치되지 않는 JSON을 역직렬화할 때 주로 사용하는 것 같다.\n123456789101112public class BeanWithCreator &#123;    public int id;    public String name;    @JsonCreator    public BeanWithCreator(      @JsonProperty(&quot;id&quot;) int id,       @JsonProperty(&quot;theName&quot;) String name) &#123;        this.id = id;        this.name = name;    &#125;&#125;\n\n개인적으로 이렇게 쓸 일이 몇 번이나 있을까 싶긴하지만…\n\n전체 코드\nhttps://github.com/jungguji/blog-example-code\n\n참고 사이트\nhttps://www.baeldung.com/jackson-annotations\nhttps://fasterxml.github.io/jackson-annotations/javadoc/2.6/com/fasterxml/jackson/annotation/JsonCreator.html\n\n\n","dateCreated":"2022-04-30T22:00:35+09:00","dateModified":"2022-04-30T22:00:35+09:00","datePublished":"2022-04-30T22:00:35+09:00","description":"","headline":"Jackson @JsonCreator를 이용한 역직렬화","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/","keywords":"spring, jackson"}</script>
+    <meta name="description" content="서론어쩌다 보니 연속해서 @RequestBody에 관한 글을 작성하게 되었는데… 이전에 말했던 것 처럼 @RequestBody는 Jackson 라이브러리를 사용하기 때문에 기본생성자를 이용해 object(DTO)를 바인딩한다. 그 때문에 다른 생성자에서 validtion등을 처리했다고 해도 당연히 처리되지 않는데 이 때 사용할 수 있는 @JsonCreato">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Jackson @JsonCreator를 이용한 역직렬화">
+<meta property="og:url" content="https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/index.html">
+<meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:description" content="서론어쩌다 보니 연속해서 @RequestBody에 관한 글을 작성하게 되었는데… 이전에 말했던 것 처럼 @RequestBody는 Jackson 라이브러리를 사용하기 때문에 기본생성자를 이용해 object(DTO)를 바인딩한다. 그 때문에 다른 생성자에서 validtion등을 처리했다고 해도 당연히 처리되지 않는데 이 때 사용할 수 있는 @JsonCreato">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/1.JPG">
+<meta property="og:image" content="https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/2.JPG">
+<meta property="og:image" content="https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/3.JPG">
+<meta property="og:image" content="https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/4.JPG">
+<meta property="article:published_time" content="2022-04-30T13:00:35.000Z">
+<meta property="article:modified_time" content="2022-04-30T13:00:35.000Z">
+<meta property="article:author" content="Junggu Ji">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="jackson">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/1.JPG">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-0v3zgfakrzmjoj7mhqewlnecogoqxgnfgvjlrw6b9na0ll2gjplxm4ld0oox.min.css">
+
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
+
+    
+
+    
+        
+    
+
+    <script data-ad-client="ca-pub-6264654331856753" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/" aria-label>
+            저장하고 까먹자
+        </a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about" aria-label="링크 열기: /#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="카테고리">
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="태그">
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives" rel="noopener" title="아카이브">
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/mailto" rel="noopener" title="Mail">
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/atom.xml" rel="noopener" title="RSS">
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4" class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Jackson @JsonCreator를 이용한 역직렬화
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2022-04-30T22:00:35+09:00">
+	
+		    2022/04/30
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>어쩌다 보니 연속해서 @RequestBody에 관한 글을 작성하게 되었는데… 이전에 말했던 것 처럼 @RequestBody는 Jackson 라이브러리를 사용하기 때문에 기본생성자를 이용해 object(DTO)를 바인딩한다. 그 때문에 다른 생성자에서 validtion등을 처리했다고 해도 당연히 처리되지 않는데 이 때 사용할 수 있는 @JsonCreator에 대해 알아본다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="현재-상황"><a href="#현재-상황" class="headerlink" title="현재 상황"></a>현재 상황</h3><img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/1.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/2.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<p>위 이미지들 처럼 Controller와 dto를 만들었다고 했을 때, /test 를 호출해보면 어떻게 될까?</p>
+<img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/3.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<p>@RequestBody를 사용 할 경우 Jackson 라이브러리를 사용해서 기본 생성자를 이용해 매핑시키기 때문에 “여기타고 생성이 될까요?” 라는 로그는 찍히지 않는다.</p>
+<p>이 때, DTO에 처리 혹은 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/util/Assert.html">Assert</a> 등을 이용한 validtion을 추가하고 싶다면 어떻게 될까?</p>
+<p>생성자에 추가해서 처리하면 좋겠지만, 기본 생성자를 이용해서 생성되므로, controller 혹은 service 단에서 처리해야 한다.(물론 validtion의 경우엔 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javaee/7/api/javax/validation/Valid.html">@Valid</a>를 통해 어느정도 처리 가능하다.)</p>
+<p>이런 경우, 기본 생성자가 아닌 다른 생성자를 이용해 dto를 바인딩 시키고 싶은 경우 사용 할 수 있는 annotation이 바로 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://fasterxml.github.io/jackson-annotations/javadoc/2.6/com/fasterxml/jackson/annotation/JsonCreator.html">@JsonCreator</a>이다.</p>
+<p>이제 다시 코드로 돌아와서, 이 @JsonCreator를 생성자에 선언 해놓고 다시 /test를 요청한다면</p>
+<img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/4.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<p>아까와 다르게 @Builder 패턴이 적용된 생성자를 통해 바인딩 되어서 “여기타고 생성이 될까요?” 라는 로그가 정상적으로 찍힌 걸 볼 수 있다.</p>
+<hr>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>이제 우리는 @RequestBody를 사용할 때 기본 생성자만이 아닌 다른 생성자로도 DTO를 바인딩 할 수 있게 되었으므로, @Valid보다 더 정교한 validtion이나, String을 encoding 해야 할 경우에도 service나 controller가 아닌 생성자에서 처리 할 수 있게 되었으므로 테스트도 더 간편하게 할 수 있게 되었다.</p>
+<p>번외로 보통 @JsonCreator는 인스턴스화 할 때 사용 할 생성자를 정의 할 때 사용 하는 annotation으로,<br>보통 아래 코드처럼 @JsonProperty와 같이 사용해서 엔티티와 완벽히 일치되지 않는 JSON을 역직렬화할 때 주로 사용하는 것 같다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanWithCreator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonCreator</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BeanWithCreator</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="meta">@JsonProperty(&quot;id&quot;)</span> <span class="keyword">int</span> id, </span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="meta">@JsonProperty(&quot;theName&quot;)</span> String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>개인적으로 이렇게 쓸 일이 몇 번이나 있을까 싶긴하지만…</p>
+<hr>
+<h2 id="전체-코드"><a href="#전체-코드" class="headerlink" title="전체 코드"></a>전체 코드</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/blog-example-code">https://github.com/jungguji/blog-example-code</a></li>
+</ul>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/jackson-annotations">https://www.baeldung.com/jackson-annotations</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://fasterxml.github.io/jackson-annotations/javadoc/2.6/com/fasterxml/jackson/annotation/JsonCreator.html">https://fasterxml.github.io/jackson-annotations/javadoc/2.6/com/fasterxml/jackson/annotation/JsonCreator.html</a></li>
+<li></li>
+</ul>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">태그</span><br>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/jackson/" rel="tag">jackson</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/spring/" rel="tag">spring</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" data-tooltip="RequestBody 바인딩" aria-label="다음: RequestBody 바인딩">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/" data-tooltip="RequestBody 바인딩" aria-label="다음: RequestBody 바인딩">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Twitter에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Google+에 공유하기</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">Junggu Ji</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-goamtf3h90u4wvmhg5penagquqoptje05tyii1tz44r8vwvh6klg97rf1weo.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

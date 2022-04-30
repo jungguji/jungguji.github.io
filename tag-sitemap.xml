@@ -3,7 +3,21 @@
 
 
     <url>
+        <loc>https://jungguji.github.io/tags/jackson/</loc>
+        <lastmod>2022-04-30T13:00:35.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://jungguji.github.io/tags/spring/</loc>
+        <lastmod>2022-04-30T13:00:35.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://jungguji.github.io/tags/MessageConverter/</loc>
         <lastmod>2022-03-31T13:44:43.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

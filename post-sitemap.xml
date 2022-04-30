@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/</loc>
+        <lastmod>2022-04-30T13:00:35.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://jungguji.github.io/2022/03/31/RequestBody-%EB%B0%94%EC%9D%B8%EB%94%A9/</loc>
         <lastmod>2022-03-31T13:44:43.000Z</lastmod>
         <changefreq>weekly</changefreq>
