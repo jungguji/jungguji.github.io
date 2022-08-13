@@ -177,6 +177,149 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8A%9C%ED%94%8C/" aria-label=": 프로그래머스: 튜플">
+                            프로그래머스: 튜플
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-29T15:42:28+09:00">
+	
+		    2020/06/29
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/64065">https://programmers.co.kr/learn/courses/30/lessons/64065</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(String s) &#123;</span><br><span class="line">    String[] strArray = getStringArray(s);</span><br><span class="line">    List&lt;Integer[]&gt; list = convertStringArrayToIntegerArrayList(strArray);</span><br><span class="line">    sortByArraylength(list);</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; tuple = getTuple(list);</span><br><span class="line">    <span class="keyword">int</span>[] answer = convertIntegerArrayToIntArray(tuple);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String[] getStringArray(String s) &#123;</span><br><span class="line">    String[] array = s.substring(<span class="number">2</span>, s.length()-<span class="number">2</span>).replace(<span class="string">&quot;&#125;,&#123;&quot;</span>, <span class="string">&quot;@&quot;</span>).split(<span class="string">&quot;@&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> List&lt;Integer[]&gt; convertStringArrayToIntegerArrayList(String[] strArray) &#123;</span><br><span class="line">    List&lt;Integer[]&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String str : strArray) &#123;</span><br><span class="line">        String[] stringNumbers = str.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">        Integer[] array = convertStringArrayToIntegerArray(stringNumbers);</span><br><span class="line"></span><br><span class="line">        list.add(array);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Integer[] convertStringArrayToIntegerArray(String[] stringNumbers) &#123;</span><br><span class="line">    Integer[] array = <span class="keyword">new</span> Integer[stringNumbers.length];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String str2 : stringNumbers) &#123;</span><br><span class="line">        array[i++] = Integer.parseInt(str2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sortByArraylength</span><span class="params">(List&lt;Integer[]&gt; list)</span> </span>&#123;</span><br><span class="line">    Collections.sort(list, <span class="keyword">new</span> Comparator&lt;Integer[]&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer[] o1, Integer[] o2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> o1.length - o2.length;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;Integer&gt; <span class="title">getTuple</span><span class="params">(List&lt;Integer[]&gt; list)</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; tuple = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">        Integer[] elements = list.get(i);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Integer element : elements) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!tuple.contains(element)) &#123;</span><br><span class="line">                tuple.add(element);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> tuple;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] convertIntegerArrayToIntArray(List&lt;Integer&gt; list) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] answer = <span class="keyword">new</span> <span class="keyword">int</span>[list.size()];</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i : list) &#123;</span><br><span class="line">        answer[j++] = i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>문자열을 각각 숫자를 저장한 문자열 배열로 만든다. (getStringArray)</li>
+<li>만든 문자열 배열에 저장된 문자열을 “,”로 나눠서 각각 Integer 배열에 저장하고 그 Integer 배열을 담는 List에 저장한다. (convertStringArrayToIntegerArrayList)</li>
+<li>List에 저장된 Integer 배열을 배열의 길이가 짧은 순으로 sorting 한다. (sortByArraylength)</li>
+<li>정렬한 list를 돌면서 Integer 배열을 꺼내고 다시 배열을 돌면서 튜플을 저장할 List에 담는데, 이 때 저장하기 전에 이미 List에 저장된 숫자인 경우엔 담을 필요가 없으므로 contain() 를 사용해서 List에 저장되지 않은 숫자만 add 한다.</li>
+<li>List형 이었으므로 문제에 맞게 int 배열 형으로 변환해서 return한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="최다-좋아요-코드"><a href="#최다-좋아요-코드" class="headerlink" title="최다 좋아요 코드"></a>최다 좋아요 코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(String s) &#123;</span><br><span class="line">    Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    String[] arr = s.replaceAll(<span class="string">&quot;[&#123;]&quot;</span>, <span class="string">&quot; &quot;</span>).replaceAll(<span class="string">&quot;[&#125;]&quot;</span>, <span class="string">&quot; &quot;</span>).trim().split(<span class="string">&quot; , &quot;</span>);</span><br><span class="line">    Arrays.sort(arr, (a, b)-&gt;&#123;<span class="keyword">return</span> a.length() - b.length();&#125;);</span><br><span class="line">    <span class="keyword">int</span>[] answer = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(String s1 : arr) &#123;</span><br><span class="line">        <span class="keyword">for</span>(String s2 : s1.split(<span class="string">&quot;,&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span>(set.add(s2)) answer[idx++] = Integer.parseInt(s2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>마찬가지로 우선 String을 String[]로 만들고</li>
+<li>배열 길이 순으로 정렬한 다음에</li>
+<li>2중 for문을 돌면서 숫자를 배열에 저장하는데,</li>
+<li>Set을 통해 이미 저장된 숫자는 저장하지 않는다.</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (2.12ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (2.16ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (2.03ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (2.58ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (6.02ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (7.96ms, 50.9MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (38.39ms, 53.8MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (68.47ms, 61.7MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (51.85ms, 57.6MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (142.71ms, 62.2MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (91.56ms, 65.7MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (111.69ms, 74.1MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (104.26ms, 72.1MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (113.99ms, 74.5MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (1.84ms, 50MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>&#125;, test.solution(<span class="string">&quot;&#123;&#123;2&#125;,&#123;2,1&#125;,&#123;2,1,3&#125;,&#123;2,1,3,4&#125;&#125;&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>&#125;, test.solution(<span class="string">&quot;&#123;&#123;1,2,3&#125;,&#123;2,1&#125;,&#123;1,2,4,3&#125;,&#123;2&#125;&#125;&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">111</span>,<span class="number">20</span>&#125;, test.solution(<span class="string">&quot;&#123;&#123;20,111&#125;,&#123;111&#125;&#125;&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">123</span>&#125;, test.solution(<span class="string">&quot;&#123;&#123;123&#125;&#125;&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>&#125;, test.solution(<span class="string">&quot;&#123;&#123;4,2,3&#125;,&#123;3&#125;,&#123;2,3,4,1&#125;,&#123;2,3&#125;&#125;&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">100</span>&#125;, test.solution(<span class="string">&quot;&#123;&#123;4,2,3&#125;,&#123;3&#125;,&#123;2,3,4,1&#125;,&#123;2,3&#125;,&#123;2,3,4,1,100&#125;&#125;&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">100</span>&#125;, test.solution(<span class="string">&quot;&#123;&#123;4,2,3&#125;,&#123;3&#125;,&#123;2,3,4,1&#125;,&#123;2,3&#125;,&#123;2,3,4,1,100&#125;&#125;&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8A%9C%ED%94%8C/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8A%9C%ED%94%8C/" aria-label=": 프로그래머스: 튜플">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/28/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%AB%EC%9E%90%EC%9D%98-%ED%91%9C%ED%98%84/" aria-label=": 프로그래머스: 숫자의 표현">
                             프로그래머스: 숫자의 표현
                         </a>
@@ -1846,119 +1989,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%91/" aria-label=": 프로그래머스: 탑">
-                            프로그래머스: 탑
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-15T19:31:54+09:00">
-	
-		    2020/06/15
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42588">https://programmers.co.kr/learn/courses/30/lessons/42588</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><p><strong>본인의 코드가 아닌 해당 문제 최다 좋아요를 받은 코드</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(<span class="keyword">int</span>[] heights) &#123;</span><br><span class="line">    Stack&lt;Tower&gt; st = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span>[] answer = <span class="keyword">new</span> <span class="keyword">int</span>[heights.length];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; heights.length; i++) &#123;</span><br><span class="line">        Tower tower = <span class="keyword">new</span> Tower(i + <span class="number">1</span>, heights[i]);</span><br><span class="line">        <span class="keyword">int</span> receiveIdx = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!st.isEmpty()) &#123;</span><br><span class="line">            Tower top = st.peek();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (top.height &gt; tower.height) &#123;</span><br><span class="line">                receiveIdx = top.idx;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            st.pop();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        st.push(tower);</span><br><span class="line">        answer[i] = receiveIdx;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tower</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> idx;</span><br><span class="line">    <span class="keyword">int</span> height;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Tower</span><span class="params">(<span class="keyword">int</span> idx, <span class="keyword">int</span> height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.idx = idx;</span><br><span class="line">        <span class="keyword">this</span>.height = height;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>본인의 코드가 아닌 해당 문제 최다 좋아요를 받은 코드</strong></p>
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>탑의 index와 높이를 저장 할 Tower class 생성</li>
-<li>탑의 개수만큼 반복</li>
-<li>1 번쨰부터 시작되야하므로 현재 index에서 +1 한 index와 현재 높이를 갖는 tower를 생성</li>
-<li>tower가 저장된 stack이 비었는지 체크</li>
-<li>비어 있지 않다면 stack의 맨 위를 가져와서 현재 tower의 높이와 비교함</li>
-<li>stack에 저장된 stack이 더 크다면 현재 타워에 전파를 받을 타워이므로 index를 receiveIdx 변수에 할당</li>
-<li>크지 않다면 stack에 저장된 tower를 pop함</li>
-<li>stack에 현재 tower를 push</li>
-<li>answer에 아까 저장한 receiveIdx를 저장</li>
-<li>answer return</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (1.89ms, 50.7MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (1.84ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (1.96ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (2.04ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (2.02ms, 50.8MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (2.28ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (1.78ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (2.06ms, 52.1MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>&#125;, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">6</span>,<span class="number">9</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">4</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">6</span>&#125;, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">3</span>,<span class="number">9</span>,<span class="number">9</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">2</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">6</span>&#125;, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">5</span>&#125;));</span><br></pre></td></tr></table></figure>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%91/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%91/" aria-label=": 프로그래머스: 탑">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1977,7 +2007,7 @@
             </a>
           </li>
         
-        <li class="pagination-number">page 6 of 10</li>
+        <li class="pagination-number">page 6 of 11</li>
     </ul>
 </div>
 

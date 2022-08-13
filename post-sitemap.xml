@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://jungguji.github.io/2022/08/07/Nexus%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94/</loc>
+        <lastmod>2022-08-07T11:14:31.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://jungguji.github.io/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/</loc>
         <lastmod>2022-04-30T13:00:35.000Z</lastmod>
         <changefreq>weekly</changefreq>

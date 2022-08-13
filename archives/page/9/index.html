@@ -177,6 +177,148 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/" aria-label=": 프로그래머스: 전화번호 목록">
+                            프로그래머스: 전화번호 목록
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-12T15:53:47+09:00">
+	
+		    2020/05/12
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42577">https://programmers.co.kr/learn/courses/30/lessons/42577</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">solution</span><span class="params">(String[] phone_book)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = phone_book.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (phone_book[j].startsWith(phone_book[i])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> answer = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li><p>배열을 전부 돌면서 해당 인덱스로 시장하는 단어가 있는 지 확인함</p>
+</li>
+<li><p>끝</p>
+</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (0.78ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (0.52ms, 50.1MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (0.65ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (0.51ms, 54.6MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (0.55ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (0.66ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (0.87ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (0.77ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (0.64ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (0.57ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (0.65ms, 52.8MB)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>효율성 테스트</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.96ms, 60.3MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (2.14ms, 59.8MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertFalse(test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;119&quot;</span>, <span class="string">&quot;97674223&quot;</span>, <span class="string">&quot;1195524421&quot;</span>&#125; ));</span><br><span class="line">assertTrue(test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;123&quot;</span>,<span class="string">&quot;456&quot;</span>,<span class="string">&quot;789&quot;</span>&#125; ));</span><br><span class="line">assertFalse(test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;12&quot;</span>,<span class="string">&quot;123&quot;</span>,<span class="string">&quot;1235&quot;</span>,<span class="string">&quot;567&quot;</span>,<span class="string">&quot;88&quot;</span>&#125; ));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><ul>
+<li>사실 당연히 시간 초과로 안될 줄 알았는데 넘어가서 놀랐다.</li>
+<li>찾아보니 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://lmgtfy.com/?q=trie+%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0">Trie 자료구조</a>로 해결하길 바래서 카테고리가 해쉬 인 듯 싶다.</li>
+<li>하지만 쉽게 풀 수 있는 문제를 어렵게 풀 이유가 없으니 이 문제는 이렇게 마무리 하려한다.</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/" aria-label=": 프로그래머스: 전화번호 목록">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/08/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-H-Index/" aria-label=": 프로그래머스: H-Index">
                             프로그래머스: H-Index
                         </a>
@@ -1700,237 +1842,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/04/21/%EC%8A%A4%ED%82%AC%ED%8A%B8%EB%A6%AC/" aria-label=": 프로그래머스: 스킬트리">
-                            프로그래머스: 스킬트리
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-04-21T17:45:41+09:00">
-	
-		    2020/04/21
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/49993?language=java">https://programmers.co.kr/learn/courses/30/lessons/49993?language=java</a></p>
-<hr>
-<h2 id="소스"><a href="#소스" class="headerlink" title="소스"></a>소스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String skill, String[] skill_trees)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] ch = skill.toCharArray();</span><br><span class="line"></span><br><span class="line">    List&lt;ArrayList&lt;Skill&gt;&gt; l = <span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Skill&gt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (String element : skill_trees) &#123;</span><br><span class="line">        ArrayList&lt;Skill&gt; list = <span class="keyword">new</span> ArrayList&lt;Skill&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ch.length; i++) &#123;</span><br><span class="line">            Skill s = <span class="keyword">new</span> Skill();</span><br><span class="line">            s.skill = ch[i];</span><br><span class="line">            s.index = element.indexOf(ch[i]);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (s.index != -<span class="number">1</span>) &#123;</span><br><span class="line">                list.add(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        l.add(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (ArrayList&lt;Skill&gt; list : l) &#123;</span><br><span class="line">        Collections.sort(list, <span class="keyword">new</span> Comparator&lt;Skill&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Skill o1, Skill o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.getIndex().compareTo(o2.getIndex());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (Skill s : list) &#123;</span><br><span class="line">            sb.append(s.getSkill());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (skill.startsWith(sb.toString())) &#123;</span><br><span class="line">            answer++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Skill</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">char</span> skill;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getIndex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setIndex</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.index = index;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">getSkill</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> skill;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSkill</span><span class="params">(<span class="keyword">char</span> skill)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.skill = skill;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li><p>스킬트리에 있는 스킬들을 선행스킬 만큼 반복한다.</p>
-</li>
-<li><p>돌면서 스킬들에서 선행스킬의 index와 선행스킬명을 저장하는 클래스(Skill)에 저장하고 그 클래스를 List에 저장한다.</p>
-<ul>
-<li>ex) List = [{index = 1, skill = A}, {index = 7, skill = Q}, …]</li>
-</ul>
-</li>
-<li><p>선행스킬명을 저장한 List를 다른 List(AllSkillList)에 저장한다.</p>
-<ul>
-<li>전체 스킬을 저장해야 하므로</li>
-<li>ex) AllSkillList = [List1, List2, List3, …]</li>
-</ul>
-</li>
-<li><p>전체 스킬이 저장된 List(AllSkillList)를 돌면서 저장된 List의 Skill의 Index 순으로 정렬 시킨다.</p>
-</li>
-<li><p>정렬된 List를 돌면서 StringBuilder에 스킬명을 담는다.</p>
-</li>
-<li><p>입력받은 선행스킬과 비교하여 일치하면 answer을 증가 시킨다.</p>
-</li>
-<li><p>끝</p>
-</li>
-</ol>
-<hr>
-<h2 id="다른-분의-소스"><a href="#다른-분의-소스" class="headerlink" title="다른 분의 소스"></a>다른 분의 소스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String skill, String[] skill_trees)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    ArrayList&lt;String&gt; skillTrees = <span class="keyword">new</span> ArrayList&lt;String&gt;(Arrays.asList(skill_trees));</span><br><span class="line">    Iterator&lt;String&gt; it = skillTrees.iterator();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (skill.indexOf(it.next().replaceAll(<span class="string">&quot;[^&quot;</span> + skill + <span class="string">&quot;]&quot;</span>, <span class="string">&quot;&quot;</span>)) != <span class="number">0</span>) &#123;</span><br><span class="line">            it.remove();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    answer = skillTrees.size();</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="로직"><a href="#로직" class="headerlink" title="로직"></a>로직</h3><ul>
-<li><p>스킬트리에 있는 스킬들 중 선행스킬이 아닌 녀석들을 없애버리고 선행스킬과 일치하는 지 확인해서 일치하지 않으면 List에서 삭제하고 List의 갯수를 return 하는 것으로 끝을 낸다.</p>
-</li>
-<li><p>ex) “CBD” 인 경우 “BACDE”에서 “C”, “B”, “D”가 아닌 녀석들은 삭제되서 “BCD”가 남지만 “CBD”.indexOf(“BCD”) 할 경우 “CBD”에 “BCD”가 존재 하지 않으므로 1을 return 하고 -1은 0이 아니므로 List에서 삭제된다.</p>
-</li>
-<li><p>“BDA” 인 경우엔 “CBD”.indexOf(“BD”) 할 경우 “CBD”에 존재하지만 1 번째 index에 존재하므로 1을 return 하고 List에서 삭제된다.</p>
-</li>
-<li><p>직관적이고 가독성이 좋다.</p>
-</li>
-<li><p>정규표현식 활용도 굿</p>
-</li>
-</ul>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><h3 id="1-번"><a href="#1-번" class="headerlink" title="1 번"></a>1 번</h3><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (1.40ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (1.37ms, 50.1MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (1.29ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (1.11ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (1.42ms, 50.6MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (1.33ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (1.38ms, 50.5MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (1.38ms, 50.8MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (1.46ms, 52MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (1.26ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (1.36ms, 54.3MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (1.72ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (1.27ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (1.31ms, 52.2MB)</td>
-</tr>
-</tbody></table>
-<h3 id="2-번"><a href="#2-번" class="headerlink" title="2 번"></a>2 번</h3><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (17.73ms, 54.5MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (18.75ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (17.83ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (19.98ms, 54.3MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (20.10ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (20.89ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (20.94ms, 54.3MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (18.68ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (19.60ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (20.75ms, 54.4MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (18.02ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (18.70ms, 54.3MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (18.79ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (19.85ms, 54.8MB)</td>
-</tr>
-</tbody></table>
-<ul>
-<li>2 번의 경우 Arrays.asList(skill_trees) 와 replace 때문에 속도가 살짝 느려진 것으로 판단된다.</li>
-</ul>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;CBD&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;BACDE&quot;</span>, <span class="string">&quot;CBADF&quot;</span>, <span class="string">&quot;AECB&quot;</span>, <span class="string">&quot;BDA&quot;</span>, <span class="string">&quot;ASF&quot;</span>, <span class="string">&quot;BDF&quot;</span>,<span class="string">&quot;CEFD&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="string">&quot;C&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;BACDE&quot;</span>, <span class="string">&quot;CBADF&quot;</span>, <span class="string">&quot;AECB&quot;</span>, <span class="string">&quot;BDA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="string">&quot;CBD&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;C&quot;</span>, <span class="string">&quot;D&quot;</span>, <span class="string">&quot;CB&quot;</span>, <span class="string">&quot;BDA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="string">&quot;AC&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;ABC&quot;</span>, <span class="string">&quot;CA&quot;</span>, <span class="string">&quot;ATEW&quot;</span>, <span class="string">&quot;SFCQTA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="string">&quot;ACHQ&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;TWER&quot;</span>, <span class="string">&quot;FGCHQEA&quot;</span>, <span class="string">&quot;ATEW&quot;</span>, <span class="string">&quot;SFCQTA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="string">&quot;CBDK&quot;</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;CB&quot;</span>, <span class="string">&quot;CXYB&quot;</span>, <span class="string">&quot;BD&quot;</span>, <span class="string">&quot;AECD&quot;</span>, <span class="string">&quot;ABC&quot;</span>, <span class="string">&quot;AEX&quot;</span>, <span class="string">&quot;CDB&quot;</span>, <span class="string">&quot;CBKD&quot;</span>, <span class="string">&quot;IJCB&quot;</span>, <span class="string">&quot;LMDK&quot;</span>&#125;));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>임의로 만든 테스트 케이스 이므로 위 테스트 케이스를 통과해도 시험에서 통과하지 못할 가능성이 있다.</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/04/21/%EC%8A%A4%ED%82%AC%ED%8A%B8%EB%A6%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/04/21/%EC%8A%A4%ED%82%AC%ED%8A%B8%EB%A6%AC/" aria-label=": 프로그래머스: 스킬트리">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1949,7 +1860,7 @@
             </a>
           </li>
         
-        <li class="pagination-number">page 9 of 10</li>
+        <li class="pagination-number">page 9 of 11</li>
     </ul>
 </div>
 

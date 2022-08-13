@@ -176,6 +176,114 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/26/SpringBootApplication-%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D/" aria-label=": @SpringBootApplication의 동작 방식">
+                            @SpringBootApplication의 동작 방식
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-26T11:13:49+09:00">
+	
+		    2020/05/26
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="SpringBootApplication의-동작-방식"><a href="#SpringBootApplication의-동작-방식" class="headerlink" title="@SpringBootApplication의 동작 방식"></a>@SpringBootApplication의 동작 방식</h2><p>Spring-Boot의 Main Application 코드에는 @SpringBootApplication이라는 Annotation이 존재한다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo1Application</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SpringApplication.run(Demo1Application.class, args);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>@SpringBootApplication</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@SpringBootConfiguration</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="meta">@ComponentScan(excludeFilters = &#123; @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),</span></span><br><span class="line"><span class="meta">      @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SpringBootApplication &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>이 Annotation의 주된 내용은 아래 3가지 이다.</p>
+<ul>
+<li>@SpringBootConfiguration</li>
+<li>@EnableAutoConfiguration</li>
+<li>@ComponentScan</li>
+</ul>
+<hr>
+<h2 id="SpringBootConfiguration"><a href="#SpringBootConfiguration" class="headerlink" title="@SpringBootConfiguration"></a>@SpringBootConfiguration</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/springbootconfiguration-annotation">@SpringBootConfiguration</a>은 기존 @Configuration과 마찬가지로 해당 클래스가 @Bean 메서드를 정의되어 있음을 Spring 컨테이너에 알려주는 역할을 한다.</li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/spring-bean-annotations">@Configuration</a> 어노테이션의 대안으로 둘의 차이점은 아래와 같이 설명하고 있다.</li>
+</ul>
+<blockquote><p>@SpringBootConfiguration is an alternative to the @Configuration annotation. The main difference is that @SpringBootConfiguration allows configuration to be automatically located. This can be especially useful for unit or integration tests.</p>
+<footer><strong>baeldung,</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/springbootconfiguration-annotation#2-springbootconfiguration-vs-configuration">Guide to @SpringBootConfiguration in Spring Boot</a></cite></footer></blockquote>
+
+<h2 id="EnableAutoConfiguration"><a href="#EnableAutoConfiguration" class="headerlink" title="@EnableAutoConfiguration"></a>@EnableAutoConfiguration</h2><ul>
+<li>@ComponentScan에서 먼저 스캔해서 Bean으로 등록하고 tomcat등 스프링이 정의한 외부 의존성을 갖는 class들을 스캔해서 Bean으로 등록한다.</li>
+<li>이 때 정의된 class들은 spring-boot-autoconfigure안에 있는 MATE-INF 폴더에 spring.factories라는 파일안에 정의되어 있다.</li>
+<li>이 중에서 spring.boot.enableautoconfiguration을 key로하는 외부 의존성 class들이 존재한다.</li>
+<li>여기에 정의된 모든 class를 가져오는 게 아니라 class에 내부에 정의된 어노테이션에 따라 그 조건에 부합하는 class들만 생성된다.<ul>
+<li>@ConditionalOnProperty, @ConditionalOnClass, @ConditionalOnBean 등등</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableAutoConfiguration &#123;</span><br><span class="line"></span><br><span class="line">   String ENABLED_OVERRIDE_PROPERTY = <span class="string">&quot;spring.boot.enableautoconfiguration&quot;</span>;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="spring-factories-위치"><a href="#spring-factories-위치" class="headerlink" title="spring.factories 위치"></a>spring.factories 위치</h3><p><img src="/images/20200526/spring-boot-autoconfigure.png" alt="spring-boot-autoconfigure"></p>
+<p><img src="/images/20200526/META-INF.png" alt="META-INF"></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"># Auto Configure</span><br><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">org.springframework.boot.autoconfigure.admin.SpringApplicationAdminJmxAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.aop.AopAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.cloud.CloudServiceConnectorsAutoConfiguration,\</span><br><span class="line">org.springframework.boot.autoconfigure.context.ConfigurationPropertiesAutoConfiguration,\</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="번외-내장-Tomcat-Class"><a href="#번외-내장-Tomcat-Class" class="headerlink" title="번외. 내장 Tomcat Class"></a>번외. 내장 Tomcat Class</h3><p>spring.factories 파일 안에 보면</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration,\</span><br></pre></td></tr></table></figure>
+
+<p>가 있고 이 class의 코드를 보면 아래와 같이 tomcatServletWebServerFactoryCustomizer() 메서드를 통해 tomcat을 실행한다는 것을 알 수 있다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Import(&#123; ServletWebServerFactoryAutoConfiguration.BeanPostProcessorsRegistrar.class,</span></span><br><span class="line"><span class="meta">        ServletWebServerFactoryConfiguration.EmbeddedTomcat.class,</span></span><br><span class="line"><span class="meta">        ServletWebServerFactoryConfiguration.EmbeddedJetty.class,</span></span><br><span class="line"><span class="meta">        ServletWebServerFactoryConfiguration.EmbeddedUndertow.class &#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletWebServerFactoryAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletWebServerFactoryCustomizer <span class="title">servletWebServerFactoryCustomizer</span><span class="params">(ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ServletWebServerFactoryCustomizer(serverProperties);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnClass(name = &quot;org.apache.catalina.startup.Tomcat&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TomcatServletWebServerFactoryCustomizer <span class="title">tomcatServletWebServerFactoryCustomizer</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            ServerProperties serverProperties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TomcatServletWebServerFactoryCustomizer(serverProperties);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h2><ul>
+<li>@ComponentScan은 해당 어노테이션 하위에 있는 객체들 중 @Component가 선언된 클래스들을 찾아 Bean으로 등록하는 역할을 한다.</li>
+<li>이 때 꼭 @Component가 아니여도 @Component가 선언되어 있는 어노테이션인 @Service, @Repository, @Controller 등등도 포함된다.</li>
+<li>@EnableAutoConfiguration이 스캔하기 전에 먼저 @ComponentScan이 진행된다.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Service &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Repository &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Controller &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.youtube.com/watch?v=OXILjfY8edw&list=PLgXGHBqgT2TvpJ_p9L_yZKPifgdBOzdVH&index=7">https://www.youtube.com/watch?v=OXILjfY8edw&amp;list=PLgXGHBqgT2TvpJ_p9L_yZKPifgdBOzdVH&amp;index=7</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://seongmun-hong.github.io/springboot/Spring-boot-EnableAutoConfiguration">https://seongmun-hong.github.io/springboot/Spring-boot-EnableAutoConfiguration</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="http://dveamer.github.io/backend/SpringBootAutoConfiguration.html">http://dveamer.github.io/backend/SpringBootAutoConfiguration.html</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/springbootconfiguration-annotation">https://www.baeldung.com/springbootconfiguration-annotation</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="http://wonwoo.ml/index.php/post/20">http://wonwoo.ml/index.php/post/20</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/26/SpringBootApplication-%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/26/SpringBootApplication-%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D/" aria-label=": @SpringBootApplication의 동작 방식">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/25/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 소수 찾기(완전 탐색)">
                             프로그래머스: 소수 찾기(완전 탐색)
                         </a>
@@ -1400,148 +1508,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/" aria-label=": 프로그래머스: 전화번호 목록">
-                            프로그래머스: 전화번호 목록
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-12T15:53:47+09:00">
-	
-		    2020/05/12
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42577">https://programmers.co.kr/learn/courses/30/lessons/42577</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">solution</span><span class="params">(String[] phone_book)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = phone_book.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (phone_book[j].startsWith(phone_book[i])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> answer = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li><p>배열을 전부 돌면서 해당 인덱스로 시장하는 단어가 있는 지 확인함</p>
-</li>
-<li><p>끝</p>
-</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (0.78ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (0.52ms, 50.1MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (0.65ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (0.51ms, 54.6MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (0.55ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (0.66ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (0.87ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (0.77ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (0.64ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (0.57ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (0.65ms, 52.8MB)</td>
-</tr>
-</tbody></table>
-<ul>
-<li>효율성 테스트</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (1.96ms, 60.3MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (2.14ms, 59.8MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertFalse(test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;119&quot;</span>, <span class="string">&quot;97674223&quot;</span>, <span class="string">&quot;1195524421&quot;</span>&#125; ));</span><br><span class="line">assertTrue(test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;123&quot;</span>,<span class="string">&quot;456&quot;</span>,<span class="string">&quot;789&quot;</span>&#125; ));</span><br><span class="line">assertFalse(test.solution(<span class="keyword">new</span> String[] &#123;<span class="string">&quot;12&quot;</span>,<span class="string">&quot;123&quot;</span>,<span class="string">&quot;1235&quot;</span>,<span class="string">&quot;567&quot;</span>,<span class="string">&quot;88&quot;</span>&#125; ));</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><ul>
-<li>사실 당연히 시간 초과로 안될 줄 알았는데 넘어가서 놀랐다.</li>
-<li>찾아보니 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://lmgtfy.com/?q=trie+%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0">Trie 자료구조</a>로 해결하길 바래서 카테고리가 해쉬 인 듯 싶다.</li>
-<li>하지만 쉽게 풀 수 있는 문제를 어렵게 풀 이유가 없으니 이 문제는 이렇게 마무리 하려한다.</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/" aria-label=": 프로그래머스: 전화번호 목록">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1560,7 +1526,7 @@
             </a>
           </li>
         
-        <li class="pagination-number">page 8 of 10</li>
+        <li class="pagination-number">page 8 of 11</li>
     </ul>
 </div>
 

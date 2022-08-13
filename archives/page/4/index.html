@@ -177,6 +177,79 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/" aria-label=": 백준 2751번: 수 정렬하기 2">
+                            백준 2751번: 수 정렬하기 2
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-12T19:10:20+09:00">
+	
+		    2020/11/12
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/2751">https://www.acmicpc.net/problem/2751</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in))) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> amount = Integer.parseInt(br.readLine());</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; amount; i++) &#123;</span><br><span class="line">            list.add(Integer.parseInt(br.readLine()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Collections.sort(list);</span><br><span class="line"></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i : list) &#123;</span><br><span class="line">            sb.append(i).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(sb);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Arrays-sort-int-vs-Arrays-sort-Object-and-Collections-sort-List"><a href="#Arrays-sort-int-vs-Arrays-sort-Object-and-Collections-sort-List" class="headerlink" title="Arrays.sort(int[]) vs Arrays.sort(Object[]) and Collections.sort(List)"></a>Arrays.sort(int[]) vs Arrays.sort(Object[]) and Collections.sort(List)</h2><h3 id="Arrays-sort-int"><a href="#Arrays-sort-int" class="headerlink" title="Arrays.sort(int[])"></a>Arrays.sort(int[])</h3><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/util/Arrays.html#sort-byte:A-">DualPivotQuicksort</a>라는 피벗을 두 개를 정해 구간을 3개로 하는 퀵소트를 사용한다.</li>
+<li>API에 따르면 이 때 평균 O(n log(n)) 성능을 제공하며 일반적으로 기존 (one-pivot) 쿽소트 보다 빠르다고 한다.</li>
+<li>하지만 여전히 최악의 경우 O(n^2)인 것은 여전하다.</li>
+</ul>
+<h3 id="Arrays-sort-Object-and-Collections-sort-List"><a href="#Arrays-sort-Object-and-Collections-sort-List" class="headerlink" title="Arrays.sort(Object[]) and Collections.sort(List)"></a>Arrays.sort(Object[]) and Collections.sort(List)</h3><ul>
+<li>java.util.Arrays.useLegacyMergeSort 설정에 따라 true면 legacyMergeSort를 통해 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://ko.wikipedia.org/wiki/%ED%95%A9%EB%B3%91_%EC%A0%95%EB%A0%AC">Merge sort</a>로 정렬하고 false면 TimeSort를 통해 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://en.wikipedia.org/wiki/Timsort">Tim sort</a>로 정렬한다.</li>
+<li>이 때 기본적으로 java.util.Arrays.useLegacyMergeSort 설정은 false로 지정되어 있다.</li>
+<li>Tim sort는 Insertion sort와 Merge sort를 결합하여 만든 정렬로 최선의 경우 O(n), 평균적으로 O(n log(n)), 최악의 경우 O(n log(n))의 성능을 제공한다.</li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://d2.naver.com/helloworld/0315536">Tim sort에 대한 자세한 설명</a></li>
+</ul>
+<h2 id="java-util-Arrays-useLegacyMergeSort-확인"><a href="#java-util-Arrays-useLegacyMergeSort-확인" class="headerlink" title="java.util.Arrays.useLegacyMergeSort 확인"></a>java.util.Arrays.useLegacyMergeSort 확인</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">LegacyMergeSort</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> userRequested =</span><br><span class="line">            java.security.AccessController.doPrivileged(</span><br><span class="line">                <span class="keyword">new</span> sun.security.action.GetBooleanAction(</span><br><span class="line">                    <span class="string">&quot;java.util.Arrays.useLegacyMergeSort&quot;</span>)).booleanValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>new sun.security.action.GetBooleanAction(“java.util.Arrays.useLegacyMergeSort”)).booleanValue(); 를 sysout으로 출력해보면 false가 return 되는 것을 확인할 수 있다.</li>
+</ul>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/%EA%B2%B0%EA%B3%BC.PNG" class title="백준 2751번: 수 정렬하기 2 순서대로 Arrays.sort(int[]), Arrays.sort(Object[]), Collections.sort(List)의 결과 ">
+<hr>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/" aria-label=": 백준 2751번: 수 정렬하기 2">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%B0%A9%EA%B8%88-%EA%B7%B8-%EA%B3%A1/" aria-label=": 프로그래머스: 방금 그 곡">
                             프로그래머스: 방금 그 곡
                         </a>
@@ -1220,176 +1293,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/08/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%95%95%EC%B6%95/" aria-label=": 프로그래머스: 압축">
-                            프로그래머스: 압축
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-08-06T18:11:42+09:00">
-	
-		    2020/08/06
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17684">https://programmers.co.kr/learn/courses/30/lessons/17684</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CAPITAL_A = <span class="number">65</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Character LAST_INIT_ALPHABET = <span class="string">&#x27;Z&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(String msg) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] answer = getDictionaryIndex(msg.toCharArray(), initIndexMap());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Map&lt;String, Integer&gt; <span class="title">initIndexMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Integer&gt; indexMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    Character start = CAPITAL_A;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (start &lt;= LAST_INIT_ALPHABET) &#123;</span><br><span class="line"></span><br><span class="line">        indexMap.put(String.valueOf(start), i);</span><br><span class="line"></span><br><span class="line">        ++start;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> indexMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] getDictionaryIndex(<span class="keyword">char</span>[] charArray, Map&lt;String, Integer&gt; indexMap) &#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> arrayLength = charArray.length;</span><br><span class="line">    <span class="keyword">int</span> lastIndex = indexMap.get(String.valueOf(LAST_INIT_ALPHABET));</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; answer = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i &lt; arrayLength) &#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> jump = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; arrayLength; j++) &#123;</span><br><span class="line">            sb.append(charArray[j]);</span><br><span class="line"></span><br><span class="line">            String key = sb.toString();</span><br><span class="line">            <span class="keyword">if</span> (indexMap.containsKey(key)) &#123;</span><br><span class="line">                value = indexMap.get(key);</span><br><span class="line">                jump++;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (j +<span class="number">1</span> == arrayLength) &#123;</span><br><span class="line">                    answer.add(value);</span><br><span class="line">                    i += jump;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            answer.add(value);</span><br><span class="line">            i += jump;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!indexMap.containsKey(sb.toString())) &#123;</span><br><span class="line">            indexMap.put(sb.toString(), ++lastIndex);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sb.setLength(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer.stream().mapToInt(index -&gt; index).toArray();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>A부터 Z를 Key로 하는 Map을 만든다.</li>
-<li>압축 할 문자열의 길이만큼 반복한다.</li>
-<li>돌면서 현재 문자가 Map에 key에 포함되는지 확인한다.</li>
-<li>이미 포함되어 있으면(처음엔 A~Z) 해당 문자의 index를 뽑아내기 위해 value를 꺼내서 저장한다.</li>
-<li>이번 문자는 포함되어 있으므로 그 다음 문자열의 index까지 점프하기 위해 jump 변수를 증가시킨다.</li>
-<li>현재 문자가 문자열의 마지막 문자라면 더 이상 사전에서 검색 할 수 없으므로,</li>
-<li>문자열의 index 즉, value를 List에 저장하고 i를 jump 만큼 더해서 문자열의 index를 증가시킨다.</li>
-<li>이미 사전에 있는 문자이므로 continue해서 끝내지 않고 반복문을 올라가서 문자를 더한다.<ol>
-<li>A가 포함되어 있으면 A 뒤문자인 B를 더해서 AB가 존재하는지 찾기 위해</li>
-</ol>
-</li>
-<li>사전에 포함되어 있지 않는다면(Map에 key로 존재하지 않는다면)</li>
-<li>이전에 검색했던 문자의 index를 저장하고 i를 jump 시킨 후 반복문을 벗어난다.</li>
-<li>그 후 사전에 존재 하지 않았던 문자를 사전에 등록, Map에 key, lastIndex에서 + 1해서 Map에 추가하고, 문자를 저장했던 StringBuilder를 초기화 시킨다.</li>
-<li>문자열 모두 검색 할 때까지 반복한다.</li>
-<li>사전에서 검색한 index를 저장한 List를 array로 변경한 후 return 한다.</li>
-<li>끝.</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (6.64ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (6.30ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (5.29ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (9.62ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (5.94ms, 51.1MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (10.26ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (7.65ms, 51MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (8.38ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (6.01ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (11.33ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (8.25ms, 51.6MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (8.79ms, 51.3MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (9.26ms, 53.6MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (9.22ms, 51.5MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (10.26ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (8.91ms, 53.5MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (10.89ms, 53.2MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (7.93ms, 53.2MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (8.32ms, 53.1MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (8.10ms, 50.8MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">11</span>, <span class="number">1</span>, <span class="number">27</span>, <span class="number">15</span>&#125;, test.solution(<span class="string">&quot;KAKAO&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">20</span>, <span class="number">15</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">15</span>, <span class="number">18</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">27</span>, <span class="number">29</span>, <span class="number">31</span>, <span class="number">36</span>, <span class="number">30</span>, <span class="number">32</span>, <span class="number">34</span>&#125;, test.solution(<span class="string">&quot;TOBEORNOTTOBEORTOBEORNOT&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">27</span>, <span class="number">29</span>, <span class="number">28</span>, <span class="number">31</span>, <span class="number">30</span>&#125;, test.solution(<span class="string">&quot;ABABABABABABABAB&quot;</span>));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">20</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">20</span>, <span class="number">27</span>, <span class="number">29</span>, <span class="number">9</span>, <span class="number">19</span>, <span class="number">33</span>, <span class="number">31</span>, <span class="number">30</span>, <span class="number">28</span>, <span class="number">20</span>, <span class="number">33</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">39</span>, <span class="number">19</span>, <span class="number">41</span>, <span class="number">43</span>, <span class="number">36</span>, <span class="number">9</span>, <span class="number">39</span>, <span class="number">46</span>, <span class="number">38</span>, <span class="number">47</span>, <span class="number">34</span>, <span class="number">19</span>, <span class="number">36</span>, <span class="number">52</span>, <span class="number">45</span>, <span class="number">40</span>, <span class="number">42</span>, <span class="number">35</span>, <span class="number">38</span>, <span class="number">48</span>, <span class="number">62</span>, <span class="number">54</span>, <span class="number">51</span>, <span class="number">61</span>, <span class="number">53</span>, <span class="number">55</span>, <span class="number">66</span>, <span class="number">57</span>, <span class="number">44</span>, <span class="number">59</span>, <span class="number">64</span>, <span class="number">32</span>, <span class="number">49</span>, <span class="number">60</span>, <span class="number">29</span>, <span class="number">52</span>, <span class="number">76</span>, <span class="number">37</span>, <span class="number">32</span>, <span class="number">71</span>, <span class="number">43</span>, <span class="number">70</span>, <span class="number">47</span>, <span class="number">75</span>, <span class="number">73</span>, <span class="number">80</span>, <span class="number">43</span>, <span class="number">79</span>, <span class="number">56</span>, <span class="number">72</span>, <span class="number">84</span>, <span class="number">61</span>, <span class="number">86</span>, <span class="number">68</span>, <span class="number">81</span>, <span class="number">90</span>, <span class="number">69</span>, <span class="number">92</span>, <span class="number">72</span>, <span class="number">85</span>, <span class="number">63</span>, <span class="number">96</span>, <span class="number">89</span>, <span class="number">87</span>, <span class="number">91</span>, <span class="number">83</span>, <span class="number">101</span>, <span class="number">94</span>, <span class="number">103</span>, <span class="number">65</span>, <span class="number">97</span>, <span class="number">106</span>, <span class="number">99</span>, <span class="number">108</span>, <span class="number">50</span>, <span class="number">74</span>, <span class="number">111</span>, <span class="number">77</span>, <span class="number">66</span>, <span class="number">98</span>, <span class="number">81</span>, <span class="number">70</span>, <span class="number">93</span>, <span class="number">118</span>, <span class="number">117</span>, <span class="number">88</span>, <span class="number">33</span>, <span class="number">122</span>, <span class="number">116</span>, <span class="number">58</span>, <span class="number">127</span>, <span class="number">62</span>, <span class="number">127</span>, <span class="number">78</span>, <span class="number">114</span>, <span class="number">123</span>, <span class="number">100</span>, <span class="number">133</span>, <span class="number">95</span>, <span class="number">112</span>, <span class="number">105</span>, <span class="number">104</span>, <span class="number">132</span>, <span class="number">145</span>, <span class="number">87</span>, <span class="number">134</span>, <span class="number">130</span>, <span class="number">129</span>, <span class="number">137</span>, <span class="number">131</span>, <span class="number">82</span>, <span class="number">79</span>, <span class="number">148</span>, <span class="number">151</span>, <span class="number">150</span>, <span class="number">144</span>, <span class="number">153</span>, <span class="number">159</span>, <span class="number">102</span>, <span class="number">135</span>, <span class="number">121</span>, <span class="number">156</span>, <span class="number">159</span>, <span class="number">125</span>, <span class="number">75</span>, <span class="number">162</span>, <span class="number">113</span>, <span class="number">158</span>, <span class="number">124</span>, <span class="number">109</span>, <span class="number">126</span>, <span class="number">149</span>, <span class="number">67</span>, <span class="number">142</span>, <span class="number">146</span>, <span class="number">166</span>, <span class="number">155</span>, <span class="number">158</span>, <span class="number">174</span>, <span class="number">171</span>, <span class="number">140</span>, <span class="number">119</span>, <span class="number">128</span>, <span class="number">175</span>, <span class="number">120</span>, <span class="number">138</span>, <span class="number">152</span>, <span class="number">161</span>, <span class="number">174</span>, <span class="number">181</span>, <span class="number">139</span>, <span class="number">154</span>, <span class="number">141</span>, <span class="number">187</span>, <span class="number">143</span>, <span class="number">176</span>, <span class="number">165</span>, <span class="number">172</span>, <span class="number">167</span>, <span class="number">191</span>, <span class="number">164</span>, <span class="number">182</span>, <span class="number">194</span>, <span class="number">184</span>, <span class="number">136</span>, <span class="number">170</span>, <span class="number">193</span>, <span class="number">147</span>, <span class="number">86</span>&#125;, test.solution(<span class="string">&quot;THATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITISTHATTHATISISTHATTHATISNOTISNOTISTHATITITIS&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><ul>
-<li>코드의 퀄리티가 썩 마음에 들지 않는다.</li>
-<li>시간 날 때 리팩토링을 꼭 해야 할 듯 싶다.</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/08/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%95%95%EC%B6%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/08/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%95%95%EC%B6%95/" aria-label=": 프로그래머스: 압축">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1408,7 +1311,7 @@
             </a>
           </li>
         
-        <li class="pagination-number">page 4 of 10</li>
+        <li class="pagination-number">page 4 of 11</li>
     </ul>
 </div>
 
