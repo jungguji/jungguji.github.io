@@ -227,10 +227,11 @@
 
 <br>
 
-
-<p>설정 하다보면 아래처럼 익명 사용자도 접근하게 할 것인지 물어보는데 당연히도 수정 할 수 있으므로 적당히 선택해주면 된다.</p>
 <img src="/2022/08/07/Nexus%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94/%EC%9D%B5%EB%AA%85%EC%9C%A0%EC%A0%80_%EC%A0%91%EA%B7%BC.png" class>
 
+<ul>
+<li>설정 하다보면 아래처럼 익명 사용자도 접근하게 할 것인지 물어보는데 당연히도 수정 할 수 있으므로 적당히 선택해주면 된다.</li>
+</ul>
 <br>
 
 <hr>
@@ -417,6 +418,8 @@
 
 <img src="/2022/08/07/Nexus%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%205.png" class>
 
+<br>
+
 <p>이 실행 가능한 jar를 일반적인 jar로 만들어서 repository에 배포하기 위해서 모듈화하는 프로젝트의 pom.xml에서 아래 설정을 제거 해주고 다른 dependency들에게 각각 version을 지정한 후 maven compiler plugin도 알맞게 추가해주면 되는데</p>
 <p>이 때 우리가 삭제한 spring-boot-parent에 포함된 의존성들은 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent/2.7.1">여기서</a> 확인 할 수 있으므로, 필요한 것이나 각각 dependency들을 무슨 버전으로 지정해야 할 지 모르겠다면 여기서 확인 후 추가해주면 된다.</p>
 <img src="/2022/08/07/Nexus%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%20%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0%206.png" class>
@@ -439,8 +442,6 @@
 <p>이는 우리가 추가한 라이브러리의 Entithy가 component scan에 인식되지 않아서 Bean context에 등록되지 않았기 때문에 발생하는 에러이다.</p>
 <p>왜냐면, spring boot는 기본적으로 <a href="https://jungguji.github.io/2020/05/26/SpringBootApplication-%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D/">@SpringBootApplication</a>안에 있는 @EnableAutoConfiguration으로 스프링이 정의한  외부 의존성들과 @ComponentScan으로 해당 어노테이션 하위 패키지에 있는 클래스들을 탐색해서 Bean으로 등록하는데,</p>
 <p>우리가 추가한 라이브러리는 둘 중 어느 위치에도 존재하지 않으므로 당연히 Bean에 등록 될 수없는 것이다.</p>
-<br>
-
 <h4 id="라이브러리안에-있는-Entity-Bean-context-등록하기"><a href="#라이브러리안에-있는-Entity-Bean-context-등록하기" class="headerlink" title="라이브러리안에 있는 Entity Bean context 등록하기"></a>라이브러리안에 있는 Entity Bean context 등록하기</h4><p>여러 방법이 있겠지만, 필자는 SessionFactory Bean을 따로 만들어서 우리가 만든 Entity가 있는 라이브러리의 패키지까지 스캔 하도록 추가하는 방식을 사용하였다.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> LocalSessionFactoryBean <span class="title">entityManagerFactory</span><span class="params">(DataSource dataSource)</span> </span>&#123;</span><br><span class="line">    LocalSessionFactoryBean localSessionFactory = <span class="keyword">new</span> LocalSessionFactoryBean();</span><br><span class="line">    localSessionFactory.setDataSource(dataSource);</span><br><span class="line">    localSessionFactory</span><br><span class="line">        .setPackagesToScan(<span class="string">&quot;com.junggu.ji.usenexus&quot;</span>, <span class="string">&quot;com.junggu.ji.demo&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> localSessionFactory;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
