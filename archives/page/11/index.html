@@ -177,6 +177,87 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/03/28/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 소수 찾기">
+                            프로그래머스: 소수 찾기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-03-28T18:08:04+09:00">
+	
+		    2020/03/28
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/12921">https://programmers.co.kr/learn/courses/30/lessons/12921</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span>[] prime = <span class="keyword">new</span> <span class="keyword">boolean</span>[n+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    prime[<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">    prime[<span class="number">1</span>] = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; (i * i) &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!prime[i]) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i * <span class="number">2</span>; j &lt;= n; j += i) &#123;</span><br><span class="line">                prime[j] = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">boolean</span> is : prime) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!is) &#123;</span><br><span class="line">            answer++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ul>
+<li>에라토스테네스의 체로 해결</li>
+</ul>
+<p><img src="/images/Sieve_of_Eratosthenes_animation.gif" alt="Sieve_of_Eratosthenes_animation"></p>
+<ol>
+<li>n까지의 숫자중 0과 1은 소수가 아니므로 true 할당</li>
+<li>2부터 루트n 까지 반복하면서 배수들에 true 할당</li>
+<li>소수 판별한 배열 prime을 loop 돌면서 false 인 경우에만 갯수 추가</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="부연-설명"><a href="#부연-설명" class="headerlink" title="부연 설명"></a>부연 설명</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; (i * i) &lt;= n; i++)</span><br></pre></td></tr></table></figure>
+
+<p>입력받은 수 n이 합성수 인 경우 $$n = a * b​$$ 로 나타낼 수 있다.<br>이 때 a와 b 중 큰거나 같은 수를 a, 작거나 같은 수를 b라고 가정하면 b가 a보다 작으므로 $$ a * a &gt;= a * b $$ 이고<br>$$ n = a * b $$ 이므로, 큰 수 a의 제곱일 경우 $$ a^2&gt;=n $$ 처럼 된다.<br>이를 치환하면 $$ a&gt;=\sqrt{n} $$ 이 되므로 a의 최솟값은 $$ \sqrt{n} $$ 이 된다.<br>그리고 b는 $$ a &gt;= b $$이므로 b의 최댓값은 $$ \sqrt{n} $$ 이 된다.<br>고로 n이 소수가 아닌 합성수라면 a의 와 b의 합성수로 이루어 짐을 알 수 있으므로,  $$ \sqrt{n} $$ 까지만 반복하면 소수임을 판별할 수 있다.</p>
+<ul>
+<li>ex) 입력받은 수 n이 50일 경우 $$ \sqrt{50} $$ = 7.071067811865475‬‬….이므로, 7.071067811865475‬‬… 을 기준으로 50의 약수 {1,2,5,10,25,50}을 나누면 b = {1, 2, 5}, a = {10, 25, 50} 이므로 b만 검사하면 50이 소수 인지 아닌지 알 수 있다.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = i * <span class="number">2</span>; j &lt;= n; j += i)</span><br></pre></td></tr></table></figure>
+
+<p>원래는 i보다 작은 수인 경우 이미 이전에 작은 수 * i에서 삭제된 상태이므로 i * i인 게 맞으나,<br>i의 값이 너무 클 경우 문제가 될 수 있으므로 $$ i * 2 $$ 로 설정한다.<br>물론 이 문제에선 100만 까지로 한정되어 있으므로 $$ i * i $$ 를 해도 문제는 없다.</p>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://ko.wikipedia.org/wiki/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98_%EC%B2%B4">https://ko.wikipedia.org/wiki/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98_%EC%B2%B4</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.naver.com/loveshurt/221774410486">https://blog.naver.com/loveshurt/221774410486</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://makedotworld.tistory.com/13">https://makedotworld.tistory.com/13</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/03/28/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/03/28/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 소수 찾기">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/03/26/%EB%B0%B1%EC%A4%80-11399%EB%B2%88-ATM/" aria-label=": 백준 11399번: ATM">
                             백준 11399번: ATM
                         </a>

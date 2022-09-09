@@ -177,6 +177,191 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/16/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B4%84%ED%98%B8-%EB%B3%80%ED%99%98/" aria-label=": 프로그래머스: 괄호 변환">
+                            프로그래머스: 괄호 변환
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-16T17:12:52+09:00">
+	
+		    2020/06/16
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/60058">https://programmers.co.kr/learn/courses/30/lessons/60058</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Character LEFT = <span class="string">&#x27;(&#x27;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Character RIGHT = <span class="string">&#x27;)&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">solution</span><span class="params">(String p)</span> </span>&#123;</span><br><span class="line">    String answer = getDivide(p);</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getDivide</span><span class="params">(String w)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (w.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> w;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String[] uAndv = getUAndV(w);</span><br><span class="line">    String u = uAndv[<span class="number">0</span>];</span><br><span class="line">    String v = uAndv[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isPerfectBracket(u)) &#123;</span><br><span class="line">        <span class="keyword">return</span> createPerfectBracket(u, v);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> u + getDivide(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String[] getUAndV(String w) &#123;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">char</span>[] tochar = w.toCharArray();</span><br><span class="line">    Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">char</span> popChar = (tochar[<span class="number">0</span>] == LEFT) ? RIGHT : LEFT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> ch : tochar) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ch == popChar) &#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">            sb.append(popChar);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sb.append(stack.push(ch));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (stack.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String[] uAndv = <span class="keyword">new</span> String[<span class="number">2</span>];</span><br><span class="line">    uAndv[<span class="number">0</span>] = sb.toString();</span><br><span class="line">    uAndv[<span class="number">1</span>] = <span class="keyword">new</span> String(tochar, uAndv[<span class="number">0</span>].length(), tochar.length - uAndv[<span class="number">0</span>].length());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> uAndv;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isPerfectBracket</span><span class="params">(String u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; u.length(); i++) &#123;</span><br><span class="line">        sum += (u.charAt(i) == LEFT) ? +<span class="number">1</span> : -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">createPerfectBracket</span><span class="params">(String u, String v)</span> </span>&#123;</span><br><span class="line">    StringBuilder str = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    str.append(LEFT);</span><br><span class="line">    str.append(getDivide(v));</span><br><span class="line">    str.append(RIGHT);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] newU = u.substring(<span class="number">1</span>, u.length() -<span class="number">1</span>).toCharArray();</span><br><span class="line">    str.append(getChange(newU));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> str.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">char</span>[] getChange(<span class="keyword">char</span>[] newU) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; newU.length; i++) &#123;</span><br><span class="line">        newU[i] = (newU[i] == LEFT) ? RIGHT : LEFT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newU;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ul>
+<li>문제에 있는 그대로 작성하면 됨</li>
+</ul>
+<ol>
+<li>입력이 빈 문자열인 경우, 빈 문자열을 반환합니다.</li>
+<li>문자열 w를 두 “균형잡힌 괄호 문자열” u, v로 분리합니다.<br>단, u는 “균형잡힌 괄호 문자열”로 더 이상 분리할 수 없어야 하며, v는 빈 문자열이 될 수 있습니다.</li>
+<li>문자열 u가 “올바른 괄호 문자열” 이라면 문자열 v에 대해 1단계부터 다시 수행합니다.<ol>
+<li>수행한 결과 문자열을 u에 이어 붙인 후 반환합니다.</li>
+</ol>
+</li>
+<li>문자열 u가 “올바른 괄호 문자열”이 아니라면 아래 과정을 수행합니다.<ol>
+<li>빈 문자열에 첫 번째 문자로 ‘(‘를 붙입니다.</li>
+<li>문자열 v에 대해 1단계부터 재귀적으로 수행한 결과 문자열을 이어 붙입니다.</li>
+<li>‘)’를 다시 붙입니다.</li>
+<li>u의 첫 번째와 마지막 문자를 제거하고, 나머지 문자열의 괄호 방향을 뒤집어서 뒤에 붙입니다.</li>
+<li>생성된 문자열을 반환합니다.</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (32.01ms, 55.5MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.42ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (30.81ms, 55.3MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (30.93ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (30.16ms, 55.5MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (29.55ms, 55.3MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (35.55ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (29.41ms, 55.2MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (28.63ms, 53.6MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (30.95ms, 54.9MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (30.81ms, 55.9MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (28.73ms, 55.3MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (30.50ms, 55.7MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (38.62ms, 53.5MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (31.72ms, 53.5MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (31.20ms, 55MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (30.63ms, 55.2MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (33.95ms, 55.4MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (31.25ms, 53.6MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (33.02ms, 55.5MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (33.70ms, 53.5MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (33.13ms, 53.5MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (32.43ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (31.24ms, 55.9MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (33.63ms, 56MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;(()())()&quot;</span>, test.solution(<span class="string">&quot;(()())()&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()&quot;</span>, test.solution(<span class="string">&quot;)(&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()(())()&quot;</span>, test.solution(<span class="string">&quot;()))((()&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;(((())))&quot;</span>, test.solution(<span class="string">&quot;)()()()(&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()()((()))&quot;</span>, test.solution(<span class="string">&quot;))()))((((&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()&quot;</span>, test.solution(<span class="string">&quot;()&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()()()()()()((()))&quot;</span>, test.solution(<span class="string">&quot;()()()()()()((()))&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;((((())())))()(())&quot;</span>, test.solution(<span class="string">&quot;((((())()))))))(((&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;(((()())())())((()))&quot;</span>, test.solution(<span class="string">&quot;))))((((((()())()))(&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/16/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B4%84%ED%98%B8-%EB%B3%80%ED%99%98/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/16/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B4%84%ED%98%B8-%EB%B3%80%ED%99%98/" aria-label=": 프로그래머스: 괄호 변환">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%91/" aria-label=": 프로그래머스: 탑">
                             프로그래머스: 탑
                         </a>
@@ -1018,77 +1203,6 @@
         </div>
         
             <a href="/2020/05/30/Spring-Controller-Junit-Test/" aria-label=": Spring Controller Junit으로 Test하기">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/26/%EB%B0%B1%EC%A4%80-11047%EB%B2%88-%EB%8F%99%EC%A0%84-0/" aria-label=": 백준 11047번: 동전 0">
-                            백준 11047번: 동전 0
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-26T11:53:32+09:00">
-	
-		    2020/05/26
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/11047">https://www.acmicpc.net/problem/11047</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    String coinAndMoney = br.readLine();</span><br><span class="line"></span><br><span class="line">    String[] coinAndMoneyArray = coinAndMoney.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> coinAmount = Integer.parseInt(coinAndMoneyArray[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">long</span> money = Long.parseLong(coinAndMoneyArray[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span>[] coinCategory = getCoincategory(coinAmount, br);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> answer = solution(coinAmount, money, coinCategory);</span><br><span class="line"></span><br><span class="line">    System.out.println(answer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span>[] getCoincategory(<span class="keyword">int</span> coinAmount, BufferedReader br) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="keyword">long</span>[] result = <span class="keyword">new</span> <span class="keyword">long</span>[coinAmount];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; coinAmount; i++) &#123;</span><br><span class="line"></span><br><span class="line">        result[i] = Integer.parseInt(br.readLine());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">long</span> money, <span class="keyword">long</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (array[i] &gt; money) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        answer += (money / array[i]);</span><br><span class="line">        money %= array[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (money == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>돈의 종류 만큼 돌면서 큰 수 부터 가지고 있는 돈을 나눔</li>
-<li>돈의 가치가 더 큰 경우엔 나눌 수 없으므로 continue</li>
-<li>돈으로 갖고 있는 돈을 나눈 값을 더하고 남은 값은 다시 나눠야 하므로 money에 다시 저장함</li>
-<li>momeny가 0이 되면 나눌 돈이 없는 것이므로 사용한 돈 갯수 return</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p><img src="/images/20200526/11047.PNG" alt="결과"></p>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span>[] array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">100</span>,<span class="number">500</span>,<span class="number">1000</span>,<span class="number">5000</span>,<span class="number">10000</span>,<span class="number">50000</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">6</span>, test.solution(<span class="number">10</span>, <span class="number">4200</span>, array));</span><br><span class="line">assertEquals(<span class="number">12</span>, test.solution(<span class="number">10</span>, <span class="number">4790</span>, array));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">10</span>, <span class="number">50000</span>, array));</span><br><span class="line">assertEquals(<span class="number">2000</span>, test.solution(<span class="number">10</span>, <span class="number">100000000</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="number">1</span>, <span class="number">2</span>, array));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">1</span>, <span class="number">1</span>, array));</span><br><span class="line">assertEquals(<span class="number">100000000</span>, test.solution(<span class="number">1</span>, <span class="number">100000000</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>, <span class="number">5</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">2</span>, <span class="number">5</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>, <span class="number">3</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="number">2</span>, <span class="number">4</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>, <span class="number">100</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">2</span>, <span class="number">100</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">5000</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">1</span>, <span class="number">5000</span>, array));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>나머지는 입력 값 처리이고 solution 메서드가 주요 로직이므로 solution 메서드를 테스트</li>
-<li>이렇게 테스트 할 경우 입력처리 때문에 에러가 발생 할 수 있으니 꼭 java application으로 함께 테스트 해볼 것</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/26/%EB%B0%B1%EC%A4%80-11047%EB%B2%88-%EB%8F%99%EC%A0%84-0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/26/%EB%B0%B1%EC%A4%80-11047%EB%B2%88-%EB%8F%99%EC%A0%84-0/" aria-label=": 백준 11047번: 동전 0">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

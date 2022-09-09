@@ -1,0 +1,495 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="저장하고 까먹자">
+    <title>Neither BindingResult nor plain target object for bean name command available as request attribute - 저장하고 까먹자</title>
+    <meta name="author" content="Junggu Ji">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"발생 경위기존 Spring 4.3.3을 사용하던 프로젝트를 5.3.22으로 업그레이드 이후 발생하였다.\n에러로그 전체123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name &#x27;command&#x27; available as request attribute\tat org.springframework.web.servlet.support.BindStatus.&lt;init&gt;(BindStatus.java:153)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:178)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:199)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:164)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:123)\tat org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:460)\tat org.springframework.web.servlet.tags.form.SelectTag.writeTagContent(SelectTag.java:405)\tat org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:87)\tat org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:83)\tat org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspService(new_jsp.java:263)\tat org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\tat org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:476)\tat org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:386)\tat org.apache.jasper.servlet.JspServlet.service(JspServlet.java:330)\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:728)\tat org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:591)\tat org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:527)\tat org.apache.jasper.runtime.JspRuntimeLibrary.include(JspRuntimeLibrary.java:868)\tat org.apache.jasper.runtime.PageContextImpl.doInclude(PageContextImpl.java:679)\tat org.apache.jasper.runtime.PageContextImpl.include(PageContextImpl.java:673)\tat org.apache.tiles.request.jsp.JspRequest.doInclude(JspRequest.java:123)\tat org.apache.tiles.request.AbstractViewRequest.dispatch(AbstractViewRequest.java:47)\tat org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:45)\tat org.apache.tiles.request.render.ChainedDelegateRenderer.render(ChainedDelegateRenderer.java:68)\tat org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)\tat org.apache.tiles.template.InsertAttributeModel.renderAttribute(InsertAttributeModel.java:188)\tat org.apache.tiles.template.InsertAttributeModel.execute(InsertAttributeModel.java:132)\tat org.apache.tiles.jsp.taglib.InsertAttributeTag.doTag(InsertAttributeTag.java:299)\tat org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspx_meth_t_005finsertAttribute_005f4(layout_jsp.java:10881)\tat org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspService(layout_jsp.java:1242)\tat org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\tat org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:476)\tat org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:386)\tat org.apache.jasper.servlet.JspServlet.service(JspServlet.java:330)\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:728)\tat org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:470)\tat org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:395)\tat org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:316)\tat org.apache.tiles.request.servlet.ServletRequest.forward(ServletRequest.java:265)\tat org.apache.tiles.request.servlet.ServletRequest.doForward(ServletRequest.java:228)\tat org.apache.tiles.request.AbstractClientRequest.dispatch(AbstractClientRequest.java:57)\tat org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:45)\tat org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:259)\tat org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:397)\tat org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:238)\tat org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:221)\tat org.apache.tiles.renderer.DefinitionRenderer.render(DefinitionRenderer.java:59)\tat org.springframework.web.servlet.view.tiles3.TilesView.renderMergedOutputModel(TilesView.java:147)\tat org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316)\tat org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1404)\tat org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1148)\tat org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1087)\tat org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)\tat org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:634)\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:741)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.apache.catalina.filters.ExpiresFilter.doFilter(ExpiresFilter.java:1228)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter.doFilterInternal(OpenEntityManagerInViewFilter.java:186)\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94)\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)\tat org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:146)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:154)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:199)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:57)\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:50)\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\tat org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)\tat org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)\tat org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)\tat org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)\tat org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)\tat org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199)\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)\tat org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)\tat org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:678)\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)\tat org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:609)\tat org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)\tat org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:810)\tat org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1623)\tat org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\tat org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)\tat java.base/java.lang.Thread.run(Thread.java:829)\n\n\n해결 과정에러로그 일부1234567891011121314151617\t  ...java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name &#x27;command&#x27; available as request attribute  at org.springframework.web.servlet.support.BindStatus.&lt;init&gt;(BindStatus.java:153)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:178)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:199)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:164)\tat org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:123)\tat org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:460)\tat org.springframework.web.servlet.tags.form.SelectTag.writeTagContent(SelectTag.java:405)\tat org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:87)\tat org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:83)\tat org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspService(new_jsp.java:263)  ....\n\n\n> Neither BindingResult nor plain target object for bean name 'command' available as request attribute\n\n\n\n짧은 영어 실력과 구글 번역기에 도움으로 해석해보자면 BindingResult이나 ‘command’ 이라는 이름의 bean 을 request의 속성으로 사용할 수 없어서 발생하는 에러인 것 같은데,에러 로그를 확인 한 결과… 위에서 보이는 것 처럼, JSP의 Form Tag에서 에러가 발생하는 것으로 추측되어 4.3.3 version에서 Form Tag를 구현하는 FormTag를 확인해보니 commandName 관련된 메서드들이 @Deprecated 로 선언되어서 곧 없어진다고 알려주고 있었는데, 이번에 업그레이드한 5.3.22 version의 FormTag에선 commandName의 getter, setter 메서드들이 없는 것을 확인할 수 있었다.\n\n\n\n\n그리고 이미지를 보면 알 수 있듯이 기존의 setCommandName 메서드에서도 modelAttribute에 commandName을 저장해서 쓰는 것을 확인할 수 있는데, 5.3.22 에선 해당 메서드가 없어지면서 변수 modelAttribute에 ‘command’가 할당되어 있기에, ‘command’ 라는 bean을 속성으로 사용할 수 없다고 에러가 발생하는 것이었다.\n\n\n\n\n\n\n\n\n이렇게 된 것이니 당연하게도 해결 방법은 modelAttribute에 우리가 지정한 속성값이 set 되도록 하면 되는데, 위에서 본 것처럼 기존의 setCommandName에서도 modelAttribute의 값을 사용하고 있었으므로, setModelAttribute로 modelAttribute 값이 저장되도록 하면 문제는 해결될 것이기에, JSP form tag에 commandName 속성을 모두 modelAttribute로 변경한 후 확인해 보면 정상적으로 동작 하는 것을 확인할 수 있을 것이다.\n\n\n\n\n\n\n참고 사이트\nhttps://web-obj.tistory.com/478\nhttps://docs.spring.io/spring-framework/docs/4.3.3.RELEASE/javadoc-api/org/springframework/web/servlet/tags/form/FormTag.html#setCommandName-java.lang.String-\n\n","dateCreated":"2022-09-09T16:24:22+09:00","dateModified":"2022-09-09T16:24:22+09:00","datePublished":"2022-09-09T16:24:22+09:00","description":"","headline":"Neither BindingResult nor plain target object for bean name command available as request attribute","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/","keywords":"Spring, JSP"}</script>
+    <meta name="description" content="발생 경위기존 Spring 4.3.3을 사용하던 프로젝트를 5.3.22으로 업그레이드 이후 발생하였다. 에러로그 전체123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Neither BindingResult nor plain target object for bean name command available as request attribute">
+<meta property="og:url" content="https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/index.html">
+<meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:description" content="발생 경위기존 Spring 4.3.3을 사용하던 프로젝트를 5.3.22으로 업그레이드 이후 발생하였다. 에러로그 전체123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/4.3.3_FormTag.png">
+<meta property="og:image" content="https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/default_modelAttribute.png">
+<meta property="og:image" content="https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/getModelAttribute.png">
+<meta property="og:image" content="https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/setModelAttribute.png">
+<meta property="og:image" content="https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/getModelAttribute_2.png">
+<meta property="article:published_time" content="2022-09-09T07:24:22.000Z">
+<meta property="article:modified_time" content="2022-09-09T07:24:22.000Z">
+<meta property="article:author" content="Junggu Ji">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="JSP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/4.3.3_FormTag.png">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-0v3zgfakrzmjoj7mhqewlnecogoqxgnfgvjlrw6b9na0ll2gjplxm4ld0oox.min.css">
+
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162527815-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162527815-1');
+    </script>
+
+
+    
+
+    
+        
+    
+
+    <script data-ad-client="ca-pub-6264654331856753" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/" aria-label>
+            저장하고 까먹자
+        </a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about" aria-label="링크 열기: /#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/" rel="noopener" title="Home">
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" rel="noopener" title="카테고리">
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" rel="noopener" title="태그">
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives" rel="noopener" title="아카이브">
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" rel="noopener" title="About">
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/jungguji" target="_blank" rel="external nofollow noopener noreferrer" title="GitHub">
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/mailto" rel="noopener" title="Mail">
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/atom.xml" rel="noopener" title="RSS">
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4" class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Neither BindingResult nor plain target object for bean name command available as request attribute
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2022-09-09T16:24:22+09:00">
+	
+		    2022/09/09
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="발생-경위"><a href="#발생-경위" class="headerlink" title="발생 경위"></a>발생 경위</h2><p>기존 Spring 4.3.3을 사용하던 프로젝트를 5.3.22으로 업그레이드 이후 발생하였다.</p>
+<h3 id="에러로그-전체"><a href="#에러로그-전체" class="headerlink" title="에러로그 전체"></a>에러로그 전체</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: Neither BindingResult nor plain target object <span class="keyword">for</span> bean name <span class="string">&#x27;command&#x27;</span> available as request attribute</span><br><span class="line">	at org.springframework.web.servlet.support.BindStatus.&lt;init&gt;(BindStatus.java:<span class="number">153</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:<span class="number">178</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:<span class="number">199</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:<span class="number">164</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:<span class="number">123</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:<span class="number">460</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.SelectTag.writeTagContent(SelectTag.java:<span class="number">405</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:<span class="number">87</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:<span class="number">83</span>)</span><br><span class="line">	at org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspService(new_jsp.java:<span class="number">263</span>)</span><br><span class="line">	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:<span class="number">70</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">741</span>)</span><br><span class="line">	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:<span class="number">476</span>)</span><br><span class="line">	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:<span class="number">386</span>)</span><br><span class="line">	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:<span class="number">330</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">741</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">231</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:<span class="number">728</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationDispatcher.doInclude(ApplicationDispatcher.java:<span class="number">591</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationDispatcher.include(ApplicationDispatcher.java:<span class="number">527</span>)</span><br><span class="line">	at org.apache.jasper.runtime.JspRuntimeLibrary.include(JspRuntimeLibrary.java:<span class="number">868</span>)</span><br><span class="line">	at org.apache.jasper.runtime.PageContextImpl.doInclude(PageContextImpl.java:<span class="number">679</span>)</span><br><span class="line">	at org.apache.jasper.runtime.PageContextImpl.include(PageContextImpl.java:<span class="number">673</span>)</span><br><span class="line">	at org.apache.tiles.request.jsp.JspRequest.doInclude(JspRequest.java:<span class="number">123</span>)</span><br><span class="line">	at org.apache.tiles.request.AbstractViewRequest.dispatch(AbstractViewRequest.java:<span class="number">47</span>)</span><br><span class="line">	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:<span class="number">45</span>)</span><br><span class="line">	at org.apache.tiles.request.render.ChainedDelegateRenderer.render(ChainedDelegateRenderer.java:<span class="number">68</span>)</span><br><span class="line">	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:<span class="number">259</span>)</span><br><span class="line">	at org.apache.tiles.template.InsertAttributeModel.renderAttribute(InsertAttributeModel.java:<span class="number">188</span>)</span><br><span class="line">	at org.apache.tiles.template.InsertAttributeModel.execute(InsertAttributeModel.java:<span class="number">132</span>)</span><br><span class="line">	at org.apache.tiles.jsp.taglib.InsertAttributeTag.doTag(InsertAttributeTag.java:<span class="number">299</span>)</span><br><span class="line">	at org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspx_meth_t_005finsertAttribute_005f4(layout_jsp.java:<span class="number">10881</span>)</span><br><span class="line">	at org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspService(layout_jsp.java:<span class="number">1242</span>)</span><br><span class="line">	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:<span class="number">70</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">741</span>)</span><br><span class="line">	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:<span class="number">476</span>)</span><br><span class="line">	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:<span class="number">386</span>)</span><br><span class="line">	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:<span class="number">330</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">741</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">231</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:<span class="number">52</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">193</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:<span class="number">728</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:<span class="number">470</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:<span class="number">395</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:<span class="number">316</span>)</span><br><span class="line">	at org.apache.tiles.request.servlet.ServletRequest.forward(ServletRequest.java:<span class="number">265</span>)</span><br><span class="line">	at org.apache.tiles.request.servlet.ServletRequest.doForward(ServletRequest.java:<span class="number">228</span>)</span><br><span class="line">	at org.apache.tiles.request.AbstractClientRequest.dispatch(AbstractClientRequest.java:<span class="number">57</span>)</span><br><span class="line">	at org.apache.tiles.request.render.DispatchRenderer.render(DispatchRenderer.java:<span class="number">45</span>)</span><br><span class="line">	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:<span class="number">259</span>)</span><br><span class="line">	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:<span class="number">397</span>)</span><br><span class="line">	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:<span class="number">238</span>)</span><br><span class="line">	at org.apache.tiles.impl.BasicTilesContainer.render(BasicTilesContainer.java:<span class="number">221</span>)</span><br><span class="line">	at org.apache.tiles.renderer.DefinitionRenderer.render(DefinitionRenderer.java:<span class="number">59</span>)</span><br><span class="line">	at org.springframework.web.servlet.view.tiles3.TilesView.renderMergedOutputModel(TilesView.java:<span class="number">147</span>)</span><br><span class="line">	at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:<span class="number">316</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:<span class="number">1404</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:<span class="number">1148</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:<span class="number">1087</span>)</span><br><span class="line">	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:<span class="number">963</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:<span class="number">1006</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:<span class="number">898</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">634</span>)</span><br><span class="line">	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:<span class="number">883</span>)</span><br><span class="line">	at javax.servlet.http.HttpServlet.service(HttpServlet.java:<span class="number">741</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">231</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:<span class="number">52</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">193</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.apache.catalina.filters.ExpiresFilter.doFilter(ExpiresFilter.java:<span class="number">1228</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">193</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter.doFilterInternal(OpenEntityManagerInViewFilter.java:<span class="number">186</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">117</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">193</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:<span class="number">94</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">117</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">193</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">330</span>)</span><br><span class="line">	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:<span class="number">118</span>)</span><br><span class="line">	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:<span class="number">84</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:<span class="number">113</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:<span class="number">103</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:<span class="number">113</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter.doFilter(RememberMeAuthenticationFilter.java:<span class="number">146</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:<span class="number">154</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:<span class="number">45</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:<span class="number">199</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:<span class="number">199</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:<span class="number">110</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:<span class="number">57</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">117</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:<span class="number">87</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:<span class="number">50</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">117</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:<span class="number">342</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:<span class="number">192</span>)</span><br><span class="line">	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:<span class="number">160</span>)</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:<span class="number">354</span>)</span><br><span class="line">	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:<span class="number">267</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">193</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:<span class="number">201</span>)</span><br><span class="line">	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:<span class="number">117</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:<span class="number">193</span>)</span><br><span class="line">	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:<span class="number">166</span>)</span><br><span class="line">	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:<span class="number">199</span>)</span><br><span class="line">	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:<span class="number">96</span>)</span><br><span class="line">	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:<span class="number">543</span>)</span><br><span class="line">	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:<span class="number">139</span>)</span><br><span class="line">	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:<span class="number">81</span>)</span><br><span class="line">	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:<span class="number">678</span>)</span><br><span class="line">	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:<span class="number">87</span>)</span><br><span class="line">	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:<span class="number">343</span>)</span><br><span class="line">	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:<span class="number">609</span>)</span><br><span class="line">	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:<span class="number">65</span>)</span><br><span class="line">	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:<span class="number">810</span>)</span><br><span class="line">	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:<span class="number">1623</span>)</span><br><span class="line">	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:<span class="number">49</span>)</span><br><span class="line">	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:<span class="number">1128</span>)</span><br><span class="line">	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:<span class="number">628</span>)</span><br><span class="line">	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:<span class="number">61</span>)</span><br><span class="line">	at java.base/java.lang.Thread.run(Thread.java:<span class="number">829</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="해결-과정"><a href="#해결-과정" class="headerlink" title="해결 과정"></a>해결 과정</h2><h3 id="에러로그-일부"><a href="#에러로그-일부" class="headerlink" title="에러로그 일부"></a>에러로그 일부</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">java.lang.IllegalStateException: Neither BindingResult nor plain target object <span class="keyword">for</span> bean name <span class="string">&#x27;command&#x27;</span> available as request attribute</span><br><span class="line">  at org.springframework.web.servlet.support.BindStatus.&lt;init&gt;(BindStatus.java:<span class="number">153</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getBindStatus(AbstractDataBoundFormElementTag.java:<span class="number">178</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getPropertyPath(AbstractDataBoundFormElementTag.java:<span class="number">199</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.getName(AbstractDataBoundFormElementTag.java:<span class="number">164</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractDataBoundFormElementTag.writeDefaultAttributes(AbstractDataBoundFormElementTag.java:<span class="number">123</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractHtmlElementTag.writeDefaultAttributes(AbstractHtmlElementTag.java:<span class="number">460</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.SelectTag.writeTagContent(SelectTag.java:<span class="number">405</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.form.AbstractFormTag.doStartTagInternal(AbstractFormTag.java:<span class="number">87</span>)</span><br><span class="line">	at org.springframework.web.servlet.tags.RequestContextAwareTag.doStartTag(RequestContextAwareTag.java:<span class="number">83</span>)</span><br><span class="line">	at org.apache.jsp.WEB_002dINF.xxxx.xxxx.xxxx_jsp._jspService(new_jsp.java:<span class="number">263</span>)</span><br><span class="line"></span><br><span class="line">  ....</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<br>
+> Neither BindingResult nor plain target object for bean name 'command' available as request attribute
+
+<br>
+
+<p>짧은 영어 실력과 구글 번역기에 도움으로 해석해보자면 BindingResult이나 ‘command’ 이라는 이름의 bean 을 request의 속성으로 사용할 수 없어서 발생하는 에러인 것 같은데,<br>에러 로그를 확인 한 결과… 위에서 보이는 것 처럼, JSP의 Form Tag에서 에러가 발생하는 것으로 추측되어 4.3.3 version에서 Form Tag를 구현하는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/4.3.3.RELEASE/javadoc-api/org/springframework/web/servlet/tags/form/FormTag.html#setCommandName-java.lang.String-">FormTag</a>를 확인해보니 commandName 관련된 메서드들이 @Deprecated 로 선언되어서 곧 없어진다고 알려주고 있었는데, 이번에 업그레이드한 5.3.22 version의 FormTag에선 commandName의 getter, setter 메서드들이 없는 것을 확인할 수 있었다.</p>
+<img src="/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/4.3.3_FormTag.png" class title="4.3.3 version의 CommandName 관련 method">
+
+<br>
+
+<p>그리고 이미지를 보면 알 수 있듯이 기존의 setCommandName 메서드에서도 modelAttribute에 commandName을 저장해서 쓰는 것을 확인할 수 있는데, 5.3.22 에선 해당 메서드가 없어지면서 변수 modelAttribute에 ‘command’가 할당되어 있기에, ‘command’ 라는 bean을 속성으로 사용할 수 없다고 에러가 발생하는 것이었다.</p>
+<img src="/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/default_modelAttribute.png" class title="modelAttribute 변수의 기본값">
+
+<br>
+
+<img src="/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/getModelAttribute.png" class title="Form tag 호출 시 불리는 modelAttribute의 값">
+
+<br>
+
+<p>이렇게 된 것이니 당연하게도 해결 방법은 modelAttribute에 우리가 지정한 속성값이 set 되도록 하면 되는데, 위에서 본 것처럼 기존의 setCommandName에서도 modelAttribute의 값을 사용하고 있었으므로, setModelAttribute로 modelAttribute 값이 저장되도록 하면 문제는 해결될 것이기에, JSP form tag에 commandName 속성을 모두 modelAttribute로 변경한 후 확인해 보면 정상적으로 동작 하는 것을 확인할 수 있을 것이다.</p>
+<img src="/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/setModelAttribute.png" class title="commandName 속성을 ModelAttribute로 변경 후 Form tag 호출 시 불리는 modelAttribute의 값">
+
+<br>
+
+<img src="/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/getModelAttribute_2.png" class title="commandName 속성을 ModelAttribute로 변경 후 Form tag 호출 시 불리는 modelAttribute의 값">
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://web-obj.tistory.com/478">https://web-obj.tistory.com/478</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/4.3.3.RELEASE/javadoc-api/org/springframework/web/servlet/tags/form/FormTag.html#setCommandName-java.lang.String-">https://docs.spring.io/spring-framework/docs/4.3.3.RELEASE/javadoc-api/org/springframework/web/servlet/tags/form/FormTag.html#setCommandName-java.lang.String-</a></li>
+</ul>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">태그</span><br>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/JSP/" rel="tag">JSP</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/Spring/" rel="tag">Spring</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/08/07/Nexus%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94/" data-tooltip="Nexus를 이용한 모듈화" aria-label="다음: Nexus를 이용한 모듈화">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <script src="https://utteranc.es/client.js" repo="jungguji/blog-comment" issue-term="og:title" theme="github-light" crossorigin="anonymous" async>
+</script>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/08/07/Nexus%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%AA%A8%EB%93%88%ED%99%94/" data-tooltip="Nexus를 이용한 모듈화" aria-label="다음: Nexus를 이용한 모듈화">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Twitter에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/09/09/Neither-BindingResult-nor-plain-target-object-for-bean-name-command-available-as-request-attribute/" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Google+에 공유하기</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">Junggu Ji</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-goamtf3h90u4wvmhg5penagquqoptje05tyii1tz44r8vwvh6klg97rf1weo.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

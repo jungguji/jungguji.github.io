@@ -177,6 +177,99 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/11/16/Synchronous-Asynchronous%EC%99%80-Blocking-Non-Blocking/" aria-label=": Synchronous, Asynchronous와 Blocking, Non-Blocking">
+                            Synchronous, Asynchronous와 Blocking, Non-Blocking
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-16T22:47:28+09:00">
+	
+		    2020/11/16
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><ul>
+<li>Synchronous, Asynchronous 는 두 개 이상의 대상에 대한 시간 을 관리하는 방법이고</li>
+<li>Blocking, Non-Blocking 은 직접 제어 할 수 없는 대상을 처리하는 방법에 대한 것이다.</li>
+</ul>
+<h3 id="Synchronous-Asynchronous"><a href="#Synchronous-Asynchronous" class="headerlink" title="Synchronous, Asynchronous"></a>Synchronous, Asynchronous</h3><ul>
+<li>두 개 이상의 대상들의 시간을 처리하는 방식</li>
+<li>Synchronous는 두 개 이상의 대상들의 시간을 일치 시키는 것 으로 메서드가 종료되는 시간과 결과를 전달받은 시간이 일치하면 Synchronous(동기) 방식이다.</li>
+<li>Asynchronous는 두 개 이상의 대상들의 시간을 일치 시키자 않는 것 으로 메서드가 종료되는 시간과 결과를 전달받은 시간이 일치하지 않으면 Asynchronous(비동기) 방식이다.</li>
+</ul>
+<h3 id="Blocking-Non-Blocking"><a href="#Blocking-Non-Blocking" class="headerlink" title="Blocking, Non-Blocking"></a>Blocking, Non-Blocking</h3><ul>
+<li>직접 제어 할 수 없는 대상에 대한 처리 방식</li>
+<li>Blocking은 직접 제어 할 수 없는 대상이 작업이 끝날 떄 까지 <strong>제어권을 넘기지 않아 작업이 끝날 떄 까지 대기</strong> 하는 방식이다.</li>
+<li>Non-Blocking은 직접 제어 할 수 없는 대상의 작업의 종료와 관계없이 <strong>제어권을 바로 다시 얻어와 다른 일을 할 수 있게</strong> 하는 방식이다.</li>
+</ul>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="Synchronous"><a href="#Synchronous" class="headerlink" title="Synchronous"></a>Synchronous</h3><p>우선 Synchronous의 뜻을 사전에선 아래와 같이 정의하고 있다.</p>
+<blockquote><p>동시 발생하는</p>
+<footer><strong>네이버 어학사전</strong></footer></blockquote>
+
+<p>이 처럼 두 개 이상의 작업을 동시에 발생시키거나 동시에 종료시키는 행동을 말한다.</p>
+<p>동기 방식을 사용 할 경우 메서드를 호출 했을 때 결과를 호출한 쪽에서 스스로 확인하고 처리하기 떄문에 결과를 처리 할 때까지 기다렸다가 결과를 전달받고 메서드를 종료 시킨다.</p>
+<p>간단히 요약하면 메서드를 호출하면 그 메서드가 종료되는 시간과 결과가 return 되는 시간이 같다는 것으로 메서드가 종료되는 시간과 결과가 return 되는 시간이 같으므로 동기 방식이라 말한다.</p>
+<p>혹은 2개 이상의 일을 각각 실행시켜 A가 끝나는 시간과 B가 시작하는 시간이 같은 경우도 마찬가지로 동기 방식이라고 할 수 있다.</p>
+<p>Java로 예를 들면 쓰레드를 동기 시키기 위해 사용하는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.javamex.com/tutorials/synchronization_concurrency_synchronized1.shtml">synchronized</a>가 있고 일반적으로는 일부러 설정하지 않는 한 보통의 메서드 호출은 모두 동기 방식으로 사용된다.</p>
+<h3 id="Asynchronous"><a href="#Asynchronous" class="headerlink" title="Asynchronous"></a>Asynchronous</h3><p>Asynchronous 비동기 방식은 부정형 접두사 A를 붙여서 두 개 이상의 대상의 시간을 일치 시키지 않는 방식으로 동기 방식과 반대로 동작한다.</p>
+<p>즉 메서드를 호출 했을 때 결과가 리턴되지 않더라도 다른 작업을 수행하거나 메서드를 종료하고 나중에 처리되면 그 때 결과물을 가져온다.</p>
+<p>이 때 메서드를 호출한 시간과 리턴 받은 시간이 일치하지 않으므로 이러한 방식을 비동기 방식이라 한다.</p>
+<p>보통 ajax를 통해 많이 사용 해봤을 것이고, Java에선 쓰레드를 활용해 비동기적으로 처리 할 수 있고, Spring에선 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/spring-async">@Async Annotation</a>을 이용해 비동기 방식을 처리 할 수 있다.</p>
+<h3 id="Blocking"><a href="#Blocking" class="headerlink" title="Blocking"></a>Blocking</h3><p>결론에서 말한 것 처럼 Blocking은 직접 제어 할 수 없는 대상이 작업이 끝날 때 까지 제어권을 넘기지 않아 작업이 끝날 때 까지 대기하게 하는 방식이다.</p>
+<p>예를 들면 스타크래프트에서 테란의 SCV는 한번 건물을 짓기 시작하면 건설이 끝날 때 까지 다른 동작을 할 수 없으므로, Blocking 상태라고 할 수 있고, Java에선 System.in 같은 I/O 처리를 예로 들 수 있다.</p>
+<h3 id="Non-Blocking"><a href="#Non-Blocking" class="headerlink" title="Non-Blocking"></a>Non-Blocking</h3><p>Blocking과 반대되는 방식으로 작업의 처리 여부와 상관없이 작업을 호출한 쪽이 다시 제어권을 가져와서 자유롭게 다른 일을 처리할 수 있는 방식을 Non-Blocking 방식이라고 한다.</p>
+<p>예를 들어 프로토스의 프로브는 건물을 짓게 하면 차원 균열만 개방하고 바로 미네라를 캐는 등의 다른 일을 수행 할 수 있으므로 프로브는 Non-Blocking 상태라고 할 수 있다.</p>
+<img src="/2020/11/16/Synchronous-Asynchronous%EC%99%80-Blocking-Non-Blocking/scv.gif" class title="Synchronous, Asynchronous와 Blocking, Non-Blocking 서플라이디포를 건설 하는 동안 다른 행위를 할 수 없는 SCV " alt="서플라이디포를 건설 하는 동안 다른 행위를 할 수 없는 SCV">
+
+<img src="/2020/11/16/Synchronous-Asynchronous%EC%99%80-Blocking-Non-Blocking/%ED%94%84%EB%A1%9C%EB%B8%8C.png" class title="Synchronous, Asynchronous와 Blocking, Non-Blocking 첫 번째 파일럿을 소환 후 파일럿이 완성되기 전에 두 번째 파일럿을 소환 할 수 있는 프로브 " alt="첫 번째 파일럿을 소환 후 파일럿이 완성되기 전에 두 번째 파일럿을 소환 할 수 있는 프로브">
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@codemcd/Sync-VS-Async-Blocking-VS-Non-Blocking-sak6d01fhx">https://velog.io/@codemcd/Sync-VS-Async-Blocking-VS-Non-Blocking-sak6d01fhx</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.youtube.com/watch?v=HKlUvCv9hvA&amp;t=806s">https://www.youtube.com/watch?v=HKlUvCv9hvA&amp;t=806s</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://nesoy.github.io/articles/2017-01/Synchronized">https://nesoy.github.io/articles/2017-01/Synchronized</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://homoefficio.github.io/2017/02/19/Blocking-NonBlocking-Synchronous-Asynchronous/">https://homoefficio.github.io/2017/02/19/Blocking-NonBlocking-Synchronous-Asynchronous/</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.notion.so/Sync-vs-Async-Block-vs-Non-block-da3e458e74c84201abfd4bcbf2ed00c2">https://www.notion.so/Sync-vs-Async-Block-vs-Non-block-da3e458e74c84201abfd4bcbf2ed00c2</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/11/16/Synchronous-Asynchronous%EC%99%80-Blocking-Non-Blocking/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/11/16/Synchronous-Asynchronous%EC%99%80-Blocking-Non-Blocking/" aria-label=": Synchronous, Asynchronous와 Blocking, Non-Blocking">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/11/12/%EB%B0%B1%EC%A4%80-2751%EB%B2%88-%EC%88%98-%EC%A0%95%EB%A0%AC%ED%95%98%EA%B8%B0-2/" aria-label=": 백준 2751번: 수 정렬하기 2">
                             백준 2751번: 수 정렬하기 2
                         </a>
@@ -1192,99 +1285,6 @@
         </div>
         
             <a href="/2020/09/01/%EB%B0%B1%EC%A4%80-1920%EB%B2%88-%EC%88%98-%EC%B0%BE%EA%B8%B0/" aria-label=": 백준 1920번: 수 찾기">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/08/20/%EB%B0%B1%EC%A4%80-%EB%8B%AC%ED%8C%BD%EC%9D%B4%EB%8A%94-%EC%98%AC%EB%9D%BC%EA%B0%80%EA%B3%A0-%EC%8B%B6%EB%8B%A4/" aria-label=": 백준 2869번: 달팽이는 올라가고 싶다">
-                            백준 2869번: 달팽이는 올라가고 싶다
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-08-20T16:29:28+09:00">
-	
-		    2020/08/20
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/2869">https://www.acmicpc.net/problem/2869</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> 달팽이는<span class="title">_</span>올라가고<span class="title">_</span>싶다 </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String[] input = getInputData(System.in).split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        <span class="keyword">int</span>[] abv = convertStringArrayToIntegerArray(input);</span><br><span class="line"></span><br><span class="line">        System.out.println(solution(abv));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getInputData</span><span class="params">(InputStream in)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(in))) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> br.readLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] convertStringArrayToIntegerArray(String[] args) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[args.length];</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String str : args) &#123;</span><br><span class="line">            array[i++] = Integer.parseInt(str);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] abv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (abv[<span class="number">2</span>] - abv[<span class="number">1</span>] - <span class="number">1</span>) / (abv[<span class="number">0</span>] - abv[<span class="number">1</span>]) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>달팽이는 하루에 A 만큼 올라가는데 자면서 B만큼 미끄러지므로 하루에 (A - B) 만큼 씩 올라가서 V미터 만큼 올라가면 된다.</li>
-<li>하지만 꼭대기에 도달하면 미끄러지지 않는다고 하였으므로, 꼭대기(V) 에서 미끄러지는 만큼(B) 을 뺀 거리만큼만 올라가면 된다. (V - B)</li>
-<li>그럼 수식은 (V - B) / (A / B)가 되고 int형은 소수점을 없애므로 나누어떨어지지 않으면 + 1을 하는데</li>
-<li>(V - B)에서 - 1을 먼저하고 무조건 1을 더한다.</li>
-</ol>
-<h3 id="V-B-1-A-B-1"><a href="#V-B-1-A-B-1" class="headerlink" title="(V - B - 1) / (A - B) + 1"></a>(V - B - 1) / (A - B) + 1</h3><ul>
-<li>V-B를 X, A-B를 y로 가정</li>
-</ul>
-<ol>
-<li>x/y가 나누어 떨어지는 경우<ol>
-<li>x / y = d 일 때 (x-1)/y 는 반드시 d보다 작다.</li>
-<li>int형은 소수점 아래를 없애므로 x-1 /y = d - 1이 되고,</li>
-<li>+1을 하면 d가 된다.</li>
-</ol>
-</li>
-<li>x/y가 나누어 떨어지지 않는 경우<ol>
-<li>x / y = d + f  일 때 y를 양변에 곱하면</li>
-<li>x = y(d + f)  여기서 양변에 1을 빼면,</li>
-<li>x - 1 = y(d + f) - 1  여기서 y를 양변에 나누면</li>
-<li>(x - 1) / y = (d + f) -1 / y  이 된다.</li>
-<li>이 때 1 / y 는  y &gt;= 2  이고 int형은 소수점 아래를 없애버리므로 1 / y 는 없어진다.<ol>
-<li>y &gt;= 2  인 이유는 현재 x / y가 나누어 떨어지지 않는 경우임을 상정하고 있으므로 y가 1이면 나누어 떨어지기 때문에 y는 2보다 크게 된다.</li>
-</ol>
-</li>
-<li>그럼  (x - 1) / y = d + f  이 되고 +1을 하면,</li>
-<li>(x - 1) / y + 1 = d + f + 1  된다.</li>
-</ol>
-</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p><img src="/images/20200820/%EA%B2%B0%EA%B3%BC.PNG" alt="결과"></p>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>,<span class="number">1</span>,<span class="number">5</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">6</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">999999901</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">100</span>,<span class="number">99</span>,<span class="number">1000000000</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">5</span>,<span class="number">0</span>,<span class="number">5</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">100</span>,<span class="number">1</span>,<span class="number">101</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">3</span>,<span class="number">1</span>,<span class="number">6</span>&#125;));</span><br></pre></td></tr></table></figure>
-
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hyunah030.tistory.com/8">https://hyunah030.tistory.com/8</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/08/20/%EB%B0%B1%EC%A4%80-%EB%8B%AC%ED%8C%BD%EC%9D%B4%EB%8A%94-%EC%98%AC%EB%9D%BC%EA%B0%80%EA%B3%A0-%EC%8B%B6%EB%8B%A4/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/08/20/%EB%B0%B1%EC%A4%80-%EB%8B%AC%ED%8C%BD%EC%9D%B4%EB%8A%94-%EC%98%AC%EB%9D%BC%EA%B0%80%EA%B3%A0-%EC%8B%B6%EB%8B%A4/" aria-label=": 백준 2869번: 달팽이는 올라가고 싶다">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

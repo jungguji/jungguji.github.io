@@ -177,6 +177,77 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/26/%EB%B0%B1%EC%A4%80-11047%EB%B2%88-%EB%8F%99%EC%A0%84-0/" aria-label=": 백준 11047번: 동전 0">
+                            백준 11047번: 동전 0
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-26T11:53:32+09:00">
+	
+		    2020/05/26
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/11047">https://www.acmicpc.net/problem/11047</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    String coinAndMoney = br.readLine();</span><br><span class="line"></span><br><span class="line">    String[] coinAndMoneyArray = coinAndMoney.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> coinAmount = Integer.parseInt(coinAndMoneyArray[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">long</span> money = Long.parseLong(coinAndMoneyArray[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span>[] coinCategory = getCoincategory(coinAmount, br);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> answer = solution(coinAmount, money, coinCategory);</span><br><span class="line"></span><br><span class="line">    System.out.println(answer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span>[] getCoincategory(<span class="keyword">int</span> coinAmount, BufferedReader br) <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="keyword">long</span>[] result = <span class="keyword">new</span> <span class="keyword">long</span>[coinAmount];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; coinAmount; i++) &#123;</span><br><span class="line"></span><br><span class="line">        result[i] = Integer.parseInt(br.readLine());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">long</span> money, <span class="keyword">long</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (array[i] &gt; money) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        answer += (money / array[i]);</span><br><span class="line">        money %= array[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (money == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>돈의 종류 만큼 돌면서 큰 수 부터 가지고 있는 돈을 나눔</li>
+<li>돈의 가치가 더 큰 경우엔 나눌 수 없으므로 continue</li>
+<li>돈으로 갖고 있는 돈을 나눈 값을 더하고 남은 값은 다시 나눠야 하므로 money에 다시 저장함</li>
+<li>momeny가 0이 되면 나눌 돈이 없는 것이므로 사용한 돈 갯수 return</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p><img src="/images/20200526/11047.PNG" alt="결과"></p>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span>[] array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">100</span>,<span class="number">500</span>,<span class="number">1000</span>,<span class="number">5000</span>,<span class="number">10000</span>,<span class="number">50000</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">6</span>, test.solution(<span class="number">10</span>, <span class="number">4200</span>, array));</span><br><span class="line">assertEquals(<span class="number">12</span>, test.solution(<span class="number">10</span>, <span class="number">4790</span>, array));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">10</span>, <span class="number">50000</span>, array));</span><br><span class="line">assertEquals(<span class="number">2000</span>, test.solution(<span class="number">10</span>, <span class="number">100000000</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="number">1</span>, <span class="number">2</span>, array));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">1</span>, <span class="number">1</span>, array));</span><br><span class="line">assertEquals(<span class="number">100000000</span>, test.solution(<span class="number">1</span>, <span class="number">100000000</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>, <span class="number">5</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">2</span>, <span class="number">5</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>, <span class="number">3</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="number">2</span>, <span class="number">4</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">1</span>, <span class="number">100</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">2</span>, <span class="number">100</span>, array));</span><br><span class="line"></span><br><span class="line">array = <span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">5000</span>&#125;;</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="number">1</span>, <span class="number">5000</span>, array));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>나머지는 입력 값 처리이고 solution 메서드가 주요 로직이므로 solution 메서드를 테스트</li>
+<li>이렇게 테스트 할 경우 입력처리 때문에 에러가 발생 할 수 있으니 꼭 java application으로 함께 테스트 해볼 것</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/26/%EB%B0%B1%EC%A4%80-11047%EB%B2%88-%EB%8F%99%EC%A0%84-0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/26/%EB%B0%B1%EC%A4%80-11047%EB%B2%88-%EB%8F%99%EC%A0%84-0/" aria-label=": 백준 11047번: 동전 0">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/26/SpringBootApplication-%EC%9D%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D/" aria-label=": @SpringBootApplication의 동작 방식">
                             @SpringBootApplication의 동작 방식
                         </a>
@@ -1357,150 +1428,6 @@
         </div>
         
             <a href="/2020/05/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%9C%84%EC%9E%A5/" aria-label=": 프로그래머스: 위장">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/13/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-3/" aria-label=": 토비의 스프링 reading (3)">
-                            토비의 스프링 reading (3)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-13T20:35:08+09:00">
-	
-		    2020/05/13
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="AOP란"><a href="#AOP란" class="headerlink" title="AOP란"></a>AOP란</h2><ul>
-<li>AOP는 Ioc, DI, 서비스 추상화와 더불어 스프링의 3대 기반 기술</li>
-<li>선언적 트랜잭션 기능이 대표적</li>
-</ul>
-<hr>
-<h3 id="트랜잭션-코드의-분리"><a href="#트랜잭션-코드의-분리" class="headerlink" title="트랜잭션 코드의 분리"></a>트랜잭션 코드의 분리</h3><ul>
-<li>비즈니스 로직 전 후에 로직과 전혀 상관없는 트랜잭션 경계를 설정해야 하기 때문에 필연적으로 코드가 지저분해짐</li>
-</ul>
-<h3 id="메서드-분리를-이용해-분리"><a href="#메서드-분리를-이용해-분리" class="headerlink" title="메서드 분리를 이용해 분리"></a>메서드 분리를 이용해 분리</h3><ul>
-<li>비즈니스 로직을 담당하는 코드만 따로 메서드로 추출</li>
-<li>하지만 여전히 비즈니스 로직이 아닌 보일 필요가 없는 트랜잭션 코드가 남아있음</li>
-<li>그렇다면 클래스에서 빼서 아예 눈에 안띄게 해버리자</li>
-</ul>
-<h3 id="DI를-이용한-클래스의-분리"><a href="#DI를-이용한-클래스의-분리" class="headerlink" title="DI를 이용한 클래스의 분리"></a>DI를 이용한 클래스의 분리</h3><ul>
-<li><p>DI의 기본 아이디어는 실제 사용할 오브젝트의 클래스 정체는 감춘 채 인터페이스를 통해 간접으로 접근하는 것</p>
-</li>
-<li><p>그 덕분에 구현 클래스는 얼마든지 외부에서 변경 가능</p>
-</li>
-<li><p>UserService 인터페이스를 상속 받는 클래스를 2 가지로 나눔</p>
-<ol>
-<li>ServiceImpl(비즈니스 담당)</li>
-<li>ServiceTx(트랜잭션 담당)</li>
-</ol>
-</li>
-<li><p>Impl에선 비즈니스 로직을 담당하는 메서드만 남겨두고 Tx에선 userService를 구현한 다른 오브젝트를 주입 받고 트랜잭션 안에서 동작할 수 있도록 메서드 안에서 트랜잭션 경계를 설정</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">upgardeLevels</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   트랜잭션 스타트();</span><br><span class="line"></span><br><span class="line">   주입받은 userService를 구현한 오브젝트(Impl).upgrardeLevels();</span><br><span class="line"></span><br><span class="line">   commit() <span class="function">or <span class="title">rollback</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="DI를-이용한-트랜잭션-경계설정-코드-분리의-장점"><a href="#DI를-이용한-트랜잭션-경계설정-코드-분리의-장점" class="headerlink" title="DI를 이용한 트랜잭션 경계설정 코드 분리의 장점"></a>DI를 이용한 트랜잭션 경계설정 코드 분리의 장점</h3><ol>
-<li>비즈니스 로직만 담긴 Impl 클래스에선 코드을 작성 시 트랜잭션 같은 비즈니스 로직과 관계 없는 부분에 대해 전혀 신경 쓰지 않아도 됌</li>
-<li>테스트가 쉬워짐</li>
-</ol>
-<hr>
-<h2 id="다시-돌아와-AOP-애스펙트-aspect-지향-프로그래밍"><a href="#다시-돌아와-AOP-애스펙트-aspect-지향-프로그래밍" class="headerlink" title="다시 돌아와 AOP: 애스펙트(aspect) 지향 프로그래밍"></a>다시 돌아와 AOP: 애스펙트(aspect) 지향 프로그래밍</h2><ul>
-<li><strong>부가기능 모듈화 작업</strong></li>
-<li>핵심기능에 부가되어 의미를 갖는 특별한 모듈</li>
-<li>에스펙트는 부가될 기능을 정의한 코드인 <strong>어드바이스</strong>, 어드바이스를 어디에 적용할지를 결정하는 __포인터컷__을 함께 갖고 있음</li>
-<li>위에서 트랜잭션 코드는 비즈니스 로직에 상관없는 기능인데 핵심기능에 침투해 들어가면서 설계와 코드가 모두 지저분해짐</li>
-<li>이런 부가기능 코든는 여기저기 메서드에 마구 흩어져서 나타나고 코드는 중복됌</li>
-<li>런타임 시에는 각 부가기능 에스펙트는 자기가 필요한 위치에 다이내믹하게 참여</li>
-<li>하지만 설계와 개발은 다른 특성을 띤 에스펙트들을 독립적인 관점으로 작성</li>
-<li>AOP는 에스펙트를 분리함으로써 핵심기능을 설계하고 구현할 때 객체지향적인 가치를 지킬 수 있도록 도와주는 것</li>
-<li>애플리케이션을 특정한 관점을 기준으로 바라볼 수 있게 해준다는 의미에서 관점 지향 프로그래밍이라고도 함</li>
-</ul>
-<h3 id="프록시를-이용한-AOP"><a href="#프록시를-이용한-AOP" class="headerlink" title="프록시를 이용한 AOP"></a>프록시를 이용한 AOP</h3><ul>
-<li>스프링은 다양한 기술을 조합해 AOP를 지원하는데 가장 핵심은 프록시를 이용한다는 것</li>
-<li>프록시로 만들어서 DI로 연결된 빈 사이에 적용해 <strong>타깃의 메서드를 호출 과정에 참여</strong> 해서 부가기능을 제공</li>
-<li>스프링 AOP의 부가기능을 담은 어드바이스가 적용되는 대상은 오브젝트의 메서드</li>
-</ul>
-<h3 id="바이트코드-생성과-조작을-통한-AOP"><a href="#바이트코드-생성과-조작을-통한-AOP" class="headerlink" title="바이트코드 생성과 조작을 통한 AOP"></a>바이트코드 생성과 조작을 통한 AOP</h3><ul>
-<li>AspectJ는 컴파일된 타깃의 클래스 파일 자체를 수정하거나 JVM에 로딩되는 시점을 가로채서 바이트코드를 조작하는 방식을 사용</li>
-<li>이 때 장점은,<ol>
-<li>DI 컨테이너의 도움을 받아서 자동 프록시 생성방식을 사용하지 않아도 AOP 적용 가능하기 때문에 컨테이너가 없는 환경에서도 AOP의 적용 가능</li>
-<li>프록시 방식보다 훨씬 강력하고 유연한 AOP가 가능, 프록시는 부가기능을 부여할 대상은 클라이언트가 호출 할 떄 사용하는 메서드로 제한되지만, 바이트코드를 직접 조작하기 떄문에 오브젝트의 생성, 필드 값으 조회와 조작, static 초기화등의 다양한 작업에 부가기능 부여 가능</li>
-</ol>
-</li>
-</ul>
-<h3 id="AOP-용어-정리"><a href="#AOP-용어-정리" class="headerlink" title="AOP 용어 정리"></a>AOP 용어 정리</h3><ul>
-<li>타깃<ul>
-<li>부가기능을 부여할 대상</li>
-</ul>
-</li>
-<li>어드바이스<ul>
-<li>타깃에게 제공할 부가기능을 담을 모듈</li>
-</ul>
-</li>
-<li>조인 포인트<ul>
-<li>어드바이스가 적용될 수 잇는 위치</li>
-<li>스프링 AOP의 조인 포인트는 메서드의 실행단계</li>
-<li>타깃 오브젝트가 구현한 인터페이스의 모든 메서드는 조인 포인트가 됌</li>
-</ul>
-</li>
-<li>포인트컷<ul>
-<li>어드바이스를 적용할 조인 포인트를 선별하는 작업 또는 그 기능을 정의한 모듈</li>
-<li>메서드의 시그니처를 비교하는 방법을 주로 사용</li>
-</ul>
-</li>
-<li>프록시<ul>
-<li>클라이언트와 타깃 사이에 투명하게 존재하면서 부가기능을 제공하는 오브젝트</li>
-</ul>
-</li>
-<li>어드바이저<ul>
-<li>포인트컷과 어드바이스를 하나씩 갖고 있는 오브젝트</li>
-<li>어떤 부가기능(어드바이스)를 어디에(포인트 컷) 전달할 것인가를 알고 있는 AOP의 가장 기본이 되는 모듈</li>
-</ul>
-</li>
-<li>애스펙트<ul>
-<li>AOP의 기본 모듈</li>
-<li>한 개 또는 그 이상의 포인트 컷과 어드바이스를 조합</li>
-<li>보통 싱글톤 형태의 오브젝트</li>
-</ul>
-</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/13/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-3/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/13/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-3/" aria-label=": 토비의 스프링 reading (3)">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

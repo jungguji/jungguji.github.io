@@ -177,6 +177,85 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/" aria-label=": H2 DB를 이용한 Repository Test">
+                            H2 DB를 이용한 Repository Test
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-07-05T15:56:17+09:00">
+	
+		    2020/07/05
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="상황"><a href="#상황" class="headerlink" title="상황"></a>상황</h2><p>프로덕션 환경에서 Mariadb를 활용하고 있었는데, 프로덕션 환경의 DB로 Repository class를 테스트를 진행하니 테스트 데이터는 롤백되어 DB 남지 않았지만, Auto increment로 지정한 ID가 증가돼서 실제 서비스에서 데이터 저장 시 증가된 ID로 데이터가 저장되는 문제가 발생했다.</p>
+<p>해서 Test할 때는 사용 할 데이터베이스 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.h2database.com/html/main.html">H2</a>를 이용하기로 했다. <br>H2 데이터베이스는 인메모리 관계형 데이터베이스로 메모리 안에서 실행되기 때문에 어플리케이션을 시작할 때마다 초기화되어 테스트 용도로 많이 사용된다. <br>하지만 테스트 환경도 프로덕션 환경과 비슷하게 만들어서 테스트 하는 경우에는 테스트환경에도 프로덕션 DB를 생성해서 사용하는 경우도 있다고 한다.</p>
+<p>필자가 okky에 올린 질문글 <br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://okky.kr/article/732917?note=2011578">Repository Test시 ID 자동 증가</a></p>
+<hr>
+<h2 id="Test-환경에서-H2-적용"><a href="#Test-환경에서-H2-적용" class="headerlink" title="Test 환경에서 H2 적용"></a>Test 환경에서 H2 적용</h2><p>우선 H2 DB를 POM.xml에 추가하여 의존성을 등록한다.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.h2database/h2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>그 후 Test 환경에서 사용하는 appication.properties에서 데이터베이스 설정을 H2로 설정해준다.</p>
+<h3 id="application-test-properties-위치"><a href="#application-test-properties-위치" class="headerlink" title="application-test.properties 위치"></a>application-test.properties 위치</h3><img src="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/%EC%9C%84%EC%B9%98.JPG" class title="H2 DB를 이용한 Repository Test">
+
+<h3 id="application-test-properties-내용"><a href="#application-test-properties-내용" class="headerlink" title="application-test.properties 내용"></a>application-test.properties 내용</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1</span></span><br><span class="line"><span class="meta">spring.datasource.driverClassName</span>=<span class="string">org.h2.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">sa</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string"></span></span><br><span class="line"><span class="meta">spring.h2.console.enabled</span>=<span class="string">true</span></span><br><span class="line"></span><br><span class="line"><span class="meta">spring.jpa.hibernate.dialect</span>=<span class="string">org.hibernate.dialect.MariaDBDialect</span></span><br><span class="line"><span class="meta">spring.jpa.database-platform</span>=<span class="string">org.hibernate.dialect.H2Dialect</span></span><br><span class="line"><span class="meta">spring.jpa.hibernate.ddl-auto</span>=<span class="string">create-drop</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>프로덕션 환경에서 Mariadb를 사용하기 때문에 dialect를 Mariadb로 설정하고 MODE=Mysql로 설정했다.</li>
+<li>spring.jpa.hibernate.ddl-auto=none으로 설정하면 시작 시 마다 초기화되지 않기 떄문에 테스트 환경에선 꼭 create-drop으로 설정해준다.</li>
+</ul>
+<h3 id="Repository-Test-class"><a href="#Repository-Test-class" class="headerlink" title="Repository Test class"></a>Repository Test class</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ExtendWith(SpringExtension.class)</span></span><br><span class="line"><span class="meta">@DataJpaTest</span></span><br><span class="line"><span class="meta">@TestPropertySource(&quot;classpath:application-test.properties&quot;)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordRepositoryTest</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>JPA Test를 위해 JPA 관련된 설정을 불러오는 @DataJpaTest</li>
+<li>Test환경에선 프로덕션 환경과 다르게 H2 DB를 사용하므로 H2 DB설정을 지정한 application-test.properties를 호출하기 위한 @TestPropertySource</li>
+</ul>
+<p>이 정도로 설정하고 Test하면 정상적으로 H2를 이용한 테스트가 성공할 것이다.</p>
+<hr>
+<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BeforeEach</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    user = <span class="keyword">new</span> User();</span><br><span class="line">    user.setUsername(<span class="string">&quot;jgji&quot;</span>);</span><br><span class="line">    user.setPassword(<span class="string">&quot;qwe123&quot;</span>);</span><br><span class="line"></span><br><span class="line">    userRepository.save(<span class="keyword">this</span>.user);</span><br><span class="line"></span><br><span class="line">    user1 = <span class="keyword">new</span> User();</span><br><span class="line">    user.setUsername(<span class="string">&quot;haha&quot;</span>);</span><br><span class="line">    user.setPassword(<span class="string">&quot;qwe123&quot;</span>);</span><br><span class="line"></span><br><span class="line">    userRepository.save(<span class="keyword">this</span>.user1);</span><br><span class="line"></span><br><span class="line">    List&lt;Word&gt; givenWordList = getWordGiven();</span><br><span class="line">    <span class="keyword">this</span>.word = givenWordList.get(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">this</span>.word1 = givenWordList.get(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위 처럼 @Before 메서드를 지정해놓았는데, 각각 Test 메서드를 실행하였을 땐 Auto increment로 지정한 user의 id가 정상적으로 1, 2 이런식으로 생성되었지만 test class 전체로 test를 실행하니 DB가 메서드 마다 각각 실행하고 초기화 되는 것이 아닌지 User Id가 계속 증가해서 테스트가 실패하는 문제가 있었다.</p>
+<p>테스트 시 꼭 메서드 각각으로하고 성공한다고 넘어가는게 아니라 클래스 전체로 테스트를 해봐야 할 것 같다.</p>
+<hr>
+<h2 id="프로젝트-전체-코드"><a href="#프로젝트-전체-코드" class="headerlink" title="프로젝트 전체 코드"></a>프로젝트 전체 코드</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook">https://github.com/jungguji/wordbook</a></li>
+</ul>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/howto-database-initialization.html">https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/howto-database-initialization.html</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8A%9C%ED%94%8C/" aria-label=": 프로그래머스: 튜플">
                             프로그래머스: 튜플
                         </a>
@@ -1796,191 +1875,6 @@
         </div>
         
             <a href="/2020/06/17/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 소수 만들기">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/16/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B4%84%ED%98%B8-%EB%B3%80%ED%99%98/" aria-label=": 프로그래머스: 괄호 변환">
-                            프로그래머스: 괄호 변환
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-16T17:12:52+09:00">
-	
-		    2020/06/16
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/60058">https://programmers.co.kr/learn/courses/30/lessons/60058</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Character LEFT = <span class="string">&#x27;(&#x27;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Character RIGHT = <span class="string">&#x27;)&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">solution</span><span class="params">(String p)</span> </span>&#123;</span><br><span class="line">    String answer = getDivide(p);</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">getDivide</span><span class="params">(String w)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (w.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">return</span> w;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String[] uAndv = getUAndV(w);</span><br><span class="line">    String u = uAndv[<span class="number">0</span>];</span><br><span class="line">    String v = uAndv[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isPerfectBracket(u)) &#123;</span><br><span class="line">        <span class="keyword">return</span> createPerfectBracket(u, v);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> u + getDivide(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String[] getUAndV(String w) &#123;</span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">char</span>[] tochar = w.toCharArray();</span><br><span class="line">    Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">char</span> popChar = (tochar[<span class="number">0</span>] == LEFT) ? RIGHT : LEFT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> ch : tochar) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ch == popChar) &#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">            sb.append(popChar);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sb.append(stack.push(ch));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (stack.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String[] uAndv = <span class="keyword">new</span> String[<span class="number">2</span>];</span><br><span class="line">    uAndv[<span class="number">0</span>] = sb.toString();</span><br><span class="line">    uAndv[<span class="number">1</span>] = <span class="keyword">new</span> String(tochar, uAndv[<span class="number">0</span>].length(), tochar.length - uAndv[<span class="number">0</span>].length());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> uAndv;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isPerfectBracket</span><span class="params">(String u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; u.length(); i++) &#123;</span><br><span class="line">        sum += (u.charAt(i) == LEFT) ? +<span class="number">1</span> : -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">createPerfectBracket</span><span class="params">(String u, String v)</span> </span>&#123;</span><br><span class="line">    StringBuilder str = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    str.append(LEFT);</span><br><span class="line">    str.append(getDivide(v));</span><br><span class="line">    str.append(RIGHT);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] newU = u.substring(<span class="number">1</span>, u.length() -<span class="number">1</span>).toCharArray();</span><br><span class="line">    str.append(getChange(newU));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> str.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">char</span>[] getChange(<span class="keyword">char</span>[] newU) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; newU.length; i++) &#123;</span><br><span class="line">        newU[i] = (newU[i] == LEFT) ? RIGHT : LEFT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newU;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ul>
-<li>문제에 있는 그대로 작성하면 됨</li>
-</ul>
-<ol>
-<li>입력이 빈 문자열인 경우, 빈 문자열을 반환합니다.</li>
-<li>문자열 w를 두 “균형잡힌 괄호 문자열” u, v로 분리합니다.<br>단, u는 “균형잡힌 괄호 문자열”로 더 이상 분리할 수 없어야 하며, v는 빈 문자열이 될 수 있습니다.</li>
-<li>문자열 u가 “올바른 괄호 문자열” 이라면 문자열 v에 대해 1단계부터 다시 수행합니다.<ol>
-<li>수행한 결과 문자열을 u에 이어 붙인 후 반환합니다.</li>
-</ol>
-</li>
-<li>문자열 u가 “올바른 괄호 문자열”이 아니라면 아래 과정을 수행합니다.<ol>
-<li>빈 문자열에 첫 번째 문자로 ‘(‘를 붙입니다.</li>
-<li>문자열 v에 대해 1단계부터 재귀적으로 수행한 결과 문자열을 이어 붙입니다.</li>
-<li>‘)’를 다시 붙입니다.</li>
-<li>u의 첫 번째와 마지막 문자를 제거하고, 나머지 문자열의 괄호 방향을 뒤집어서 뒤에 붙입니다.</li>
-<li>생성된 문자열을 반환합니다.</li>
-</ol>
-</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (32.01ms, 55.5MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (1.42ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (30.81ms, 55.3MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (30.93ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (30.16ms, 55.5MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (29.55ms, 55.3MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (35.55ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (29.41ms, 55.2MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (28.63ms, 53.6MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (30.95ms, 54.9MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (30.81ms, 55.9MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (28.73ms, 55.3MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (30.50ms, 55.7MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (38.62ms, 53.5MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (31.72ms, 53.5MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (31.20ms, 55MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (30.63ms, 55.2MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (33.95ms, 55.4MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (31.25ms, 53.6MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (33.02ms, 55.5MB)</td>
-</tr>
-<tr>
-<td>테스트 21</td>
-<td>통과 (33.70ms, 53.5MB)</td>
-</tr>
-<tr>
-<td>테스트 22</td>
-<td>통과 (33.13ms, 53.5MB)</td>
-</tr>
-<tr>
-<td>테스트 23</td>
-<td>통과 (32.43ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 24</td>
-<td>통과 (31.24ms, 55.9MB)</td>
-</tr>
-<tr>
-<td>테스트 25</td>
-<td>통과 (33.63ms, 56MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;(()())()&quot;</span>, test.solution(<span class="string">&quot;(()())()&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()&quot;</span>, test.solution(<span class="string">&quot;)(&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()(())()&quot;</span>, test.solution(<span class="string">&quot;()))((()&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;(((())))&quot;</span>, test.solution(<span class="string">&quot;)()()()(&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()()((()))&quot;</span>, test.solution(<span class="string">&quot;))()))((((&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()&quot;</span>, test.solution(<span class="string">&quot;()&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;()()()()()()((()))&quot;</span>, test.solution(<span class="string">&quot;()()()()()()((()))&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;((((())())))()(())&quot;</span>, test.solution(<span class="string">&quot;((((())()))))))(((&quot;</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;(((()())())())((()))&quot;</span>, test.solution(<span class="string">&quot;))))((((((()())()))(&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/16/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B4%84%ED%98%B8-%EB%B3%80%ED%99%98/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/16/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B4%84%ED%98%B8-%EB%B3%80%ED%99%98/" aria-label=": 프로그래머스: 괄호 변환">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>
