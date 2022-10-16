@@ -176,6 +176,573 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/07/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%98%EC%8B%9D-%EC%B5%9C%EB%8C%80%ED%99%94/" aria-label=": 프로그래머스: 수식 최대화">
+                            프로그래머스: 수식 최대화
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-07-06T18:38:51+09:00">
+	
+		    2020/07/06
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/67257">https://programmers.co.kr/learn/courses/30/lessons/67257</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> PLUS = <span class="string">&#x27;+&#x27;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> MINUS = <span class="string">&#x27;-&#x27;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> MULTIPLICATION = <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">solution</span><span class="params">(String expression)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] chars = expression.toCharArray();</span><br><span class="line"></span><br><span class="line">    Object[] numberAndOperator = getNumbersAndOperatorSet(chars);</span><br><span class="line">    List&lt;Long&gt; numberList = (List&lt;Long&gt;) numberAndOperator[<span class="number">0</span>];</span><br><span class="line">    List&lt;Character&gt; operatorList = (List&lt;Character&gt;) numberAndOperator[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] operators = getExpressionIncludeOperators(operatorList);</span><br><span class="line">    List&lt;String&gt; operatorSetList = getOperatorSetList(operators);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> getMax(numberList, operatorList, operatorSetList);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> Object[] getNumbersAndOperatorSet(<span class="keyword">char</span>[] expression) &#123;</span><br><span class="line">    List&lt;Long&gt; numberList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;Character&gt; operatorList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : expression) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (c) &#123;</span><br><span class="line">            <span class="keyword">case</span> PLUS:</span><br><span class="line">            <span class="keyword">case</span> MINUS:</span><br><span class="line">            <span class="keyword">case</span> MULTIPLICATION:</span><br><span class="line">                numberList.add(Long.valueOf(sb.toString()));</span><br><span class="line">                operatorList.add(c);</span><br><span class="line"></span><br><span class="line">                sb.setLength(<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                sb.append(c);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    numberList.add(Long.valueOf(sb.toString()));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Object[] &#123;numberList, operatorList&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">char</span>[] getExpressionIncludeOperators(List&lt;Character&gt; operatorList) &#123;</span><br><span class="line">    Set&lt;Character&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">    List&lt;Character&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : operatorList) &#123;</span><br><span class="line">        <span class="keyword">if</span> (set.add(c)) &#123;</span><br><span class="line">            list.add(c);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>[] operators = <span class="keyword">new</span> <span class="keyword">char</span>[list.size()];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : list) &#123;</span><br><span class="line">        operators[i++] = c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> operators;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">getOperatorSetList</span><span class="params">(<span class="keyword">char</span>[] chars)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; operatorSetList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= chars.length; i++) &#123;</span><br><span class="line">        perm(chars, <span class="number">0</span>, i, operatorSetList, set);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> operatorSetList;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">perm</span><span class="params">(<span class="keyword">char</span>[] array, <span class="keyword">int</span> depth, <span class="keyword">int</span> length, List&lt;String&gt; operatorList, Set&lt;String&gt; set)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (depth == length) &#123;</span><br><span class="line"></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> c : array) &#123;</span><br><span class="line">            sb.append(c);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (set.add(sb.toString())) &#123;</span><br><span class="line">            operatorList.add(sb.toString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = depth; i &lt; array.length; i++) &#123;</span><br><span class="line">        swap(array, i, depth);</span><br><span class="line">        perm(array, depth + <span class="number">1</span>, length, operatorList, set);</span><br><span class="line">        swap(array, i, depth);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">char</span>[] arrary, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp = arrary[i];</span><br><span class="line">    arrary[i] = arrary[j];</span><br><span class="line">    arrary[j] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Long <span class="title">getMax</span><span class="params">(List&lt;Long&gt; numberList, List&lt;Character&gt; operatorList, List&lt;String&gt; operatorSetList)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> max = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (String operatorSet : operatorSetList) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] operators = operatorSet.toCharArray();</span><br><span class="line"></span><br><span class="line">        LinkedList&lt;Long&gt; numberQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(numberList);</span><br><span class="line">        LinkedList&lt;Character&gt; operatorQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(operatorList);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> operatorToCalculate : operators) &#123;</span><br><span class="line">            Stack&lt;Long&gt; numberStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">            Stack&lt;Character&gt; operatorStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">long</span> first = numberQueue.poll();</span><br><span class="line">            numberStack.push(first);</span><br><span class="line">            numberQueue.offer(first);</span><br><span class="line"></span><br><span class="line">            Stack[] stacks = <span class="keyword">new</span> Stack[] &#123;numberStack, operatorStack&#125;;</span><br><span class="line">            LinkedList[] queues = <span class="keyword">new</span> LinkedList[] &#123;numberQueue, operatorQueue&#125;;</span><br><span class="line"></span><br><span class="line">            calculatePriority(stacks, queues, operatorToCalculate);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        max = (max &gt; Math.abs(numberQueue.peek())) ? max : Math.abs(numberQueue.poll());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">calculatePriority</span><span class="params">(Stack[] staks, LinkedList[] queues, <span class="keyword">char</span> operatorToCalculate)</span> </span>&#123;</span><br><span class="line">    Stack&lt;Long&gt; numberStack = staks[<span class="number">0</span>];</span><br><span class="line">    Stack&lt;Character&gt; operatorStack = staks[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    LinkedList&lt;Long&gt; numberQueue = queues[<span class="number">0</span>];</span><br><span class="line">    LinkedList&lt;Character&gt; operatorQueue = queues[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> limit = operatorQueue.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit; i++) &#123;</span><br><span class="line">        <span class="keyword">long</span> currentNumber = numberQueue.poll();</span><br><span class="line">        numberStack.push(currentNumber);</span><br><span class="line"></span><br><span class="line">        Character currentOperator = operatorQueue.poll();</span><br><span class="line">        operatorStack.push(currentOperator);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (operatorStack.peek() == operatorToCalculate) &#123;</span><br><span class="line">            <span class="keyword">long</span> n1 = numberStack.pop();</span><br><span class="line">            <span class="keyword">long</span> n2 = numberStack.pop();</span><br><span class="line">            <span class="keyword">char</span> op = operatorStack.pop();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">long</span> sum = sum(n2, n1, op);</span><br><span class="line">            numberStack.push(sum);</span><br><span class="line"></span><br><span class="line">            numberQueue.pollLast();</span><br><span class="line">            numberQueue.offer(sum);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            numberQueue.offer(currentNumber);</span><br><span class="line">            operatorQueue.offer(currentOperator);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Long <span class="title">sum</span><span class="params">(<span class="keyword">long</span> n2, <span class="keyword">long</span> n1, <span class="keyword">char</span> op)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (op) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span> :</span><br><span class="line">            sum = n2 * n1;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span> :</span><br><span class="line">            sum = n2 + n1;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span> :</span><br><span class="line">            sum = n2 - n1;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>수식으로 넘어온 문자열을 숫자와 연산자로 나눈다.</li>
+<li>연산자들을 중복되지 않게 저장한다.</li>
+<li>문자열에 포함되어 있는 연산자들을 재귀로 반복하면서 모든 순열을 구한다.<ol>
+<li>0번째와 1번째를 교환하고 0번째와 2번째를 교환하고 하는 식으로 모든 순열을 구한다.</li>
+<li>연산자의 개수만큼 순열로 만들어서 경우의 수를 구하기 위해 연산자가 2개인 경우엔 2! = 2개, 3개인 경우엔 3! = 6개가 된다.</li>
+</ol>
+</li>
+<li>모든 경우의 수를 구했으면 우선 순열의 수 만큼 반복해서 모든 경우의 수의 값을 구해야 하므로 순열의 수 만큼 반복한다.</li>
+<li>돌면서 숫자를 담은 리스트와 연산자를 담은 리스트의 사이즈와 같은 큐를 만들고 각각 값들을 저장해서 초기화한다.</li>
+<li>이번에 계산 할 순열(ex) * + -)을 char[]로 나눠서 그 갯수만큼 loop 돈다.</li>
+<li>돌면서 숫자와 연산자를 저장 할 Stack를 각각 만든다.</li>
+<li>숫자를 저장한 큐에서 하나를 꺼내서 stack에 저장하고 꺼낸 놈을 다시 큐의 맨 마지막에 저장한다.</li>
+<li>그 후 큐의 개수만큼 loop 돌면서 큐들에서 하나씩 꺼내고 마찬가지로 스택에 저장한다.</li>
+<li>그리고 꺼낸 연산자가 지금 계산 해야할 연산자라면 stack들에서 숫자 2개와 연산자를 pop하고 연산자에 맞게 계산해준다.</li>
+<li>계산 한 값은 뒤에 또 그 값을 다른 값과 계산해야하므로 stack와 queue에 저장한다.</li>
+<li>그리고 8번에서 큐에 초기값을 먼저 저장해서 큐의 맨 앞값과 큐의 맨 마지막 값이 계산된 것이므로 큐의 맨 마지막 값을 꺼낸다.</li>
+<li>이번에 계산 할 연산자가 아니라면 지금 꺼낸 값과 연산자는 다시 큐에 저장한다.</li>
+<li>4번부터 13번 까지를 모두 반복하면 끝</li>
+</ol>
+<br>
+
+<h3 id="일-경우-Queue와-Stack의-변화"><a href="#일-경우-Queue와-Stack의-변화" class="headerlink" title="* + - 일 경우 Queue와 Stack의 변화"></a>* + - 일 경우 Queue와 Stack의 변화</h3><ol>
+<li>초기화</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LinkedList&lt;Long&gt; numberQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(numberList);</span><br><span class="line">LinkedList&lt;Character&gt; operatorQueue = <span class="keyword">new</span> LinkedList&lt;&gt;(operatorList);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>100</td>
+<td>200</td>
+<td>300</td>
+<td>500</td>
+<td>20</td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>*</td>
+<td>-</td>
+<td>+</td>
+<td></td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>숫자 초기값 저장</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> first = numberQueue.poll();</span><br><span class="line">numberStack.push(first);</span><br><span class="line">numberQueue.offer(first);</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>200</td>
+<td>300</td>
+<td>500</td>
+<td>20</td>
+<td>100</td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>*</td>
+<td>-</td>
+<td>+</td>
+<td></td>
+</tr>
+</tbody></table>
+<br>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td></td>
+</tr>
+</tbody></table>
+<ol start="3">
+<li>이후 반복</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit; i++) &#123;</span><br><span class="line">    <span class="keyword">long</span> currentNumber = numberQueue.poll();</span><br><span class="line">    numberStack.push(currentNumber);</span><br><span class="line"></span><br><span class="line">    Character currentOperator = operatorQueue.poll();</span><br><span class="line">    operatorStack.push(currentOperator);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (operatorStack.peek() == operatorToCalculate) &#123;</span><br><span class="line">        <span class="keyword">long</span> n1 = numberStack.pop();</span><br><span class="line">        <span class="keyword">long</span> n2 = numberStack.pop();</span><br><span class="line">        <span class="keyword">char</span> op = operatorStack.pop();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">long</span> sum = sum(n2, n1, op);</span><br><span class="line">        numberStack.push(sum);</span><br><span class="line"></span><br><span class="line">        numberQueue.pollLast();</span><br><span class="line">        numberQueue.offer(sum);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        numberQueue.offer(currentNumber);</span><br><span class="line">        operatorQueue.offer(currentOperator);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1회-반복"><a href="#1회-반복" class="headerlink" title="1회 반복"></a>1회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>300</td>
+<td>500</td>
+<td>20</td>
+<td>100</td>
+<td>200</td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>*</td>
+<td>-</td>
+<td>+</td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>200</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="2회-반복"><a href="#2회-반복" class="headerlink" title="2회 반복"></a>2회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>500</td>
+<td>20</td>
+<td>100</td>
+<td>60000</td>
+<td></td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>+</td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>60000</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="3회-반복"><a href="#3회-반복" class="headerlink" title="3회 반복"></a>3회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>20</td>
+<td>100</td>
+<td>60000</td>
+<td>500</td>
+<td></td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>+</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>500</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>60000</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="4회-반복"><a href="#4회-반복" class="headerlink" title="4회 반복"></a>4회 반복</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>숫자</td>
+<td>100</td>
+<td>60000</td>
+<td>500</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>연산자</td>
+<td>-</td>
+<td>-</td>
+<td>+</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>숫자</th>
+<th>연산자</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>500</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>60000</td>
+<td>+</td>
+</tr>
+<tr>
+<td>1</td>
+<td>100</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<ul>
+<li>이런 식으로 반복되고 queue 크기 만큼 돌았다는건 우선 계산해야 될 연산자를 다 계산 했다는 것이므로 다시 스택을 비우고 처음부터 위 계산을 반복한다.</li>
+<li>다시 계산해도 큐에 계산 된 값이 저장되어 있으므로 정상적으로 계산된다.</li>
+</ul>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1.22ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.25ms, 51.9MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.54ms, 51.7MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (1.62ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (1.70ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.73ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (1.69ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (1.76ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (1.81ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (1.86ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.70ms, 50.6MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (1.90ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (2.62ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (2.17ms, 53.2MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (2.15ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (1.36ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (1.57ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (1.28ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (1.30ms, 51.3MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (1.33ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (1.53ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (1.47ms, 54.3MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (1.21ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (2.11ms, 50.7MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (2.17ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (1.39ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 27</td>
+<td>통과 (2.70ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 28</td>
+<td>통과 (1.74ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 29</td>
+<td>통과 (1.59ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 30</td>
+<td>통과 (1.58ms, 50.2MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">60420</span>, test.solution(<span class="string">&quot;100-200*300-500+20&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">300</span>, test.solution(<span class="string">&quot;50*6-3*2&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/07/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%98%EC%8B%9D-%EC%B5%9C%EB%8C%80%ED%99%94/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/07/06/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%98%EC%8B%9D-%EC%B5%9C%EB%8C%80%ED%99%94/" aria-label=": 프로그래머스: 수식 최대화">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/" aria-label=": H2 DB를 이용한 Repository Test">
                             H2 DB를 이용한 Repository Test
                         </a>
@@ -1693,187 +2260,6 @@
         </div>
         
             <a href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%A0%95%EC%82%AC%EA%B0%81%ED%98%95-%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 가장 큰 정사각형 찾기">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/17/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 소수 만들기">
-                            프로그래머스: 소수 만들기
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-17T15:17:32+09:00">
-	
-		    2020/06/17
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/12977">https://programmers.co.kr/learn/courses/30/lessons/12977</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    List&lt;Long&gt; list = getSumList(nums);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">long</span> i : list) &#123;</span><br><span class="line">        <span class="keyword">boolean</span> isNotPrime = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j * j &lt;= i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % j == <span class="number">0</span>) &#123;</span><br><span class="line">                isNotPrime = <span class="keyword">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!isNotPrime) &#123;</span><br><span class="line">            ++answer;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;Long&gt; <span class="title">getSumList</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    List&lt;Long&gt; list = <span class="keyword">new</span> ArrayList&lt;Long&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> arrayLength = nums.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arrayLength; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; arrayLength; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j == arrayLength - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = j + <span class="number">1</span>; k &lt; arrayLength; k++) &#123;</span><br><span class="line">                list.add((<span class="keyword">long</span>) (nums[i] + nums[j] + nums[k]));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>3개이므로 3중 for문으로 돌면서 경우의 수 모두 돌면서 더한 값을 list에 저장</li>
-<li>arrayoutofrange가 발생하지 않도록 length -1 인 경우 끝냄</li>
-<li>모든 합이 저장된 list를 돌면서 소수인지 확인함</li>
-<li>구한 값이 소수이면 값을 증가시킴</li>
-<li>반복이 끝나면 return</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (2.48ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (3.29ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (1.36ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (1.32ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (4.94ms, 50.4MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (5.02ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (1.10ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (8.70ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (1.78ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (8.33ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (1.06ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (0.95ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (1.03ms, 50.5MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (0.94ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (0.82ms, 50MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (8.65ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (7.43ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (0.95ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (0.83ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (9.97ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 21</td>
-<td>통과 (10.12ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 22</td>
-<td>통과 (2.31ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 23</td>
-<td>통과 (0.83ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 24</td>
-<td>통과 (9.64ms, 50.8MB)</td>
-</tr>
-<tr>
-<td>테스트 25</td>
-<td>통과 (9.52ms, 50.5MB)</td>
-</tr>
-<tr>
-<td>테스트 26</td>
-<td>통과 (0.89ms, 52.1MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">4</span>&#125;));</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><p>당연히 속도 제한에 걸릴 줄 알고 제출했는데 통과되었다 <br>썩 만족스럽지 못한 코드 <br>만약 서로 다른 3개가 아니라 임의 수 n 이었다면? <br>고민을 좀 더 해봐야 할 듯 싶다.</p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/17/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/17/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 소수 만들기">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>
