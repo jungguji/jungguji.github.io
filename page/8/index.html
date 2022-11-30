@@ -176,6 +176,70 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/" aria-label=": Spring Boot + Maven Travis CI 연동 에러">
+                            Spring Boot + Maven Travis CI 연동 에러
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-06T20:17:56+09:00">
+	
+		    2020/06/06
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="에러"><a href="#에러" class="headerlink" title="에러"></a>에러</h2><p><img src="/images/20200601/travis_error.PNG" alt="Travis 권한 에러"></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mvnw: Permission denied</span><br></pre></td></tr></table></figure>
+
+<p>Spring Boot + Maven 프로젝트 Travis CI 연동 중 발생한 에러</p>
+<hr>
+<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">before_install:</span><br><span class="line">  - chmod +x mvnw</span><br></pre></td></tr></table></figure>
+
+<p>설정으로 권한 부여하여 해결</p>
+<h2 id="전체-코드"><a href="#전체-코드" class="headerlink" title="전체 코드"></a>전체 코드</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">language: java</span><br><span class="line">jdk:</span><br><span class="line">  - openjdk8</span><br><span class="line"></span><br><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br><span class="line"></span><br><span class="line"># Travis CI 서버의 Home</span><br><span class="line">cache:</span><br><span class="line">  directories:</span><br><span class="line">    - $HOME/.m2</span><br><span class="line"></span><br><span class="line">before_install:</span><br><span class="line">  - chmod +x mvnw</span><br><span class="line"></span><br><span class="line"># MAVEN 프로젝트는 필요 없음</span><br><span class="line">#script: &quot;./mvnw package&quot;</span><br><span class="line"></span><br><span class="line"># CI 실행 완료시 메일로 알람</span><br><span class="line">notifications:</span><br><span class="line">  email:</span><br><span class="line">    recipients:</span><br><span class="line">      - your@gmail.com</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@recordsbeat/travis-ci-maven-%EC%97%B0%EB%8F%99">https://velog.io/@recordsbeat/travis-ci-maven-%EC%97%B0%EB%8F%99</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/06/Spring-Boot-Maven-Travis-CI-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/" aria-label=": Spring Boot + Maven Travis CI 연동 에러">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/30/Spring-Controller-Junit-Test/" aria-label=": Spring Controller Junit으로 Test하기">
                             Spring Controller Junit으로 Test하기
                         </a>
@@ -1117,76 +1181,6 @@
         </div>
         
             <a href="/2020/05/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B5%AC%EB%AA%85%EB%B3%B4%ED%8A%B8/" aria-label=": 프로그래머스: 구명보트">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 큰 수 만들기">
-                            프로그래머스: 큰 수 만들기
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-18T20:13:25+09:00">
-	
-		    2020/05/18
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42883?language=java">https://programmers.co.kr/learn/courses/30/lessons/42883?language=java</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">solution</span><span class="params">(String number, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] toCharArray = number.toCharArray();</span><br><span class="line"></span><br><span class="line">    StringBuilder answer = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; number.length() - k; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = idx; j &lt;= k + i; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> ch = toCharArray[j] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(max &lt; ch) &#123;</span><br><span class="line">                max = ch;</span><br><span class="line">                idx = j + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        answer.append(max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>문자열에서 k 만큼 빼야하니 당연히 문자열 length - k 만큼 반복</li>
-<li>가장 큰 수의 인덱스를 구해서 그 인덱스부터 한 칸씩 밀려야 하니 k + i 한 값 까지 반복</li>
-<li>가장 큰 수의 인덱스부터 반복해야하니 범위 내에서 가장 큰 수를 구해서 그 수의 인덱스를 저장하고 여기서 구한 인덱스를 2번에서 사용</li>
-<li>가장 큰 수를 저장하고 반복이 끝나면 리턴</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;23&quot;</span>, test.solution(<span class="string">&quot;123&quot;</span>, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;34&quot;</span>, test.solution(<span class="string">&quot;1234&quot;</span>, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;94&quot;</span>, test.solution(<span class="string">&quot;1924&quot;</span>, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;3234&quot;</span>, test.solution(<span class="string">&quot;1231234&quot;</span>, <span class="number">3</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;775841&quot;</span>, test.solution(<span class="string">&quot;4177252841&quot;</span>, <span class="number">4</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;9&quot;</span>, test.solution(<span class="string">&quot;9999999999&quot;</span>, <span class="number">9</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;93231357719&quot;</span>, test.solution(<span class="string">&quot;9312131357719&quot;</span>, <span class="number">5</span>));</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://medium.com/hyeon-hwang/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-lv-1-42883-%EC%88%AB%EC%9E%90-%EB%AC%B8%EC%A0%9C-%EA%B7%B8%EB%A6%AC%EB%94%94-585ce3b8c604">https://medium.com/hyeon-hwang/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-lv-1-42883-%EC%88%AB%EC%9E%90-%EB%AC%B8%EC%A0%9C-%EA%B7%B8%EB%A6%AC%EB%94%94-585ce3b8c604</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-Java">https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-Java</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 큰 수 만들기">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

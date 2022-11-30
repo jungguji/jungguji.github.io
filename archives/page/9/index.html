@@ -177,6 +177,76 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 큰 수 만들기">
+                            프로그래머스: 큰 수 만들기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-18T20:13:25+09:00">
+	
+		    2020/05/18
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42883?language=java">https://programmers.co.kr/learn/courses/30/lessons/42883?language=java</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">solution</span><span class="params">(String number, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] toCharArray = number.toCharArray();</span><br><span class="line"></span><br><span class="line">    StringBuilder answer = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; number.length() - k; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = idx; j &lt;= k + i; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> ch = toCharArray[j] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            <span class="keyword">if</span>(max &lt; ch) &#123;</span><br><span class="line">                max = ch;</span><br><span class="line">                idx = j + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        answer.append(max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>문자열에서 k 만큼 빼야하니 당연히 문자열 length - k 만큼 반복</li>
+<li>가장 큰 수의 인덱스를 구해서 그 인덱스부터 한 칸씩 밀려야 하니 k + i 한 값 까지 반복</li>
+<li>가장 큰 수의 인덱스부터 반복해야하니 범위 내에서 가장 큰 수를 구해서 그 수의 인덱스를 저장하고 여기서 구한 인덱스를 2번에서 사용</li>
+<li>가장 큰 수를 저장하고 반복이 끝나면 리턴</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="string">&quot;23&quot;</span>, test.solution(<span class="string">&quot;123&quot;</span>, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;34&quot;</span>, test.solution(<span class="string">&quot;1234&quot;</span>, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;94&quot;</span>, test.solution(<span class="string">&quot;1924&quot;</span>, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;3234&quot;</span>, test.solution(<span class="string">&quot;1231234&quot;</span>, <span class="number">3</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;775841&quot;</span>, test.solution(<span class="string">&quot;4177252841&quot;</span>, <span class="number">4</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;9&quot;</span>, test.solution(<span class="string">&quot;9999999999&quot;</span>, <span class="number">9</span>));</span><br><span class="line">assertEquals(<span class="string">&quot;93231357719&quot;</span>, test.solution(<span class="string">&quot;9312131357719&quot;</span>, <span class="number">5</span>));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://medium.com/hyeon-hwang/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-lv-1-42883-%EC%88%AB%EC%9E%90-%EB%AC%B8%EC%A0%9C-%EA%B7%B8%EB%A6%AC%EB%94%94-585ce3b8c604">https://medium.com/hyeon-hwang/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-lv-1-42883-%EC%88%AB%EC%9E%90-%EB%AC%B8%EC%A0%9C-%EA%B7%B8%EB%A6%AC%EB%94%94-585ce3b8c604</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-Java">https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0-Java</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/18/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%81%B0-%EC%88%98-%EB%A7%8C%EB%93%A4%EA%B8%B0/" aria-label=": 프로그래머스: 큰 수 만들기">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%9C%84%EC%9E%A5/" aria-label=": 프로그래머스: 위장">
                             프로그래머스: 위장
                         </a>
@@ -1791,179 +1861,6 @@
         </div>
         
             <a href="/2020/04/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95/" aria-label=": 프로그래머스: 멀쩡한 사각형">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/04/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A6%B0%ED%84%B0/" aria-label=": 프로그래머스: 프린터">
-                            프로그래머스: 프린터
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-04-23T16:02:55+09:00">
-	
-		    2020/04/23
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42587">https://programmers.co.kr/learn/courses/30/lessons/42587</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] priorities, <span class="keyword">int</span> location)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    LinkedList&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;Integer&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; priorities.length; i++) &#123;</span><br><span class="line">        queue.offer(priorities[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (queue.size() != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; queue.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (queue.peek() &lt; queue.get(i)) &#123;</span><br><span class="line">                queue.offer(queue.poll());</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (location == <span class="number">0</span>) &#123;</span><br><span class="line">                    location = queue.size() - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    --location;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                i = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        answer++;</span><br><span class="line">        <span class="keyword">if</span> (location == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        --location;</span><br><span class="line">        queue.poll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li><p>우선순위가 담긴 배열(priorities)을 Queue에 저장</p>
-</li>
-<li><p>큐에 첫 번째 값을 꺼내서 그 뒤 값들과 비교</p>
-</li>
-<li><p>첫 번째 값이 뒤에 있는 값들 보다 작다면 큐에 맨 뒤로 보냄</p>
-</li>
-<li><p>출력해야 되는 프린터의 index를 조정</p>
-<ul>
-<li>index가 0 이라면 맨 뒤로 이동했을테니 큐 크기 - 1;</li>
-<li>아니라면 앞으로 한 칸 이동 했을테니 -1</li>
-</ul>
-</li>
-<li><p>맨 뒤로 이동 시켰으면 맨 앞에 값이 변경 됐으므로 처음부터 다시 검사</p>
-</li>
-<li><p>큐의 0 번째 인덱스가 가장 큰 값이라면 count를 증가시키고 출력해야 하는 프린터의 위치를 확인</p>
-</li>
-<li><p>출력해야하는 프린터가 맨 앞이라면 break로 반복문을 빠져나와 프로그램 종료</p>
-</li>
-<li><p>아니라면 맨 앞에 값을 삭제하고 index를 -1 해서 한 칸 앞으로 당김</p>
-</li>
-<li><p>끝날 때 까지 반복</p>
-</li>
-<li><p>끝</p>
-</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (3.17ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (3.41ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (1.33ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (1.15ms, 50.8MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (0.85ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (1.44ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (1.58ms, 50.4MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (3.89ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (1.04ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (1.57ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (3.90ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (1.07ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (4.36ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (0.83ms, 52MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (0.95ms, 50.4MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (1.21ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (2.79ms, 50.7MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (0.94ms, 50.7MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (2.61ms, 53.1MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (1.51ms, 52.3MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>&#125;, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, <span class="number">0</span>));</span><br><span class="line">assertEquals(<span class="number">6</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>&#125;, <span class="number">3</span>));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>&#125;, <span class="number">3</span>));</span><br></pre></td></tr></table></figure>
-
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/04/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A6%B0%ED%84%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/04/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A6%B0%ED%84%B0/" aria-label=": 프로그래머스: 프린터">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

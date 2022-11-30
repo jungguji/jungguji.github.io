@@ -3,6 +3,13 @@
 
 
     <url>
+        <loc>https://jungguji.github.io/tags/H2/</loc>
+        <lastmod>2022-11-30T11:27:13.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://jungguji.github.io/tags/Intelli-J/</loc>
         <lastmod>2022-10-16T06:53:21.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -369,13 +376,6 @@
     <url>
         <loc>https://jungguji.github.io/tags/%EB%8B%A4%EC%9D%B4%EB%82%98%EB%AF%B9-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</loc>
         <lastmod>2020-07-07T07:31:13.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://jungguji.github.io/tags/H2/</loc>
-        <lastmod>2020-07-05T06:56:17.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

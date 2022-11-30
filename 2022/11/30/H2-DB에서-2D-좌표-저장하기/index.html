@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="저장하고 까먹자">
-    <title>태그: H2 - 저장하고 까먹자</title>
+    <title>H2 DB에서 2D 좌표 저장하기 - 저장하고 까먹자</title>
     <meta name="author" content="Junggu Ji">
     
     
@@ -15,14 +15,21 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{}</script>
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="저장하고 까먹자">
-<meta property="og:url" content="https://jungguji.github.io/tags/H2/index.html">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"articleBody":"서론 토이 프로젝트를 진행 중, 장소의 위치의 위도,경도 좌표를 저장해야 했는데, float type의 ‘latitude’, ‘longitude’ 라는 2개의 컬럼을 만들어서 각각 따로 저장하려고 했는데, 우연찮은 기회에 공간 데이터 타입이라는 것이 따로 있다는 것을 발견하여 적용해본 경험을 글로 작성하여 보려고 한다.\n본론 공간(空間, 영어: space)은 어떤 물질 또는 물체가 존재할 수 있거나 어떤 일이 일어날 수 있는 장소이다.\n위키백과공간\n\n공간 데이터란, 위 같은 점, 선, 면의 공간을 데이터화 한 것을 의미하는데, 필자는 지도에서 위치를 표시하기 위해 2D 공간 데이터인 점(Point) 데이터를 저장할 필요가 있었다.필자는 Spring boot + JPA(Hibernate) + H2 환경을 사용하고 있어서, 공간 데이터를 다루기 위해 hibernate-spatial 의존성을 추가해주었다.\n12345&lt;dependency&gt;    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;    &lt;artifactId&gt;hibernate-spatial&lt;/artifactId&gt;    &lt;version&gt;$&#123;hibernate.version&#125;&lt;/version&gt;&lt;/dependency&gt;\n\n그 후 hibernate-spatial 라이브러리에 포함된 The JTS Topology Suite를 사용해 좌표 데이터를 다루면 되는데, 위에서 말한 것 처럼 필자는 2D 데이터를 다루기 위해 Point를 사용했다.\n123456789101112131415161718192021222324252627282930313233import javax.persistence.Column;import javax.persistence.Embeddable;import lombok.AccessLevel;import lombok.Builder;import lombok.Getter;import lombok.NoArgsConstructor;import org.locationtech.jts.geom.Point;@Embeddable@Getter@NoArgsConstructor(access = AccessLevel.PROTECTED)public class Address &#123;    @Column(name = &quot;road&quot;)    private String road;    @Column(name = &quot;jibun&quot;)    private String jibun;    @Column(name = &quot;zip&quot;, nullable = false)    private String zip;    @Column(name = &quot;location&quot;, nullable = false)    private Point location;    @Builder    public Address(String road, String jibun, String zip, Point location) &#123;        this.road = road;        this.jibun = jibun;        this.zip = zip;        this.location = location;    &#125;&#125;\n\n\n만약 필자처럼 Point를 사용할 경우 org.springframework.data.geo.Point를 import하면 정상적으로 동작하지 않으므로, 꼭 import문을 확인하길 바란다.\n\n위 처럼 당차게 Entity class를 작성하고, 아래같은 테스트 데이터를 넣고, 호기롭게 테스트를 돌려본 결과…\n입력 데이터123456789102022-11-30 22:48:44.230 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [null]2022-11-30 22:48:44.231 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [TIMESTAMP] - [null]2022-11-30 22:48:44.231 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [지번 서울시]2022-11-30 22:48:44.232 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARBINARY] - [POINT (19 2)]2022-11-30 22:48:44.233 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [도로명 서울시]2022-11-30 22:48:44.234 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [VARCHAR] - [01006]2022-11-30 22:48:44.235 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [BIGINT] - [null]2022-11-30 22:48:44.235 TRACE 21788 --- [           main] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [우리집]\n\n\n위 로그 처럼 sql에 입력된 파라미터들이 보고 싶은 경우 아래 처럼 설정을 추가해주면 된다.\n\n1234567logging:  level:    org:      hibernate:        type:          descriptor:            sql: trace\n\n\n발생한 에러 로그1234567891011121314151617181920212223Caused by: org.h2.jdbc.JdbcSQLDataException: Value too long for column &quot;LOCATION BINARY VARYING(255)&quot;: &quot;X&#x27;aced00057372001f6f72672e6c6f636174696f6e746563682e6a74732e67656f6d2e506f696e74... (1151)&quot;; SQL statement:insert into place (id, create_date, update_date, jibun, location, road, zip, category_id, name) values (default, ?, ?, ?, ?, ?, ?, ?, ?) [22001-214]\tat org.h2.message.DbException.getJdbcSQLException(DbException.java:506)\tat org.h2.message.DbException.getJdbcSQLException(DbException.java:477)\tat org.h2.message.DbException.get(DbException.java:223)\tat org.h2.message.DbException.getValueTooLongException(DbException.java:322)\tat org.h2.value.Value.getValueTooLongException(Value.java:2573)\tat org.h2.value.Value.convertToVarbinary(Value.java:1371)\tat org.h2.value.Value.convertTo(Value.java:1125)\tat org.h2.value.Value.convertForAssignTo(Value.java:1092)\tat org.h2.table.Column.validateConvertUpdateSequence(Column.java:369)\tat org.h2.table.Table.convertInsertRow(Table.java:926)\tat org.h2.command.dml.Insert.insertRows(Insert.java:167)\tat org.h2.command.dml.Insert.update(Insert.java:135)\tat org.h2.command.CommandContainer.executeUpdateWithGeneratedKeys(CommandContainer.java:242)\tat org.h2.command.CommandContainer.update(CommandContainer.java:163)\tat org.h2.command.Command.executeUpdate(Command.java:252)\tat org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:209)\tat org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:169)\tat com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61)\tat com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java)\tat org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:197)\t... 136 more\n\n테이블 생성 SQL123456789101112create table place (    id bigint generated by default as identity,    create_date timestamp,    update_date timestamp,    jibun varchar(255),    location varbinary(255) not null,    road varchar(255),    zip varchar(255) not null,    category_id bigint,    name varchar(255) not null,    primary key (id))\n\n이 처럼 예상하지 못한 결과가 발생하였는데… 로그를 보니, table create 시 좌표를 저장하는 컬럼의 타입이 기대했던 GEOMETRY이 아닌, varbinary 타입으로 생성되어서 발생한 에러인가 싶어서 컬럼 타입을 “GEOMETRY”로 지정하고 생성해봤지만 결과는 마찬가지였다.\n수정한 코드 및 실행된 SQL12@Column(name = &quot;location&quot;, nullable = false, columnDefinition = &quot;GEOMETRY&quot;) // columnDefinition 속성으로 컬럼 타입 지정private Point location;\n\n123456789101112create table place (    id bigint generated by default as identity,    create_date timestamp,    update_date timestamp,    jibun varchar(255),    location GEOMETRY not null, -- 정상적으로 컬럼의 데이터 타입이 GEOMETRY로 변경    road varchar(255),    zip varchar(255) not null,    category_id bigint,    name varchar(255) not null,    primary key (id))\n\n다시 원인을 검색해본 결과… hibernate-spatial 에서는 H2가 아닌 H2의 확장 데이터베이스인 GeoDB를 지원한다고 되어있는 것을 확인 할 수 있었다.\nThe GeoDBDialect supports the GeoDB a spatial extension of the H2 in-memory database.\nHibernate DocsGeoDB (H2)\n\n그 후 GeoDB를 적용하기 위해 properties 혹은 yaml에 아래처럼 dialect 설정에 org.hibernate.spatial.dialect.h2geodb.GeoDBDialect를 추가 해주면,\n12345678910111213141516spring:  datasource:    url: jdbc:h2:mem:test    username: sa    password:    driver-class-name: org.h2.Driver  jpa:    database-platform: org.hibernate.dialect.H2Dialect    defer-datasource-initialization: true    hibernate:      ddl-auto: create-drop    show-sql: true    properties:      hibernate:        dialect: org.hibernate.spatial.dialect.h2geodb.GeoDBDialect # 추가 혹은 변경\n\ndialect 설정 전 dialect12022-11-30 23:37:47.975  INFO 15720 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect\n\ndialect 설정 후 dialect12022-11-30 23:35:42.124  INFO 18400 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.spatial.dialect.h2geodb.GeoDBDialect\n\n\n\n\n\n\n\n이 처럼 테스트가 성공하는 모습을  확인할 수 있었다.\n\n참고 사이트\nhttps://stackoverflow.com/questions/44261899/geometry-datatype-in-h2-w-spring-jpa\n\n","dateCreated":"2022-11-30T20:27:13+09:00","dateModified":"2022-11-30T20:27:13+09:00","datePublished":"2022-11-30T20:27:13+09:00","description":"","headline":"H2 DB에서 2D 좌표 저장하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/"},"publisher":{"@type":"Organization","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"url":"https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/","keywords":"H2"}</script>
+    <meta name="description" content="서론 토이 프로젝트를 진행 중, 장소의 위치의 위도,경도 좌표를 저장해야 했는데, float type의 ‘latitude’, ‘longitude’ 라는 2개의 컬럼을 만들어서 각각 따로 저장하려고 했는데, 우연찮은 기회에 공간 데이터 타입이라는 것이 따로 있다는 것을 발견하여 적용해본 경험을 글로 작성하여 보려고 한다. 본론 공간(空間, 영어: space)">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="H2 DB에서 2D 좌표 저장하기">
+<meta property="og:url" content="https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/index.html">
 <meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:description" content="서론 토이 프로젝트를 진행 중, 장소의 위치의 위도,경도 좌표를 저장해야 했는데, float type의 ‘latitude’, ‘longitude’ 라는 2개의 컬럼을 만들어서 각각 따로 저장하려고 했는데, 우연찮은 기회에 공간 데이터 타입이라는 것이 따로 있다는 것을 발견하여 적용해본 경험을 글로 작성하여 보려고 한다. 본론 공간(空間, 영어: space)">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/1_%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%84%B1%EA%B3%B5.PNG">
+<meta property="article:published_time" content="2022-11-30T11:27:13.000Z">
+<meta property="article:modified_time" content="2022-11-30T11:27:13.000Z">
 <meta property="article:author" content="Junggu Ji">
+<meta property="article:tag" content="H2">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/1_%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%84%B1%EA%B3%B5.PNG">
     
     
         
@@ -50,6 +57,8 @@
     
 
     
+        
+    
 
     <script data-ad-client="ca-pub-6264654331856753" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
@@ -61,7 +70,7 @@
 
     
 
-<header id="header" data-behavior="1">
+<header id="header" data-behavior="4">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/" aria-label>
@@ -80,7 +89,7 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="1">
+<nav id="sidebar" data-behavior="4">
     <div class="sidebar-container">
         
         
@@ -164,25 +173,21 @@
 </nav>
 
             
-            <div id="main" data-behavior="1" class="
+            <div id="main" data-behavior="4" class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" aria-label=": H2 DB에서 2D 좌표 저장하기">
-                            H2 DB에서 2D 좌표 저장하기
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            H2 DB에서 2D 좌표 저장하기
+        </h1>
+    
+    
+        <div class="post-meta">
     <time datetime="2022-11-30T20:27:13+09:00">
 	
 		    2022/11/30
@@ -191,10 +196,13 @@
     
 </div>
 
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/sokdak-sokdak">토이 프로젝트</a>를 진행 중, 장소의 위치의 위도,경도 좌표를 저장해야 했는데, float type의 ‘latitude’, ‘longitude’ 라는 2개의 컬럼을 만들어서 각각 따로 저장하려고 했는데, 우연찮은 기회에 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html">공간 데이터 타입</a>이라는 것이 따로 있다는 것을 발견하여 적용해본 경험을 글로 작성하여 보려고 한다.</p>
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/sokdak-sokdak">토이 프로젝트</a>를 진행 중, 장소의 위치의 위도,경도 좌표를 저장해야 했는데, float type의 ‘latitude’, ‘longitude’ 라는 2개의 컬럼을 만들어서 각각 따로 저장하려고 했는데, 우연찮은 기회에 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://dev.mysql.com/doc/refman/8.0/en/spatial-type-overview.html">공간 데이터 타입</a>이라는 것이 따로 있다는 것을 발견하여 적용해본 경험을 글로 작성하여 보려고 한다.</p>
 <h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2> <blockquote><p>공간(空間, 영어: space)은 어떤 물질 또는 물체가 존재할 수 있거나 어떤 일이 일어날 수 있는 장소이다.</p>
 <footer><strong>위키백과</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://ko.wikipedia.org/wiki/%EA%B3%B5%EA%B0%84">공간</a></cite></footer></blockquote>
 
@@ -248,112 +256,98 @@
 <li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/44261899/geometry-datatype-in-h2-w-spring-jpa">https://stackoverflow.com/questions/44261899/geometry-datatype-in-h2-w-spring-jpa</a></li>
 </ul>
 
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
             
+
+
         </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/" aria-label=": H2 DB를 이용한 Repository Test">
-                            H2 DB를 이용한 Repository Test
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-07-05T15:56:17+09:00">
-	
-		    2020/07/05
-    	
-    </time>
-    
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">태그</span><br>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/H2/" rel="tag">H2</a>
 
             </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="상황"><a href="#상황" class="headerlink" title="상황"></a>상황</h2><p>프로덕션 환경에서 Mariadb를 활용하고 있었는데, 프로덕션 환경의 DB로 Repository class를 테스트를 진행하니 테스트 데이터는 롤백되어 DB 남지 않았지만, Auto increment로 지정한 ID가 증가돼서 실제 서비스에서 데이터 저장 시 증가된 ID로 데이터가 저장되는 문제가 발생했다.</p>
-<p>해서 Test할 때는 사용 할 데이터베이스 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.h2database.com/html/main.html">H2</a>를 이용하기로 했다. <br>H2 데이터베이스는 인메모리 관계형 데이터베이스로 메모리 안에서 실행되기 때문에 어플리케이션을 시작할 때마다 초기화되어 테스트 용도로 많이 사용된다. <br>하지만 테스트 환경도 프로덕션 환경과 비슷하게 만들어서 테스트 하는 경우에는 테스트환경에도 프로덕션 DB를 생성해서 사용하는 경우도 있다고 한다.</p>
-<p>필자가 okky에 올린 질문글 <br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://okky.kr/article/732917?note=2011578">Repository Test시 ID 자동 증가</a></p>
-<hr>
-<h2 id="Test-환경에서-H2-적용"><a href="#Test-환경에서-H2-적용" class="headerlink" title="Test 환경에서 H2 적용"></a>Test 환경에서 H2 적용</h2><p>우선 H2 DB를 POM.xml에 추가하여 의존성을 등록한다.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/com.h2database/h2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.h2database<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>h2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>그 후 Test 환경에서 사용하는 appication.properties에서 데이터베이스 설정을 H2로 설정해준다.</p>
-<h3 id="application-test-properties-위치"><a href="#application-test-properties-위치" class="headerlink" title="application-test.properties 위치"></a>application-test.properties 위치</h3><img src="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/%EC%9C%84%EC%B9%98.JPG" class title="H2 DB를 이용한 Repository Test">
-
-<h3 id="application-test-properties-내용"><a href="#application-test-properties-내용" class="headerlink" title="application-test.properties 내용"></a>application-test.properties 내용</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.datasource.url</span>=<span class="string">jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1</span></span><br><span class="line"><span class="meta">spring.datasource.driverClassName</span>=<span class="string">org.h2.Driver</span></span><br><span class="line"><span class="meta">spring.datasource.username</span>=<span class="string">sa</span></span><br><span class="line"><span class="meta">spring.datasource.password</span>=<span class="string"></span></span><br><span class="line"><span class="meta">spring.h2.console.enabled</span>=<span class="string">true</span></span><br><span class="line"></span><br><span class="line"><span class="meta">spring.jpa.hibernate.dialect</span>=<span class="string">org.hibernate.dialect.MariaDBDialect</span></span><br><span class="line"><span class="meta">spring.jpa.database-platform</span>=<span class="string">org.hibernate.dialect.H2Dialect</span></span><br><span class="line"><span class="meta">spring.jpa.hibernate.ddl-auto</span>=<span class="string">create-drop</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>프로덕션 환경에서 Mariadb를 사용하기 때문에 dialect를 Mariadb로 설정하고 MODE=Mysql로 설정했다.</li>
-<li>spring.jpa.hibernate.ddl-auto=none으로 설정하면 시작 시 마다 초기화되지 않기 떄문에 테스트 환경에선 꼭 create-drop으로 설정해준다.</li>
-</ul>
-<h3 id="Repository-Test-class"><a href="#Repository-Test-class" class="headerlink" title="Repository Test class"></a>Repository Test class</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ExtendWith(SpringExtension.class)</span></span><br><span class="line"><span class="meta">@DataJpaTest</span></span><br><span class="line"><span class="meta">@TestPropertySource(&quot;classpath:application-test.properties&quot;)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordRepositoryTest</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>JPA Test를 위해 JPA 관련된 설정을 불러오는 @DataJpaTest</li>
-<li>Test환경에선 프로덕션 환경과 다르게 H2 DB를 사용하므로 H2 DB설정을 지정한 application-test.properties를 호출하기 위한 @TestPropertySource</li>
-</ul>
-<p>이 정도로 설정하고 Test하면 정상적으로 H2를 이용한 테스트가 성공할 것이다.</p>
-<hr>
-<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BeforeEach</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    user = <span class="keyword">new</span> User();</span><br><span class="line">    user.setUsername(<span class="string">&quot;jgji&quot;</span>);</span><br><span class="line">    user.setPassword(<span class="string">&quot;qwe123&quot;</span>);</span><br><span class="line"></span><br><span class="line">    userRepository.save(<span class="keyword">this</span>.user);</span><br><span class="line"></span><br><span class="line">    user1 = <span class="keyword">new</span> User();</span><br><span class="line">    user.setUsername(<span class="string">&quot;haha&quot;</span>);</span><br><span class="line">    user.setPassword(<span class="string">&quot;qwe123&quot;</span>);</span><br><span class="line"></span><br><span class="line">    userRepository.save(<span class="keyword">this</span>.user1);</span><br><span class="line"></span><br><span class="line">    List&lt;Word&gt; givenWordList = getWordGiven();</span><br><span class="line">    <span class="keyword">this</span>.word = givenWordList.get(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">this</span>.word1 = givenWordList.get(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>위 처럼 @Before 메서드를 지정해놓았는데, 각각 Test 메서드를 실행하였을 땐 Auto increment로 지정한 user의 id가 정상적으로 1, 2 이런식으로 생성되었지만 test class 전체로 test를 실행하니 DB가 메서드 마다 각각 실행하고 초기화 되는 것이 아닌지 User Id가 계속 증가해서 테스트가 실패하는 문제가 있었다.</p>
-<p>테스트 시 꼭 메서드 각각으로하고 성공한다고 넘어가는게 아니라 클래스 전체로 테스트를 해봐야 할 것 같다.</p>
-<hr>
-<h2 id="프로젝트-전체-코드"><a href="#프로젝트-전체-코드" class="headerlink" title="프로젝트 전체 코드"></a>프로젝트 전체 코드</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook">https://github.com/jungguji/wordbook</a></li>
-</ul>
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/howto-database-initialization.html">https://docs.spring.io/spring-boot/docs/2.1.x/reference/html/howto-database-initialization.html</a></li>
-</ul>
-
-                    
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
                         
-
-
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
                     
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/10/16/Intelli-J-%EC%BD%94%EB%93%9C-%EC%9E%90%EB%8F%99%EC%83%9D%EC%84%B1-with-Live-Template/" data-tooltip="Intelli J 코드 자동생성(with Live Template)" aria-label="다음: Intelli J 코드 자동생성(with Live Template)">
                     
-                        <p>
-                            <a href="/2020/07/05/H2-DB%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-Repository-Test/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
             
-        </div>
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
         
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
         
         
-        <li class="pagination-number">page 1 of 1</li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+        
+            
+                <script src="https://utteranc.es/client.js" repo="jungguji/blog-comment" issue-term="og:title" theme="github-light" crossorigin="anonymous" async>
+</script>
+            
+        
+    </div>
+</article>
+
 
 
                 <footer id="footer" class="main-content-wrap">
@@ -363,6 +357,109 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled" aria-hidden="true">
+                        
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">이전</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a class="post-action-btn btn btn--default tooltip--top" href="/2022/10/16/Intelli-J-%EC%BD%94%EB%93%9C-%EC%9E%90%EB%8F%99%EC%83%9D%EC%84%B1-with-Live-Template/" data-tooltip="Intelli J 코드 자동생성(with Live Template)" aria-label="다음: Intelli J 코드 자동생성(with Live Template)">
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">다음</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="이 포스트 공유하기">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" title="Facebook에 공유하기" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" title="Twitter에 공유하기" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" title="Google+에 공유하기" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="맨 위로">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" aria-label="Facebook에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://twitter.com/intent/tweet?text=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" aria-label="Twitter에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Twitter에 공유하기</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="_blank" href="https://plus.google.com/share?url=https://jungguji.github.io/2022/11/30/H2-DB%EC%97%90%EC%84%9C-2D-%EC%A2%8C%ED%91%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0/" aria-label="Google+에 공유하기" rel="external nofollow noopener noreferrer">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Google+에 공유하기</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
             
         </div>
         
@@ -400,6 +497,8 @@
 
 <!--SCRIPTS END-->
 
+
+    
 
 
 
