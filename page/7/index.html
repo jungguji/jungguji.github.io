@@ -176,6 +176,131 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%AB%EC%9E%90-%EC%95%BC%EA%B5%AC/" aria-label=": 프로그래머스: 숫자 야구">
+                            프로그래머스: 숫자 야구
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-23T16:17:12+09:00">
+	
+		    2020/06/23
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42841">https://programmers.co.kr/learn/courses/30/lessons/42841</a></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://scratch.mit.edu/projects/131352991/">직접 플레이 해보기</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BEGIN_INDEX = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> END_INDEX = <span class="number">987</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[][] baseball)</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; allNumber = getAllNumber();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; allNumber.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (isAnswer(baseball, allNumber.get(i).toCharArray())) &#123;</span><br><span class="line">            ++answer;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;String&gt; <span class="title">getAllNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = BEGIN_INDEX; i &lt;= END_INDEX; i++) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] tochar = String.valueOf(i).toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (tochar[<span class="number">0</span>] == tochar[<span class="number">1</span>] || tochar[<span class="number">0</span>] == tochar[<span class="number">2</span>] || tochar[<span class="number">1</span>] == tochar[<span class="number">2</span>]) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (tochar[<span class="number">0</span>] == <span class="string">&#x27;0&#x27;</span> || tochar[<span class="number">1</span>] == <span class="string">&#x27;0&#x27;</span> || tochar[<span class="number">2</span>] == <span class="string">&#x27;0&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        list.add(<span class="keyword">new</span> String(tochar));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isAnswer</span><span class="params">(<span class="keyword">int</span>[][] baseball, <span class="keyword">char</span>[] number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isAnswer = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; baseball.length; i++) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] requestBall = String.valueOf(baseball[i][<span class="number">0</span>]).toCharArray();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] strikeAndBall = getStrikeAndBall(requestBall, number);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (baseball[i][<span class="number">1</span>] != strikeAndBall[<span class="number">0</span>] || baseball[i][<span class="number">2</span>] != strikeAndBall[<span class="number">1</span>]) &#123;</span><br><span class="line">            isAnswer = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isAnswer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] getStrikeAndBall(<span class="keyword">char</span>[] requestBall, <span class="keyword">char</span>[] number) &#123;</span><br><span class="line">    <span class="keyword">int</span> strike = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ball = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (number[i] == requestBall[i]) &#123;</span><br><span class="line">            ++strike;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isBall(requestBall, number[i])) &#123;</span><br><span class="line">            ++ball;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ball -= strike;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;strike, ball&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isBall</span><span class="params">(<span class="keyword">char</span>[] requestBall, <span class="keyword">char</span> number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isBall = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (number == requestBall[i]) &#123;</span><br><span class="line">            isBall = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isBall;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>숫자 야구에서 나올 수 있는 모든 숫자를 구함(123~987)</li>
+<li>구할 때 같은 숫자가 중복 될 수 없고 0이 들어갈 수 없으므로 확인해서 continue</li>
+<li>구한 숫자들의 갯수만큼 돌면서 가능한 숫자인지 확인하는데</li>
+<li>우선 나올 수 있는 모든 수 중 하나씩 돌면서 그 수와 배열로 받은 상대 수를 비교</li>
+<li>받은 수와 뽑은 수를 한 자리씩 비교하면서 자리도 같고 숫자도 같으면 스트라이크</li>
+<li>자리는 틀리지만 뽑은 수가 받은 수 안에 포함되어 있으면 볼로 처리</li>
+<li>스트라이크이면서 볼인 경우는 있을 수 없기 때문에 볼에서 스트라이크의 갯수를 뻄</li>
+<li>구한 스트라이크와 볼의 개수를 받은 수의 스트라이크와 볼 수와 비교해서 둘 중 하나도 같지 않으면 false를 저장하고 반복문을 빠져 나오고</li>
+<li>조건에 맞다면 정답의 갯수를 증가 시킴</li>
+<li>반복문이 끝나면 정답 갯수 return</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (3.49ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (4.55ms, 50.7MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (3.33ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (3.48ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (4.26ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (4.69ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (3.68ms, 50.8MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (4.35ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (3.60ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (3.33ms, 50.3MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">123</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">356</span>, <span class="number">1</span>, <span class="number">0</span>&#125;, &#123;<span class="number">327</span>, <span class="number">2</span>, <span class="number">0</span>&#125;, &#123;<span class="number">489</span>, <span class="number">0</span>, <span class="number">1</span>&#125;&#125;));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[][] &#123;&#123;<span class="number">659</span>, <span class="number">0</span>, <span class="number">1</span>&#125;, &#123;<span class="number">264</span>, <span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">126</span>, <span class="number">1</span>, <span class="number">2</span>&#125;&#125;));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://gurumee92.tistory.com/180">https://gurumee92.tistory.com/180</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%AB%EC%9E%90-%EC%95%BC%EA%B5%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%AB%EC%9E%90-%EC%95%BC%EA%B5%AC/" aria-label=": 프로그래머스: 숫자 야구">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%A0%95%EC%82%AC%EA%B0%81%ED%98%95-%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 가장 큰 정사각형 찾기">
                             프로그래머스: 가장 큰 정사각형 찾기
                         </a>
@@ -1344,60 +1469,6 @@
                 </div>
             </a>
             
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/08/Codedeploy-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/" aria-label=": Codedeploy 연동 중 발생한 에러">
-                            Codedeploy 연동 중 발생한 에러
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-08T15:08:41+09:00">
-	
-		    2020/06/08
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="Codedeploy에서-배포그룹-생성-시-인스턴스를-잘못-등록"><a href="#Codedeploy에서-배포그룹-생성-시-인스턴스를-잘못-등록" class="headerlink" title="Codedeploy에서 배포그룹 생성 시 인스턴스를 잘못 등록"></a>Codedeploy에서 배포그룹 생성 시 인스턴스를 잘못 등록</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">The deployment failed because no instances were found for your deployment group.</span><br><span class="line">Check your deployment group settings to make sure the tags for your Amazon EC2 instances or Auto Scaling groups correctly identify the instances you want to deploy to, and then try again.</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/20200608/codedeploy_%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4_%EC%84%A4%EC%A0%95.png" alt="CodeDeploy"></p>
-<p>배포 그룹에서 태그 그룹으로 인스턴스를 지정할 때 위 사진처럼 일치하는 인스턴스가 존재한다는 문구가 나타나는 걸 확인해야한다.</p>
-<hr>
-<h2 id="생성한-버킷-리전과-인스턴스의-리전이-틀려서-에러-발생"><a href="#생성한-버킷-리전과-인스턴스의-리전이-틀려서-에러-발생" class="headerlink" title="생성한 버킷 리전과 인스턴스의 리전이 틀려서 에러 발생"></a>생성한 버킷 리전과 인스턴스의 리전이 틀려서 에러 발생</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload:&quot;&#123;\&quot;error_code\&quot;:5,\&quot;script_name\&quot;:\&quot;\&quot;,\&quot;message\&quot;:\&quot;</span><br><span class="line">The bucket you are attempting to access must be addressed using the specified endpoint. Please send all future requests to this endpoint.\&quot;,\&quot;log\&quot;:\&quot;\&quot;&#125;&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>위 에러 로그는 아래 디렉토리에 위치한 파일을 열어서 확인 할 수 있다.<br>shell script에서 작성한 echo도 아래 파일에서 함께 확인 할 수 있다.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /opt/codedeploy-agent/deployment-root/deployment-logs/codedeploy-agent-deployments.log</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/20200608/codedeploy_logfile.PNG" alt="CodeDeploy Log File"></p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/08/Codedeploy-%EC%97%B0%EB%8F%99-%EC%97%90%EB%9F%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
         
     </article>
     
