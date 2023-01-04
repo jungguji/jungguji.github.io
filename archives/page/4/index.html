@@ -177,6 +177,83 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/12/14/%EB%B0%B1%EC%A4%80-1406%EB%B2%88-%EC%97%90%EB%94%94%ED%84%B0/" aria-label=": 백준 1406번: 에디터">
+                            백준 1406번: 에디터
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-12-14T15:12:57+09:00">
+	
+		    2020/12/14
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/1406">https://www.acmicpc.net/problem/1406</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    <span class="keyword">char</span>[] input = br.readLine().toCharArray();</span><br><span class="line"></span><br><span class="line">    LinkedList&lt;Character&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : input) &#123;</span><br><span class="line">        list.add(c);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ListIterator&lt;Character&gt; it = list.listIterator();</span><br><span class="line">    <span class="keyword">while</span> (it.hasNext()) &#123;</span><br><span class="line">        it.next();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n = Integer.parseInt(br.readLine());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (n-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        String command = br.readLine();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (command) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;L&quot;</span> :</span><br><span class="line">                <span class="keyword">if</span> (it.hasPrevious()) &#123;</span><br><span class="line">                    it.previous();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;D&quot;</span> :</span><br><span class="line">                <span class="keyword">if</span> (it.hasNext()) &#123;</span><br><span class="line">                    it.next();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;B&quot;</span> :</span><br><span class="line">                <span class="keyword">if</span> (it.hasPrevious() &amp;&amp; !list.isEmpty()) &#123;</span><br><span class="line">                    it.previous();</span><br><span class="line">                    it.remove();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                it.add(command.charAt(<span class="number">2</span>));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : list) &#123;</span><br><span class="line">        sb.append(c);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(sb);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>이 문제는 로직보다 걸리는 시간이 문제였다.</li>
+<li>처음엔 LinkedList를 그대로 사용해 add, remove를 했지만 시간초과로 인해 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ListIterator.html">ListIterator</a>을 이용해 해결했다.</li>
+</ul>
+<hr>
+<h2 id="ListIterator"><a href="#ListIterator" class="headerlink" title="ListIterator"></a>ListIterator</h2><ul>
+<li>List를 양방향으로 탐색하고, 루프 중에 리스트를 수정하고, 리스트에서 현재 위치를 가져올 수 있다.</li>
+<li>커서는 previous()로 리턴되는 원소와 next()로 리턴되는 원소 사이에 존재한다.</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">                    Element(0)   Element(1)   Element(2)   ... Element(n-1)</span><br><span class="line">cursor positions:  ^            ^            ^            ^                  ^</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>remove()와 set()를 호출해도 커서의 위치는 움직이지 않는다.</li>
+<li>remove() 호출 시 next()혹은 preivous()에 의해 리턴된 마지막 요소를 리스트에서 제거한다.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="string">&quot;B&quot;</span> :</span><br><span class="line">        <span class="keyword">if</span> (it.hasPrevious() &amp;&amp; !list.isEmpty()) &#123;</span><br><span class="line">            it.previous();</span><br><span class="line">            it.remove();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2020/12/14/%EB%B0%B1%EC%A4%80-1406%EB%B2%88-%EC%97%90%EB%94%94%ED%84%B0/%EC%BA%A1%EC%B2%98.PNG" class title="백준 1406번: 에디터">
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/board/view/59173">https://www.acmicpc.net/board/view/59173</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ListIterator.html">https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ListIterator.html</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/12/14/%EB%B0%B1%EC%A4%80-1406%EB%B2%88-%EC%97%90%EB%94%94%ED%84%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/12/14/%EB%B0%B1%EC%A4%80-1406%EB%B2%88-%EC%97%90%EB%94%94%ED%84%B0/" aria-label=": 백준 1406번: 에디터">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/12/08/%EB%B0%B1%EC%A4%80-11724%EB%B2%88-%EC%97%B0%EA%B2%B0-%EC%9A%94%EC%86%8C%EC%9D%98-%EA%B0%9C%EC%88%98/" aria-label=": 백준 11724번: 연결 요소의 개수">
                             백준 11724번: 연결 요소의 개수
                         </a>
@@ -1302,74 +1379,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/11/10/JQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5/" aria-label=": JQPL은 return class로 Inner class는 불가능">
-                            JQPL은 return class로 Inner class는 불가능
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-11-10T18:39:23+09:00">
-	
-		    2020/11/10
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p><strong>JPQL의 return 값으로 Inner class를 지정하면 class를 찾을 수 없다는 에러가 발생 하므로 Inner class 말고 따로 class를 생성하고 그 class를 return class로 지정해줘야 한다.</strong></p>
-<hr>
-<h2 id="발견"><a href="#발견" class="headerlink" title="발견"></a>발견</h2><p>아래 처럼 DTO를 생성하고 view별로 inner class로 DTO를 만들고 jpql의 return class로 지정해주었는데 클래스를 찾을 수 없다는 에러가 발생하였다.</p>
-<h3 id="DTO"><a href="#DTO" class="headerlink" title="DTO"></a>DTO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChannelDTO</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="meta">@Getter</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SubChannelList</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Integer subChannel;</span><br><span class="line">        <span class="keyword">private</span> KillTime killTime;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Builder</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">SubChannelList</span><span class="params">(Integer subChannel, KillTime killTime)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.subChannel = subChannel;</span><br><span class="line">            <span class="keyword">this</span>.killTime = killTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="JPQL-호출-메서드"><a href="#JPQL-호출-메서드" class="headerlink" title="JPQL 호출 메서드"></a>JPQL 호출 메서드</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;SubChannelList&gt; <span class="title">findSubChannelList</span><span class="params">(Integer dungeonId, Integer mainChannel)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> em.createQuery(</span><br><span class="line">            <span class="string">&quot;select new com.jungguji.windbossgentimer.web.dto.channel.ChannelDTO.SubChannelList&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;(c.subChannel, k)&quot;</span> +</span><br><span class="line">                    <span class="string">&quot; FROM Channel c left join c.killTimes k&quot;</span> +</span><br><span class="line">                    <span class="string">&quot; WHERE c.dungeon.id = :dungeonId AND c.mainChannel = :mainChannel&quot;</span> +</span><br><span class="line">                    <span class="string">&quot;&quot;</span>, SubChannelList.class)</span><br><span class="line">            .setParameter(<span class="string">&quot;dungeonId&quot;</span>, dungeonId)</span><br><span class="line">            .setParameter(<span class="string">&quot;mainChannel&quot;</span>, mainChannel)</span><br><span class="line">            .getResultList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="발생한-에러"><a href="#발생한-에러" class="headerlink" title="발생한 에러"></a>발생한 에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.hibernate.hql.internal.ast.QuerySyntaxException: Unable to locate class [com.jungguji.windbossgentimer.web.dto.channel.ChannelDTO.SubChannelList] [select new com.jungguji.windbossgentimer.web.dto.channel.ChannelDTO.SubChannelList(c.subChannel, k) FROM com.jungguji.windbossgentimer.domain.channel.Channel c left join c.killTimes k WHERE c.dungeon.id = :dungeonId AND c.mainChannel = :mainChannel]</span><br><span class="line">    at org.hibernate.hql.internal.ast.QuerySyntaxException.convert(QuerySyntaxException.java:<span class="number">74</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.ErrorTracker.throwQueryException(ErrorTracker.java:<span class="number">93</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.QueryTranslatorImpl.analyze(QueryTranslatorImpl.java:<span class="number">282</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.QueryTranslatorImpl.doCompile(QueryTranslatorImpl.java:<span class="number">192</span>)</span><br><span class="line">    at org.hibernate.hql.internal.ast.QueryTranslatorImpl.compile(QueryTranslatorImpl.java:<span class="number">144</span>)</span><br><span class="line">    at org.hibernate.engine.query.spi.HQLQueryPlan.&lt;init&gt;(HQLQueryPlan.java:<span class="number">113</span>)</span><br><span class="line">    at org.hibernate.engine.query.spi.HQLQueryPlan.&lt;init&gt;(HQLQueryPlan.java:<span class="number">73</span>)</span><br><span class="line">    at org.hibernate.engine.query.spi.QueryPlanCache.getHQLQueryPlan(QueryPlanCache.java:<span class="number">162</span>)</span><br><span class="line">    at org.hibernate.internal.AbstractSharedSessionContract.getQueryPlan(AbstractSharedSessionContract.java:<span class="number">604</span>)</span><br><span class="line">    at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:<span class="number">716</span>)</span><br><span class="line">    ... <span class="number">73</span> more</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>Inner class로 되어있던 DTO를 class로 생성한다.</p>
-<h3 id="따로-생성한-DTO"><a href="#따로-생성한-DTO" class="headerlink" title="따로 생성한 DTO"></a>따로 생성한 DTO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubChannelListResponseDTO</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer subChannel;</span><br><span class="line">    <span class="keyword">private</span> KillTime killTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Builder</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SubChannelListResponseDTO</span><span class="params">(Integer subChannel, KillTime killTime)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.subChannel = subChannel;</span><br><span class="line">        <span class="keyword">this</span>.killTime = killTime;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h3><p><img src="source_posts%5CJQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5%5C%EA%B2%B0%EA%B3%BC.PNG" alt="Junit Test 통과한 모습"></p>
-<hr>
-<h2 id="P-S"><a href="#P-S" class="headerlink" title="P.S"></a>P.S</h2><ul>
-<li>일반적으로 class명과 table명을 헷갈려 대소문자 때문에 발생하는 에러 이므로 대소문자도 잘 확인 하여야 한다.</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/11/10/JQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/11/10/JQPL%EC%9D%80-return-class%EB%A1%9C-Inner-class%EB%8A%94-%EB%B6%88%EA%B0%80%EB%8A%A5/" aria-label=": JQPL은 return class로 Inner class는 불가능">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1398,7 +1407,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2023 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

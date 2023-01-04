@@ -176,6 +176,140 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/04/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%EB%A6%AC%ED%8A%B8%EB%9F%AD/" aria-label=": 프로그래머스: 다리를 지나는 트럭">
+                            프로그래머스: 다리를 지나는 트럭
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-04-29T17:25:03+09:00">
+	
+		    2020/04/29
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42583?language=java">https://programmers.co.kr/learn/courses/30/lessons/42583?language=java</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> bridge_length, <span class="keyword">int</span> weight, <span class="keyword">int</span>[] truck_weights)</span> </span>&#123;</span><br><span class="line">    LinkedList&lt;Truck&gt; queue = <span class="keyword">new</span> LinkedList&lt;Truck&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; truck_weights.length; i++) &#123;</span><br><span class="line">        queue.offer(<span class="keyword">new</span> Truck(bridge_length, truck_weights[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> bridgeOnTruck = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> totalWeight = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bridgeOnTruck; i++) &#123;</span><br><span class="line">            totalWeight += queue.get(i).weight;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> nextWeight = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (queue.size() &gt; bridgeOnTruck) &#123;</span><br><span class="line">            nextWeight = queue.get(bridgeOnTruck).weight;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (totalWeight + nextWeight &lt;= weight) &#123;</span><br><span class="line">            <span class="keyword">if</span> (queue.size() &gt; bridgeOnTruck) &#123;</span><br><span class="line">                ++bridgeOnTruck;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bridgeOnTruck; i++) &#123;</span><br><span class="line">            Truck truck = queue.get(i);</span><br><span class="line">            truck.position = truck.position - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (queue.peek().position == <span class="number">0</span>) &#123;</span><br><span class="line">            queue.poll();</span><br><span class="line">            --bridgeOnTruck;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ++answer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Truck</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> position;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> weight;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Truck</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">int</span> weight)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.position = position;</span><br><span class="line">        <span class="keyword">this</span>.weight = weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>트럭 array를 queue에 모두 저장</li>
+<li>트럭 모두 건널 때 까지 반복</li>
+<li>한 번에 몇 개의 트럭까지 건널 수 있을 지 계산하기 위해 현재 다리 위에 있는 트럭의 개수 만큼 돌면서 트럭 무게를 더함</li>
+<li>다음 번 트럭까지 다리에 올라 올 수 있는 지 확인하기 위해 큐의 마지막 index가 아니라면 queue에서 다음 번 트럭의 무게를 가져옴</li>
+<li>현재 다리에 있는 트럭들의 무게 + 다음 트럭의 무게를 더한 값이 다리가 버틸 수 있는 무게 보다 가벼우면</li>
+<li>큐의 마지막인지 체크해서 큐의 마지막이 아니라면 그 다음 트럭도 다리 위에 올라와야 하기 때문에 다리 위 트럭의 개수(truckAmount)를 증가 시킴</li>
+<li>다리 위 트럭의 수 만큼 반복하면서 트럭을 앞으로 한칸 씩 움직임</li>
+<li>첫 번째 트럭이 다리를 건넜다면 queue에서 제거하고 다리 위 트럭 수를 하나 감소 시킴</li>
+<li>초를 증가 시킴</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (3.63ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (14.16ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.65ms, 53.3MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (41.49ms, 53.8MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (70.64ms, 53.9MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (53.31ms, 56.1MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (3.09ms, 50MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (1.97ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (10.68ms, 54.6MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (2.20ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.10ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (2.35ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (4.50ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (1.26ms, 53MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">2</span>, <span class="number">10</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">7</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">101</span>, test.solution(<span class="number">100</span>, <span class="number">100</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">10</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">110</span>, test.solution(<span class="number">100</span>, <span class="number">100</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>&#125;));</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/04/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%EB%A6%AC%ED%8A%B8%EB%9F%AD/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/04/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%EB%A6%AC%ED%8A%B8%EB%9F%AD/" aria-label=": 프로그래머스: 다리를 지나는 트럭">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/04/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%A9%80%EC%A9%A1%ED%95%9C-%EC%82%AC%EA%B0%81%ED%98%95/" aria-label=": 프로그래머스: 멀쩡한 사각형">
                             프로그래머스: 멀쩡한 사각형
                         </a>
@@ -1577,209 +1711,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/04/09/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%8B%A4%ED%8C%A8%EC%9C%A8/" aria-label=": 프로그래머스: 실패율">
-                            프로그래머스: 실패율
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-04-09T19:19:48+09:00">
-	
-		    2020/04/09
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42889">https://programmers.co.kr/learn/courses/30/lessons/42889</a></p>
-<hr>
-<h2 id="소스"><a href="#소스" class="headerlink" title="소스"></a>소스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] solution(<span class="keyword">int</span> N, <span class="keyword">int</span>[] stages) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] failUsers = <span class="keyword">new</span> <span class="keyword">int</span>[N+<span class="number">2</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> stage : stages) &#123;</span><br><span class="line">        failUsers[stage] += <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Map&lt;Integer, Double&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Double&gt;();</span><br><span class="line">    <span class="keyword">double</span> userCount = stages.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">        <span class="keyword">double</span> value = <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">if</span> (failUsers[i] != <span class="number">0</span> &amp;&amp; userCount != <span class="number">0</span>) &#123;</span><br><span class="line">            value = (failUsers[i] / userCount) * <span class="number">100</span>;</span><br><span class="line">            userCount -= failUsers[i];</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(i, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;(map.keySet());</span><br><span class="line">    Collections.sort(list, <span class="keyword">new</span> Comparator&lt;Integer&gt;() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer o1, Integer o2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> map.get(o2).compareTo(map.get(o1));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] answer = list.stream().mapToInt(i -&gt; i).toArray();</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>유저 수(stages.length) 만큼 loop 돌면서 각 stage 별로 실패한 유저 수를 array에 저장한다.</li>
-<li>스테이지별로 틀린 인원 수를 저장히기 위한 Map 변수를 하나 생성하고,</li>
-<li>스테이지 수(N) 만큼 loop 돌면서 해당 스테이지에 실패한 사람이 있으면서, 전체 시도한 사람이 0명이 아닌 경우,</li>
-<li>$$ 해당 스테이지에서 실패한 유저 수 / 해당 스테이지에 도전한 유저 수 * 100 $$ 해서 해당 스테이지의 실패율을 구한다.<ul>
-<li>이 때 스테이지에 도전한 유저 수는 이전 스테이지를 성공한 사람들 만이다.</li>
-</ul>
-</li>
-<li>이번 스테이지에서 실패한 유저들은 다음 스테이지에 도전 할 수 없으므로, 총 유저 수에서 실패한 유저 수를 제한다.</li>
-<li>위에서 선언한 Map 변수에 key를 스테이지 번호로, value를 실패율로 하여 put 한다.</li>
-<li>실패율을 저장한 Map을 Value 기준으로 내림차순 정렬을 한다.</li>
-<li>ArrayList를 int[]로 변환한다.<ul>
-<li>stream에 경우 속도가 느리므로, loop를 돌면서 직접 int[]로 만드는 방법이 퍼포먼스에 더 이로울 듯 하다.</li>
-</ul>
-</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (7.39ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (6.26ms, 54.7MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (11.14ms, 54.2MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (12.53ms, 58.2MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (13.17ms, 63.3MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (12.28ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (9.12ms, 53.5MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (11.79ms, 58.6MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (13.39ms, 61.4MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (11.68ms, 55.8MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (12.76ms, 59.8MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (11.43ms, 60MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (12.27ms, 62.7MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (5.77ms, 54.3MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (10.07ms, 54MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (9.50ms, 55.6MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (7.79ms, 53.4MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (9.16ms, 54.8MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (6.27ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (7.16ms, 53.2MB)</td>
-</tr>
-<tr>
-<td>테스트 21</td>
-<td>통과 (8.94ms, 55.3MB)</td>
-</tr>
-<tr>
-<td>테스트 22</td>
-<td>통과 (12.98ms, 62.7MB)</td>
-</tr>
-<tr>
-<td>테스트 23</td>
-<td>통과 (11.22ms, 58MB)</td>
-</tr>
-<tr>
-<td>테스트 24</td>
-<td>통과 (17.40ms, 59.7MB)</td>
-</tr>
-<tr>
-<td>테스트 25</td>
-<td>통과 (6.25ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 26</td>
-<td>통과 (6.00ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 27</td>
-<td>통과 (5.83ms, 50.4MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">5</span>&#125;, test.solution(<span class="number">5</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">3</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;, test.solution(<span class="number">4</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>&#125;, test.solution(<span class="number">4</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>&#125;, test.solution(<span class="number">4</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">2</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">7</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">1</span>&#125;, test.solution(<span class="number">7</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">3</span>,<span class="number">7</span>,<span class="number">5</span>&#125;));</span><br><span class="line">assertArrayEquals(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;, test.solution(<span class="number">5</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;&#125;));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>Junit5로 테스트 했음.</p>
-</li>
-<li><p>프로그래머스에서 제공하는 모든 케이스에 대한 것이 아니라,<br>필자가 마음대로 넣은 것 이므로 이 소스를 통과하여도 프로그래머스에선 통과되지 못할 수 있음.</p>
-</li>
-</ul>
-<hr>
-<h2 id="다른-멋진-분들의-해결방법"><a href="#다른-멋진-분들의-해결방법" class="headerlink" title="다른 멋진 분들의 해결방법"></a>다른 멋진 분들의 해결방법</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@dion/programmers-42889-algorithm-solution">https://velog.io/@dion/programmers-42889-algorithm-solution</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://jayrightthere.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%8B%A4%ED%8C%A8%EC%9C%A8">https://jayrightthere.tistory.com/entry/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%8B%A4%ED%8C%A8%EC%9C%A8</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/04/09/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%8B%A4%ED%8C%A8%EC%9C%A8/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/04/09/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%8B%A4%ED%8C%A8%EC%9C%A8/" aria-label=": 프로그래머스: 실패율">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1807,7 +1738,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2023 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

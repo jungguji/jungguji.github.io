@@ -176,6 +176,114 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/20/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-4/" aria-label=": 토비의 스프링 reading (4)">
+                            토비의 스프링 reading (4)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-20T20:06:35+09:00">
+	
+		    2020/05/20
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="스프링의-정의"><a href="#스프링의-정의" class="headerlink" title="스프링의 정의"></a>스프링의 정의</h2><blockquote><p>자바 엔터프라이즈 개발을 편하게 해주는 오플ㄴ소스 경량급 애플리케이션 프레임워크</p>
+<footer><strong>이일민</strong><cite>토비의 스프링</cite></footer></blockquote>
+
+<h3 id="애플리케이션-프레임워크"><a href="#애플리케이션-프레임워크" class="headerlink" title="애플리케이션 프레임워크"></a>애플리케이션 프레임워크</h3><ul>
+<li>특정 계층이나, 기술, 업무 분야에 국한되지 않고 애플케이션의 전 영역을 포괄하는 범용적인 프레임워크</li>
+<li>애플리케이션 개발의 전 과정을 빠르고 편리하며 효율적으로 진행하는데 목표를 두는 프레임워크</li>
+<li>단지 여러 계층의 다향한 기술을 한데 모아뒀기 때문에 그렇게 불리는 게 아님</li>
+</ul>
+<p><strong>스프링의 일차적인 존재 목적은 핵심 기술에 담긴 프로그래밍 모델을 일관되게 적용해서 엔터프라이즈 애플리케이션 전 계층과 전 여영ㄱ에 전략과 기능을 제공해줌으로써 애플리케이션을 편리하게 개발하게 해주는 애플리케이션 프레임워크로 사용되는 것</strong></p>
+<h3 id="경량급"><a href="#경량급" class="headerlink" title="경량급"></a>경량급</h3><ul>
+<li>자체가 가렵다거나 작은 규모의 코드로 이뤄졌다는 뜻이 아님</li>
+<li>불필요하게 무겁지 않다는 의미</li>
+<li>EJB에 비해 단순한 개발툴과 기본적인 개발환경으로도 엔터프라이즈 개발에서 필요로 하는 주요한 기능을 갖춘 애프리케이션을 개발하기 충분</li>
+</ul>
+<h3 id="자바-엔터프라이즈-개발을-편하게"><a href="#자바-엔터프라이즈-개발을-편하게" class="headerlink" title="자바 엔터프라이즈 개발을 편하게"></a>자바 엔터프라이즈 개발을 편하게</h3><ul>
+<li>개발자가 복잡하고 실수하기 쉬운 로우레벨 기술에 많은 신경을 쓰지 않게함</li>
+<li>애플리케이션의 핵심인 사용자의 요구사항, 즉 비즈니스 로직을 빠르고 효과적으로 구현하는 것</li>
+<li>스프링이 제공하는 기술이 아니라 자신이 작성하는 애플리케이션의 로직에 더 많은 관심과 시간을 투자하게 함</li>
+<li>초기에 기본 설정과 적용 기술만 선택하고 준비해두면 이후에 개발자가 신경 쓸 일이 없음</li>
+</ul>
+<p>결국 스프링의 목적은 <strong>스프링을 할용해서 엔터프라이즈 애플리케이션 개발을 편하게</strong> 하는 것<br>그렇다면 스프링은 어떻게 복잡한 엔터프라이즈 개발을 편하게 해주는가?</p>
+<hr>
+<h2 id="복잡함의-근본적인-이유"><a href="#복잡함의-근본적인-이유" class="headerlink" title="복잡함의 근본적인 이유"></a>복잡함의 근본적인 이유</h2><ol>
+<li>기술적인 제약조건과 요구사항이 늘어남</li>
+<li>애플리케이션이 구현해야 할 핵심기능인 비즈니스 로직의 복잡함이 증가함</li>
+</ol>
+<ul>
+<li>자바 엔터프라이즈 시스템 개발이 어려운 가증 큰 이유는 근본적인 비즈니스 로직과 엔터프라이즈 기술이라는 두 가지 복잡함이 한데 얽혀 있기 때문</li>
+</ul>
+<h3 id="해결책"><a href="#해결책" class="headerlink" title="해결책"></a>해결책</h3><ul>
+<li><p>기술의 적용 사실이 코드에 직접 반영되지 않는 비침투적 기술 사용</p>
+</li>
+<li><p>어딘가에는 기술의 적요에 따라 필요한 작업을 해줘야하겠지만, 애플리케이션 코드 여기저기에 불쑥 등장하거나, 코드의 설꼐와 구현 방식을 제한하지 않는다는 게 비침투적인 기술의 특징</p>
+</li>
+<li><p>반대로 침투적인 기술은 어떤 기술을 적용했을 떄 그 기술과 관련된 코드나 규약 등이 코드에 등장하는 경우</p>
+</li>
+<li><p>즉 스프링의 기본적인 전량근 비즈니스 로직을 담은 애플리케이션 코드와 엔터프라이즈 기술을 처리하는 코드를 분리시키는 것</p>
+</li>
+</ul>
+<h2 id="기술적-복잡함을-상대하는-전략"><a href="#기술적-복잡함을-상대하는-전략" class="headerlink" title="기술적 복잡함을 상대하는 전략"></a>기술적 복잡함을 상대하는 전략</h2><h3 id="서비스-추상화"><a href="#서비스-추상화" class="headerlink" title="서비스 추상화"></a>서비스 추상화</h3><ul>
+<li>일관성 없는 기술과 서버환경의 변화에 대한 스프링의 공략 방법은 서비스 추상화</li>
+<li>추상화를 통해 로우레벨의 기술 구현 부분과 기술을 사용하는 인터페이스를 분리하고, 환경과 세부기술에 독립적인 접근 인터페이스를 제공하는 것이 가장 좋은 해결책</li>
+</ul>
+<h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><ul>
+<li>비즈니스 로직 전후로 경계가 설정돼야하는 트랜잭션</li>
+<li>비즈니스 로직에 대한 보안 적용</li>
+<li>계층 사이에 주고받는 데이터와 예외의 일괄 변환이나 로징이나 감사 기능 등</li>
+<li>이런 기술과 비즈니스 로직의 혼재로 발생하는 복잡함을 해결하기 위한 스프링의 접근 방법이 AOP</li>
+</ul>
+<h2 id="비즈니스와-애플리케이션-로직의-복잡함을-상대하는-전략"><a href="#비즈니스와-애플리케이션-로직의-복잡함을-상대하는-전략" class="headerlink" title="비즈니스와 애플리케이션 로직의 복잡함을 상대하는 전략"></a>비즈니스와 애플리케이션 로직의 복잡함을 상대하는 전략</h2><h3 id="객체지향과-DI"><a href="#객체지향과-DI" class="headerlink" title="객체지향과 DI"></a>객체지향과 DI</h3><ul>
+<li>기술적인 복잡함을 효과적으로 다루게 해주는 기법은 모두 DI를 바탕으로 함</li>
+<li>서비스 추상화, 템플릿/콜백, AOP 등</li>
+<li>그리고 DI는 객체지향 프로그래밍 기법일 뿐</li>
+<li>DI를 적용해서 오브젝트를 분리하고, 인터페이스를 동비하고, DI로 관계를 연결</li>
+<li>결국 DI는 좋은 오브젝트 설계의 결과물이기도 하지만, 반대로 DI를 적용하다보면 객체지향 설계의 원칙을 잘 따르고 그 장점을 살린 설계가 나올 수 있음</li>
+</ul>
+<hr>
+<p>결국 스프링의 기술과 전략은 <strong>객체지향이라는 자바 언어가 가진 강력한 도구를 극대화해서 사용할 수 있도록 돕는 것</strong> 이고 스프링은 단지 거들 뿐이다.</p>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/20/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-4/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/20/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-4/" aria-label=": 토비의 스프링 reading (4)">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B5%AC%EB%AA%85%EB%B3%B4%ED%8A%B8/" aria-label=": 프로그래머스: 구명보트">
                             프로그래머스: 구명보트
                         </a>
@@ -1740,140 +1848,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/04/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%EB%A6%AC%ED%8A%B8%EB%9F%AD/" aria-label=": 프로그래머스: 다리를 지나는 트럭">
-                            프로그래머스: 다리를 지나는 트럭
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-04-29T17:25:03+09:00">
-	
-		    2020/04/29
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42583?language=java">https://programmers.co.kr/learn/courses/30/lessons/42583?language=java</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> bridge_length, <span class="keyword">int</span> weight, <span class="keyword">int</span>[] truck_weights)</span> </span>&#123;</span><br><span class="line">    LinkedList&lt;Truck&gt; queue = <span class="keyword">new</span> LinkedList&lt;Truck&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; truck_weights.length; i++) &#123;</span><br><span class="line">        queue.offer(<span class="keyword">new</span> Truck(bridge_length, truck_weights[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> bridgeOnTruck = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> totalWeight = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bridgeOnTruck; i++) &#123;</span><br><span class="line">            totalWeight += queue.get(i).weight;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> nextWeight = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (queue.size() &gt; bridgeOnTruck) &#123;</span><br><span class="line">            nextWeight = queue.get(bridgeOnTruck).weight;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (totalWeight + nextWeight &lt;= weight) &#123;</span><br><span class="line">            <span class="keyword">if</span> (queue.size() &gt; bridgeOnTruck) &#123;</span><br><span class="line">                ++bridgeOnTruck;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; bridgeOnTruck; i++) &#123;</span><br><span class="line">            Truck truck = queue.get(i);</span><br><span class="line">            truck.position = truck.position - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (queue.peek().position == <span class="number">0</span>) &#123;</span><br><span class="line">            queue.poll();</span><br><span class="line">            --bridgeOnTruck;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ++answer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Truck</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> position;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> weight;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Truck</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">int</span> weight)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.position = position;</span><br><span class="line">        <span class="keyword">this</span>.weight = weight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>트럭 array를 queue에 모두 저장</li>
-<li>트럭 모두 건널 때 까지 반복</li>
-<li>한 번에 몇 개의 트럭까지 건널 수 있을 지 계산하기 위해 현재 다리 위에 있는 트럭의 개수 만큼 돌면서 트럭 무게를 더함</li>
-<li>다음 번 트럭까지 다리에 올라 올 수 있는 지 확인하기 위해 큐의 마지막 index가 아니라면 queue에서 다음 번 트럭의 무게를 가져옴</li>
-<li>현재 다리에 있는 트럭들의 무게 + 다음 트럭의 무게를 더한 값이 다리가 버틸 수 있는 무게 보다 가벼우면</li>
-<li>큐의 마지막인지 체크해서 큐의 마지막이 아니라면 그 다음 트럭도 다리 위에 올라와야 하기 때문에 다리 위 트럭의 개수(truckAmount)를 증가 시킴</li>
-<li>다리 위 트럭의 수 만큼 반복하면서 트럭을 앞으로 한칸 씩 움직임</li>
-<li>첫 번째 트럭이 다리를 건넜다면 queue에서 제거하고 다리 위 트럭 수를 하나 감소 시킴</li>
-<li>초를 증가 시킴</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (3.63ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (14.16ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (1.65ms, 53.3MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (41.49ms, 53.8MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (70.64ms, 53.9MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (53.31ms, 56.1MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (3.09ms, 50MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (1.97ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (10.68ms, 54.6MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (2.20ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (1.10ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (2.35ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (4.50ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (1.26ms, 53MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">2</span>, <span class="number">10</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">7</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">101</span>, test.solution(<span class="number">100</span>, <span class="number">100</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">10</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">110</span>, test.solution(<span class="number">100</span>, <span class="number">100</span>, <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>,<span class="number">10</span>&#125;));</span><br></pre></td></tr></table></figure>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/04/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%EB%A6%AC%ED%8A%B8%EB%9F%AD/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/04/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%EB%A6%AC%ED%8A%B8%EB%9F%AD/" aria-label=": 프로그래머스: 다리를 지나는 트럭">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1901,7 +1875,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2023 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

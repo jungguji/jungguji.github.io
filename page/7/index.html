@@ -176,6 +176,72 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/" aria-label=": Junit으로 private 메서드 테스트하기">
+                            Junit으로 private 메서드 테스트하기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-23T18:45:14+09:00">
+	
+		    2020/06/23
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.shiren.dev/2020-06-15-%EC%9C%A0%EC%9A%A9%ED%95%9C%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BC%80%EC%9D%B4%EC%8A%A4%EB%A5%BC%EC%9C%84%ED%95%9C%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98%EC%9E%90%EC%84%B8/">private method도 테스트 해야되는지</a>에 대해선 의견이 많은 것으로 알고 있지만 현재 프로젝트에서 service에서 있는 메서드 중 주요 로직은 private method에 존재하고 public method에선 호출해서 return만 해주는 method가 존재했는데, 이런 경우에 private 메서드를 테스트하기 위한 방법을 정리해둔다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> getPassAndFailWordList_성공()  <span class="keyword">throws</span> NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;</span><br><span class="line">    <span class="comment">//given</span></span><br><span class="line">    String[] answerIds = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;6_1&quot;</span>, <span class="string">&quot;4_1&quot;</span>, <span class="string">&quot;5_1&quot;</span>, <span class="string">&quot;9_3&quot;</span>&#125;;</span><br><span class="line">    WordService w = <span class="keyword">new</span> WordServiceImpl(repository, userService);</span><br><span class="line"></span><br><span class="line">    Method method = w.getClass().getDeclaredMethod(<span class="string">&quot;getPassAndFailWordList&quot;</span>, String[].class);</span><br><span class="line">    method.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; passWordList = Arrays.asList(<span class="number">6</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">    List&lt;Integer&gt; failWordList = Arrays.asList(<span class="number">9</span>);</span><br><span class="line"></span><br><span class="line">    Object[] obj = <span class="keyword">new</span> Object[] &#123;answerIds&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//when</span></span><br><span class="line">    Map&lt;String, List&lt;Integer&gt;&gt; map = (Map&lt;String, List&lt;Integer&gt;&gt;) method.invoke(w, obj);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//than</span></span><br><span class="line">    assertThat(map).extracting(<span class="string">&quot;pass&quot;</span>, String.class)</span><br><span class="line">            .contains(passWordList);</span><br><span class="line">    assertThat(map).extracting(<span class="string">&quot;fail&quot;</span>, String.class)</span><br><span class="line">            .contains(failWordList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>test할 private method가 존재하는 class를 직접 생성</li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getDeclaredMethod-java.lang.String-java.lang.Class...-">getDeclaredMethod()</a>를 이용해서 해당 클래스에 존재하는 private method를 가져오고</li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/AccessibleObject.html#setAccessible-java.lang.reflect.AccessibleObject:A-boolean-">setAccessible()</a>로 private method에 접근을 허용</li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html#invoke-java.lang.Object-java.lang.Object...-">invoke()</a>로 호출하는데 이 때 invoke()의 매개변수가 Object[] 이므로 원래 호출하려던 private method의 매개변수를 Object[]에 담은 후 Object[]을 매개변수로 넘겨줘야함</li>
+</ol>
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/34571/how-do-i-test-a-private-function-or-a-class-that-has-private-methods-fields-or">https://stackoverflow.com/questions/34571/how-do-i-test-a-private-function-or-a-class-that-has-private-methods-fields-or</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.crocus.co.kr/1665">https://www.crocus.co.kr/1665</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/8189782/wrong-number-of-arguments-error-when-invoking-a-method">https://stackoverflow.com/questions/8189782/wrong-number-of-arguments-error-when-invoking-a-method</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/" aria-label=": Junit으로 private 메서드 테스트하기">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%88%AB%EC%9E%90-%EC%95%BC%EA%B5%AC/" aria-label=": 프로그래머스: 숫자 야구">
                             프로그래머스: 숫자 야구
                         </a>
@@ -1396,82 +1462,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/09/Spring-Controller-Test%EC%8B%9C-CSRF-%EC%84%A4%EC%A0%95/" aria-label=": Spring Controller Test시 CSRF 설정">
-                            Spring Controller Test시 CSRF 설정
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-09T11:01:52+09:00">
-	
-		    2020/06/09
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>Spring Boot + thymeleaf으로 진행하던 프로젝트를 테스트 하던 중<br>Ajax로 호출하는 Methoed를 Test 하였더니 아래와 같이 403 error가 return 되면서 Test가 실패했다.</p>
-<hr>
-<h2 id="원인"><a href="#원인" class="headerlink" title="원인"></a>원인</h2><p>thymeleaf를 사용하면 기본적으로 CSRF 토큰을 넘겨주기 때문에 따로 csrf 토큰을 생성하지 않았으나, ajax에선 직접 csrf 토큰을 생성해서 넘겨줘야 하기 때문에 csrf 토큰을 생성해서 넘겨주도록 되어 있는데 Test 시에는 그렇지 않아서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.mozilla.org/ko/docs/Web/HTTP/Status/403">403 Forbidden</a>가 발생한 것으로 보인다.</p>
-<p><img src="/images/20200609/403%EC%97%90%EB%9F%AC.PNG" alt="403"></p>
-<h3 id="thymeleaf-config-html"><a href="#thymeleaf-config-html" class="headerlink" title="thymeleaf config.html"></a>thymeleaf config.html</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">id</span>=<span class="string">&quot;_csrf&quot;</span> <span class="attr">name</span>=<span class="string">&quot;_csrf&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;_csrf.token&#125;&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">id</span>=<span class="string">&quot;_csrf_header&quot;</span> <span class="attr">name</span>=<span class="string">&quot;_csrf_header&quot;</span> <span class="attr">th:content</span>=<span class="string">&quot;$&#123;_csrf.headerName&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="common-js"><a href="#common-js" class="headerlink" title="common.js"></a>common.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> token = $(<span class="string">&quot;meta[name=&#x27;_csrf&#x27;]&quot;</span>).attr(<span class="string">&quot;content&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> header = $(<span class="string">&quot;meta[name=&#x27;_csrf_header&#x27;]&quot;</span>).attr(<span class="string">&quot;content&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>mockMvc.perform에서 get, post 호출 시 SecurityMockMvcRequestPostProcessors 의 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-security/site/docs/4.2.13.RELEASE/apidocs/org/springframework/security/test/web/servlet/request/SecurityMockMvcRequestPostProcessors.html#csrf--">csrf()</a>를 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/request/MockHttpServletRequestBuilder.html#with-org.springframework.test.web.servlet.request.RequestPostProcessor-">with()</a>로 파라미터에 추가한다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">//when</span></span><br><span class="line">ResultActions action = mockMvc.perform(post(<span class="string">&quot;/word/add&quot;</span>)</span><br><span class="line">        .param(<span class="string">&quot;save&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">        .content(addwordToJson)</span><br><span class="line">        .contentType(MediaType.APPLICATION_JSON)</span><br><span class="line">        .with(csrf())) <span class="comment">// 이 부분</span></span><br><span class="line">        .andDo(print());</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>추가 한 후 다시 테스트 해보면 파라미터에 csrf 토큰이 생성되어 정상적으로 동작하는 것을 확인 할 수 있다.</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MockHttpServletRequest:</span><br><span class="line">      HTTP Method = POST</span><br><span class="line">      Request URI = /word/add</span><br><span class="line">       Parameters = &#123;save=[], _csrf=[6757e021-c0a3-4390-81d9-9c917d89c8c1]&#125; // 이 부분</span><br><span class="line">          Headers = [Content-Type:&quot;application/json&quot;, Content-Length:&quot;59&quot;]</span><br><span class="line">             Body = &lt;no character encoding set&gt;</span><br><span class="line">    Session Attrs = &#123;SPRING_SECURITY_CONTEXT=org.springframework.security.core.context.SecurityContextImpl@83a38fdf: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@83a38fdf: Principal: org.springframework.security.core.userdetails.User@31bf3c: Username: jgji; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER; Credentials: [PROTECTED]; Authenticated: true; Details: null; Granted Authorities: ROLE_USER&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/20200609/success.PNG" alt="성공"></p>
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/25605373/unit-testing-controllers-with-csrf-protection-enabled-in-spring-security">https://stackoverflow.com/questions/25605373/unit-testing-controllers-with-csrf-protection-enabled-in-spring-security</a></li>
-</ul>
-<hr>
-<h2 id="전체-코드"><a href="#전체-코드" class="headerlink" title="전체 코드"></a>전체 코드</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook/blob/master/src/test/java/com/jgji/spring/domain/word/controller/WordControllerTest.java">ControllerTest</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook/blob/master/src/main/resources/templates/fragments/config.html">config.html</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook/blob/master/src/main/resources/static/js/common.js">common.js</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/09/Spring-Controller-Test%EC%8B%9C-CSRF-%EC%84%A4%EC%A0%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/09/Spring-Controller-Test%EC%8B%9C-CSRF-%EC%84%A4%EC%A0%95/" aria-label=": Spring Controller Test시 CSRF 설정">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1499,7 +1489,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2023 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

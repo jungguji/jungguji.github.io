@@ -177,6 +177,207 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/07/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/" aria-label=": 프로그래머스: 오픈채팅방">
+                            프로그래머스: 오픈채팅방
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-07-19T16:59:19+09:00">
+	
+		    2020/07/19
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42888">https://programmers.co.kr/learn/courses/30/lessons/42888</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ENTER = <span class="string">&quot;Enter&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String LEAVE = <span class="string">&quot;Leave&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String CHANGE = <span class="string">&quot;Change&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_ENTER = <span class="string">&quot;님이 들어왔습니다.&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MESSAGE_LEAVE = <span class="string">&quot;님이 나갔습니다.&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> String[] solution(String[] record) &#123;</span><br><span class="line">    List&lt;String[]&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    Map&lt;String, String&gt; nickName = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> returnArraySize = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String s : record) &#123;</span><br><span class="line">        String[] split = s.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">        String[] actionAndUid = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">        actionAndUid[<span class="number">0</span>] = split[<span class="number">0</span>];</span><br><span class="line">        actionAndUid[<span class="number">1</span>] = split[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!CHANGE.equals(split[<span class="number">0</span>])) &#123;</span><br><span class="line">            list.add(actionAndUid);</span><br><span class="line">            returnArraySize++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!LEAVE.equals(split[<span class="number">0</span>])) &#123;</span><br><span class="line">            nickName.put(split[<span class="number">1</span>], split[<span class="number">2</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String[] answer = <span class="keyword">new</span> String[returnArraySize];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String[] array : list) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (array[<span class="number">0</span>]) &#123;</span><br><span class="line">            <span class="keyword">case</span> ENTER :</span><br><span class="line">                answer[i] = nickName.get(array[<span class="number">1</span>]) + MESSAGE_ENTER;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> LEAVE :</span><br><span class="line">                answer[i] = nickName.get(array[<span class="number">1</span>]) + MESSAGE_LEAVE;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>문자열을 공백으로 나눠서 행동과 유저의 아이디를 저장하는 배열에 담는다.</li>
+<li>행동이 Change가 아닌 경우엔 채팅방에 입장했거나 나갓다는 문구룰 출력해야 하기 때문에 List에 담는다.</li>
+<li>행동이 Leave가 아닌 경우엔 닉네임이 변경되었거나, 새로 방에 들어온 것이므로 유저 아이디를 key로하는 map에 value로 닉네임을 저장한다.</li>
+<li>모두 저장했으면 List만큼 돌면서 해당 행동에 맞는 문자열을 만들어 저장한다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (18.70ms, 54.1MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (17.35ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (17.84ms, 54.4MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (19.81ms, 54MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (27.75ms, 56.1MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (30.38ms, 56.1MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (35.26ms, 54.4MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (27.59ms, 55.2MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (30.72ms, 56.5MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (28.67ms, 56.1MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (25.16ms, 56.2MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (26.04ms, 56.6MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (26.07ms, 55MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (43.84ms, 57.2MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (20.35ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (18.03ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (19.77ms, 54.2MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (18.86ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (35.94ms, 56.7MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (26.22ms, 55.5MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (30.18ms, 56.5MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (28.53ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (29.40ms, 57.5MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (37.73ms, 57.3MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (262.95ms, 158MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (292.57ms, 158MB)</td>
+</tr>
+<tr>
+<td>테스트 27</td>
+<td>통과 (333.29ms, 169MB)</td>
+</tr>
+<tr>
+<td>테스트 28</td>
+<td>통과 (324.94ms, 163MB)</td>
+</tr>
+<tr>
+<td>테스트 29</td>
+<td>통과 (282.87ms, 157MB)</td>
+</tr>
+<tr>
+<td>테스트 30</td>
+<td>통과 (286.21ms, 153MB)</td>
+</tr>
+<tr>
+<td>테스트 31</td>
+<td>통과 (225.37ms, 147MB)</td>
+</tr>
+<tr>
+<td>테스트 32</td>
+<td>통과 (255.96ms, 137MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] actual = &#123;<span class="string">&quot;Enter uid1234 Muzi&quot;</span>, <span class="string">&quot;Enter uid4567 Prodo&quot;</span>,<span class="string">&quot;Leave uid1234&quot;</span>,<span class="string">&quot;Enter uid1234 Prodo&quot;</span>,<span class="string">&quot;Change uid4567 Ryan&quot;</span>&#125;;</span><br><span class="line">String[] expected =&#123;<span class="string">&quot;Prodo님이 들어왔습니다.&quot;</span>, <span class="string">&quot;Ryan님이 들어왔습니다.&quot;</span>, <span class="string">&quot;Prodo님이 나갔습니다.&quot;</span>, <span class="string">&quot;Prodo님이 들어왔습니다.&quot;</span>&#125;;</span><br><span class="line">assertArrayEquals(expected, test.solution(actual));</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/07/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/07/19/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/" aria-label=": 프로그래머스: 오픈채팅방">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/07/08/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%96%89%EB%A0%AC%EC%9D%98-%EA%B3%B1%EC%85%88/" aria-label=": 프로그래머스: 행렬의 곱셈">
                             프로그래머스: 행렬의 곱셈
                         </a>
@@ -2218,72 +2419,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/" aria-label=": Junit으로 private 메서드 테스트하기">
-                            Junit으로 private 메서드 테스트하기
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-23T18:45:14+09:00">
-	
-		    2020/06/23
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.shiren.dev/2020-06-15-%EC%9C%A0%EC%9A%A9%ED%95%9C%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%BC%80%EC%9D%B4%EC%8A%A4%EB%A5%BC%EC%9C%84%ED%95%9C%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98%EC%9E%90%EC%84%B8/">private method도 테스트 해야되는지</a>에 대해선 의견이 많은 것으로 알고 있지만 현재 프로젝트에서 service에서 있는 메서드 중 주요 로직은 private method에 존재하고 public method에선 호출해서 return만 해주는 method가 존재했는데, 이런 경우에 private 메서드를 테스트하기 위한 방법을 정리해둔다.</p>
-<hr>
-<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">void</span> getPassAndFailWordList_성공()  <span class="keyword">throws</span> NoSuchMethodException, InvocationTargetException, IllegalAccessException &#123;</span><br><span class="line">    <span class="comment">//given</span></span><br><span class="line">    String[] answerIds = <span class="keyword">new</span> String[] &#123;<span class="string">&quot;6_1&quot;</span>, <span class="string">&quot;4_1&quot;</span>, <span class="string">&quot;5_1&quot;</span>, <span class="string">&quot;9_3&quot;</span>&#125;;</span><br><span class="line">    WordService w = <span class="keyword">new</span> WordServiceImpl(repository, userService);</span><br><span class="line"></span><br><span class="line">    Method method = w.getClass().getDeclaredMethod(<span class="string">&quot;getPassAndFailWordList&quot;</span>, String[].class);</span><br><span class="line">    method.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;Integer&gt; passWordList = Arrays.asList(<span class="number">6</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">    List&lt;Integer&gt; failWordList = Arrays.asList(<span class="number">9</span>);</span><br><span class="line"></span><br><span class="line">    Object[] obj = <span class="keyword">new</span> Object[] &#123;answerIds&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//when</span></span><br><span class="line">    Map&lt;String, List&lt;Integer&gt;&gt; map = (Map&lt;String, List&lt;Integer&gt;&gt;) method.invoke(w, obj);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//than</span></span><br><span class="line">    assertThat(map).extracting(<span class="string">&quot;pass&quot;</span>, String.class)</span><br><span class="line">            .contains(passWordList);</span><br><span class="line">    assertThat(map).extracting(<span class="string">&quot;fail&quot;</span>, String.class)</span><br><span class="line">            .contains(failWordList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>test할 private method가 존재하는 class를 직접 생성</li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getDeclaredMethod-java.lang.String-java.lang.Class...-">getDeclaredMethod()</a>를 이용해서 해당 클래스에 존재하는 private method를 가져오고</li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/AccessibleObject.html#setAccessible-java.lang.reflect.AccessibleObject:A-boolean-">setAccessible()</a>로 private method에 접근을 허용</li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html#invoke-java.lang.Object-java.lang.Object...-">invoke()</a>로 호출하는데 이 때 invoke()의 매개변수가 Object[] 이므로 원래 호출하려던 private method의 매개변수를 Object[]에 담은 후 Object[]을 매개변수로 넘겨줘야함</li>
-</ol>
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/34571/how-do-i-test-a-private-function-or-a-class-that-has-private-methods-fields-or">https://stackoverflow.com/questions/34571/how-do-i-test-a-private-function-or-a-class-that-has-private-methods-fields-or</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.crocus.co.kr/1665">https://www.crocus.co.kr/1665</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/8189782/wrong-number-of-arguments-error-when-invoking-a-method">https://stackoverflow.com/questions/8189782/wrong-number-of-arguments-error-when-invoking-a-method</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/" aria-label=": Junit으로 private 메서드 테스트하기">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -2312,7 +2447,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2023 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

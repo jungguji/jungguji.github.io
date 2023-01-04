@@ -177,6 +177,75 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2023/01/04/1829-Maximum-XOR-for-Each-Query/" aria-label=": LeetCode 1829. Maximum XOR for Each Query">
+                            LeetCode 1829. Maximum XOR for Each Query
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2023-01-04T22:07:37+09:00">
+	
+		    2023/01/04
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/">https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/</a></p>
+<p> 정렬된 n개의 음의 아닌 정수 배열 nums와 정수 maximumBit가 주어지고, 아래 쿼리를 n번 수행한다.</p>
+<blockquote>
+<p>nums [0] XOR nums [1] XOR … XOR nums [nums.length-1] XOR k</p>
+</blockquote>
+<br>
+
+<p> 를 최대화하는 k &lt;2maximumBit의 음이 아닌 정수를 찾는데 이 때,  k는 각 쿼리의 정답이다.<br>  쿼리를 반복할 때 마다 배열 nums의 마지막 element를 제거하고, answer 배열을 반환하는데, 여기서 answer[i]는 i번째 쿼리의 정답 즉, k 이다.</p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] getMaximumXor(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> maximumBit) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] pxor = getPrefixXOR(nums);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] answer = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answerIndex = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> maxValue = (<span class="number">1</span> &lt;&lt; maximumBit) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = pxor.length-<span class="number">1</span>; i &gt; <span class="number">0</span>; --i) &#123;</span><br><span class="line"></span><br><span class="line">        answer[answerIndex++] = pxor[i] ^ maxValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] getPrefixXOR(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">    <span class="keyword">int</span>[] psum = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= nums.length; ++i) &#123;</span><br><span class="line">        psum[i] = psum[i-<span class="number">1</span>] ^ nums[i-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> psum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>누적합(prefix sum) 알고리즘을 통해 누적 XOR 배열을 구한다.</li>
+<li>이 때, 2의 maximumBit승보다 작은 수 중에 가장 큰 수는 당연히 (2^maximumBit)-1 한 수 이므로, (2^maximumBit)-1 값을 변수에 할당해놓고,</li>
+<li>nums.length의 길이인 N 번 만큼 쿼리를 반복하면서 마지막 원소를 제거하면서 k 값을 구해 answer[i]에 저장한다.</li>
+<li>끝.</li>
+</ol>
+<h2 id="pxor-i-maxValue가-K인-이유"><a href="#pxor-i-maxValue가-K인-이유" class="headerlink" title="pxor[i] ^ maxValue가 K인 이유"></a>pxor[i] ^ maxValue가 K인 이유</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">xorTEST</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">93</span>;</span><br><span class="line">    <span class="keyword">int</span> y = <span class="number">12</span>;</span><br><span class="line">    <span class="keyword">int</span> z = x ^ y;</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;----- 초기값 -----&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;x = &quot;</span> + x);</span><br><span class="line">    System.out.println(<span class="string">&quot;y = &quot;</span> + y);</span><br><span class="line">    System.out.println(<span class="string">&quot;z = &quot;</span> + z);</span><br><span class="line"></span><br><span class="line">    System.out.println(<span class="string">&quot;----- XOR -----&quot;</span>);</span><br><span class="line">    System.out.printf(<span class="string">&quot;x ^ y = %d(z)\n&quot;</span>, x^y);</span><br><span class="line">    System.out.printf(<span class="string">&quot;x ^ z = %d(y)\n&quot;</span>, x^z);</span><br><span class="line">    System.out.printf(<span class="string">&quot;y ^ z = %d(x)\n&quot;</span>, y^z);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">----- 초기값 -----</span><br><span class="line">x = 93</span><br><span class="line">y = 12</span><br><span class="line">z = 81</span><br><span class="line">----- XOR -----</span><br><span class="line">x ^ y = 81(z)</span><br><span class="line">x ^ z = 12(y)</span><br><span class="line">y ^ z = 93(x)</span><br></pre></td></tr></table></figure>
+
+<p> 우리가 구해야 하는 값은 쿼리의 값을 가장 크게 할 값인 K이고, 우리는 이미 가장 큰 값을 (2^maximumBit)-1 로 구해놓았으므로,<br>누적합 알고리즘으로 구한 XOR값에 가장 큰 값을 XOR하면 k가 나오게 된다.</p>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2023/01/04/1829-Maximum-XOR-for-Each-Query/%EC%BA%A1%EC%B2%98.PNG" class>
+<hr>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2023/01/04/1829-Maximum-XOR-for-Each-Query/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2022/12/26/JPA-CustomRepository-%EC%9E%91%EC%84%B1-%EC%8B%9C-%EC%9C%A0%EC%9D%98%EC%82%AC%ED%95%AD/" aria-label=": JPA CustomRepository 작성 시 유의사항">
                             JPA CustomRepository 작성 시 유의사항
                         </a>
@@ -1172,150 +1241,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/" aria-label=": 애플 팀 변경 시 유저 정보 migration하기">
-                            애플 팀 변경 시 유저 정보 migration하기
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-10-31T20:24:57+09:00">
-	
-		    2021/10/31
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>현재 운영 중인 서비스가 어른들의 사정(?)으로 기존에 앱스토어에 올라와있던 어플의 팀을 이전해야 하는 경우가 생겼는데 이 때 팀 변경 후(정확히는 변경 후, Service Ids를 새로 생성한 후) 기존 애플 유저들의 계정이 로그인 되지 않고 가입 프로세스를 타게 되었는데, 이를 해결 하기 위해 이전 된 팀으로 기존 유저 정보를 마이그레이션 하는 방법을 정리 해둔다.</p>
-<hr>
-<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="1-기존-팀-Key-file로-client-secret-생성"><a href="#1-기존-팀-Key-file로-client-secret-생성" class="headerlink" title="1. 기존 팀 Key file로 client_secret 생성"></a>1. 기존 팀 Key file로 client_secret 생성</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">&#x27;jwt&#x27;</span></span><br><span class="line"></span><br><span class="line">key_file = <span class="string">&#x27;기존 키파일명&#x27;</span></span><br><span class="line">team_id = <span class="string">&#x27;기존 팀 아이디&#x27;</span></span><br><span class="line">client_id = <span class="string">&#x27;클라이언트 아이디&#x27;</span></span><br><span class="line">key_id = <span class="string">&#x27;기존 키 아이디&#x27;</span></span><br><span class="line"></span><br><span class="line">ecdsa_key = OpenSSL::PKey::EC.new IO.read key_file</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">  <span class="string">&#x27;kid&#x27;</span> =&gt; key_id</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">claims = &#123;</span><br><span class="line">    <span class="string">&#x27;iss&#x27;</span> =&gt; team_id,</span><br><span class="line">    <span class="string">&#x27;iat&#x27;</span> =&gt; Time.now.to_i,</span><br><span class="line">    <span class="string">&#x27;exp&#x27;</span> =&gt; Time.now.to_i + <span class="number">86400</span>*<span class="number">180</span>,</span><br><span class="line">    <span class="string">&#x27;aud&#x27;</span> =&gt; <span class="string">&#x27;https://appleid.apple.com&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;sub&#x27;</span> =&gt; client_id,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">token = JWT.encode claims, ecdsa_key, <span class="string">&#x27;ES256&#x27;</span>, headers</span><br><span class="line"></span><br><span class="line">puts token</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>위 코드를 복사해서 ruby script 파일(.rb)로 만든다.</li>
-<li>키 파일과 작성한 script 파일을 같은 디렉토리 내에 위치 시킨다.</li>
-<li>터미널에서 .rb 스크립트를 실행 시킨다.</li>
-</ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ruby 스크립트와 키파일이 존재하는 디렉토리로 이동</span></span><br><span class="line">cd /Users/user/Documents/apple_client</span><br><span class="line"></span><br><span class="line"><span class="comment"># ruby 스크립트 실행</span></span><br><span class="line">ruby client_secret.rb</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>스크립트가 정상적으로 실행됐으면 client_secret이 생성됨</li>
-</ol>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Ignoring ffi-1.15.0 because its extensions are not built. Try: gem pristine ffi --version 1.15.0</span><br><span class="line"># 아래</span><br><span class="line">eyJraWQiOiJHMzg2UlM3MlY3IiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiXXXXXXXXXxxxTJSOVM1IiwiaWF0IjoxNjM1MzAwOTY0LCJleHAiOjE2NTA4NTI5NjQsImxxxxxxXXXBzOi8vYXBwbGVpZC5hcHBsZS5jb20iLCJzdWIiOiJjb20uampsZWUuV2VkUXVlZW4ifQ.Zw18dKVQxxxxxXXXXXXeSVMT8B_aTkVHULNPOal7W_n_KTba3WtYwE-fQh8Ru6GhmNdVbx2VD1TnPBjTZmKB6PaZ58w</span><br></pre></td></tr></table></figure>
-
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/1.png" class title="애플 팀 변경 시 유저 정보 migration하기">
-
-<hr>
-<h3 id="2-access-token-생성"><a href="#2-access-token-생성" class="headerlink" title="2. access_token 생성"></a>2. access_token 생성</h3><ul>
-<li>기존 provider_id를 transfer 하기 위해선 apple api로 통신해야하는데 이 때 필요한 access_token을 생성한다.</li>
-<li>POST 요청을 전송하기 위해 postman(<a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.postman.com/">https://www.postman.com/</a>)을 사용</li>
-<li>참고 document (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.apple.com/documentation/sign_in_with_apple/transferring_your_apps_and_users_to_another_team">https://developer.apple.com/documentation/sign_in_with_apple/transferring_your_apps_and_users_to_another_team</a>)</li>
-</ul>
-<ol>
-<li>request 작성</li>
-</ol>
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/2.png" class title="애플 팀 변경 시 유저 정보 migration하기">
-
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">URL : https://appleid.apple.com/auth/token</span><br><span class="line">HTTP Method : POST</span><br><span class="line">Content-Type : x-www-form-urlencoded</span><br><span class="line">Body : </span><br><span class="line">&#123;</span><br><span class="line">    grant_type : client_credentials</span><br><span class="line">    scope : user.migration</span><br><span class="line">    client_id : 클라이언트 아이디</span><br><span class="line">    client_secret : 위에서 생성한 client_secret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>요청 후 결과 확인</li>
-</ol>
-<ul>
-<li>정상적으로 응답이 온다면 아래처럼 1시간 짜리 access_token이 발급된다.</li>
-<li>1 시간이 경과하면 재발급을 받아야 한다.</li>
-</ul>
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/3.png" class title="애플 팀 변경 시 유저 정보 migration하기">
-
-<hr>
-<h3 id="3-기존-유저-provider-Id-transfer"><a href="#3-기존-유저-provider-Id-transfer" class="headerlink" title="3. 기존 유저 provider Id transfer"></a>3. 기존 유저 provider Id transfer</h3><ul>
-<li>변경된 팀의 provider Id로 변경하기 전 단계</li>
-<li>여기서 응답받은 transfer_sub 으로 다시 변경 요청을 보내야 변경된 팀 provider id를 받을 수 있음</li>
-</ul>
-<ol>
-<li>request 작성</li>
-</ol>
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/4.png" class title="애플 팀 변경 시 유저 정보 migration하기 access_token 설정 token_type이 bearer였으므로, bearer token으로 설정 " alt="access_token 설정 token_type이 bearer였으므로, bearer token으로 설정">
-
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/5.png" class title="애플 팀 변경 시 유저 정보 migration하기">
-
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">URL : https://appleid.apple.com/auth/usermigrationinfo</span><br><span class="line">HTTP Method : POST</span><br><span class="line">Content-Type : x-www-form-urlencoded</span><br><span class="line">Authorization: Bearer &#123;access_token&#125;</span><br><span class="line">Body : </span><br><span class="line">&#123;</span><br><span class="line">    sub : 기존 유저 Provider Id</span><br><span class="line">    target : 새로 만든 팀 ID</span><br><span class="line">    client_id : 클라이언트 아이디</span><br><span class="line">    client_secret : 위에서 생성한 client_secret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>요청 후 결과 확인</li>
-</ol>
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/6.png" class title="애플 팀 변경 시 유저 정보 migration하기">
-
-<hr>
-<h3 id="4-변경된-팀-Provider-Id로-transfer"><a href="#4-변경된-팀-Provider-Id로-transfer" class="headerlink" title="4. 변경된 팀 Provider Id로 transfer"></a>4. 변경된 팀 Provider Id로 transfer</h3><ul>
-<li>참고 document<ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.apple.com/documentation/sign_in_with_apple/bringing_new_apps_and_users_into_your_team">https://developer.apple.com/documentation/sign_in_with_apple/bringing_new_apps_and_users_into_your_team</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.apple.com/forums/thread/666734">https://developer.apple.com/forums/thread/666734</a></li>
-</ul>
-</li>
-<li>필자는 이 단계가 존재한다는 걸 몰라서 문제 해결에 많은 시간이 소요 되었다…</li>
-</ul>
-<ol>
-<li>requset 생성<ul>
-<li>이 때 전송되는 client_secret은 새로 만든 팀의 키 파일로 생성된 client_secret이다.</li>
-<li>이 때 전송되는 client_secret은 새로 만든 팀의 키 파일로 생성된 client_secret이다.</li>
-<li>이 때 전송되는 client_secret은 새로 만든 팀의 키 파일로 생성된 client_secret이다.</li>
-<li>client_secret을 만드는 방법은 1번과 같다.</li>
-<li>bearer token은 기존에 만든 것을 사용하면 된다.</li>
-</ul>
-</li>
-</ol>
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/7.png" class title="애플 팀 변경 시 유저 정보 migration하기">
-
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">URL : https://appleid.apple.com/auth/usermigrationinfo</span><br><span class="line">HTTP Method : POST</span><br><span class="line">Content-Type : x-www-form-urlencoded</span><br><span class="line">Authorization: Bearer &#123;access_token&#125;</span><br><span class="line">Body : </span><br><span class="line">&#123;</span><br><span class="line">    transfer_sub : 이전 단계에서 transfer된 sub</span><br><span class="line">    client_id : 클라이언트 아이디</span><br><span class="line">    client_secret : 새로 만든 팀의 client_secret</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>요청 후 결과 확인</li>
-</ol>
-<img src="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/8.png" class title="애플 팀 변경 시 유저 정보 migration하기">
-
-<ul>
-<li>000000.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.0000</li>
-<li>형식으로 생성되는데 이 때 맨 앞에 00000. 부분은 변경되지 않으므로</li>
-<li>이 부분을 확인</li>
-</ul>
-<hr>
-<h3 id="5-DB에-저장된-유저-provider-Id-변경"><a href="#5-DB에-저장된-유저-provider-Id-변경" class="headerlink" title="5. DB에 저장된 유저 provider Id 변경"></a>5. DB에 저장된 유저 provider Id 변경</h3><ul>
-<li>필자의 서비스는 provider ID로 유니크한 KEY를 만들어 사용하고 있었으므로 이 부분을 업데이트 해주었다.</li>
-</ul>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.apple.com/documentation/sign_in_with_apple/transferring_your_apps_and_users_to_another_team">https://developer.apple.com/documentation/sign_in_with_apple/transferring_your_apps_and_users_to_another_team</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.apple.com/documentation/sign_in_with_apple/bringing_new_apps_and_users_into_your_team">https://developer.apple.com/documentation/sign_in_with_apple/bringing_new_apps_and_users_into_your_team</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.apple.com/forums/thread/666734">https://developer.apple.com/forums/thread/666734</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/10/31/%EC%95%A0%ED%94%8C-%ED%8C%80-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%9C%A0%EC%A0%80-%EC%A0%95%EB%B3%B4-migration%ED%95%98%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1337,7 +1262,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2022 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2023 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 
