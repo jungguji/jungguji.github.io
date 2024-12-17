@@ -177,6 +177,216 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95/" aria-label=": 프로그래머스: 문자열 압축">
+                            프로그래머스: 문자열 압축
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-04T20:48:25+09:00">
+	
+		    2020/05/04
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/60057">https://programmers.co.kr/learn/courses/30/lessons/60057</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> stringLength = s.length();</span><br><span class="line"></span><br><span class="line">    StringBuilder result = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    String origin = <span class="keyword">new</span> String();</span><br><span class="line">    <span class="keyword">char</span>[] tochar = s.toCharArray();</span><br><span class="line">    <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= stringLength / <span class="number">2</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> compression = <span class="number">1</span>;</span><br><span class="line">        result.setLength(<span class="number">0</span>);</span><br><span class="line">        origin = <span class="keyword">new</span> String(tochar, <span class="number">0</span>, i);</span><br><span class="line"></span><br><span class="line">        String nextWord = <span class="keyword">new</span> String();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; stringLength; j+=i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j + i &gt; stringLength) &#123;</span><br><span class="line">                nextWord = s.substring(j, stringLength);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nextWord = <span class="keyword">new</span> String(tochar, j , i);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (origin.equals(nextWord)) &#123;</span><br><span class="line">                ++compression;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (compression != <span class="number">1</span>) &#123;</span><br><span class="line">                    result.append(compression);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                result.append(origin);</span><br><span class="line"></span><br><span class="line">                origin = nextWord.toString();</span><br><span class="line">                compression = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (compression != <span class="number">1</span>) &#123;</span><br><span class="line">            result.append(compression);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        result.append(origin);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (min &gt; result.length()) &#123;</span><br><span class="line">            min = result.length();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = min &gt; stringLength ? stringLength : min;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li><p>문자열을 반으로 나눠서 2개로 나눈 것 보다 짧을 수 없으므로 문자열 길이 / 2 한 값 만큼 반복</p>
+</li>
+<li><p>비교 할 문자열을 구함(origin)</p>
+<ul>
+<li>처음엔 1개 짜리 이후엔 2개, 3개, … 증가 할 수 있도록 i를 증가 시키면서 i 번째 까지 자름</li>
+</ul>
+</li>
+<li><p>i 번째 문자 이후로 비교 할 문자를 구함</p>
+</li>
+<li><p>같으면 압축율을 증가시키고</p>
+</li>
+<li><p>다르면 압축율과 문자를 더해서 압축문자열(result)을 만듬</p>
+</li>
+<li><p>비교 할 문자를 구하면서 마지막 문자는 안 붙여지고 팅기므로 for 문 밖에서 마지막 문자를 붙임</p>
+</li>
+<li><p>이전에 구했던 압축문자열 길이와 비교해서 더 작은 길이를 저장함</p>
+</li>
+<li><p>끝</p>
+</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (0.99ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (2.92ms, 49.9MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (1.72ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (0.99ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (0.84ms, 50MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (1.03ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (3.49ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (2.49ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (4.46ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (9.25ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (1.25ms, 50.2MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (1.28ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (9.63ms, 51.8MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (4.35ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (1.31ms, 52.1MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (0.85ms, 50.2MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (8.91ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (7.70ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (8.63ms, 54.9MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (7.89ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 21</td>
+<td>통과 (9.99ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 22</td>
+<td>통과 (10.63ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 23</td>
+<td>통과 (9.68ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 24</td>
+<td>통과 (7.89ms, 54.4MB)</td>
+</tr>
+<tr>
+<td>테스트 25</td>
+<td>통과 (10.43ms, 52.9MB)</td>
+</tr>
+<tr>
+<td>테스트 26</td>
+<td>통과 (8.17ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 27</td>
+<td>통과 (15.60ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 28</td>
+<td>통과 (0.88ms, 50.4MB)</td>
+</tr>
+</tbody></table>
+<ul>
+<li>result에 문자열을 더하지 말고 그냥 문자열 길이를 더하는 방식으로 하면 더 시간을 줄일 수 있음</li>
+</ul>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">7</span>, test.solution(<span class="string">&quot;aabbaccc&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">9</span>, test.solution(<span class="string">&quot;ababcdcdababcdcd&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="string">&quot;abcabcdede&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">14</span>, test.solution(<span class="string">&quot;abcabcabcabcdededededede&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">17</span>, test.solution(<span class="string">&quot;xababcdcdababcdcd&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="string">&quot;a&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="string">&quot;aaaaa&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;aaaaaaaaaa&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@pa324/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-Level-1-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95%EC%B9%B4%EC%B9%B4%EC%98%A4-2020%EA%B3%B5%EC%B1%84-%EB%AC%B8%EC%A0%9C">https://velog.io/@pa324/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-Level-1-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95%EC%B9%B4%EC%B9%B4%EC%98%A4-2020%EA%B3%B5%EC%B1%84-%EB%AC%B8%EC%A0%9C</a></p>
+</li>
+<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95-Java">https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95-Java</a></p>
+</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95/" aria-label=": 프로그래머스: 문자열 압축">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/04/29/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%EB%A6%AC%ED%8A%B8%EB%9F%AD/" aria-label=": 프로그래머스: 다리를 지나는 트럭">
                             프로그래머스: 다리를 지나는 트럭
                         </a>
@@ -1499,216 +1709,6 @@
                 </div>
             
         </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/04/10/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%ED%8A%B8%EA%B2%8C%EC%9E%84/" aria-label=": 프로그래머스: 다트게임">
-                            프로그래머스: 다트게임
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-04-10T19:52:55+09:00">
-	
-		    2020/04/10
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17682?language=java">https://programmers.co.kr/learn/courses/30/lessons/17682?language=java</a></p>
-<hr>
-<h1 id="소스"><a href="#소스" class="headerlink" title="소스"></a>소스</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String dartResult)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span>[] charArray = dartResult.toCharArray();</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span>[] scores = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">char</span> ch : charArray) &#123;</span><br><span class="line">		<span class="keyword">switch</span> (ch) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;S&#x27;</span>:</span><br><span class="line">			scores[i++] = Integer.parseInt(sb.toString());</span><br><span class="line">			</span><br><span class="line">			sb.setLength(<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;D&#x27;</span>:</span><br><span class="line">			<span class="keyword">int</span> a = Integer.parseInt(sb.toString());</span><br><span class="line">			scores[i++] = a * a;</span><br><span class="line">			</span><br><span class="line">			sb.setLength(<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;T&#x27;</span>:</span><br><span class="line">			<span class="keyword">int</span> b = Integer.parseInt(sb.toString());</span><br><span class="line">			scores[i++] = b * b * b;</span><br><span class="line">			</span><br><span class="line">			sb.setLength(<span class="number">0</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">			<span class="keyword">if</span> (i &gt; <span class="number">1</span>) &#123;</span><br><span class="line">				scores[i-<span class="number">2</span>] = scores[i-<span class="number">2</span>] * <span class="number">2</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			scores[i-<span class="number">1</span>] = scores[i-<span class="number">1</span>] * <span class="number">2</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;#&#x27;</span>:</span><br><span class="line">			scores[i-<span class="number">1</span>] = scores[i-<span class="number">1</span>] * -<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			sb.append(ch);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> answer = scores[<span class="number">0</span>] + scores[<span class="number">1</span>] + scores[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h1 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h1><ol>
-<li><p>문자열을 charArray로 치환하고 loop 돈다.</p>
-</li>
-<li><p>char를 비교하여 각 문자별로 맞게 계산을 실행하고, index를 증가 시킨 후 다음  점수 저장을 위해 StringBuilder를 초기화 한다.</p>
-</li>
-<li><p>‘<strong>*</strong>‘ 일 경우 이전 점수와 현재 점수 모두 2 배씩 해야 하므로 2 번 던진 경우엔 이전 점수도 2를 곱 해준다.</p>
-</li>
-<li><p>계산된 세 점수 모두 더해서 return 한다.</p>
-</li>
-<li><p>끝</p>
-</li>
-</ol>
-<hr>
-<h1 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h1><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (0.79ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (0.86ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (0.86ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (0.84ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (0.92ms, 54.5MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (0.82ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (0.83ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (0.83ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (0.90ms, 50.8MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (0.83ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (0.84ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (0.84ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (0.82ms, 50.4MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (0.74ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (0.90ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (0.86ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (0.81ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (0.86ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (0.85ms, 50.1MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (0.95ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 21</td>
-<td>통과 (0.81ms, 50.4MB)</td>
-</tr>
-<tr>
-<td>테스트 22</td>
-<td>통과 (0.80ms, 51.9MB)</td>
-</tr>
-<tr>
-<td>테스트 23</td>
-<td>통과 (0.88ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 24</td>
-<td>통과 (0.87ms, 51.9MB)</td>
-</tr>
-<tr>
-<td>테스트 25</td>
-<td>통과 (0.87ms, 50.4MB)</td>
-</tr>
-<tr>
-<td>테스트 26</td>
-<td>통과 (0.88ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 27</td>
-<td>통과 (0.89ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 28</td>
-<td>통과 (0.88ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 29</td>
-<td>통과 (0.85ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 30</td>
-<td>통과 (0.89ms, 51.8MB)</td>
-</tr>
-<tr>
-<td>테스트 31</td>
-<td>통과 (0.85ms, 50.2MB)</td>
-</tr>
-<tr>
-<td>테스트 32</td>
-<td>통과 (0.83ms, 52MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h1 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">37</span>, test.solution(<span class="string">&quot;1S2D*3T&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">9</span>, test.solution(<span class="string">&quot;1D2S#10S&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;1D2S0T&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">23</span>, test.solution(<span class="string">&quot;1S*2T*3S&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="string">&quot;1D#2S*3S&quot;</span>));</span><br><span class="line">assertEquals(-<span class="number">4</span>, test.solution(<span class="string">&quot;1T2D3D#&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">59</span>, test.solution(<span class="string">&quot;1D2S3T*&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>프로그래머스에서 제공한 예제 테스트 케이스이므로<br>위 테스트케이스를 모두 통과하여도 실제 테스트에선 통과하지 못할 수 있음.</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/04/10/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%ED%8A%B8%EA%B2%8C%EC%9E%84/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/04/10/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%ED%8A%B8%EA%B2%8C%EC%9E%84/" aria-label=": 프로그래머스: 다트게임">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
         
     </article>
     

@@ -3,6 +3,13 @@
 
 
     <url>
+        <loc>https://jungguji.github.io/tags/test/</loc>
+        <lastmod>2024-11-19T14:16:40.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://jungguji.github.io/tags/Prefix-sum/</loc>
         <lastmod>2023-01-04T13:07:37.000Z</lastmod>
         <changefreq>weekly</changefreq>

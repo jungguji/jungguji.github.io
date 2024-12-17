@@ -177,6 +177,118 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A8%EC%B2%B4%EC%82%AC%EC%A7%84-%EC%B0%8D%EA%B8%B0/" aria-label=": 프로그래머스: 단체사진 찍기">
+                            프로그래머스: 단체사진 찍기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-24T16:08:23+09:00">
+	
+		    2020/06/24
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/1835">https://programmers.co.kr/learn/courses/30/lessons/1835</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PEOPLE_COUNT = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PEOPLE_NAMES = &#123;<span class="string">&quot;A&quot;</span>, <span class="string">&quot;C&quot;</span>, <span class="string">&quot;F&quot;</span>, <span class="string">&quot;J&quot;</span>, <span class="string">&quot;M&quot;</span>, <span class="string">&quot;N&quot;</span>, <span class="string">&quot;R&quot;</span>, <span class="string">&quot;T&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> answer;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> n, String[] data)</span> </span>&#123;</span><br><span class="line">    answer = <span class="number">0</span>;</span><br><span class="line">    perm(<span class="string">&quot;&quot;</span>, <span class="number">0</span>, <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">8</span>], data);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">perm</span><span class="params">(String perm, <span class="keyword">int</span> depth, <span class="keyword">boolean</span>[] isVisit, String[] data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (depth == PEOPLE_COUNT) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isCondition(perm, data)) &#123;</span><br><span class="line">            answer++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; PEOPLE_COUNT; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!isVisit[i]) &#123;</span><br><span class="line">            isVisit[i] = <span class="keyword">true</span>;</span><br><span class="line">            perm(perm + PEOPLE_NAMES[i], depth + <span class="number">1</span>, isVisit, data);</span><br><span class="line">            isVisit[i] = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isCondition</span><span class="params">(String perm, String[] data)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isCondition = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] tochar = data[i].toCharArray();</span><br><span class="line">        <span class="keyword">int</span> people1 = perm.indexOf(tochar[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">int</span> people2 = perm.indexOf(tochar[<span class="number">2</span>]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> interval = people1 &gt; people2 ? people1 - people2 - <span class="number">1</span> : people2 - people1 - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> requestInterval = tochar[<span class="number">4</span>] - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="keyword">if</span> (tochar[<span class="number">3</span>] == <span class="string">&#x27;=&#x27;</span> &amp;&amp; interval != requestInterval) &#123;</span><br><span class="line">            isCondition = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (tochar[<span class="number">3</span>] == <span class="string">&#x27;&lt;&#x27;</span> &amp;&amp; interval &gt;= requestInterval) &#123;</span><br><span class="line">            isCondition = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (tochar[<span class="number">3</span>] == <span class="string">&#x27;&gt;&#x27;</span> &amp;&amp; interval &lt;= requestInterval) &#123;</span><br><span class="line">            isCondition = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isCondition;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>{“A”, “C”, “F”, “J”, “M”, “N”, “R”, “T”}로 나올 수 있는 문자열을 모두 만들어서 비교</li>
+<li>위 array size 만큼 돌면서 문자열을 만드는데 이미 문자열에 포함된 문자는 추가하지 않기 위해 똑같은 size에 boolean array를 만듬</li>
+<li>만들어서 그 boolean array의 index가 true면 이미 문자열에 추가된 문자 이므로 넘어감</li>
+<li>문자열에 추가되지 않은 문자라면 다시 추가하지 않기 위해 boolean을 true로 변경</li>
+<li>문자열을 이어 붙이기 위해 현재 메서드(perm)를 재귀호출 하는데</li>
+<li>현재 문자열(perm)에 추가할 문자 (PEOPLE_NAMES[i])를 더하고, 배열 인덱스가 한 단계 깊어 졌으므로 depth를 +1 해서 호출</li>
+<li>반복 하다가 사람 수 만큼(PEOPLE_NAMES) 들어왔으면</li>
+<li>이 문자열이 비교와 할 문자열의 조건과 같은지 확인함</li>
+<li>{“N<del>F=0”, “R</del>T&gt;2”} 이런 식으로 되어 있으므로</li>
+<li>조건 문자열에서 먼저 0번째와 2번째를 가져와서 지금 만든 문자열에서 해당 문자들이 몇 번째에 위치해 있는지 구함 (indexOf())</li>
+<li>구한 값의 차를 구함</li>
+<li>조건에서 해당 문자들의 간격이 몇인지 알기 위해 4번째 문자를 가져옴</li>
+<li>조건 문자열에서 3번째 문자에 따라 참인지 아닌지 비교함<ol>
+<li>‘=’ 이면서 구한 간격과 조건의 간격이 같지 않으면 false</li>
+<li>‘&lt;’ 이면서 구한 간격이 조건의 간격보다 크거나 같으면 false</li>
+<li>‘&gt;’ 이면서 구한 간격이 조건의 간격보다 작거나 같으면 false</li>
+</ol>
+</li>
+<li>모든 조건을 통과하면 경우의 수를 증가시킴</li>
+<li>모든 문자열에 대해 비교가 끝나면 끝</li>
+</ol>
+<h3 id="부연-설명-boolean-isVisit의-변화와-문자열이-만들어지는-과정"><a href="#부연-설명-boolean-isVisit의-변화와-문자열이-만들어지는-과정" class="headerlink" title="부연 설명 boolean[] isVisit의 변화와 문자열이 만들어지는 과정"></a>부연 설명 boolean[] isVisit의 변화와 문자열이 만들어지는 과정</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; PEOPLE_COUNT; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!isVisit[i]) &#123;</span><br><span class="line">        isVisit[i] = <span class="keyword">true</span>;</span><br><span class="line">        perm(perm + PEOPLE_NAMES[i], depth + <span class="number">1</span>, isVisit, data);</span><br><span class="line">        isVisit[i] = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>{false, false, false, false, false, false, false, false} 인 상태에서 위 반복을 돌면서 재귀로 들어감</li>
+<li>{true, false, false, false, false, false, false, false}가 된 상태에서 perm 재귀를 타고 반복…</li>
+<li>{true, true, true, true, true, true, true, true}이 된 상태로 재귀를 빠져나옴</li>
+<li>빠져나오면 isVisit[i] = false 때문에 마지막 7번째 index는 false로 변경되고 반복문이 끝났으므로 재귀를 빠져나옴</li>
+<li>재귀를 나왔으니 {true, true, true, true, true, true, true, false}인 상태에서 i는 6이고 6번째 index도 false로 만듬</li>
+<li>{true, true, true, true, true, true, false, false} 그럼 이 상태가 되고 여기서 반복문이 돌아서 i는 7이 되고 7번째 index는 true로 변경</li>
+<li>{true, true, true, true, true, true, false, true}인 상태로 재귀에 들어가지만 depth가 8이 아니므로 다시 for문을 도는데</li>
+<li>{true, true, true, true, true, true, false, true}인 상태이므로 여태 재귀돌면서 만들었던 문자열 마지막에 6번째 문자가 추가되게 됨<ol>
+<li>“ACFJMNT” + 6번째 index인 “R”</li>
+</ol>
+</li>
+<li>위 상황이 반복되면서 8자리 문자열이 계속 반복적으로 생성되고 비교됨</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (1723.16ms, 333MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">3648</span>, test.solution(<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;N~F=0&quot;</span>, <span class="string">&quot;R~T&gt;2&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">0</span>, test.solution(<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;M~C&lt;2&quot;</span>, <span class="string">&quot;C~M&gt;1&quot;</span>&#125;));</span><br></pre></td></tr></table></figure>
+
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tech.kakao.com/2017/09/13/code-festival-round-2/">https://tech.kakao.com/2017/09/13/code-festival-round-2/</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A8%EC%B2%B4%EC%82%AC%EC%A7%84-%EC%B0%8D%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A8%EC%B2%B4%EC%82%AC%EC%A7%84-%EC%B0%8D%EA%B8%B0/" aria-label=": 프로그래머스: 단체사진 찍기">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/23/Junit%EC%9C%BC%EB%A1%9C-private-%EB%A9%94%EC%84%9C%EB%93%9C-%ED%85%8C%EC%8A%A4%ED%8A%B8%ED%95%98%EA%B8%B0/" aria-label=": Junit으로 private 메서드 테스트하기">
                             Junit으로 private 메서드 테스트하기
                         </a>
@@ -1389,72 +1501,6 @@
         </div>
         
             <a href="/2020/06/11/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B9%B4%EC%B9%B4%EC%98%A4-%ED%94%84%EB%A0%8C%EC%A6%88-%EC%BB%AC%EB%9F%AC%EB%A7%81%EB%B6%81/" aria-label=": 프로그래머스: 카카오 프렌즈 컬러링북">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/09/BDDMockito-given-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98/" aria-label=": BDDMockito given 사용시 주의">
-                            BDDMockito given 사용시 주의
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-09T13:04:42+09:00">
-	
-		    2020/06/09
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><h3 id="Test-Code"><a href="#Test-Code" class="headerlink" title="Test Code"></a>Test Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testCreateWordFail</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">// gvien</span></span><br><span class="line">    BindingResult bindingResult = <span class="keyword">new</span> MapBindingResult(<span class="keyword">new</span> HashMap(), <span class="string">&quot;&quot;</span>);</span><br><span class="line">    bindingResult.rejectValue(<span class="string">&quot;test&quot;</span>, <span class="string">&quot;test&quot;</span>, <span class="string">&quot;haha&quot;</span>);</span><br><span class="line"></span><br><span class="line">    WordDTO.AddWord addWord = <span class="keyword">new</span> WordDTO.AddWord();</span><br><span class="line">    addWord.setWord(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">    addWord.setMeaning(<span class="string">&quot;테스트&quot;</span>);</span><br><span class="line"></span><br><span class="line">    given(<span class="keyword">this</span>.service.getCreateWordBindingResult(addWord, bindingResult)).willReturn(bindingResult);</span><br><span class="line"></span><br><span class="line">    String addWordToJson = getAddWordToJson();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//when</span></span><br><span class="line">    ResultActions action = mockMvc.perform(post(<span class="string">&quot;/word/add&quot;</span>)</span><br><span class="line">            .param(<span class="string">&quot;save&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">            .content(addWordToJson)</span><br><span class="line">            .contentType(MediaType.APPLICATION_JSON)</span><br><span class="line">            .with(csrf()))</span><br><span class="line">            .andDo(print());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//then</span></span><br><span class="line">    action.andExpect(status().isOk())</span><br><span class="line">            .andExpect(view().name(<span class="string">&quot;thymeleaf/word/createWordForm&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>위 코드처럼 this.service.getCreateWordBindingResult(addWord, bindingResult) method가 호출될 때 willdReturn으로 지정한 bindingResult가 return되게 하고 하려했으나 given이 제대로 동작하지 않아서 인지 getCreateWordBindingResult method 안에서 result가 존재하지 않아 NullPointerException이 발생하여 테스트가 실패했다.</p>
-<h3 id="Test-Target"><a href="#Test-Target" class="headerlink" title="Test Target"></a>Test Target</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(value=&quot;/word/add&quot;, params= &#123;&quot;save&quot;&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">createWord</span><span class="params">(<span class="meta">@Valid</span> AddWord word, BindingResult bindingResult)</span> </span>&#123;</span><br><span class="line">    BindingResult result = service.getCreateWordBindingResult(word, bindingResult);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (result.hasErrors()) &#123; <span class="comment">// NullPointerException 발생</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;thymeleaf/word/createWordForm&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    service.insertWord(word);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;thymeleaf/index&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>ArgumentMatchers class에 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://javadoc.io/doc/org.mockito/mockito-core/2.2.7/org/mockito/ArgumentMatchers.html#any(java.lang.Class)">any()</a>를 이용해서 파라미터를 넘겼더니 정상적으로 동작했다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">given(<span class="keyword">this</span>.service.getCreateWordBindingResult(any(WordDTO.AddWord.class), any(BindingResult.class))).willReturn(bindingResult);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>p.s : 기본 자료형 (int, char)이나 String 등은 any()를 사용하지 않고 그대로 파라미터로 받아도 정상적으로 동작하는 것 같은데 어째서 따로 정의한 클래스만 인식(?) 하지 못해서 willReturn이 먹히지 않고 null이 return 되는지 알 수가 없었다.</li>
-</ul>
-<hr>
-<h2 id="전체-코드"><a href="#전체-코드" class="headerlink" title="전체 코드"></a>전체 코드</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook">https://github.com/jungguji/wordbook</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/09/BDDMockito-given-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/09/BDDMockito-given-%EC%82%AC%EC%9A%A9%EC%8B%9C-%EC%A3%BC%EC%9D%98/" aria-label=": BDDMockito given 사용시 주의">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

@@ -177,6 +177,87 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/" aria-label=": 백준 18870번: 좌표 압축">
+                            백준 18870번: 좌표 압축
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-12-15T14:43:55+09:00">
+	
+		    2020/12/15
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.acmicpc.net/problem/18870">https://www.acmicpc.net/problem/18870</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    BufferedReader br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">    br.readLine();</span><br><span class="line">    Integer[] array = convertStringArrayToIntegerArray(br.readLine().split(<span class="string">&quot; &quot;</span>));</span><br><span class="line">    List&lt;Integer&gt; list = Arrays.asList(array.clone());</span><br><span class="line"></span><br><span class="line">    Collections.sort(list);</span><br><span class="line"></span><br><span class="line">    Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i : list) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!map.containsKey(i)) &#123;</span><br><span class="line">            map.put(i, index++);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i : array) &#123;</span><br><span class="line">            sb.append(map.get(i)).append(<span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println(sb.toString());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Integer[] convertStringArrayToIntegerArray(String[] args) &#123;</span><br><span class="line">    Integer[] array = <span class="keyword">new</span> Integer[args.length];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String str : args) &#123;</span><br><span class="line">        array[i++] = Integer.parseInt(str);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>입력받은 좌표를 저장한 리스트로 수정하면 출력 순서를 맞출 수 없으니 우선 좌표 list를 복사한다.</li>
+<li>복사한 list를 정렬하고 순서대로 반복하면서 좌표값을 key로 index를 저장한다.<ol>
+<li>{-10 : 0}, {-9, 1}… {4,4}</li>
+</ol>
+</li>
+<li>입력받은 좌표를 순서대로 반복하면서 map에 key로 index를 가져온다.</li>
+<li>끝</li>
+</ol>
+<hr>
+<h2 id="좌표-압축의-이유"><a href="#좌표-압축의-이유" class="headerlink" title="좌표 압축의 이유"></a>좌표 압축의 이유</h2><img src="/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/%EC%95%95%EC%B6%95%EC%A0%84.PNG" class title="백준 18870번: 좌표 압축 좌표 {2 4 -10 4 -9} 압축 전 " alt="좌표 {2 4 -10 4 -9} 압축 전">
+
+<br>
+
+<img src="/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/%EC%95%95%EC%B6%95%ED%9B%84.PNG" class title="백준 18870번: 좌표 압축 좌표 {2 4 -10 4 -9} 압축 전 " alt="좌표 {2 4 -10 4 -9} 압축 후">
+
+<ul>
+<li>문제의 예제인 좌표 {2 4 -10 4 -9}을 위와 같은 알고리즘으로 압축하면 {2 3 0 3 1}이 되는데 위 그림 처럼 압축된 점들도 같은 동일선상 안에 놓이게 된다.</li>
+<li>이렇게 범위가 매우 넓은 좌표의 경우에 좌표를 인덱싱해서 처리 할 경우 손쉽게 처리 할 수 있게 된다.</li>
+</ul>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><img src="/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/%EC%BA%A1%EC%B2%98.PNG" class title="백준 1406번: 에디터">
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.desmos.com/calculator/id7dqtpnmv?lang=ko">https://www.desmos.com/calculator/id7dqtpnmv?lang=ko</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://codingdog.tistory.com/entry/%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B2%94%EC%9C%84%EA%B0%80-%ED%81%B4-%EB%95%8C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B3%B5%EA%B0%84%EC%9D%84-%EC%A4%84%EC%9D%BC%EA%B9%8C%EC%9A%94">https://codingdog.tistory.com/entry/%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B2%94%EC%9C%84%EA%B0%80-%ED%81%B4-%EB%95%8C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B3%B5%EA%B0%84%EC%9D%84-%EC%A4%84%EC%9D%BC%EA%B9%8C%EC%9A%94</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/" aria-label=": 백준 18870번: 좌표 압축">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/12/14/%EB%B0%B1%EC%A4%80-1406%EB%B2%88-%EC%97%90%EB%94%94%ED%84%B0/" aria-label=": 백준 1406번: 에디터">
                             백준 1406번: 에디터
                         </a>
@@ -1295,82 +1376,6 @@
         </div>
         
             <a href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A0%8C%EC%A6%884%EB%B8%94%EB%A1%9D/" aria-label=": 프로그래머스: 프렌즈4블록">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/11/10/Vue-%EA%B0%9C%EB%B0%9C-%EC%88%9C%EC%84%9C-%EC%A0%95%EB%A6%AC/" aria-label=": Vue 개발 순서 정리">
-                            Vue 개발 순서 정리
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-11-10T19:10:35+09:00">
-	
-		    2020/11/10
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>Spring boot + Vue를 활용해 토이 프로젝트 진행하고 있는데 헷갈리는 부분을 차후 또 Vue로 개발 할 일이 있을 경우 참고하기 위해 글로 남겨 놓는다.</p>
-<h2 id="개발-순서"><a href="#개발-순서" class="headerlink" title="개발 순서"></a>개발 순서</h2><ul>
-<li>Vue는 설치되어 있다고 가정한다.</li>
-</ul>
-<ol>
-<li>root 디렉토리에 vue.config.js 생성하고 필요한 설정 추가</li>
-</ol>
-<h3 id="vue-config-js"><a href="#vue-config-js" class="headerlink" title="vue.config.js"></a>vue.config.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  assetsDir: <span class="string">&quot;static&quot;</span>,</span><br><span class="line">  outputDir: path.resolve(__dirname, <span class="string">&quot;../backend/src/main/resources/static&quot;</span>),</span><br><span class="line">  devServer: &#123;</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="string">&quot;/&quot;</span>: &#123;</span><br><span class="line">        target: <span class="string">&quot;http://localhost:9312&quot;</span>,</span><br><span class="line">        ws: <span class="literal">true</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  chainWebpack: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> svgRule = config.module.rule(<span class="string">&quot;svg&quot;</span>);</span><br><span class="line">    svgRule.uses.clear();</span><br><span class="line">    svgRule.use(<span class="string">&quot;vue-svg-loader&quot;</span>).loader(<span class="string">&quot;vue-svg-loader&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>views/ 에 화면이 될 vue 파일 생성</li>
-<li>src/ 에 api 폴더 생성</li>
-<li>api/ 에 화면 별로 필요한 js 파일 생성<ol>
-<li>이 js 파일들엔 각 컴포넌트 별로 필요한 api 주소를 호출 할 수 있는 js 코드를 작성한다.</li>
-</ol>
-</li>
-<li>api 호출 시 공통으로 들어갈 header를 포함하는 common.js 생성</li>
-</ol>
-<h3 id="common-js"><a href="#common-js" class="headerlink" title="common.js"></a>common.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> AXIOS = axios.create(&#123;</span><br><span class="line">  headers: &#123;</span><br><span class="line">    <span class="string">&quot;Access-Control-Allow-Origin&quot;</span>: <span class="string">&quot;*&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;application/json; charset = utf-8&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  timeout: <span class="number">1000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li>components/ 에 2번에서 만든 화면에 출력 될 component vue 파일 생성</li>
-<li>router/index.js 에 추가한 vue path 추가<ul>
-<li>rotuer에 추가하지 않으면 화면이 나오지 않음</li>
-</ul>
-</li>
-</ol>
-<h3 id="router-index-js"><a href="#router-index-js" class="headerlink" title="router/index.js"></a>router/index.js</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&quot;/main&quot;</span>,</span><br><span class="line">    name: <span class="string">&quot;Main&quot;</span>,</span><br><span class="line">    component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&quot;../views/Main&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/11/10/Vue-%EA%B0%9C%EB%B0%9C-%EC%88%9C%EC%84%9C-%EC%A0%95%EB%A6%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/11/10/Vue-%EA%B0%9C%EB%B0%9C-%EC%88%9C%EC%84%9C-%EC%A0%95%EB%A6%AC/" aria-label=": Vue 개발 순서 정리">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

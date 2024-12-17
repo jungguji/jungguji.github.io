@@ -177,6 +177,86 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/21/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A1%B0%EC%9D%B4%EC%8A%A4%ED%8B%B1/" aria-label=": 프로그래머스: 조이스틱">
+                            프로그래머스: 조이스틱
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-21T18:54:01+09:00">
+	
+		    2020/05/21
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><strong>문제에 오류가 있는 것으로 판단됌</strong></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42860">https://programmers.co.kr/learn/courses/30/lessons/42860</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><p><strong>아래 코드는 통과되지 못했음</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> A_ASCII = <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] toChar = name.toCharArray();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = getUpDownCount(toChar);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] serialIndex = getLongestSerialIndex(toChar);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> leftRightCursur = getLeftRightCount(serialIndex[<span class="number">0</span>], serialIndex[<span class="number">1</span>], toChar.length);</span><br><span class="line"></span><br><span class="line">    answer += leftRightCursur;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getUpDownCount</span><span class="params">(<span class="keyword">char</span>[] names)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : names) &#123;</span><br><span class="line">        <span class="keyword">int</span> upDownCurour = c - A_ASCII;</span><br><span class="line">        <span class="keyword">if</span> (upDownCurour &gt; <span class="number">12</span>) &#123;</span><br><span class="line">            upDownCurour = <span class="number">26</span> - upDownCurour;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        count += upDownCurour;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span>[] getLongestSerialIndex(<span class="keyword">char</span>[] array) &#123;</span><br><span class="line">    List&lt;Serial&gt; list = getSerialList(array);</span><br><span class="line"></span><br><span class="line">    Serial serial = getMaxCountSerial(list);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">    result[<span class="number">0</span>] = serial.index;</span><br><span class="line">    result[<span class="number">1</span>] = serial.index + serial.count;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> List&lt;Serial&gt; <span class="title">getSerialList</span><span class="params">(<span class="keyword">char</span>[] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    List&lt;Serial&gt; list = <span class="keyword">new</span> ArrayList&lt;Serial&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (array[i] != <span class="string">&#x27;A&#x27;</span>) &#123;</span><br><span class="line">            count = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">            list.add(<span class="keyword">new</span> Serial(i, <span class="number">1</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            list.get(list.size()-<span class="number">1</span>).count = (count+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Serial <span class="title">getMaxCountSerial</span><span class="params">(List&lt;Serial&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">    Serial serial = <span class="keyword">new</span> Serial();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (Serial s : list) &#123;</span><br><span class="line">        <span class="keyword">if</span> (max &lt;= s.count) &#123;</span><br><span class="line">            max = s.count;</span><br><span class="line">            serial = s;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> serial;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getLeftRightCount</span><span class="params">(<span class="keyword">int</span> serialIndex, <span class="keyword">int</span> serialCount, <span class="keyword">int</span> nameLength)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> leftRightCursur = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (serialIndex == <span class="number">0</span> &amp;&amp; serialCount == <span class="number">0</span>) &#123;</span><br><span class="line">        leftRightCursur = nameLength - <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> left = serialIndex == <span class="number">0</span> ? <span class="number">0</span> : serialIndex - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> right = nameLength - serialCount;</span><br><span class="line"></span><br><span class="line">        leftRightCursur = left &gt; right ? (right * <span class="number">2</span>) + left : (left * <span class="number">2</span>) + right;</span><br><span class="line">        leftRightCursur = leftRightCursur &gt; nameLength - <span class="number">1</span> ? nameLength - <span class="number">1</span> : leftRightCursur;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> leftRightCursur;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Serial</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> index;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Serial</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Serial</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.index = index;</span><br><span class="line">        <span class="keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><p><strong>위 코드는 통과되지 못했음</strong></p>
+<ol>
+<li>문자들을 A로 뺀 후 거꾸로 도는게 빠른지 정방향으로 도는게 빠른지 확인해서 upDownCurour 변수에 저장</li>
+<li>문자열에서 A가 제일 길게 연속되는 부분을 찾기 위해 inner class를 하나 만들어서 A가 연속될 때 마다 A가 시작된 index와 연속된 길이를 저장</li>
+<li>A가 제일 길게 저장된 시작 index와 끝 index를 return</li>
+<li>문자열 내에 A가 없으면 정방향으로 돌리고</li>
+<li>A가 있으면 return된 index들을 가지고 왼쪽과 오른쪽에서 몇 칸씩 이동해야 하는 지 구함</li>
+<li>left와 right를 더하고 가장 짧게 가야하므로 둘 중에 짧은 방향을 한번 더 더함</li>
+<li>더 한 값이 문자열의 길이보다 길면 정방향으로 가는게 더 짧으므로 비교해서 확인</li>
+<li>그렇게 구한 값을 더해서 return</li>
+<li>끝</li>
+</ol>
+<p><strong>위 코드는 통과되지 못했음</strong></p>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="string">&quot;AAABAA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">56</span>, test.solution(<span class="string">&quot;JEROEN&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">23</span>, test.solution(<span class="string">&quot;JAN&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">48</span>, test.solution(<span class="string">&quot;CANAAAAANAN&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="string">&quot;BBBAAB&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">56</span>, test.solution(<span class="string">&quot;AAAAACANAAAAANANAAAAAA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;BBAAAAA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">41</span>, test.solution(<span class="string">&quot;JJAJAAAAAAAAAJ&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">21</span>, test.solution(<span class="string">&quot;AJAJAA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">7</span>, test.solution(<span class="string">&quot;BBAABAA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">6</span>, test.solution(<span class="string">&quot;BBABA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">10</span>, test.solution(<span class="string">&quot;BBAABBB&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">7</span>, test.solution(<span class="string">&quot;BBAABAAAA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">10</span>, test.solution(<span class="string">&quot;BBAABAAAAB&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">6</span>, test.solution(<span class="string">&quot;ABAAAAAAABA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="string">&quot;AAB&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">11</span>, test.solution(<span class="string">&quot;AABAAAAAAABBB&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="string">&quot;ZZZ&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">10</span>, test.solution(<span class="string">&quot;BBBBAAAAAB&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">12</span>, test.solution(<span class="string">&quot;BBBBAAAABA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">10</span>, test.solution(<span class="string">&quot;ABABAAAAAAABA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">18</span>, test.solution(<span class="string">&quot;BBBBBBBABB&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="string">&quot;AZAAAZ&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;AC&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;BBAAAAA&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">17</span>, test.solution(<span class="string">&quot;ABAAABBBBBBB&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="통과된-코드"><a href="#통과된-코드" class="headerlink" title="통과된 코드"></a>통과된 코드</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://by-dev.tistory.com/9">https://by-dev.tistory.com/9</a><ul>
+<li>위 주소의 코드는 “AAABAA”인 경우 2를 return</li>
+<li>단순히 B까지 이동하는 것만해도 3이 걸리는데 통과 되었다는게 이해가 가지 않음</li>
+</ul>
+</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/21/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A1%B0%EC%9D%B4%EC%8A%A4%ED%8B%B1/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/21/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A1%B0%EC%9D%B4%EC%8A%A4%ED%8B%B1/" aria-label=": 프로그래머스: 조이스틱">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/20/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-4/" aria-label=": 토비의 스프링 reading (4)">
                             토비의 스프링 reading (4)
                         </a>
@@ -1631,216 +1711,6 @@
         </div>
         
             <a href="/2020/05/05/ajax-content-type-error/" aria-label=": Ajax http status 415 Unsupported Media Type">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95/" aria-label=": 프로그래머스: 문자열 압축">
-                            프로그래머스: 문자열 압축
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-04T20:48:25+09:00">
-	
-		    2020/05/04
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/60057">https://programmers.co.kr/learn/courses/30/lessons/60057</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> stringLength = s.length();</span><br><span class="line"></span><br><span class="line">    StringBuilder result = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    String origin = <span class="keyword">new</span> String();</span><br><span class="line">    <span class="keyword">char</span>[] tochar = s.toCharArray();</span><br><span class="line">    <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= stringLength / <span class="number">2</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> compression = <span class="number">1</span>;</span><br><span class="line">        result.setLength(<span class="number">0</span>);</span><br><span class="line">        origin = <span class="keyword">new</span> String(tochar, <span class="number">0</span>, i);</span><br><span class="line"></span><br><span class="line">        String nextWord = <span class="keyword">new</span> String();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; stringLength; j+=i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j + i &gt; stringLength) &#123;</span><br><span class="line">                nextWord = s.substring(j, stringLength);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                nextWord = <span class="keyword">new</span> String(tochar, j , i);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (origin.equals(nextWord)) &#123;</span><br><span class="line">                ++compression;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (compression != <span class="number">1</span>) &#123;</span><br><span class="line">                    result.append(compression);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                result.append(origin);</span><br><span class="line"></span><br><span class="line">                origin = nextWord.toString();</span><br><span class="line">                compression = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (compression != <span class="number">1</span>) &#123;</span><br><span class="line">            result.append(compression);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        result.append(origin);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (min &gt; result.length()) &#123;</span><br><span class="line">            min = result.length();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = min &gt; stringLength ? stringLength : min;</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li><p>문자열을 반으로 나눠서 2개로 나눈 것 보다 짧을 수 없으므로 문자열 길이 / 2 한 값 만큼 반복</p>
-</li>
-<li><p>비교 할 문자열을 구함(origin)</p>
-<ul>
-<li>처음엔 1개 짜리 이후엔 2개, 3개, … 증가 할 수 있도록 i를 증가 시키면서 i 번째 까지 자름</li>
-</ul>
-</li>
-<li><p>i 번째 문자 이후로 비교 할 문자를 구함</p>
-</li>
-<li><p>같으면 압축율을 증가시키고</p>
-</li>
-<li><p>다르면 압축율과 문자를 더해서 압축문자열(result)을 만듬</p>
-</li>
-<li><p>비교 할 문자를 구하면서 마지막 문자는 안 붙여지고 팅기므로 for 문 밖에서 마지막 문자를 붙임</p>
-</li>
-<li><p>이전에 구했던 압축문자열 길이와 비교해서 더 작은 길이를 저장함</p>
-</li>
-<li><p>끝</p>
-</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (0.99ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (2.92ms, 49.9MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (1.72ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (0.99ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (0.84ms, 50MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (1.03ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (3.49ms, 50.4MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (2.49ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (4.46ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (9.25ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (1.25ms, 50.2MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (1.28ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (9.63ms, 51.8MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (4.35ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 15</td>
-<td>통과 (1.31ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 16</td>
-<td>통과 (0.85ms, 50.2MB)</td>
-</tr>
-<tr>
-<td>테스트 17</td>
-<td>통과 (8.91ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 18</td>
-<td>통과 (7.70ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 19</td>
-<td>통과 (8.63ms, 54.9MB)</td>
-</tr>
-<tr>
-<td>테스트 20</td>
-<td>통과 (7.89ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 21</td>
-<td>통과 (9.99ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 22</td>
-<td>통과 (10.63ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 23</td>
-<td>통과 (9.68ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 24</td>
-<td>통과 (7.89ms, 54.4MB)</td>
-</tr>
-<tr>
-<td>테스트 25</td>
-<td>통과 (10.43ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 26</td>
-<td>통과 (8.17ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 27</td>
-<td>통과 (15.60ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 28</td>
-<td>통과 (0.88ms, 50.4MB)</td>
-</tr>
-</tbody></table>
-<ul>
-<li>result에 문자열을 더하지 말고 그냥 문자열 길이를 더하는 방식으로 하면 더 시간을 줄일 수 있음</li>
-</ul>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">7</span>, test.solution(<span class="string">&quot;aabbaccc&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">9</span>, test.solution(<span class="string">&quot;ababcdcdababcdcd&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="string">&quot;abcabcdede&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">14</span>, test.solution(<span class="string">&quot;abcabcabcabcdededededede&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">17</span>, test.solution(<span class="string">&quot;xababcdcdababcdcd&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="string">&quot;a&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="string">&quot;aaaaa&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;aaaaaaaaaa&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@pa324/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-Level-1-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95%EC%B9%B4%EC%B9%B4%EC%98%A4-2020%EA%B3%B5%EC%B1%84-%EB%AC%B8%EC%A0%9C">https://velog.io/@pa324/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-Level-1-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95%EC%B9%B4%EC%B9%B4%EC%98%A4-2020%EA%B3%B5%EC%B1%84-%EB%AC%B8%EC%A0%9C</a></p>
-</li>
-<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95-Java">https://velog.io/@hyeon930/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95-Java</a></p>
-</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%95%95%EC%B6%95/" aria-label=": 프로그래머스: 문자열 압축">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>
