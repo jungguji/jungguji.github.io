@@ -176,6 +176,80 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/" aria-label=": RequestBody Annotation 사용 시 boolean 변수 바인딩 에러">
+                            RequestBody Annotation 사용 시 boolean 변수 바인딩 에러
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-12-31T22:08:54+09:00">
+	
+		    2020/12/31
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>토이프로젝트 중 @Reqeust 어노테이션을 적용한 DTO에서 boolean 데이터를 제대로 전달 받지 못하는 문제가 발생하여 이를 정리한다.</p>
+<hr>
+<h2 id="문제-발생"><a href="#문제-발생" class="headerlink" title="문제 발생"></a>문제 발생</h2><p>vue.js에서 넘어온 데이터를 @RequestBody 어노테이션을 활용해 DTO 객체로 전달 받으려 하였는데 boolean 타입의 데이터가 정상적으로 넘어오지 않는 문제가 발생하였다.</p>
+<h3 id="문제가-발생한-Test-Code"><a href="#문제가-발생한-Test-Code" class="headerlink" title="문제가 발생한 Test Code"></a>문제가 발생한 Test Code</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dto_boolean_test</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">//given</span></span><br><span class="line">    RequestDTO dto = RequestDTO.builder()</span><br><span class="line">            .isTestCase(<span class="keyword">true</span>)</span><br><span class="line">            .isNQuantity(<span class="keyword">true</span>)</span><br><span class="line">            .isSpaceIncludeNumber(<span class="keyword">true</span>)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    String test = objectMapper.writeValueAsString(dto);</span><br><span class="line"></span><br><span class="line">    System.out.println(test);</span><br><span class="line">    <span class="keyword">final</span> ResultActions action = mockMvc.perform(post(<span class="string">&quot;/frame&quot;</span>)</span><br><span class="line">            .contentType(MediaType.APPLICATION_JSON)</span><br><span class="line">            .content(test))</span><br><span class="line">            .andDo(print());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//then</span></span><br><span class="line">    MvcResult result = action</span><br><span class="line">            .andExpect(status().isOk())</span><br><span class="line">            .andExpect(content().json(test))</span><br><span class="line">            .andReturn();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="에러-결과"><a href="#에러-결과" class="headerlink" title="에러 결과"></a>에러 결과</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/test%EC%8B%A4%ED%8C%A8.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러">
+<hr>
+<h2 id="원인"><a href="#원인" class="headerlink" title="원인"></a>원인</h2><blockquote><p> You can annotate any field with @Getter and/or @Setter, to let lombok generate the default getter/setter automatically.<br>A default getter simply returns the field, and is named getFoo if the field is called foo (or isFoo if the field’s type is boolean). </p>
+<footer><strong>Project Lombok</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://projectlombok.org/features/GetterSetter">Project Lombok</a></cite></footer></blockquote>
+
+<p>위 설명처럼 lombok에서 제공하는 @Getter 혹은 @Setter 어노테이션을 사용 할 경우 자동으로 getter/setter 메서드를 생성해주는데<br>이 때 boolean 타입의 변수에 붙는 prefix는 get이 아닌 is이므로 @RequestBody에서 찾을 수 없어 바인딩 되지 않아 발생하는 문제였다.</p>
+<h3 id="실패한-코드"><a href="#실패한-코드" class="headerlink" title="실패한 코드"></a>실패한 코드</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/%EC%8B%A4%ED%8C%A8%ED%95%9C_%EC%BD%94%EB%93%9C.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러 실패한_코드 실패했을 당시 DTO 실패한_코드 실패했을 당시 DTO">
+
+<p>이 처럼 boolean 변수에 is prefix를 붙여놓은 상태에서 @Getter 어노테이션을 사용하니, 내부적으로 isIsTestCase() 같은 이상한 네이밍의 메서드가 생성되서<br>@RequestBody에서 바인딩에 사용하는 Jackson 라이브러리의 ObjectMapper에서 필드를 찾을 수 없어서 바인딩 되지 않아 DTO에 정상적으로 값이 입력되지 않았던 것이다.</p>
+<blockquote><p>By default Jackson maps the fields of a JSON object to fields in a Java object by matching the names of the JSON field to the getter and setter methods in the Java object. Jackson removes the “get” and “set” part of the names of the getter and setter methods, and converts the first character of the remaining name to lowercase.</p>
+<footer><strong>Jackson ObjectMapper</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://tutorials.jenkov.com/java-json/jackson-objectmapper.html#how-jackson-objectmapper-matches-json-fields-to-java-fields">Jackson ObjectMapper</a></cite></footer></blockquote>
+<hr>
+<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><ol>
+<li>boolean 변수명에서 is prefix를 제거한다.</li>
+<li>default로 false로 되어 있는 lombok.getter.noIsPrefix=true 설정을 추가한다.<br>이 설정을 추가하면 boolean 변수도 get prefix를 사용한다.</li>
+</ol>
+<p>필자는 boolean 변수에서 is prefix를 제거하는 방식으로 처리했다.<br>다른 타입은 자료형에 따라 prefix를 붙이지 않는 상황에서 boolean 변수에만 붙이는 것이 옳지 않다고 생각했기 때문에 1번을 선택했다.</p>
+<h3 id="수정된-코드"><a href="#수정된-코드" class="headerlink" title="수정된 코드"></a>수정된 코드</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/%EC%84%B1%EA%B3%B5%ED%95%9C_%EC%BD%94%EB%93%9C.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러 문제를 수정한 DTO 에러 문제를 수정한 DTO">
+
+<h3 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h3><img src="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/test%EC%84%B1%EA%B3%B5.PNG" class title="RequestBody Annotation 사용 시 boolean 변수 바인딩 에러 수정 후 성공한 테스트 에러 수정 후 성공한 테스트">
+<hr>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://projectlombok.org/features/GetterSetter">https://projectlombok.org/features/GetterSetter</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@conatuseus/RequestBody%EC%97%90-%EC%99%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%ED%95%84%EC%9A%94%ED%95%98%EA%B3%A0-Setter%EB%8A%94-%ED%95%84%EC%9A%94-%EC%97%86%EC%9D%84%EA%B9%8C-3-idnrafiw">https://velog.io/@conatuseus/RequestBody%EC%97%90-%EC%99%9C-%EA%B8%B0%EB%B3%B8-%EC%83%9D%EC%84%B1%EC%9E%90%EB%8A%94-%ED%95%84%EC%9A%94%ED%95%98%EA%B3%A0-Setter%EB%8A%94-%ED%95%84%EC%9A%94-%EC%97%86%EC%9D%84%EA%B9%8C-3-idnrafiw</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="http://tutorials.jenkov.com/java-json/jackson-objectmapper.html#how-jackson-objectmapper-matches-json-fields-to-java-fields">http://tutorials.jenkov.com/java-json/jackson-objectmapper.html#how-jackson-objectmapper-matches-json-fields-to-java-fields</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/12/31/RequestBody-Annotation-%EC%82%AC%EC%9A%A9-%EC%8B%9C-boolean-%EB%B3%80%EC%88%98-%EB%B0%94%EC%9D%B8%EB%94%A9-%EC%97%90%EB%9F%AC/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/12/15/%EB%B0%B1%EC%A4%80-18870%EB%B2%88-%EC%A2%8C%ED%91%9C-%EC%95%95%EC%B6%95/" aria-label=": 백준 18870번: 좌표 압축">
                             백준 18870번: 좌표 압축
                         </a>
@@ -1247,134 +1321,6 @@
         </div>
         
             <a href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%8C%8C%EC%9D%BC%EB%AA%85-%EC%A0%95%EB%A0%AC/" aria-label=": 프로그래머스: 파일명 정렬">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A0%8C%EC%A6%884%EB%B8%94%EB%A1%9D/" aria-label=": 프로그래머스: 프렌즈4블록">
-                            프로그래머스: 프렌즈4블록
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-11-12T18:38:01+09:00">
-	
-		    2020/11/12
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/17679">https://programmers.co.kr/learn/courses/30/lessons/17679</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ASCII = <span class="number">32</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">char</span> EMPTY = <span class="string">&#x27; &#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n, String[] board)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span>[][] charBoard = convertStringArrayToCharArray(m, n, board);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">boolean</span> isEnd = box(charBoard);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isEnd) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        answer += delete(charBoard);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">char</span>[][] convertStringArrayToCharArray(<span class="keyword">int</span> m, <span class="keyword">int</span> n, String[] board) &#123;</span><br><span class="line">    <span class="keyword">char</span>[][] charBoard = <span class="keyword">new</span> <span class="keyword">char</span>[m][n];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (String str : board) &#123;</span><br><span class="line">        <span class="keyword">char</span>[] toChar = str.toCharArray();</span><br><span class="line">        charBoard[i] = toChar;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> charBoard;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">char</span> <span class="title">toLowerCase</span><span class="params">(<span class="keyword">char</span> value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">char</span>) ((value &gt;= <span class="number">65</span> &amp;&amp; value &lt;= <span class="number">90</span>) ? (value + ASCII) : value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">box</span><span class="params">(<span class="keyword">char</span>[][] charBoard)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> isEnd = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; charBoard.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; charBoard[i].length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (validation(i, j, charBoard)) &#123;</span><br><span class="line">                <span class="keyword">char</span> value = toLowerCase(charBoard[i][j]);</span><br><span class="line">                charBoard[i][j] = value;</span><br><span class="line">                charBoard[i][j+<span class="number">1</span>] = value;</span><br><span class="line">                charBoard[i+<span class="number">1</span>][j] = value;</span><br><span class="line">                charBoard[i+<span class="number">1</span>][j+<span class="number">1</span>] = value;</span><br><span class="line"></span><br><span class="line">                isEnd = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> isEnd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">validation</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">char</span>[][] charBoard)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((i + <span class="number">1</span>) == charBoard.length || (j + <span class="number">1</span>) == charBoard[<span class="number">0</span>].length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">char</span> position = toLowerCase(charBoard[i][j]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position == EMPTY) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> moveX = toLowerCase(charBoard[i][j+<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">char</span> moveY = toLowerCase(charBoard[i+<span class="number">1</span>][j]);</span><br><span class="line">    <span class="keyword">char</span> moveXY = toLowerCase(charBoard[i+<span class="number">1</span>][j+<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position != moveX) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position != moveY) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (position != moveXY) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(<span class="keyword">char</span>[][] charBoard)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; charBoard.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; charBoard[i].length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (charBoard[i][j] == EMPTY) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (charBoard[i][j] &gt;= <span class="number">97</span> &amp;&amp; charBoard[i][j] &lt;= <span class="number">122</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &gt; <span class="number">0</span>; k--) &#123;</span><br><span class="line">                        charBoard[k][j] = charBoard[k-<span class="number">1</span>][j];</span><br><span class="line">                        charBoard[k-<span class="number">1</span>][j] = EMPTY;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    charBoard[i][j] = EMPTY;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                ++answer;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>String array로 넘어온 board를 2차원 array로 만든다.</li>
-<li>무한루프를 돌면서 char로 만든 board array의 element들을 모두 꺼내면서</li>
-<li>제약조건을 확인하여 모두 통과할 때만 true를 return 한다.<ol>
-<li>현재 element가 있는 위치가 맨 끝인지</li>
-<li>현재 element가 빈 값인지</li>
-<li>현재 element의 오른쪽 element와 값이 같지 않은지</li>
-<li>현재 element의 아래쪽 element와 값이 같지 않은지</li>
-<li>현재 element의 우하(右下)쪽 element와 값이 같지 않은지</li>
-</ol>
-</li>
-<li>제약조건을 통과하면 현재 위치에서 오른쪽, 아래쪽, 우하(右下)쪽 element들을 소문자로 만들고 삭제 할 블록이 남았으므로, false를 return 한다.</li>
-<li>다시 board array를 반복하면서 element가 소문자인 경우</li>
-<li>현재 높이가 0이라면 위에서 내려올 블록이 없으므로 바로 빈 값을 저장하고</li>
-<li>0이 아니라면 현재 위치부터 값을 1씩 빼면서 위에 블록을 현재 위치에 저장 시키고 위 블록은 빈 값으로 저장한다.</li>
-<li>블록을 제거 할 때 마다 제거시킨 블록 개수를 저장하는 변수를 증가시킨다.</li>
-<li>삭제 할 블록이 없을 때 까지 2번부터 8번까지 반복하고 삭제 할 블록이 없으면 루프를 빠져 나오고 삭제한 블록의 개수를 return 한다.</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (0.07ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (0.09ms, 51.7MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (0.04ms, 51.9MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (1.08ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (14.40ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (3.08ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (0.81ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (1.81ms, 53.7MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (0.07ms, 53.4MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (0.59ms, 51.7MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (1.38ms, 52.7MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">14</span>, test.solution(<span class="number">4</span>,<span class="number">5</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;CCBDE&quot;</span>, <span class="string">&quot;AAADE&quot;</span>, <span class="string">&quot;AAABF&quot;</span>, <span class="string">&quot;CCBBF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">15</span>, test.solution(<span class="number">6</span>,<span class="number">6</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;TTTANT&quot;</span>, <span class="string">&quot;RRFACC&quot;</span>, <span class="string">&quot;RRRFCC&quot;</span>, <span class="string">&quot;TRRRAA&quot;</span>, <span class="string">&quot;TTMMMF&quot;</span>, <span class="string">&quot;TMMTTJ&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">14</span>, test.solution(<span class="number">4</span>,<span class="number">5</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AAAAA&quot;</span>,<span class="string">&quot;AUUUA&quot;</span>,<span class="string">&quot;AUUAA&quot;</span>,<span class="string">&quot;AAAAA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="number">2</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>,<span class="string">&quot;AA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">0</span>, test.solution(<span class="number">2</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>,<span class="string">&quot;AB&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">4</span>, test.solution(<span class="number">3</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>,<span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AB&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">4</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;CC&quot;</span>,<span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">12</span>, test.solution(<span class="number">6</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;DD&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;DD&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">8</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;FF&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;DD&quot;</span>, <span class="string">&quot;FF&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">6</span>,<span class="number">2</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;CC&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;AA&quot;</span>, <span class="string">&quot;DD&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">8</span>, test.solution(<span class="number">4</span>,<span class="number">4</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;ABCD&quot;</span>, <span class="string">&quot;BACE&quot;</span>, <span class="string">&quot;BCDD&quot;</span>, <span class="string">&quot;BCDD&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">27</span>, test.solution(<span class="number">8</span>,<span class="number">9</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;ABCDADFDA&quot;</span>, <span class="string">&quot;ABDFQWERF&quot;</span>, <span class="string">&quot;WKDNFNRIT&quot;</span>, <span class="string">&quot;AKAKWODCJ&quot;</span>, <span class="string">&quot;AKAKWODCJ&quot;</span>, <span class="string">&quot;KKKKKKKKK&quot;</span>, <span class="string">&quot;KKKKKKKKK&quot;</span>, <span class="string">&quot;KKKKKKKKK&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">15</span>, test.solution(<span class="number">4</span>,<span class="number">5</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AAAAA&quot;</span>, <span class="string">&quot;AAAAU&quot;</span>, <span class="string">&quot;AAAUU&quot;</span>, <span class="string">&quot;UUUUU&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">24</span>, test.solution(<span class="number">5</span>,<span class="number">6</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AAAAAA&quot;</span>, <span class="string">&quot;BBAATB&quot;</span>, <span class="string">&quot;BBAATB&quot;</span>, <span class="string">&quot;JJJTAA&quot;</span>, <span class="string">&quot;JJJTAA&quot;</span>&#125;));</span><br><span class="line">assertEquals(<span class="number">32</span>, test.solution(<span class="number">6</span>,<span class="number">6</span>, <span class="keyword">new</span> String[] &#123;<span class="string">&quot;AABBEE&quot;</span>, <span class="string">&quot;AAAEEE&quot;</span>, <span class="string">&quot;VAAEEV&quot;</span>, <span class="string">&quot;AABBEE&quot;</span>, <span class="string">&quot;AACCEE&quot;</span>, <span class="string">&quot;VVCCEE&quot;</span>&#125;));</span><br></pre></td></tr></table></figure>
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A0%8C%EC%A6%884%EB%B8%94%EB%A1%9D/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/11/12/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%84%EB%A0%8C%EC%A6%884%EB%B8%94%EB%A1%9D/" aria-label=": 프로그래머스: 프렌즈4블록">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

@@ -177,6 +177,117 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/" aria-label=": 토비의 스프링 reading (5)">
+                            토비의 스프링 reading (5)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-05-22T20:13:45+09:00">
+	
+		    2020/05/22
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <blockquote><p>스프링의 정수는 엔터프라이즈 서비스 기능을 POJO에 제공하는 것</p>
+<footer><strong>Professional SPring Framework</strong><cite>Rod Johnson 외 4명</cite></footer></blockquote>
+
+<ul>
+<li>스프링의 주요 기술인 Ioc/DI, AOP와 PSA(Portable Service Abstraction)는 애플리케이션을 POJO로 개발할 수 있게 해주는 가능 기술이라고 불린다</li>
+</ul>
+<h2 id="POJO란"><a href="#POJO란" class="headerlink" title="POJO란"></a>POJO란</h2><ul>
+<li>Plain Old Java Object의 약자</li>
+<li>직역하면 평범한 오래된 자바 객체다</li>
+</ul>
+<h3 id="POJO의-조건"><a href="#POJO의-조건" class="headerlink" title="POJO의 조건"></a>POJO의 조건</h3><ol>
+<li>특정 규약에 종속되지 않는다.<ul>
+<li>객체지향 설계의 자유로운 적용이 가능한 오브젝트여야만 POJO라고 불릴 수 있다.</li>
+</ul>
+</li>
+<li>특정 환경에 종속되지 않는다<ul>
+<li>환경에 독립적이어야 한다.</li>
+<li>특히 비즈니스 로직을 담고 있는  POJO 클래스는 웹이라는 환경정보나 웹 기술을 담고 있는 클래스나 인터페이스를 사용해서는 안된다.<ul>
+<li>설령 나중에 웹 컨트롤러와 연결돼서 사용될 것이 뻔하도 할지라도</li>
+</ul>
+</li>
+<li>비즈니스 로직을 담은 코드에 HttpServletRequest나 HttpSession, 캐시와 관련된 API가 등장하거나 웹 프레임워ㅏ크의 클래스를 직접 이용하는 부분이 있다면 그것은 진정한 POJO라고 볼 수 없다.</li>
+</ul>
+</li>
+</ol>
+<p><strong>진정한 POJO란 객체지향적인 원리에 충실하면서, 환경과 기술에 종속되지 않고 필요에 따라 재활용될 수 있는 방식으로 설계된 오브젝트를 말한다</strong></p>
+<h3 id="POJO의-장점"><a href="#POJO의-장점" class="headerlink" title="POJO의 장점"></a>POJO의 장점</h3><ol>
+<li>특정한 기술과 환겨엥 종속디지 않는 오브젝트는 그만큼 깔끔한 코드가 될 수 있다.</li>
+<li>POJO로 개발된 코드는 자동화된 테스트에 매우 유리하다.</li>
+<li>객체지향적인 설계를 자유롭게 적용할 수 있다.</li>
+</ol>
+<h3 id="POJO-프레임워크"><a href="#POJO-프레임워크" class="headerlink" title="POJO 프레임워크"></a>POJO 프레임워크</h3><ul>
+<li>POJO 프로그래밍이 가능하도록 기술적인 기반을 제공하는 프레임워크</li>
+<li>스프링 프레임워크와 하이버네이트 등</li>
+</ul>
+<hr>
+<h2 id="POJO를-가능하게-하는-스프링의-기술"><a href="#POJO를-가능하게-하는-스프링의-기술" class="headerlink" title="POJO를 가능하게 하는 스프링의 기술"></a>POJO를 가능하게 하는 스프링의 기술</h2><ol>
+<li>Ioc/DI</li>
+<li>AOP</li>
+<li>PSA</li>
+</ol>
+<h3 id="제어의-역전-Ioc-의존관계-주입-DI"><a href="#제어의-역전-Ioc-의존관계-주입-DI" class="headerlink" title="제어의 역전(Ioc) / 의존관계 주입(DI)"></a>제어의 역전(Ioc) / 의존관계 주입(DI)</h3><ul>
+<li>왜 두개의 오브젝트를 분리해서 만들고, 인터페이스를 두고 느슨하게 연결한 뒤, 실제 사용할 대상은 DI를 통해 외부에서 지정하는 걸까?</li>
+<li>이렇게 DI 방식으로 하는 것이 직접 사용할 오브젝트를 new 키워드로 생성해서 사용하는 강한 결합을 쓰는 방법보다 나은 점은 무엇일까?</li>
+</ul>
+<p>= <strong>유연한 확장이 가능하게 하기 위해</strong></p>
+<ul>
+<li>A-&gt;B라는 의존관계가 있을 떄 확장은 B가 자유롭게 변경될 수 있음을 의미</li>
+<li>이는 B가 변경되어도 A는 아무 영향이 없고 그대로 유지 가능<br>B 관점에선 유연한 확장이고, A 관점에서는 변경 없이 재사용이 가능함</li>
+<li>개방 폐쇄 원칙(OCP)라는 객체지향 설계 원칙으로 설명할 수 있음</li>
+</ul>
+<h3 id="애스펙트-지향-프로그래밍-AOP"><a href="#애스펙트-지향-프로그래밍-AOP" class="headerlink" title="애스펙트 지향 프로그래밍(AOP)"></a>애스펙트 지향 프로그래밍(AOP)</h3><ul>
+<li>객체지향 기술만으로는 애플리케이션의 요구조건과 기술적인 난해함을 모두 해결하는데 한계가 있음</li>
+<li>이를 도와주는 보조적인 프로그래밍 기술이 AOP</li>
+<li>스프링의 AOP는 스프링이 POJO 프로그래밍을 지원하려는 그 핵심 목적을 위해 중요한 역할을 하고 있음</li>
+</ul>
+<h3 id="포터블-서비스-추상화-PSA"><a href="#포터블-서비스-추상화-PSA" class="headerlink" title="포터블 서비스 추상화(PSA)"></a>포터블 서비스 추상화(PSA)</h3><ul>
+<li>POJO로 개발된 코드는 특정 환경이나 구현 방식에 종속적이지 않아야 함</li>
+<li>환경과 세부 기술의 변화에 관계없이 일관된 방식으로 기술에 접근 할 수 있게 해주는게 PSA</li>
+<li>단순히 구체적인 기술에 종속되지 않게 하기 위해서 말고 테스트가 어렵게 만들어진 API나 설정을 통해 주요 기느을 외부에서 제어하게 만들고 싶을 때도 이용할 수 있음</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/05/22/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-reading-5/" aria-label=": 토비의 스프링 reading (5)">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/05/21/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%A1%B0%EC%9D%B4%EC%8A%A4%ED%8B%B1/" aria-label=": 프로그래머스: 조이스틱">
                             프로그래머스: 조이스틱
                         </a>
@@ -1632,85 +1743,6 @@
         </div>
         
             <a href="/2020/05/07/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%88%98/" aria-label=": 프로그래머스: 가장 큰 수">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/05/ajax-content-type-error/" aria-label=": Ajax http status 415 Unsupported Media Type">
-                            Ajax http status 415 Unsupported Media Type
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-05T11:31:03+09:00">
-	
-		    2020/05/05
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>![error]](/images/20200505/image.png)</p>
-<p>위 화면 처럼 임시 비밀번호 발급 form을 만들어서 버튼엔 onclick, input box엔 enter key event를 달아서 ajax로 처리하였는데,</p>
-<p>​클릭 이벤트로는 정상적으로 동작하였으나 enter key 의 경우 http status 415 Unsupported Media Type 에러가 발생하였다</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">There was an unexpected <span class="title">error</span> <span class="params">(type=Unsupported Media Type, status=<span class="number">415</span>)</span>.</span></span><br><span class="line"><span class="function">Content type &#x27;application/x-www-form-urlencoded</span>;charset=UTF-<span class="number">8</span><span class="string">&#x27; not supported</span></span><br><span class="line"><span class="string">org.springframework.web.HttpMediaTypeNotSupportedException: Content type &#x27;</span>application/x-www-form-urlencoded;charset=UTF-<span class="number">8</span><span class="string">&#x27; not supported</span></span><br><span class="line"><span class="string"> at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:225)</span></span><br><span class="line"><span class="string"> at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:158)</span></span><br><span class="line"><span class="string"> at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:131)</span></span><br><span class="line"><span class="string"> at org.springframework.web.method.support.</span></span><br><span class="line"><span class="string">    HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)</span></span><br><span class="line"><span class="string"> at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:167)</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
-
-<p>보통 ajax 통신 시 415 에러가 발생 할 경우 ajax에서 설정한 content type과 contoroller에서 설정한 content type이 다를 경우 발생하는 데 이 경우엔 모두 json으로 설정해놓은 상태 하였는데도 불구하고 발생하여 매우 당황스러웠다</p>
-<h3 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resetPassword</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> userName = <span class="built_in">document</span>.querySelector(<span class="string">&quot;input[name=username]&quot;</span>).value.trim();</span><br><span class="line">        <span class="keyword">const</span> data = &#123; <span class="attr">username</span> : userName &#125;;</span><br><span class="line"></span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            type:<span class="string">&quot;POST&quot;</span></span><br><span class="line">            , <span class="attr">url</span>: <span class="string">&quot;/reset/password&quot;</span></span><br><span class="line">            , <span class="attr">data</span>: <span class="built_in">JSON</span>.stringify(data)</span><br><span class="line">            , <span class="attr">dataType</span> : <span class="string">&quot;json&quot;</span></span><br><span class="line">            , <span class="attr">contentType</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">            , <span class="attr">cache</span>: <span class="literal">false</span></span><br><span class="line">            , <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">let</span> alert = <span class="built_in">document</span>.querySelector(<span class="string">&quot;.mb-0&quot;</span>);</span><br><span class="line">                alert.innerText = data;</span><br><span class="line"></span><br><span class="line">                <span class="built_in">document</span>.querySelector(<span class="string">&quot;.alert.alert-success&quot;</span>).style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(value=&quot;/reset/password&quot;, produces = &quot;application/json&quot;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">processResetPasswordForm</span><span class="params">(<span class="meta">@RequestBody</span> User user)</span> <span class="keyword">throws</span> JsonProcessingException </span>&#123;</span><br><span class="line">    String tempPassword = userService.setTempPassWord(user);</span><br><span class="line">    String msg = <span class="string">&quot;임시 비밀번호 : &quot;</span> + tempPassword;</span><br><span class="line"></span><br><span class="line">    System.out.println(msg);</span><br><span class="line">    ObjectMapper objMapper = getObjectMapperConfig();</span><br><span class="line">    <span class="keyword">return</span> objMapper.writeValueAsString(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>하여 헤매던 도중 enter key event를 지정하지 않아도 이벤트가 발생하여 똑같이 415 에러를 뱉어내는 것으로</p>
-<p>확인돼서 적용한 thymeleaf나, bootstrap 등 어디선가 submit 을 보내고 있다고 판단하여 preventDefault() function으로 이벤트를 정지시키고 작성한 ajax를 실행시켰더니 정상적으로 동작하였다</p>
-<h3 id="form의-submit-event에-preventDefault-를-추가"><a href="#form의-submit-event에-preventDefault-를-추가" class="headerlink" title="form의 submit event에 preventDefault()를 추가"></a>form의 submit event에 preventDefault()를 추가</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">&quot;#frm&quot;</span>).addEventListener(<span class="string">&#x27;submit&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        e.preventDefault();</span><br><span class="line"></span><br><span class="line">        resetPassword();</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-
-<h3 id="정상적으로-실행된-모습"><a href="#정상적으로-실행된-모습" class="headerlink" title="정상적으로 실행된 모습"></a>정상적으로 실행된 모습</h3><p>![success]]](/images/20200505/image2.png)</p>
-<hr>
-<h2 id="전체-코드"><a href="#전체-코드" class="headerlink" title="전체 코드"></a>전체 코드</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ko&quot;</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">th:replace</span>=<span class="string">&quot;fragments/config :: configFragment&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;d-flex justify-content-center h-100&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height:auto;&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-header&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Reset Password<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-body&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;frm&quot;</span> <span class="attr">th:action</span>=<span class="string">@&#123;/reset/password&#125;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;alert alert-success&quot;</span> <span class="attr">role</span>=<span class="string">&quot;alert&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display:none;&quot;</span>&gt;</span></span><br><span class="line">                      <span class="tag">&lt;<span class="name">h4</span> <span class="attr">class</span>=<span class="string">&quot;alert-heading&quot;</span>&gt;</span>Well done!<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">                      <span class="tag">&lt;<span class="name">p</span>&gt;</span>해당 비밀번호는 임시로 생성된 비밀번호 입니다. <span class="tag">&lt;<span class="name">br</span> /&gt;</span>로그인 후 꼭 비밀번호를 변경하여 주세요.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                      <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">                      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;mb-0&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;alert alert-danger&quot;</span> <span class="attr">role</span>=<span class="string">&quot;alert&quot;</span> <span class="attr">style</span>=<span class="string">&quot;float:left; margin-right:1rem; display:none;&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;input-group form-group&quot;</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;input-group-prepend&quot;</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;input-group-text&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fas fa-user&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">onkeyup</span>=<span class="string">&quot;checkUserName()&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;form-group&quot;</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;resetPassword()&quot;</span> <span class="attr">value</span>=<span class="string">&quot;확인&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn float-right login_btn&quot;</span> <span class="attr">disabled</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-footer&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;d-flex justify-content-center links&quot;</span>&gt;</span></span><br><span class="line">                        Don&#x27;t have an account?<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/login&quot;</span>&gt;</span>Sign In<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/css/login.css&#125;&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--Fontawesome CDN--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://use.fontawesome.com/releases/v5.3.1/css/all.css&quot;</span> <span class="attr">integrity</span>=<span class="string">&quot;sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU&quot;</span> <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">th:inline</span>=<span class="string">&quot;javascript&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">&quot;#frm&quot;</span>).addEventListener(<span class="string">&#x27;submit&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span></span><br><span class="line">            e.preventDefault();</span><br><span class="line"></span><br><span class="line">            resetPassword();</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">checkUserName</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">const</span> data = <span class="built_in">document</span>.querySelector(<span class="string">&quot;input[name=username]&quot;</span>).value;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> isExist = <span class="literal">true</span>;</span></span><br><span class="line"><span class="javascript">            $.ajax(&#123;</span></span><br><span class="line"><span class="javascript">                type:<span class="string">&quot;POST&quot;</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">url</span>: <span class="string">&quot;/reset/password/check&quot;</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">data</span>: <span class="built_in">JSON</span>.stringify(data)</span></span><br><span class="line"><span class="javascript">                , <span class="attr">dataType</span> : <span class="string">&quot;json&quot;</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">contentType</span>: <span class="string">&quot;application/json&quot;</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">cache</span>: <span class="literal">false</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> alert = <span class="built_in">document</span>.querySelector(<span class="string">&quot;.alert.alert-danger&quot;</span>);</span></span><br><span class="line"></span><br><span class="line">                    if (empty(data)) &#123;</span><br><span class="line"><span class="javascript">                        alert.innerText = <span class="string">&quot;&quot;</span>;</span></span><br><span class="line"><span class="javascript">                        alert.style.display = <span class="string">&quot;none&quot;</span>;</span></span><br><span class="line"><span class="javascript">                        isExist = <span class="literal">true</span>;</span></span><br><span class="line"><span class="javascript">                        <span class="built_in">document</span>.querySelector(<span class="string">&quot;.btn.float-right.login_btn&quot;</span>).removeAttribute(<span class="string">&quot;disabled&quot;</span>);</span></span><br><span class="line"><span class="javascript">                    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line">                        alert.innerText = data;</span><br><span class="line"><span class="javascript">                        alert.style.display = <span class="string">&quot;initial&quot;</span>;</span></span><br><span class="line"><span class="javascript">                        isExist = <span class="literal">false</span>;</span></span><br><span class="line"><span class="javascript">                        <span class="built_in">document</span>.querySelector(<span class="string">&quot;.btn.float-right.login_btn&quot;</span>).setAttribute(<span class="string">&quot;disabled&quot;</span>, <span class="string">&quot;disabled&quot;</span>);</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> isExist;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.querySelector(<span class="string">&quot;input[name=username]&quot;</span>).addEventListener(<span class="string">&quot;keydown&quot;</span>, <span class="function"><span class="params">key</span> =&gt;</span> &#123;</span></span><br><span class="line">            if (key.keyCode == 13) &#123;</span><br><span class="line">                resetPassword();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">resetPassword</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">const</span> isExist = checkUserName();</span></span><br><span class="line"></span><br><span class="line">            if (!isExist) &#123;</span><br><span class="line"><span class="javascript">                <span class="keyword">return</span>;</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">            <span class="keyword">const</span> userName = <span class="built_in">document</span>.querySelector(<span class="string">&quot;input[name=username]&quot;</span>).value.trim();</span></span><br><span class="line"><span class="javascript">            <span class="keyword">const</span> data = <span class="built_in">JSON</span>.stringify(&#123; <span class="attr">username</span> : userName &#125;);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">            $.ajax(&#123;</span></span><br><span class="line"><span class="javascript">                type:<span class="string">&quot;POST&quot;</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">url</span>: <span class="string">&quot;/reset/password&quot;</span></span></span><br><span class="line">                , data: data</span><br><span class="line"><span class="javascript">                , <span class="attr">dataType</span> : <span class="string">&quot;json&quot;</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">contentType</span>: <span class="string">&quot;application/json&quot;</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">cache</span>: <span class="literal">false</span></span></span><br><span class="line"><span class="javascript">                , <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> alert = <span class="built_in">document</span>.querySelector(<span class="string">&quot;.mb-0&quot;</span>);</span></span><br><span class="line">                    alert.innerText = data;</span><br><span class="line"></span><br><span class="line"><span class="javascript">                    <span class="built_in">document</span>.querySelector(<span class="string">&quot;.alert.alert-success&quot;</span>).style.display = <span class="string">&quot;block&quot;</span>;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="전체-프로젝트-코드"><a href="#전체-프로젝트-코드" class="headerlink" title="전체 프로젝트 코드"></a>전체 프로젝트 코드</h3><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/wordbook">https://github.com/jungguji/wordbook</a></li>
-</ul>
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.mozilla.org/ko/docs/Web/HTTP/Status">https://developer.mozilla.org/ko/docs/Web/HTTP/Status</a></p>
-</li>
-<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault">https://developer.mozilla.org/ko/docs/Web/API/Event/preventDefault</a></p>
-</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/05/ajax-content-type-error/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/05/ajax-content-type-error/" aria-label=": Ajax http status 415 Unsupported Media Type">
                 <div class="postShorten-thumbnailimg">
                     <img alt src>
                 </div>

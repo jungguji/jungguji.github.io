@@ -176,6 +176,82 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/04/15/custom-error-page/" aria-label=": Spring boot + thymeleaf custom error page 적용">
+                            Spring boot + thymeleaf custom error page 적용
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-04-15T17:44:24+09:00">
+	
+		    2020/04/15
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h1 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h1><p>기본적으로 was나 spring boot에서 error page를 제공해 주고 있으나</p>
+<p>보기 이쁘지도 않을뿐더러 stacktrace 가 그대로 노출되기 때문에 보안상으로도 좋을 것이 없다.</p>
+<hr>
+<h1 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h1><p>하여 보통 에러 페이지를 따로 개발하여 보여주게 되는데 thymeleaf과 spring boot을 사용할 경우</p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.thymeleaf.org/doc/articles/springsecurity.html">https://www.thymeleaf.org/doc/articles/springsecurity.html</a></p>
+<p>위 주소의 tymeleaf 공식 홈페이지에서 제시한 방법처럼 적용하면 된다.</p>
+<p>이 경우 spring security가 전혀 관여하지 않기 때문에 ExceptionHandler를 추가할 것을 권하고 있다.</p>
+<p>나는 에러 유형에 따라 이미지 파일을 보여주도록 custom error page 기능을 아래 처럼 적용했다.</p>
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomErrorController</span> <span class="keyword">implements</span> <span class="title">ErrorController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String IMAGE_PATH = <span class="string">&quot;images/error/&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@ExceptionHandler(Throwable.class)</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/error&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">handleError</span><span class="params">(HttpServletRequest request, Model model)</span> </span>&#123;</span><br><span class="line">        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);</span><br><span class="line">        String statusMsg = status.toString();</span><br><span class="line">        </span><br><span class="line">        HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(statusMsg));</span><br><span class="line">        </span><br><span class="line">        model.addAttribute(<span class="string">&quot;msg&quot;</span>, statusMsg + <span class="string">&quot; &quot;</span> + httpStatus.getReasonPhrase());</span><br><span class="line">        model.addAttribute(<span class="string">&quot;src&quot;</span>, IMAGE_PATH + statusMsg + <span class="string">&quot;.jpg&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;thymeleaf/error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getErrorPath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Error page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css/error.css&quot;</span> <span class="attr">th:href</span>=<span class="string">&quot;@&#123;/css/error.css&#125;&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">th:alt</span>=<span class="string">&quot;$&#123;msg&#125;&quot;</span> <span class="attr">th:src</span>=<span class="string">&quot;$&#123;src&#125;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="thymeleaf를-사용하지-않는-경우"><a href="#thymeleaf를-사용하지-않는-경우" class="headerlink" title="thymeleaf를 사용하지 않는 경우"></a>thymeleaf를 사용하지 않는 경우</h3><p>thymeleaf를 사용하지 않을 경우엔 resource 폴더 하위에 static 폴더에 error 페이지를 만들어놓고 CustomController를 아래처럼 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html">IllegalStateException</a> 을 throw 하기만 하면 된다.</p>
+<h2 id="Controller-1"><a href="#Controller-1" class="headerlink" title="Controller"></a>Controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomErrorController</span> <span class="keyword">implements</span> <span class="title">ErrorController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String PATH = <span class="string">&quot;/error&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping(&quot;/error&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">errorpage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">&quot;Error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getErrorPath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">return</span> PATH;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><h2 id="적용-결과"><a href="#적용-결과" class="headerlink" title="적용 결과"></a>적용 결과</h2><p><img src="/images/error-page/error.PNG" alt="결과"></p>
+<p>나는 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://http.cat/">https://http.cat/</a> 라는 http status code마다 위처럼 고양이 사진을 보여주는 사이트에서 이미지 파일을 가져와 적용하였다.</p>
+<p>그 외에 다른 사이트들에선 어떻게 에러 페이지를 보여주는지 확인해보고 각자 에러 페이지를 작성하면 좋을 것이다.</p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://brunch.co.kr/@hyeminimi/31">[번역] ‘404 에러페이지’ 24가지 분석 -1</a></p>
+<hr>
+<h1 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h1><ul>
+<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#boot-features-error-handling-custom-error-pages">https://docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#boot-features-error-handling-custom-error-pages</a></p>
+</li>
+<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc">https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc</a></p>
+</li>
+<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.thymeleaf.org/doc/articles/springsecurity.html">https://www.thymeleaf.org/doc/articles/springsecurity.html</a></p>
+</li>
+<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://velog.io/@godori/spring-boot-error">https://velog.io/@godori/spring-boot-error</a></p>
+</li>
+<li><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://eblo.tistory.com/50">https://eblo.tistory.com/50</a></p>
+</li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/04/15/custom-error-page/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/04/10/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8B%A4%ED%8A%B8%EA%B2%8C%EC%9E%84/" aria-label=": 프로그래머스: 다트게임">
                             프로그래머스: 다트게임
                         </a>
