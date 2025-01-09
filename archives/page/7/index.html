@@ -177,6 +177,139 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/" aria-label=": 프로그래머스: 피보나치 수">
+                            프로그래머스: 피보나치 수
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-27T16:23:07+09:00">
+	
+		    2020/06/27
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/129450">https://programmers.co.kr/learn/courses/30/lessons/12945</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DIVIDE_NUMBER = <span class="number">1234567</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] cache = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    cache[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n+<span class="number">1</span>; i++) &#123;</span><br><span class="line">        cache[i] = ((cache[i-<span class="number">1</span>]) % DIVIDE_NUMBER + (cache[i-<span class="number">2</span>]) % DIVIDE_NUMBER) % DIVIDE_NUMBER;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = cache[n];</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>n+1 크기 배열을 생성하는데 이 때 이번 문제에서 n은 1 &lt;= n &lt;= 100,000 이하이다.</li>
+<li>n이 1 일땐 1을 return 해야하므로 배열 1 번째엔 1을 할당 해놓아야 한다.</li>
+<li>2부터 n + 1 까지 반복하면서 피보나치 수열 계산하는 것 처럼 i - 1, i - 2 배열에 저장된 값을 더하는데</li>
+<li>문제에서 1234567을 나눈 나머지 값을 return 하라고 하였으므로 % 1234567을 해준다.</li>
+<li>cache 배열에서 n 번째에 있는 값을 return하면 끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (0.85ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (0.80ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (0.78ms, 51.3MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (0.81ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (0.84ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (0.85ms, 50.3MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (0.95ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (0.86ms, 50.5MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (0.86ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (0.89ms, 51.4MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (0.84ms, 51MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (0.86ms, 52.4MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (3.99ms, 52.7MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (3.98ms, 50.4MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="number">3</span>));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="number">5</span>));</span><br><span class="line">assertEquals(<span class="number">987</span>, test.solution(<span class="number">16</span>));</span><br><span class="line">assertEquals(<span class="number">256379</span>, test.solution(<span class="number">1234156</span>));</span><br><span class="line">assertEquals(<span class="number">473509</span>, test.solution(<span class="number">100001</span>));</span><br><span class="line">assertEquals(<span class="number">1168141</span>, test.solution(<span class="number">100000</span>));</span><br><span class="line">assertEquals(<span class="number">547662</span>, test.solution(<span class="number">124126347</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://shoark7.github.io/programming/algorithm/%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%84-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-5%EA%B0%80%EC%A7%80-%EB%B0%A9%EB%B2%95">피보나치 알고리즘을 해결하는 다섯가지 방법</a></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/" aria-label=": 프로그래머스: 피보나치 수">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/06/26/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%9B%84%EB%B3%B4%ED%82%A4/" aria-label=": 프로그래머스: 후보키">
                             프로그래머스: 후보키
                         </a>
@@ -1696,140 +1829,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%80%EA%B2%9F%EB%84%98%EB%B2%84/" aria-label=": 프로그래머스: 타겟넘버">
-                            프로그래머스: 타겟넘버
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-15T15:57:20+09:00">
-	
-		    2020/06/15
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/431650">https://programmers.co.kr/learn/courses/30/lessons/43165</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span>[] numbers, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> answer = dfs(numbers, target, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[] numbers, <span class="keyword">int</span> target, <span class="keyword">int</span> depth, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (depth == numbers.length) &#123;</span><br><span class="line">        <span class="keyword">return</span> sum == target ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> left = dfs(numbers, target, depth + <span class="number">1</span>, sum + numbers[depth]);</span><br><span class="line">    <span class="keyword">int</span> right = dfs(numbers, target, depth + <span class="number">1</span>, sum - numbers[depth]);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> left + right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ul>
-<li>DFS 알고리즘 (재귀) 으로 해결</li>
-<li>array index를 depth로 치고 모든 경우의 수를 탐색</li>
-</ul>
-<ol>
-<li>0 번째 인덱스부터 시작</li>
-<li>depth가 array length와 같으면 제일 깊은 곳 까지 모두 탐색한 것이므로</li>
-<li>합이 target과 같은 지 판단해서 같으면 1, 다르면 0을 return</li>
-<li>depth가 length와 다르면, 더 깊이 들어가야 하므로 dfs() 메서드를 depth + 1 하고 해당 깊이 까진 더 한 값을 파라미터로 넘김</li>
-<li>2번부터 다시 반복</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="마지막-return-부연-설명"><a href="#마지막-return-부연-설명" class="headerlink" title="마지막 return 부연 설명"></a>마지막 return 부연 설명</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (depth == numbers.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> sum == target ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://t1.daumcdn.net/cfile/tistory/99B7003A5C0D2D4039?download" alt="트리"></p>
-<ul>
-<li>이미지 출처 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://lkhlkh23.tistory.com/74">https://lkhlkh23.tistory.com/74</a></li>
-</ul>
-<ol>
-<li>맨 아래에서 맨 왼쪽 1+1+1+1+1은 3이 아니므로 0</li>
-<li>그 옆 1+1+1+1-1은 3이므로 1 return</li>
-<li>그럼 그 윗 노드인 1+1+1+1은 1</li>
-<li>다음 탐색 순서인 1+1+1-1+1은 3이므로 1 return</li>
-<li>1+1+1-1-1 = 1 이므로 0 return</li>
-<li>이들의 부모 노드인 1+1+1-1은 1</li>
-<li>그 위 부모 노드는 1 + 1 이므로 2가 됨</li>
-<li>이런 식으로 마지막 까지 올라가면 결국 +1에선 4, -1 에선 1 되서 정답인 5를 return하게 되고</li>
-<li>실제로 양수로 시작하는 부분에선 4개의 경우가 3이 return 되고, 음수로 시작하는 경우에는 1이 return 되므로 정답임을 알 수 있다.</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (6.69ms, 54.4MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (6.56ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (0.97ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (1.26ms, 50.9MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (1.75ms, 50.1MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (1.00ms, 52.3MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (0.93ms, 52.5MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (1.44ms, 52.6MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;, <span class="number">3</span>));</span><br><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>&#125;, <span class="number">2</span>));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>&#125;, <span class="number">1</span>));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">1</span>&#125;, <span class="number">7</span>));</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://lkhlkh23.tistory.com/74">https://lkhlkh23.tistory.com/74</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://stackoverflow.com/questions/3332947/when-is-it-practical-to-use-depth-first-search-dfs-vs-breadth-first-search-bf">DFS와 BFS를 사용해야 되는 문제의 차이</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%80%EA%B2%9F%EB%84%98%EB%B2%84/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%80%EA%B2%9F%EB%84%98%EB%B2%84/" aria-label=": 프로그래머스: 타겟넘버">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1858,7 +1857,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2024 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2025 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

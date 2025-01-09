@@ -177,6 +177,56 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/07/30/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%88%EC%83%81-%EB%8C%80%EC%A7%84%ED%91%9C/" aria-label=": 프로그래머스: 예상 대진표">
+                            프로그래머스: 예상 대진표
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-07-30T16:00:07+09:00">
+	
+		    2020/07/30
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/07/30/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%88%EC%83%81-%EB%8C%80%EC%A7%84%ED%91%9C/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/07/30/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%98%88%EC%83%81-%EB%8C%80%EC%A7%84%ED%91%9C/" aria-label=": 프로그래머스: 예상 대진표">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/07/24/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%BA%90%EC%8B%9C/" aria-label=": 프로그래머스: 캐시">
                             프로그래머스: 캐시
                         </a>
@@ -2055,139 +2105,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/" aria-label=": 프로그래머스: 피보나치 수">
-                            프로그래머스: 피보나치 수
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-06-27T16:23:07+09:00">
-	
-		    2020/06/27
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/129450">https://programmers.co.kr/learn/courses/30/lessons/12945</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DIVIDE_NUMBER = <span class="number">1234567</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] cache = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    cache[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; n+<span class="number">1</span>; i++) &#123;</span><br><span class="line">        cache[i] = ((cache[i-<span class="number">1</span>]) % DIVIDE_NUMBER + (cache[i-<span class="number">2</span>]) % DIVIDE_NUMBER) % DIVIDE_NUMBER;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = cache[n];</span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>n+1 크기 배열을 생성하는데 이 때 이번 문제에서 n은 1 &lt;= n &lt;= 100,000 이하이다.</li>
-<li>n이 1 일땐 1을 return 해야하므로 배열 1 번째엔 1을 할당 해놓아야 한다.</li>
-<li>2부터 n + 1 까지 반복하면서 피보나치 수열 계산하는 것 처럼 i - 1, i - 2 배열에 저장된 값을 더하는데</li>
-<li>문제에서 1234567을 나눈 나머지 값을 return 하라고 하였으므로 % 1234567을 해준다.</li>
-<li>cache 배열에서 n 번째에 있는 값을 return하면 끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (0.85ms, 52.8MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (0.80ms, 52.2MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (0.78ms, 51.3MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (0.81ms, 53.1MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (0.84ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (0.85ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (0.95ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (0.86ms, 50.5MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (0.86ms, 52MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (0.89ms, 51.4MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (0.84ms, 51MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (0.86ms, 52.4MB)</td>
-</tr>
-<tr>
-<td>테스트 13</td>
-<td>통과 (3.99ms, 52.7MB)</td>
-</tr>
-<tr>
-<td>테스트 14</td>
-<td>통과 (3.98ms, 50.4MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="number">3</span>));</span><br><span class="line">assertEquals(<span class="number">5</span>, test.solution(<span class="number">5</span>));</span><br><span class="line">assertEquals(<span class="number">987</span>, test.solution(<span class="number">16</span>));</span><br><span class="line">assertEquals(<span class="number">256379</span>, test.solution(<span class="number">1234156</span>));</span><br><span class="line">assertEquals(<span class="number">473509</span>, test.solution(<span class="number">100001</span>));</span><br><span class="line">assertEquals(<span class="number">1168141</span>, test.solution(<span class="number">100000</span>));</span><br><span class="line">assertEquals(<span class="number">547662</span>, test.solution(<span class="number">124126347</span>));</span><br></pre></td></tr></table></figure>
-
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://shoark7.github.io/programming/algorithm/%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%84-%ED%95%B4%EA%B2%B0%ED%95%98%EB%8A%94-5%EA%B0%80%EC%A7%80-%EB%B0%A9%EB%B2%95">피보나치 알고리즘을 해결하는 다섯가지 방법</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/06/27/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%EC%88%98/" aria-label=": 프로그래머스: 피보나치 수">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -2216,7 +2133,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2024 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2025 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 

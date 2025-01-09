@@ -176,6 +176,65 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title">
                     
+                        <a class="link-unstyled" href="/2020/04/20/ajax%EC%97%90%EC%84%9C-json/" aria-label=": Ajax에서 SUCCESS가 JSON이면, 전송 할 때도 JSON으로">
+                            Ajax에서 SUCCESS가 JSON이면, 전송 할 때도 JSON으로
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-04-20T14:33:14+09:00">
+	
+		    2020/04/20
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h1 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h1><p>토이 프로젝트 진행 중 문자열 하나만 서버로 넘겨 받아 처리하면 되는 상황이여서 아래 코드 처럼 dataType을 ‘text’로 설정했다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">	type:<span class="string">&quot;GET&quot;</span></span><br><span class="line">	, <span class="attr">url</span>: <span class="string">&quot;/test&quot;</span></span><br><span class="line">	, <span class="attr">data</span>: data</span><br><span class="line">	, <span class="attr">dataType</span> : <span class="string">&#x27;text&#x27;</span></span><br><span class="line">	, <span class="attr">cache</span>: <span class="literal">false</span></span><br><span class="line">	, <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">		drawGrid(data);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>허나 위 처럼 하니, success에서 받는 data가 json object가 아닌 String type으로 받아지는 문제가 발생했다.</p>
+<hr>
+<h1 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">	type:<span class="string">&quot;GET&quot;</span></span><br><span class="line">	, <span class="attr">url</span>: <span class="string">&quot;/test&quot;</span></span><br><span class="line">	, <span class="attr">data</span>: data</span><br><span class="line">	, <span class="attr">contentType</span>: <span class="string">&quot;application/json&quot;</span></span><br><span class="line">	, <span class="attr">dataType</span> : <span class="string">&#x27;JSON&#x27;</span></span><br><span class="line">	, <span class="attr">cache</span>: <span class="literal">false</span></span><br><span class="line">	, <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">		drawGrid(data);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>결국 위 처럼 dataType을 ‘JSON’으로,<br>contentType도 ‘JSON’으로 변경하고<br>Controller도 json으로 변경하니</p>
+<p>success에서 받는 dat도 정상적으로 JSON Object로 넘어왔다.</p>
+<hr>
+<h1 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h1><h3 id="받는-데이터가-json이라면-전송-때-json일-필요가-없어도-json으로-맞춰주자"><a href="#받는-데이터가-json이라면-전송-때-json일-필요가-없어도-json으로-맞춰주자" class="headerlink" title="받는 데이터가 json이라면 전송 때 json일 필요가 없어도 json으로 맞춰주자."></a>받는 데이터가 json이라면 전송 때 json일 필요가 없어도 json으로 맞춰주자.</h3>
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/04/20/ajax%EC%97%90%EC%84%9C-json/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/04/20/ajax%EC%97%90%EC%84%9C-json/" aria-label=": Ajax에서 SUCCESS가 JSON이면, 전송 할 때도 JSON으로">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
                         <a class="link-unstyled" href="/2020/04/15/custom-error-page/" aria-label=": Spring boot + thymeleaf custom error page 적용">
                             Spring boot + thymeleaf custom error page 적용
                         </a>
@@ -1242,7 +1301,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2024 Junggu Ji. All Rights Reserved.
+        Copyrights &copy; 2025 Junggu Ji. All Rights Reserved.
     </span>
 </footer>
 
