@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="저장하고 까먹자">
-    <title>아카이브 - 저장하고 까먹자</title>
+    <meta name="generator" content="Junggu Ji, 생각의 기록">
+    <title>아카이브 - Junggu Ji, 생각의 기록</title>
     <meta name="author" content="Junggu Ji">
     
     
@@ -17,9 +17,9 @@
     
     <script type="application/ld+json">{}</script>
     <meta property="og:type" content="blog">
-<meta property="og:title" content="저장하고 까먹자">
+<meta property="og:title" content="Junggu Ji, 생각의 기록">
 <meta property="og:url" content="https://jungguji.github.io/archives/page/2/index.html">
-<meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:site_name" content="Junggu Ji, 생각의 기록">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:author" content="Junggu Ji">
 <meta name="twitter:card" content="summary">
@@ -33,7 +33,7 @@
     
     <!--STYLES-->
     
-<link rel="stylesheet" href="/assets/css/style-0v3zgfakrzmjoj7mhqewlnecogoqxgnfgvjlrw6b9na0ll2gjplxm4ld0oox.min.css">
+<link rel="stylesheet" href="/assets/css/style-vaqxmiojfeym1obe22l4wzlc2exrxuyy1hezfoyofzx2ow3vxa49a2skiig7.min.css">
 
     <!--STYLES END-->
     
@@ -65,7 +65,7 @@
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/" aria-label>
-            저장하고 까먹자
+            Junggu Ji, 생각의 기록
         </a>
     </div>
     
@@ -169,6 +169,89 @@
                         ">
                 
     <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/" aria-label=": Jackson @JsonCreator를 이용한 역직렬화">
+                            Jackson @JsonCreator를 이용한 역직렬화
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2022-04-30T22:00:35+09:00">
+	
+		    2022/04/30
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>어쩌다 보니 연속해서 @RequestBody에 관한 글을 작성하게 되었는데… 이전에 말했던 것 처럼 @RequestBody는 Jackson 라이브러리를 사용하기 때문에 기본생성자를 이용해 object(DTO)를 바인딩한다. 그 때문에 다른 생성자에서 validtion등을 처리했다고 해도 당연히 처리되지 않는데 이 때 사용할 수 있는 @JsonCreator에 대해 알아본다.</p>
+<hr>
+<h2 id="본론"><a href="#본론" class="headerlink" title="본론"></a>본론</h2><h3 id="현재-상황"><a href="#현재-상황" class="headerlink" title="현재 상황"></a>현재 상황</h3><img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/1.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/2.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<p>위 이미지들 처럼 Controller와 dto를 만들었다고 했을 때, /test 를 호출해보면 어떻게 될까?</p>
+<img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/3.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<p>@RequestBody를 사용 할 경우 Jackson 라이브러리를 사용해서 기본 생성자를 이용해 매핑시키기 때문에 “여기타고 생성이 될까요?” 라는 로그는 찍히지 않는다.</p>
+<p>이 때, DTO에 처리 혹은 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/util/Assert.html">Assert</a> 등을 이용한 validtion을 추가하고 싶다면 어떻게 될까?</p>
+<p>생성자에 추가해서 처리하면 좋겠지만, 기본 생성자를 이용해서 생성되므로, controller 혹은 service 단에서 처리해야 한다.(물론 validtion의 경우엔 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://docs.oracle.com/javaee/7/api/javax/validation/Valid.html">@Valid</a>를 통해 어느정도 처리 가능하다.)</p>
+<p>이런 경우, 기본 생성자가 아닌 다른 생성자를 이용해 dto를 바인딩 시키고 싶은 경우 사용 할 수 있는 annotation이 바로 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://fasterxml.github.io/jackson-annotations/javadoc/2.6/com/fasterxml/jackson/annotation/JsonCreator.html">@JsonCreator</a>이다.</p>
+<p>이제 다시 코드로 돌아와서, 이 @JsonCreator를 생성자에 선언 해놓고 다시 /test를 요청한다면</p>
+<img src="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/4.JPG" class title="Jackson @JsonCreator를 이용한 역직렬화">
+
+<br>
+
+<p>아까와 다르게 @Builder 패턴이 적용된 생성자를 통해 바인딩 되어서 “여기타고 생성이 될까요?” 라는 로그가 정상적으로 찍힌 걸 볼 수 있다.</p>
+<hr>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>이제 우리는 @RequestBody를 사용할 때 기본 생성자만이 아닌 다른 생성자로도 DTO를 바인딩 할 수 있게 되었으므로, @Valid보다 더 정교한 validtion이나, String을 encoding 해야 할 경우에도 service나 controller가 아닌 생성자에서 처리 할 수 있게 되었으므로 테스트도 더 간편하게 할 수 있게 되었다.</p>
+<p>번외로 보통 @JsonCreator는 인스턴스화 할 때 사용 할 생성자를 정의 할 때 사용 하는 annotation으로,<br>보통 아래 코드처럼 @JsonProperty와 같이 사용해서 엔티티와 완벽히 일치되지 않는 JSON을 역직렬화할 때 주로 사용하는 것 같다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeanWithCreator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonCreator</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BeanWithCreator</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="meta">@JsonProperty(&quot;id&quot;)</span> <span class="keyword">int</span> id, </span></span></span><br><span class="line"><span class="function"><span class="params">      <span class="meta">@JsonProperty(&quot;theName&quot;)</span> String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>개인적으로 이렇게 쓸 일이 몇 번이나 있을까 싶긴하지만…</p>
+<hr>
+<h2 id="전체-코드"><a href="#전체-코드" class="headerlink" title="전체 코드"></a>전체 코드</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jungguji/blog-example-code">https://github.com/jungguji/blog-example-code</a></li>
+</ul>
+<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.baeldung.com/jackson-annotations">https://www.baeldung.com/jackson-annotations</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://fasterxml.github.io/jackson-annotations/javadoc/2.6/com/fasterxml/jackson/annotation/JsonCreator.html">https://fasterxml.github.io/jackson-annotations/javadoc/2.6/com/fasterxml/jackson/annotation/JsonCreator.html</a></li>
+<li></li>
+</ul>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2022/04/30/Jackson-JsonCreator%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%97%AD%EC%A7%81%EB%A0%AC%ED%99%94/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-bottom">
@@ -964,82 +1047,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/" aria-label=": org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
-                            org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2021-04-19T22:09:46+09:00">
-	
-		    2021/04/19
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>기존에 jar파일을 추가해서 Junit4로 테스트하던 프로젝트를 마찬가지로 jar파일을 Junit5로 버전 업해서 사용하고 있었는데<br>‘굳이 이럴 필요없이 maven 프로젝트로 변경하면 되지 않나?’라는 생각에 maven 프로젝트로 변경 후 발생했던 에러를 해결한 방법을 작성해둔다…</p>
-<h2 id="상황"><a href="#상황" class="headerlink" title="상황"></a>상황</h2><p>위에서 적은 것 처럼 기존에 Junit jar를 다운받아서 직접 경로를 지정하는 방식으로 junit4, 5를 둘 다 사용하고 있었는데 프로젝트를 maven으로 변경 후 의존성 충돌이 발생해 아래와 같은 에러가 발생하며 테스트가 진행되지 않았다.</p>
-<h3 id="발생한-에러"><a href="#발생한-에러" class="headerlink" title="발생한 에러"></a>발생한 에러</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Internal Error occurred.</span><br><span class="line">org.junit.platform.commons.JUnitException: TestEngine with ID <span class="string">&#x27;junit-vintage&#x27;</span> failed to discover tests</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:<span class="number">111</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discover(EngineDiscoveryOrchestrator.java:<span class="number">85</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.DefaultLauncher.discover(DefaultLauncher.java:<span class="number">92</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:<span class="number">75</span>)</span><br><span class="line">  at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:<span class="number">71</span>)</span><br><span class="line">  at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">33</span>)</span><br><span class="line">  at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">220</span>)</span><br><span class="line">  at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">53</span>)</span><br><span class="line">Caused by: org.junit.platform.commons.JUnitException: Unsupported version of junit:junit: <span class="number">3.8</span>.<span class="number">1.</span> Please upgrade to version <span class="number">4.12</span> or later.</span><br><span class="line">  at org.junit.vintage.engine.JUnit4VersionCheck.checkSupported(JUnit4VersionCheck.java:<span class="number">49</span>)</span><br><span class="line">  at org.junit.vintage.engine.JUnit4VersionCheck.checkSupported(JUnit4VersionCheck.java:<span class="number">35</span>)</span><br><span class="line">  at org.junit.vintage.engine.VintageTestEngine.discover(VintageTestEngine.java:<span class="number">62</span>)</span><br><span class="line">  at org.junit.platform.launcher.core.EngineDiscoveryOrchestrator.discoverEngineRoot(EngineDiscoveryOrchestrator.java:<span class="number">103</span>)</span><br><span class="line">  ... <span class="number">7</span> more</span><br><span class="line"></span><br><span class="line">Process finished with exit code -<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>위 에러 로그처럼 ‘junit-vintage’를 아이디로 하는 테스트 엔진을 찾지 못했다는 에러가 발생해서 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine">junit-vintage</a> 의존성을 추가해주었는데..</p>
-<hr>
-<h2 id="그-후-삽질"><a href="#그-후-삽질" class="headerlink" title="그 후 삽질"></a>그 후 삽질</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>추가 해줘도 똑같은 에러만 반복 할 뿐이었다.</p>
-<p>그래서 공식 문서를 살펴보니..</p>
-<blockquote><p>JUnit 5 = JUnit Platform + JUnit Jupiter + JUnit Vintage</p>
-<footer><strong>JUnit 5 User Guide</strong><cite><a target="_blank" rel="external nofollow noopener noreferrer" href="https://junit.org/junit5/docs/current/user-guide/#overview-what-is-junit-5">What is JUnit 5?</a></cite></footer></blockquote>
-
-<p>라고 떡하니 써 적혀있어서 위에 3 개의 의존성을 모두 추가한 후 리빌드 후 다시 테스트를 실행해봤다.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Only needed to run tests in a version of IntelliJ IDEA that bundles older versions --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.platform<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-platform-launcher<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.jupiter<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-jupiter-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.vintage<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-vintage-engine<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>하지만 결과는 마찬가지였고… .m2폴더에서 Junit 의존성을 다 삭제하고, Intellij project setting에서 Modules, Libraies에서 모두 삭제하고 이것저것 다 해봤지만 모두 실패로 돌아가서 결국 새 maven 프로젝트를 만들어서 하나씩 비교해보기로 했다.</p>
-<hr>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>그 결과… .iml 파일에 아래 처럼 의존성들이 남아있는 것을 확인했고…</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;module-library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">library</span> <span class="attr">name</span>=<span class="string">&quot;JUnit5.4&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CLASSES</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter/5.4.2/junit-jupiter-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-api/5.4.2/junit-jupiter-api-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-commons/1.4.2/junit-platform-commons-1.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-params/5.4.2/junit-jupiter-params-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/jupiter/junit-jupiter-engine/5.4.2/junit-jupiter-engine-5.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">root</span> <span class="attr">url</span>=<span class="string">&quot;jar://$MAVEN_REPOSITORY$/org/junit/platform/junit-platform-engine/1.4.2/junit-platform-engine-1.4.2.jar!/&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">CLASSES</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">JAVADOC</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SOURCES</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">library</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">orderEntry</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.jupiter:junit-jupiter-api:5.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.apiguardian:apiguardian-api:1.1.0&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.opentest4j:opentest4j:1.2.0&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.platform:junit-platform-commons:1.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.jupiter:junit-jupiter-engine:5.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">orderEntry</span> <span class="attr">type</span>=<span class="string">&quot;library&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;TEST&quot;</span> <span class="attr">name</span>=<span class="string">&quot;Maven: org.junit.platform:junit-platform-engine:1.7.1&quot;</span> <span class="attr">level</span>=<span class="string">&quot;project&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>모든 의존성을 삭제 후 다시 Junit5만 의존성 추가하여 테스트를 실행하니…</p>
-<img src="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/%EC%84%B1%EA%B3%B5.PNG" class title="org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
-
-<p>드디어 성공적인 테스트를 완료 할 수 있었다.</p>
-<h2 id="여담"><a href="#여담" class="headerlink" title="여담"></a>여담</h2><p>project setting에서 분명 모듈 관련된 설정을 모두 삭제 했는데 왜 .iml파일에 설정이 삭제되지 않고 남아있는진 모르겠지만, 필자와 같은 상황이 발생하는 다른 사람들에게 도움이 되길 바라며 글을 마무리한다.</p>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2021/04/19/org-junit-platform-commons-JUnitException-TestEngine-with-ID-junit-vintage-failed-to-discover-tests/" aria-label=": org.junit.platform.commons.JUnitException: TestEngine with ID junit-vintage failed to discover tests">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1106,7 +1113,7 @@
 <div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
 
-<script src="/assets/js/script-goamtf3h90u4wvmhg5penagquqoptje05tyii1tz44r8vwvh6klg97rf1weo.min.js"></script>
+<script src="/assets/js/script-fvy43rs4ns3qkm3cliupi5qtnm0vwph13v4ev99f0qvrcz9tbdyatctmah0i.min.js"></script>
 
 <!--SCRIPTS END-->
 

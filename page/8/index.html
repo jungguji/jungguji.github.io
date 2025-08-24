@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="저장하고 까먹자">
-    <title>저장하고 까먹자</title>
+    <meta name="generator" content="Junggu Ji, 생각의 기록">
+    <title>Junggu Ji, 생각의 기록</title>
     <meta name="author" content="Junggu Ji">
     
     
@@ -15,11 +15,11 @@
             <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"https://jungguji.github.io","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"name":"저장하고 까먹자","description":"","url":"https://jungguji.github.io"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"https://jungguji.github.io","author":{"@type":"Person","name":"Junggu Ji","sameAs":["https://github.com/jungguji","mailto"]},"name":"Junggu Ji, 생각의 기록","description":"","url":"https://jungguji.github.io"}</script>
     <meta property="og:type" content="blog">
-<meta property="og:title" content="저장하고 까먹자">
+<meta property="og:title" content="Junggu Ji, 생각의 기록">
 <meta property="og:url" content="https://jungguji.github.io/page/8/index.html">
-<meta property="og:site_name" content="저장하고 까먹자">
+<meta property="og:site_name" content="Junggu Ji, 생각의 기록">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:author" content="Junggu Ji">
 <meta name="twitter:card" content="summary">
@@ -33,7 +33,7 @@
     
     <!--STYLES-->
     
-<link rel="stylesheet" href="/assets/css/style-0v3zgfakrzmjoj7mhqewlnecogoqxgnfgvjlrw6b9na0ll2gjplxm4ld0oox.min.css">
+<link rel="stylesheet" href="/assets/css/style-vaqxmiojfeym1obe22l4wzlc2exrxuyy1hezfoyofzx2ow3vxa49a2skiig7.min.css">
 
     <!--STYLES END-->
     
@@ -65,7 +65,7 @@
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/" aria-label>
-            저장하고 까먹자
+            Junggu Ji, 생각의 기록
         </a>
     </div>
     
@@ -168,6 +168,162 @@
                         hasCoverMetaIn
                         ">
                 <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a class="link-unstyled" href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%87%A0%EB%A7%89%EB%8C%80%EA%B8%B0/" aria-label=": 프로그래머스: 쇠막대기">
+                            프로그래머스: 쇠막대기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-06-15T18:49:30+09:00">
+	
+		    2020/06/15
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42585">https://programmers.co.kr/learn/courses/30/lessons/42585</a></p>
+<hr>
+<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String arrangement)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] ch = arrangement.toCharArray();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> pre = <span class="number">0</span>;</span><br><span class="line">    Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;Character&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">char</span> c : ch) &#123;</span><br><span class="line">        <span class="keyword">if</span> (c == <span class="string">&#x27;(&#x27;</span>) &#123;</span><br><span class="line">            stack.push(c);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            stack.pop();</span><br><span class="line">            <span class="keyword">if</span> (pre == c) &#123;</span><br><span class="line">                answer += <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                answer += stack.size();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        pre  = c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
+<li>문자열을 char array로 변경</li>
+<li>char array를 반복하면서 문자가 ‘(‘ 인지 비교</li>
+<li>맞으면 새 막대기가 시작되야 하므로 stack에 push 함</li>
+<li>아니라면 레이저를 발사해서 stack을 잘라야 하므로 pop 하는데</li>
+<li>이전 pop한 문자가 똑같이 ‘)’ 이라면 하나만 더 짤린 것이므로 +1 만하고</li>
+<li>이전 문자가 ‘)’이 아니라면 stack의 크기가 막대의 개수 이므로 stack size만큼 더함</li>
+<li>막대를 하나만 추가할 지 판단하기 위해 현재 문자를 저장함</li>
+<li>문자열을 모두 반복 하면 끝</li>
+</ol>
+<hr>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
+<thead>
+<tr>
+<th>번호</th>
+<th>속도</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>테스트 1</td>
+<td>통과 (19.66ms, 51.2MB)</td>
+</tr>
+<tr>
+<td>테스트 2</td>
+<td>통과 (1.24ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 3</td>
+<td>통과 (19.95ms, 51MB)</td>
+</tr>
+<tr>
+<td>테스트 4</td>
+<td>통과 (2.78ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 5</td>
+<td>통과 (4.04ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 6</td>
+<td>통과 (3.95ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 7</td>
+<td>통과 (14.81ms, 52.5MB)</td>
+</tr>
+<tr>
+<td>테스트 8</td>
+<td>통과 (16.84ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 9</td>
+<td>통과 (17.09ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 10</td>
+<td>통과 (16.32ms, 52.6MB)</td>
+</tr>
+<tr>
+<td>테스트 11</td>
+<td>통과 (13.59ms, 52.2MB)</td>
+</tr>
+<tr>
+<td>테스트 12</td>
+<td>통과 (14.53ms, 50.6MB)</td>
+</tr>
+<tr>
+<td>테스트 13</td>
+<td>통과 (15.35ms, 52MB)</td>
+</tr>
+<tr>
+<td>테스트 14</td>
+<td>통과 (17.90ms, 50.4MB)</td>
+</tr>
+<tr>
+<td>테스트 15</td>
+<td>통과 (18.95ms, 52.3MB)</td>
+</tr>
+<tr>
+<td>테스트 16</td>
+<td>통과 (20.62ms, 50.7MB)</td>
+</tr>
+<tr>
+<td>테스트 17</td>
+<td>통과 (20.66ms, 53.1MB)</td>
+</tr>
+<tr>
+<td>테스트 18</td>
+<td>통과 (18.49ms, 52.8MB)</td>
+</tr>
+<tr>
+<td>테스트 19</td>
+<td>통과 (19.85ms, 53MB)</td>
+</tr>
+<tr>
+<td>테스트 20</td>
+<td>통과 (18.93ms, 52.5MB)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">17</span>, test.solution(<span class="string">&quot;()(((()())(())()))(())&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">18</span>, test.solution(<span class="string">&quot;(((((((((())))))))))&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%87%A0%EB%A7%89%EB%8C%80%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
+                                댓글 공유
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+            <a href="/2020/06/15/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%87%A0%EB%A7%89%EB%8C%80%EA%B8%B0/" aria-label=": 프로그래머스: 쇠막대기">
+                <div class="postShorten-thumbnailimg">
+                    <img alt src>
+                </div>
+            </a>
+            
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-bottom">
@@ -935,140 +1091,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a class="link-unstyled" href="/2020/05/25/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 소수 찾기(완전 탐색)">
-                            프로그래머스: 소수 찾기(완전 탐색)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2020-05-25T15:59:17+09:00">
-	
-		    2020/05/25
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://programmers.co.kr/learn/courses/30/lessons/42839">https://programmers.co.kr/learn/courses/30/lessons/42839</a></p>
-<hr>
-<h2 id="코드"><a href="#코드" class="headerlink" title="코드"></a>코드</h2><ul>
-<li>순열을 이용한 완전탐색으로 해결</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">solution</span><span class="params">(String numbers)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] tochar = numbers.toCharArray();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> numbersLength = tochar.length;</span><br><span class="line"></span><br><span class="line">    Set&lt;Integer&gt; numberSet = <span class="keyword">new</span> HashSet&lt;Integer&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= numbersLength; i++) &#123;</span><br><span class="line">        perm(tochar, <span class="number">0</span>, i, numberSet);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> answer = getPrimeCount(numberSet);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">perm</span><span class="params">(<span class="keyword">char</span>[] array, <span class="keyword">int</span> depth, <span class="keyword">int</span> length, Set&lt;Integer&gt; numberSet)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (depth == length) &#123;</span><br><span class="line"></span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            sb.append(array[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> number = Integer.parseInt(sb.toString());</span><br><span class="line">        <span class="keyword">if</span> (number &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            numberSet.add(number);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = depth; i &lt; array.length; i++) &#123;</span><br><span class="line">        swap(array, i, depth);</span><br><span class="line">        perm(array, depth + <span class="number">1</span>, length, numberSet);</span><br><span class="line">        swap(array, i, depth);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">char</span>[] arrary, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp = arrary[i];</span><br><span class="line">    arrary[i] = arrary[j];</span><br><span class="line">    arrary[j] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getPrimeCount</span><span class="params">(Set&lt;Integer&gt; numberSet)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i : numberSet) &#123;</span><br><span class="line">        <span class="keyword">boolean</span> isPrime = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j * j &lt;= i; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i % j == <span class="number">0</span>) &#123;</span><br><span class="line">                isPrime = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isPrime) &#123;</span><br><span class="line">            ++result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="흐름"><a href="#흐름" class="headerlink" title="흐름"></a>흐름</h2><ol>
-<li>[1,2,3] 배열일 경우 3 자리 수 까지 나타날 수 있으므로, numbers의 길이 만큼 반복하면서 순열을 만듬</li>
-<li>perm() 메서드를 재귀로 돌면서 깊이 만큼 index를 스위칭하면서 순열을 만듬<ul>
-<li>ex) [1,2,3] 인 경우, 0번째와 0번째를 스왑하여 123이 되고 그 이후엔 0번째와 1번째를 스왑해서 213, 그 이후엔 0과 2를 스왑해서 321 … 이런 식으로 진행된다</li>
-</ul>
-</li>
-<li>돌다가 깊이랑 이번에 만들 숫자의 길이가 같으면 중복되지 않게 Set에 저장하는데 1 이하인 경우엔 소수가 아니므로 저장하지 않음</li>
-<li>다시 swap() 해서 배열 index를 원상복귀 시킴</li>
-<li>반복해서 모든 순열을 만든 후 해당 Set에 저장된 수들이 소수 인지 판별해서 소수면 카운트 증가시킴</li>
-<li>끝</li>
-</ol>
-<hr>
-<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><table>
-<thead>
-<tr>
-<th>번호</th>
-<th>속도</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>테스트 1</td>
-<td>통과 (1.06ms, 50.3MB)</td>
-</tr>
-<tr>
-<td>테스트 2</td>
-<td>통과 (9.99ms, 53MB)</td>
-</tr>
-<tr>
-<td>테스트 3</td>
-<td>통과 (0.83ms, 52.1MB)</td>
-</tr>
-<tr>
-<td>테스트 4</td>
-<td>통과 (7.08ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 5</td>
-<td>통과 (23.43ms, 56MB)</td>
-</tr>
-<tr>
-<td>테스트 6</td>
-<td>통과 (0.91ms, 52.6MB)</td>
-</tr>
-<tr>
-<td>테스트 7</td>
-<td>통과 (1.13ms, 51.9MB)</td>
-</tr>
-<tr>
-<td>테스트 8</td>
-<td>통과 (18.16ms, 55.9MB)</td>
-</tr>
-<tr>
-<td>테스트 9</td>
-<td>통과 (0.96ms, 49.9MB)</td>
-</tr>
-<tr>
-<td>테스트 10</td>
-<td>통과 (10.37ms, 52.9MB)</td>
-</tr>
-<tr>
-<td>테스트 11</td>
-<td>통과 (2.51ms, 51.5MB)</td>
-</tr>
-<tr>
-<td>테스트 12</td>
-<td>통과 (2.16ms, 52MB)</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="테스트-케이스"><a href="#테스트-케이스" class="headerlink" title="테스트 케이스"></a>테스트 케이스</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">assertEquals(<span class="number">3</span>, test.solution(<span class="string">&quot;17&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">2</span>, test.solution(<span class="string">&quot;011&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">1</span>, test.solution(<span class="string">&quot;2&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">12</span>, test.solution(<span class="string">&quot;7843&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">0</span>, test.solution(<span class="string">&quot;9999999&quot;</span>));</span><br><span class="line">assertEquals(<span class="number">1336</span>, test.solution(<span class="string">&quot;1276543&quot;</span>));</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="참고-사이트"><a href="#참고-사이트" class="headerlink" title="참고 사이트"></a>참고 사이트</h2><ul>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://gorakgarak.tistory.com/522">순열 알고리즘에 대한 해설</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hwan-shell.tistory.com/150">https://hwan-shell.tistory.com/150</a></li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a href="/2020/05/25/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98%EC%B0%BE%EA%B8%B0/#post-footer" class="postShorten-excerpt_link link" aria-label>
-                                댓글 공유
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2020/05/25/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%86%8C%EC%88%98%EC%B0%BE%EA%B8%B0/" aria-label=": 프로그래머스: 소수 찾기(완전 탐색)">
-                <div class="postShorten-thumbnailimg">
-                    <img alt src>
-                </div>
-            </a>
-            
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -1134,7 +1156,7 @@
 <div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
 
-<script src="/assets/js/script-goamtf3h90u4wvmhg5penagquqoptje05tyii1tz44r8vwvh6klg97rf1weo.min.js"></script>
+<script src="/assets/js/script-fvy43rs4ns3qkm3cliupi5qtnm0vwph13v4ev99f0qvrcz9tbdyatctmah0i.min.js"></script>
 
 <!--SCRIPTS END-->
 
